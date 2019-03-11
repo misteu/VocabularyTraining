@@ -14,10 +14,10 @@
 		CE86C5562235AE23008A5B73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE86C5542235AE23008A5B73 /* LaunchScreen.storyboard */; };
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
 		CE86C56C2235AE23008A5B73 /* VocabularyTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */; };
-		CE86C57A2235B02F008A5B73 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5792235B02F008A5B73 /* LanguageTableViewCell.swift */; };
 		CE86C57E2235BDC9008A5B73 /* NewLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */; };
 		CE86C5802235C8AD008A5B73 /* LanguageScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */; };
 		CE86C5822235C971008A5B73 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5812235C971008A5B73 /* Helper.swift */; };
+		CE86C584223684D2008A5B73 /* AddNewWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,10 +51,10 @@
 		CE86C5672235AE23008A5B73 /* VocabularyTrainerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VocabularyTrainerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyTrainerUITests.swift; sourceTree = "<group>"; };
 		CE86C56D2235AE23008A5B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE86C5792235B02F008A5B73 /* LanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableViewCell.swift; sourceTree = "<group>"; };
 		CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLanguageViewController.swift; sourceTree = "<group>"; };
 		CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageScreenViewController.swift; sourceTree = "<group>"; };
 		CE86C5812235C971008A5B73 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,12 +109,12 @@
 				CE86C54B2235AE20008A5B73 /* AppDelegate.swift */,
 				CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */,
 				CE86C54F2235AE20008A5B73 /* Main.storyboard */,
-				CE86C5792235B02F008A5B73 /* LanguageTableViewCell.swift */,
 				CE86C5522235AE23008A5B73 /* Assets.xcassets */,
 				CE86C5542235AE23008A5B73 /* LaunchScreen.storyboard */,
 				CE86C5572235AE23008A5B73 /* Info.plist */,
 				CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */,
 				CE86C5812235C971008A5B73 /* Helper.swift */,
+				CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */,
 			);
 			path = VocabularyTrainer;
 			sourceTree = "<group>";
@@ -268,8 +268,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE86C57A2235B02F008A5B73 /* LanguageTableViewCell.swift in Sources */,
 				CE86C5802235C8AD008A5B73 /* LanguageScreenViewController.swift in Sources */,
+				CE86C584223684D2008A5B73 /* AddNewWordViewController.swift in Sources */,
 				CE86C54E2235AE20008A5B73 /* HomeScreenViewController.swift in Sources */,
 				CE86C54C2235AE20008A5B73 /* AppDelegate.swift in Sources */,
 				CE86C57E2235BDC9008A5B73 /* NewLanguageViewController.swift in Sources */,

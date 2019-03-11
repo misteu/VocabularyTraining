@@ -11,8 +11,14 @@ import Foundation
 class SegueName {
   static let showNewLanguageScreenSegue = "segue"
   static let showLanguageSegue = "showLanguageSegue"
+  static let showAddWordSegue = "showAddWordSegue"
 }
 
 class UserDefaultKeys {
   static let languages = "languages"
+}
+
+class CellIdentifier {
+  static let vocabularyCell = "vocabularyCell"
+  static let languageCell = "languageCell"
 }

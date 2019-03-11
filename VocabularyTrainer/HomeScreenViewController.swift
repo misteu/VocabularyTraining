@@ -8,18 +8,35 @@
 
 import UIKit
 
-class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewLanguageScreenProtocol {
+class LanguageTableViewCell: UITableViewCell {
+  
+  @IBOutlet weak var languageLabel: UILabel!
+  @IBOutlet weak var languageWordsLabel: UILabel!
+  
+}
 
+class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewLanguageScreenProtocol {
+  @IBOutlet var topButtons: [UIButton]!
+  
+  @IBOutlet weak var headerTextConstraintTop: NSLayoutConstraint!
   var languages = [String]()
+  var selectedRow: Int? = nil
   
   func setNewLanguage(language: String) {
     print("\(language) added")
   
   }
 
+
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    for button in topButtons {
+      button.isHidden = true
+      button.alpha = 0.0
+    }
+    headerTextConstraintTop.constant = 16.0
     
     tableView.delegate = self
     tableView.dataSource = self
@@ -33,19 +50,23 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
   }
   
-  override func viewDidAppear(_ animated: Bool) {
-    tableView.reloadData()
+  override func viewWillAppear(_ animated: Bool) {
     
     if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
       self.languages = languages
     }
     
+    tableView.reloadData()
+    
     print("appear")
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+
   }
   
   @IBOutlet weak var tableView: UITableView!
   
-  let reuseIdentifier = "cell"
   let defaults = UserDefaults.standard
   
   func tableView(_ tbleView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,12 +76,26 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
-    if let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier) as? LanguageTableViewCell {
+    if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.languageCell) as? LanguageTableViewCell {
     
       guard let language = defaults.array(forKey: UserDefaultKeys.languages)?[indexPath.item] as? String else {print("no language string"); return UITableViewCell()}
       
       cell.languageLabel.text = language
-      cell.languageWordsLabel.text = "\(Int.random(in: 1...200)) words"
+      
+      if let vocabularies = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
+        
+        if (vocabularies.count > 1 || vocabularies.count == 0) {
+          cell.languageWordsLabel.text = "\(vocabularies.count) words"
+        } else {
+          cell.languageWordsLabel.text = "\(vocabularies.count) word"
+        }
+        
+      } else {
+        print("no vocab loadable")
+        cell.languageWordsLabel.text = "0 words"
+      }
+      
+
       
       return cell
     }
@@ -82,9 +117,46 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   var selectedLanguage = ""
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    selectedLanguage = languages[indexPath.item]
-    performSegue(withIdentifier: SegueName.showLanguageSegue, sender: nil)
+    selectedRow = indexPath.item
+    
+    self.headerTextConstraintTop.constant = 52.0
+    UIView.animate(withDuration: 0.2, animations: {
+      self.view.layoutIfNeeded()
+      for button in self.topButtons {
+        button.alpha = 1.0
+        button.isHidden = false
+      }
+    })
+    
   }
 
+  @IBAction func trainingButton(_ sender: Any) {
+    deactivateTopButtons()
+  }
+  @IBAction func editButton(_ sender: Any) {
+    
+    deactivateTopButtons()
+    
+    guard let row = selectedRow else {print("nothing selected"); return}
+    
+    selectedLanguage = languages[row]
+    performSegue(withIdentifier: SegueName.showLanguageSegue, sender: nil)
+    
+  }
+  
+  func deactivateTopButtons() {
+    self.headerTextConstraintTop.constant = 16.0
+    UIView.animate(withDuration: 0.2, animations: {
+      self.view.layoutIfNeeded()
+      for button in self.topButtons {
+        button.alpha = 0.0
+      }
+    }, completion: {res in
+      for button in self.topButtons {
+        button.isHidden = true
+      }
+    })
+  }
+  
 }
 
