@@ -93,9 +93,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBg-bb-bgl">
-                                <rect key="frame" x="325" y="36" width="34" height="36"/>
+                                <rect key="frame" x="247" y="36" width="112" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Edit">
+                                <state key="normal" title="Vocabularies">
                                     <color key="titleColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -129,6 +129,7 @@
                         <outletCollection property="topButtons" destination="8uJ-dW-rui" collectionClass="NSMutableArray" id="ZUM-YJ-uxm"/>
                         <outletCollection property="topButtons" destination="iBg-bb-bgl" collectionClass="NSMutableArray" id="dTd-R2-WpU"/>
                         <segue destination="t9m-aZ-wFG" kind="show" identifier="showLanguageSegue" id="s0L-Pk-XtK"/>
+                        <segue destination="uJ8-Md-qZD" kind="show" identifier="showTrainingSegue" id="aWo-Yo-QOg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -161,7 +162,7 @@
                                 <rect key="frame" x="211" y="36" width="148" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Delete Language">
-                                    <color key="titleColor" red="0.58072251080000004" green="0.066734083" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="deleteButtonTapped:" destination="t9m-aZ-wFG" eventType="touchUpInside" id="Qo4-fq-fCv"/>
@@ -234,6 +235,13 @@
                                     <segue destination="QnJ-3n-hBa" kind="show" identifier="showAddWordSegue" id="XeU-GX-HbZ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Cb-Nv-Z0p">
+                                <rect key="frame" x="297" y="92.5" width="62" height="30"/>
+                                <state key="normal" title="⤴ export"/>
+                                <connections>
+                                    <action selector="exportButtonTapped:" destination="t9m-aZ-wFG" eventType="touchUpInside" id="5cg-Cs-ktv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -248,11 +256,13 @@
                             <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" secondItem="QXi-Ew-0GH" secondAttribute="trailing" constant="16" id="Vhj-Xn-Fan"/>
                             <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" secondItem="4AL-Ff-pOI" secondAttribute="trailing" constant="16" id="YAz-fc-mHE"/>
                             <constraint firstItem="4x2-GA-oeg" firstAttribute="centerX" secondItem="FMu-tq-CWz" secondAttribute="centerX" id="akC-a5-xOj"/>
+                            <constraint firstItem="8Cb-Nv-Z0p" firstAttribute="centerY" secondItem="4x2-GA-oeg" secondAttribute="centerY" id="d9Z-Nb-41j"/>
                             <constraint firstItem="4x2-GA-oeg" firstAttribute="top" secondItem="rDw-Te-IUC" secondAttribute="bottom" constant="16" id="eRI-Ne-TGJ"/>
                             <constraint firstItem="4AL-Ff-pOI" firstAttribute="top" secondItem="4x2-GA-oeg" secondAttribute="bottom" constant="16" id="gu0-bC-1cm"/>
                             <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" secondItem="zUX-sC-O0i" secondAttribute="trailing" constant="16" id="qoE-vu-DUt"/>
                             <constraint firstItem="rDw-Te-IUC" firstAttribute="leading" secondItem="FMu-tq-CWz" secondAttribute="leading" constant="16" id="rcq-7o-cJr"/>
                             <constraint firstItem="QXi-Ew-0GH" firstAttribute="top" secondItem="4AL-Ff-pOI" secondAttribute="bottom" constant="16" id="vSd-GB-rtr"/>
+                            <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" secondItem="8Cb-Nv-Z0p" secondAttribute="trailing" constant="16" id="vrR-l0-Bqo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YqQ-hZ-cy0"/>
                     </view>
@@ -279,7 +289,7 @@
                                 <rect key="frame" x="32" y="158.5" width="311" height="43"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartQuotesType="no"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add new word" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yd9-So-Lvv">
                                 <rect key="frame" x="89.5" y="88" width="196" height="38.5"/>
@@ -308,7 +318,7 @@
                                 <rect key="frame" x="32" y="217.5" width="311" height="43"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -338,6 +348,131 @@
             </objects>
             <point key="canvasLocation" x="894" y="809"/>
         </scene>
+        <!--Training View Controller-->
+        <scene sceneID="x1h-n9-ts3">
+            <objects>
+                <viewController id="uJ8-Md-qZD" customClass="TrainingViewController" customModule="VocabularyTrainer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TMn-2J-cMy">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jhf-6U-f7J">
+                                <rect key="frame" x="16" y="36" width="61" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="&lt; Back"/>
+                                <connections>
+                                    <action selector="backButtonTapped:" destination="uJ8-Md-qZD" eventType="touchUpInside" id="SBr-Kw-K4A"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Cu-DE-YK3">
+                                <rect key="frame" x="16" y="88" width="343" height="57.5"/>
+                                <string key="text">Training:
+Turkish</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="köpek" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3T-rB-i7W">
+                                <rect key="frame" x="16" y="161.5" width="343" height="38.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="answer" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="53n-g1-uwW">
+                                <rect key="frame" x="16" y="216" width="343" height="43"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="Ldd-Vk-eaL">
+                                <rect key="frame" x="16" y="275" width="343" height="41"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJQ-jN-5Xm">
+                                        <rect key="frame" x="0.0" y="0.0" width="153.5" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Check"/>
+                                        <connections>
+                                            <action selector="checkInputTapped:" destination="uJ8-Md-qZD" eventType="touchUpInside" id="3Jz-oY-jwF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1g5-hc-GXA">
+                                        <rect key="frame" x="189.5" y="0.0" width="153.5" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Take a look"/>
+                                        <connections>
+                                            <action selector="takeALookTapped:" destination="uJ8-Md-qZD" eventType="touchUpInside" id="noy-jH-ltK"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="4uh-hF-zO5">
+                                <rect key="frame" x="16" y="332" width="343" height="41"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87J-6T-hDZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="153.5" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="👍"/>
+                                        <connections>
+                                            <action selector="rightAnswerTapped:" destination="uJ8-Md-qZD" eventType="touchUpInside" id="4RQ-db-EiC"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lQT-3b-eN5">
+                                        <rect key="frame" x="189.5" y="0.0" width="153.5" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="👎"/>
+                                        <connections>
+                                            <action selector="wrongAnswerTapped:" destination="uJ8-Md-qZD" eventType="touchUpInside" id="Pz6-2V-VOn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAt-0V-rIb">
+                                <rect key="frame" x="16" y="389" width="343" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Next vocabulary"/>
+                                <connections>
+                                    <action selector="nextButtonTapped:" destination="uJ8-Md-qZD" eventType="touchUpInside" id="1Yf-Wq-Miq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vAt-0V-rIb" firstAttribute="top" secondItem="4uh-hF-zO5" secondAttribute="bottom" constant="16" id="0vQ-HA-i8F"/>
+                            <constraint firstItem="vAt-0V-rIb" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="2eE-3t-Vdd"/>
+                            <constraint firstItem="4uh-hF-zO5" firstAttribute="top" secondItem="Ldd-Vk-eaL" secondAttribute="bottom" constant="16" id="C0i-1E-LhN"/>
+                            <constraint firstItem="5Cu-DE-YK3" firstAttribute="top" secondItem="Jhf-6U-f7J" secondAttribute="bottom" constant="16" id="Eji-uY-btk"/>
+                            <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="5Cu-DE-YK3" secondAttribute="trailing" constant="16" id="Eto-vz-4Fn"/>
+                            <constraint firstItem="Ldd-Vk-eaL" firstAttribute="top" secondItem="53n-g1-uwW" secondAttribute="bottom" constant="16" id="JL2-9J-ii6"/>
+                            <constraint firstItem="5Cu-DE-YK3" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="K7K-Sc-Ld6"/>
+                            <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="vAt-0V-rIb" secondAttribute="trailing" constant="16" id="LVK-Vp-CUN"/>
+                            <constraint firstItem="o3T-rB-i7W" firstAttribute="top" secondItem="5Cu-DE-YK3" secondAttribute="bottom" constant="16" id="OYn-DE-f3u"/>
+                            <constraint firstItem="o3T-rB-i7W" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="QYg-5Q-OQU"/>
+                            <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="Ldd-Vk-eaL" secondAttribute="trailing" constant="16" id="QuM-4u-FGv"/>
+                            <constraint firstItem="53n-g1-uwW" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="V5N-B8-Bfs"/>
+                            <constraint firstItem="Jhf-6U-f7J" firstAttribute="top" secondItem="wgg-aC-UbX" secondAttribute="top" constant="16" id="W8d-XV-UdC"/>
+                            <constraint firstItem="Ldd-Vk-eaL" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="Wmg-if-WOf"/>
+                            <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="o3T-rB-i7W" secondAttribute="trailing" constant="16" id="a6t-0z-gj9"/>
+                            <constraint firstItem="4uh-hF-zO5" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="iRn-dn-wgO"/>
+                            <constraint firstItem="53n-g1-uwW" firstAttribute="top" secondItem="o3T-rB-i7W" secondAttribute="bottom" constant="16" id="pfp-TW-2f5"/>
+                            <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="53n-g1-uwW" secondAttribute="trailing" constant="16" id="pkf-rC-IAd"/>
+                            <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="4uh-hF-zO5" secondAttribute="trailing" constant="16" id="r3L-6N-Lsg"/>
+                            <constraint firstItem="Jhf-6U-f7J" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="vBl-4e-AWn"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wgg-aC-UbX"/>
+                    </view>
+                    <connections>
+                        <outlet property="answerInput" destination="53n-g1-uwW" id="A1Q-Vi-jbk"/>
+                        <outlet property="checkInputButton" destination="SJQ-jN-5Xm" id="UUr-Lf-Hlw"/>
+                        <outlet property="currentVocabulary" destination="o3T-rB-i7W" id="2Yr-Em-5FA"/>
+                        <outlet property="rightAnswerButton" destination="87J-6T-hDZ" id="hZR-R8-cBE"/>
+                        <outlet property="takeALookButton" destination="1g5-hc-GXA" id="0ek-od-dMl"/>
+                        <outlet property="wrongAnswerButton" destination="lQT-3b-eN5" id="9Rt-OS-U1d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ol3-0U-eFB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="893.60000000000002" y="-612.14392803598207"/>
+        </scene>
         <!--New Language View Controller-->
         <scene sceneID="amM-Vk-T3A">
             <objects>
@@ -350,7 +485,7 @@
                                 <rect key="frame" x="32" y="158.5" width="300" height="43"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQf-Gd-xlg">
                                 <rect key="frame" x="32" y="233.5" width="311" height="42"/>

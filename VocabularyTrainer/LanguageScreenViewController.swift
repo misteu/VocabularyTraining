@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class VocabularyCell: UITableViewCell {
   @IBOutlet weak var vocabularyRoot: UILabel!
@@ -15,7 +16,7 @@ class VocabularyCell: UITableViewCell {
   
 }
 
-class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MFMailComposeViewControllerDelegate {
  
   @IBOutlet weak var searchBar: UISearchBar!
   
@@ -26,6 +27,7 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   var vocabProgr = [String:Float]()
   var filteredData = [(String,String,Float)]()
   var isSearching = false
+  var totalProgress = Float(0)
   
   @IBOutlet weak var languageHeader: UILabel!
   
@@ -41,6 +43,8 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     
     guard let language = selectedLanguage else {return}
     languageHeader.text = language
+    hideKeyboardWhenTappedAround()
+    
     }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -63,8 +67,14 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { action in
       
       guard let languages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] else {print("error getting languages"); return}
+      
+      // create new language dataset w/o deleted language
       let newLanguages = languages.filter { $0 != language }
       UserDefaults.standard.set(newLanguages, forKey: UserDefaultKeys.languages)
+      
+      UserDefaults.standard.removeObject(forKey: language)
+      UserDefaults.standard.removeObject(forKey: "\(language)Progress")
+      
       
       self.dismiss(animated: true, completion: nil)
     }))
@@ -74,27 +84,38 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    var result: Int;
     
     if isSearching {
-      return filteredData.count
+      result = filteredData.count
     } else {
-      return vocabularies.count
+      result = vocabularies.count
     }
+    
+    if result == 0 {
+      searchBar.isHidden = true
+    } else {
+      searchBar.isHidden = false
+    }
+    
+    return result
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.vocabularyCell) as? VocabularyCell {
       
+      print("maxProgress: \(totalProgress)")
+      
       if isSearching {
         cell.vocabularyRoot.text = filteredData[indexPath.item].0
         cell.vocabularyTranslation.text = filteredData[indexPath.item].1
-        cell.vocabularyProgress.progress = filteredData[indexPath.item].2
+        cell.vocabularyProgress.progress = 1-filteredData[indexPath.item].2/totalProgress
         
       } else {
         
         cell.vocabularyRoot.text = vocabularies[indexPath.item].0
         cell.vocabularyTranslation.text = vocabularies[indexPath.item].1
-        cell.vocabularyProgress.progress = vocabularies[indexPath.item].2
+        cell.vocabularyProgress.progress = 1-vocabularies[indexPath.item].2/totalProgress
       }
       
       return cell
@@ -185,6 +206,47 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     print(vocabularies)
     
     UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
+    
+    totalProgress = vocabularies.reduce(0){$0 + $1.2}
+    
+  }
+  
+  func convertToJSON(dic: NSDictionary)->String? {
+    do {
+      let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
+      guard let result = String(data: jsonData, encoding: String.Encoding.utf8) else {return nil}
+      // here "jsonData" is the dictionary encoded in JSON data
+      print("saved")
+      return result
+    } catch {
+      print(error.localizedDescription)
+    }
+    return nil
+  }
+  
+  func sendEmail() {
+    if MFMailComposeViewController.canSendMail() {
+      let mail = MFMailComposeViewController()
+      mail.mailComposeDelegate = self
+      //mail.setToRecipients(["m.steudter@gmx.de"])
+      
+      let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String : Any]
+      
+      mail.setMessageBody(convertToJSON(dic: export as NSDictionary) ?? "no vocabularies", isHTML: false)
+      mail.setSubject("Vocabulary export")
+      
+      present(mail, animated: true)
+    } else {
+      // show failure alert
+    }
+  }
+  
+  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    controller.dismiss(animated: true)
+  }
+  
+  @IBAction func exportButtonTapped(_ sender: Any) {
+    sendEmail()
   }
   
 }

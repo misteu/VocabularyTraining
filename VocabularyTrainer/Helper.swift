@@ -12,6 +12,7 @@ class SegueName {
   static let showNewLanguageScreenSegue = "segue"
   static let showLanguageSegue = "showLanguageSegue"
   static let showAddWordSegue = "showAddWordSegue"
+  static let showTrainingSegue = "showTrainingSegue"
 }
 
 class UserDefaultKeys {

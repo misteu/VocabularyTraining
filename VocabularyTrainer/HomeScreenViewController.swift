@@ -48,6 +48,8 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       self.languages = languages
     }
     
+    hideKeyboardWhenTappedAround()
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +114,11 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       let secondVC = segue.destination as! LanguageScreenViewController
       secondVC.selectedLanguage = selectedLanguage
     }
+    
+    if segue.identifier == SegueName.showTrainingSegue {
+      let secondVC = segue.destination as! TrainingViewController
+      secondVC.selectedLanguage = selectedLanguage
+    }
   }
   
   var selectedLanguage = ""
@@ -127,11 +134,17 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         button.isHidden = false
       }
     })
-    
+
   }
 
   @IBAction func trainingButton(_ sender: Any) {
     deactivateTopButtons()
+    
+    guard let row = selectedRow else {print("nothing selected"); return}
+    selectedLanguage = languages[row]
+    
+    performSegue(withIdentifier: SegueName.showTrainingSegue, sender: nil)
+    
   }
   @IBAction func editButton(_ sender: Any) {
     

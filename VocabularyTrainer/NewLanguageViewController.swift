@@ -19,7 +19,7 @@ class NewLanguageViewController: UIViewController {
   @IBOutlet weak var newLanguage: UITextField!
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    hideKeyboardWhenTappedAround()
     // Do any additional setup after loading the view.
   }
   
