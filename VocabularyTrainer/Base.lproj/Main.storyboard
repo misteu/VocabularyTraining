@@ -463,6 +463,7 @@ Turkish</string>
                     <connections>
                         <outlet property="answerInput" destination="53n-g1-uwW" id="A1Q-Vi-jbk"/>
                         <outlet property="checkInputButton" destination="SJQ-jN-5Xm" id="UUr-Lf-Hlw"/>
+                        <outlet property="currentTrainingHeader" destination="5Cu-DE-YK3" id="wBW-uy-6eY"/>
                         <outlet property="currentVocabulary" destination="o3T-rB-i7W" id="2Yr-Em-5FA"/>
                         <outlet property="rightAnswerButton" destination="87J-6T-hDZ" id="hZR-R8-cBE"/>
                         <outlet property="takeALookButton" destination="1g5-hc-GXA" id="0ek-od-dMl"/>

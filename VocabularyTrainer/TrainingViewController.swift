@@ -20,9 +20,17 @@ class TrainingViewController: UIViewController {
   @IBOutlet weak var answerInput: UITextField!
   @IBOutlet weak var checkInputButton: UIButton!
   @IBOutlet weak var takeALookButton: UIButton!
+  @IBOutlet weak var currentTrainingHeader: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    currentTrainingHeader.numberOfLines = 0;
+    currentTrainingHeader.lineBreakMode = .byWordWrapping
+    currentTrainingHeader.text = """
+    Training:
+    \(selectedLanguage ?? "no language selected")
+    """
     
     styleRightWrongButtons()
     pickNewVocabAndUpdateView()
