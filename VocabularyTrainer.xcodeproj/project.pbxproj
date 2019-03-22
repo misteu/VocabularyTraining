@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		CE0012FF2243F21C002F86DE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0012FE2243F21C002F86DE /* Extensions.swift */; };
 		CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0FE4F72238585A00430FDE /* TrainingViewController.swift */; };
+		CE2EB8272245406A006B1C6D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */; };
 		CE86C54C2235AE20008A5B73 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C54B2235AE20008A5B73 /* AppDelegate.swift */; };
 		CE86C54E2235AE20008A5B73 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */; };
 		CE86C5512235AE20008A5B73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE86C54F2235AE20008A5B73 /* Main.storyboard */; };
 		CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE86C5522235AE23008A5B73 /* Assets.xcassets */; };
-		CE86C5562235AE23008A5B73 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE86C5542235AE23008A5B73 /* LaunchScreen.storyboard */; };
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
 		CE86C56C2235AE23008A5B73 /* VocabularyTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */; };
 		CE86C57E2235BDC9008A5B73 /* NewLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */; };
@@ -42,12 +42,12 @@
 /* Begin PBXFileReference section */
 		CE0012FE2243F21C002F86DE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CE0FE4F72238585A00430FDE /* TrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
+		CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CE86C5482235AE20008A5B73 /* VocabularyTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE86C54B2235AE20008A5B73 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		CE86C5502235AE20008A5B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE86C5522235AE23008A5B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CE86C5552235AE23008A5B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE86C5572235AE23008A5B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE86C55C2235AE23008A5B73 /* VocabularyTrainerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VocabularyTrainerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyTrainerTests.swift; sourceTree = "<group>"; };
@@ -115,12 +115,12 @@
 				CE86C54F2235AE20008A5B73 /* Main.storyboard */,
 				CE0012FE2243F21C002F86DE /* Extensions.swift */,
 				CE86C5522235AE23008A5B73 /* Assets.xcassets */,
-				CE86C5542235AE23008A5B73 /* LaunchScreen.storyboard */,
 				CE86C5572235AE23008A5B73 /* Info.plist */,
 				CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */,
 				CE86C5812235C971008A5B73 /* Helper.swift */,
 				CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */,
 				CE0FE4F72238585A00430FDE /* TrainingViewController.swift */,
+				CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */,
 			);
 			path = VocabularyTrainer;
 			sourceTree = "<group>";
@@ -247,8 +247,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE86C5562235AE23008A5B73 /* LaunchScreen.storyboard in Resources */,
 				CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */,
+				CE2EB8272245406A006B1C6D /* Launch Screen.storyboard in Resources */,
 				CE86C5512235AE20008A5B73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -323,14 +323,6 @@
 				CE86C5502235AE20008A5B73 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CE86C5542235AE23008A5B73 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE86C5552235AE23008A5B73 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

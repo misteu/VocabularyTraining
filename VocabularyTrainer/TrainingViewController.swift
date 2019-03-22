@@ -20,6 +20,7 @@ class TrainingViewController: UIViewController {
   @IBOutlet weak var answerInput: UITextField!
   @IBOutlet weak var checkInputButton: UIButton!
   @IBOutlet weak var takeALookButton: UIButton!
+  @IBOutlet weak var nextButton: UIButton!
   @IBOutlet weak var currentTrainingHeader: UILabel!
   
   override func viewDidLoad() {
@@ -32,7 +33,7 @@ class TrainingViewController: UIViewController {
     \(selectedLanguage ?? "no language selected")
     """
     
-    styleRightWrongButtons()
+    styleButtons()
     pickNewVocabAndUpdateView()
     self.rightAnswerButton.isHidden = true
     self.wrongAnswerButton.isHidden = true
@@ -100,6 +101,7 @@ class TrainingViewController: UIViewController {
     
     print("randomkey: \(randomKey)")
     currentVocabulary.text = randomKey
+    nextButton.setTitle("Skip word", for: .normal)
   }
   @IBAction func rightAnswerTapped(_ sender: Any) {
     
@@ -135,7 +137,7 @@ class TrainingViewController: UIViewController {
       if usersAnswer.uppercased() == solution.uppercased() {
         print("right")
         UIView.animate(withDuration: 0.2, animations: {
-          self.answerInput.backgroundColor = .init(red: 72/255, green: 175/255, blue: 64/255, alpha: 0.5)
+          self.answerInput.backgroundColor = BackgroundColor.green
           self.checkInputButton.alpha = 0.0
           self.takeALookButton.alpha = 0.0
         }, completion: { (finished: Bool) in
@@ -143,10 +145,11 @@ class TrainingViewController: UIViewController {
           self.takeALookButton.isHidden = true
         })
         showToast(message: "That's right! 🤠", yCoord: 400.0)
+        nextButton.setTitle("Next word", for: .normal)
       } else {
         print("wrong, right is \(solution)")
         UIView.animate(withDuration: 0.2, animations: {
-          self.answerInput.backgroundColor = .init(red: 240/255, green: 101/255, blue: 67/255, alpha: 0.5)
+          self.answerInput.backgroundColor = BackgroundColor.red
         })
         showToast(message: "That's wrong 😕", yCoord: 400.0)
       }
@@ -164,7 +167,7 @@ class TrainingViewController: UIViewController {
     answerInput.text = solution
     
     UIView.animate(withDuration: 0.2, animations: {
-      self.answerInput.backgroundColor = .init(red: 36/255, green: 110/255, blue: 185/255, alpha: 0.5)
+      self.answerInput.backgroundColor = BackgroundColor.blue
       self.checkInputButton.alpha = 0.0
       self.takeALookButton.alpha = 0.0
     }, completion: { (finished: Bool) in
@@ -184,29 +187,43 @@ class TrainingViewController: UIViewController {
   
   func resetAnswerInput() {
     
-    checkInputButton.isHidden = false
-    takeALookButton.isHidden = false
     UIView.animate(withDuration: 0.2, animations: {
       self.rightAnswerButton.alpha = 0.0
       self.wrongAnswerButton.alpha = 0.0
       self.answerInput.backgroundColor = .white
-      self.checkInputButton.alpha = 1.0
-      self.takeALookButton.alpha = 1.0
     }, completion: { (finished: Bool) in
       self.rightAnswerButton.isHidden = true
       self.wrongAnswerButton.isHidden = true
-      UIView.animate(withDuration: 0.2, animations: {
+      self.checkInputButton.isHidden = false
+      self.takeALookButton.isHidden = false
+      
+      UIView.animate(withDuration: 0.1, animations: {
+        self.checkInputButton.alpha = 1.0
+        self.takeALookButton.alpha = 1.0
         self.view.layoutIfNeeded()
       })
     })
     
   }
   
-  func styleRightWrongButtons() {
-    rightAnswerButton.backgroundColor = .init(red: 72/255, green: 175/255, blue: 64/255, alpha: 0.5)
+  func styleButtons() {
+    rightAnswerButton.backgroundColor = BackgroundColor.green
     rightAnswerButton.layer.cornerRadius = 5.0
     
-    wrongAnswerButton.backgroundColor = .init(red: 240/255, green: 101/255, blue: 67/255, alpha: 0.5)
+    wrongAnswerButton.backgroundColor = BackgroundColor.red
     wrongAnswerButton.layer.cornerRadius = 5.0
+    
+    checkInputButton.backgroundColor = BackgroundColor.blue
+    checkInputButton.layer.cornerRadius = 5.0
+    checkInputButton.setTitleColor(.white, for: .normal)
+    
+    takeALookButton.backgroundColor = BackgroundColor.blue
+    takeALookButton.layer.cornerRadius = 5.0
+    takeALookButton.setTitleColor(.white, for: .normal)
+    
+    nextButton.backgroundColor = BackgroundColor.yellow
+    nextButton.layer.cornerRadius = 5.0
+    nextButton.setTitleColor(.white, for: .normal)
+    
   }
 }

@@ -18,6 +18,7 @@ class LanguageTableViewCell: UITableViewCell {
 class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewLanguageScreenProtocol {
   @IBOutlet var topButtons: [UIButton]!
   
+  @IBOutlet weak var addLanguageButton: UIButton!
   @IBOutlet weak var headerTextConstraintTop: NSLayoutConstraint!
   var languages = [String]()
   var selectedRow: Int? = nil
@@ -35,8 +36,17 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     for button in topButtons {
       button.isHidden = true
       button.alpha = 0.0
+      if !(button.title(for: .normal) == "My vocabulary") {
+        button.backgroundColor = BackgroundColor.yellow
+      } else {
+        button.backgroundColor = BackgroundColor.blue
+      }
+      button.layer.cornerRadius = 5.0
+      button.setTitleColor(.white, for: .normal)
+      button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+      
     }
-    headerTextConstraintTop.constant = 16.0
+    headerTextConstraintTop.constant = 32.0
     
     tableView.delegate = self
     tableView.dataSource = self
@@ -49,6 +59,12 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     hideKeyboardWhenTappedAround()
+    
+    addLanguageButton.backgroundColor = BackgroundColor.green
+    addLanguageButton.layer.cornerRadius = 5.0
+    addLanguageButton.setTitleColor(.white, for: .normal)
+    
+    
     
   }
   
@@ -79,6 +95,11 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     
     if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.languageCell) as? LanguageTableViewCell {
+      
+      let selectedView = UIView()
+      selectedView.backgroundColor = BackgroundColor.lightBlue
+      selectedView.layer.cornerRadius = 5.0
+      cell.selectedBackgroundView = selectedView
     
       guard let language = defaults.array(forKey: UserDefaultKeys.languages)?[indexPath.item] as? String else {print("no language string"); return UITableViewCell()}
       
@@ -126,7 +147,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     selectedRow = indexPath.item
     
-    self.headerTextConstraintTop.constant = 52.0
+    self.headerTextConstraintTop.constant = 68.0
     UIView.animate(withDuration: 0.2, animations: {
       self.view.layoutIfNeeded()
       for button in self.topButtons {
@@ -143,7 +164,11 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     guard let row = selectedRow else {print("nothing selected"); return}
     selectedLanguage = languages[row]
     
-    performSegue(withIdentifier: SegueName.showTrainingSegue, sender: nil)
+    if areWordsSavedFor(language: selectedLanguage) {
+      performSegue(withIdentifier: SegueName.showTrainingSegue, sender: nil)
+    } else {
+      showToast(message: "No words inside 🕵️‍♀️", yCoord: view.frame.maxY/2)
+    }
     
   }
   @IBAction func editButton(_ sender: Any) {
@@ -169,6 +194,11 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         button.isHidden = true
       }
     })
+  }
+  
+  func areWordsSavedFor(language: String)->Bool {
+    guard let _ = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { print("no vocabularies found"); return false}
+    return true
   }
   
 }

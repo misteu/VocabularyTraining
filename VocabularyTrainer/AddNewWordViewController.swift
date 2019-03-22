@@ -16,14 +16,16 @@ class AddNewWordViewController: UIViewController {
   
   @IBOutlet weak var newWord: UITextField!
   @IBOutlet weak var translation: UITextField!
+  @IBOutlet weak var backButton: UIButton!
+  @IBOutlet weak var addButton: UIButton!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     print("selected Language: \(String(describing: selectedLanguage))")
-    // Do any additional setup after loading the view.
-    
     hideKeyboardWhenTappedAround()
+    styleButtons()
+  
   }
   
   @IBAction func backButtonTapped(_ sender: Any) {
@@ -60,28 +62,18 @@ class AddNewWordViewController: UIViewController {
     
     showToast(message: "New word added", yCoord: 340.0)
   }
-}
-
-extension UIViewController {
   
-  func showToast(message : String, yCoord: CGFloat) {
-    //self.view.frame.size.height-100
+  func styleButtons() {
+    backButton.backgroundColor = BackgroundColor.blue
+    backButton.layer.cornerRadius = 5.0
+    backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    backButton.setTitleColor(.white, for: .normal)
     
-    let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: yCoord , width: 250, height: 35))
-    toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-    toastLabel.textColor = UIColor.white
-    toastLabel.textAlignment = .center;
-    toastLabel.font = UIFont.systemFont(ofSize: 24.0)
-    toastLabel.text = message
-    toastLabel.alpha = 1.0
-    toastLabel.layer.cornerRadius = 10;
-    toastLabel.clipsToBounds  =  true
-    self.view.addSubview(toastLabel)
-    UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
-      toastLabel.alpha = 0.0
-    }, completion: {(isCompleted) in
-      toastLabel.removeFromSuperview()
-    })
-  } }
+    addButton.backgroundColor = BackgroundColor.green
+    addButton.layer.cornerRadius = 5.0
+    addButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    addButton.setTitleColor(.white, for: .normal)
+  }
+}
 
 

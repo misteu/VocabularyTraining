@@ -20,6 +20,8 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
  
   @IBOutlet weak var searchBar: UISearchBar!
   
+  @IBOutlet weak var backButton: UIButton!
+  @IBOutlet weak var newWordButton: UIButton!
   @IBOutlet weak var tableView: UITableView!
   var selectedLanguage: String?
   var vocabularies = [(String,String,Float)]()
@@ -44,6 +46,8 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     guard let language = selectedLanguage else {return}
     languageHeader.text = language
     hideKeyboardWhenTappedAround()
+    
+    styleButtons()
     
     }
   
@@ -92,7 +96,7 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
       result = vocabularies.count
     }
     
-    if result == 0 {
+    if vocabularies.count == 0 {
       searchBar.isHidden = true
     } else {
       searchBar.isHidden = false
@@ -247,6 +251,28 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   
   @IBAction func exportButtonTapped(_ sender: Any) {
     sendEmail()
+  }
+  
+  func styleButtons() {
+    newWordButton.backgroundColor = BackgroundColor.green
+    newWordButton.layer.cornerRadius = 5.0
+    newWordButton.setTitleColor(.white, for: .normal)
+    
+    deleteButton.backgroundColor = BackgroundColor.red
+    deleteButton.layer.cornerRadius = 5.0
+    deleteButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    deleteButton.setTitleColor(.white, for: .normal)
+    
+    backButton.backgroundColor = BackgroundColor.blue
+    backButton.layer.cornerRadius = 5.0
+    backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    backButton.setTitleColor(.white, for: .normal)
+    
+    backButton.backgroundColor = BackgroundColor.blue
+    backButton.layer.cornerRadius = 5.0
+    backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    backButton.setTitleColor(.white, for: .normal)
+    
   }
   
 }
