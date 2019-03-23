@@ -334,6 +334,9 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
         self.vocabProgr[key] = (input as NSString).floatValue
         UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
         
+        self.loadDataAndUpdate()
+        tableView.reloadData()
+        
       }))
       alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (_) in
         
@@ -341,7 +344,6 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
       
       // 4. Present the alert.
       self.present(alert, animated: true, completion: nil)
-      
       
     })
     
