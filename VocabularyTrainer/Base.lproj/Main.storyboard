@@ -312,6 +312,9 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxH-Yy-qRL">
                                 <rect key="frame" x="16" y="36" width="61" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="EiQ-lI-r7g"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="&lt; Back"/>
                                 <connections>
@@ -320,6 +323,9 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TjA-tq-vO0">
                                 <rect key="frame" x="21" y="292.5" width="322" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="9aY-OA-WzN"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
@@ -373,6 +379,9 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jhf-6U-f7J">
                                 <rect key="frame" x="16" y="36" width="61" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="4cV-mt-1Aw"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="&lt; Back"/>
                                 <connections>
@@ -477,6 +486,7 @@ Turkish</string>
                     </view>
                     <connections>
                         <outlet property="answerInput" destination="53n-g1-uwW" id="A1Q-Vi-jbk"/>
+                        <outlet property="backButton" destination="Jhf-6U-f7J" id="tvI-Pi-8AE"/>
                         <outlet property="checkInputButton" destination="SJQ-jN-5Xm" id="UUr-Lf-Hlw"/>
                         <outlet property="currentTrainingHeader" destination="5Cu-DE-YK3" id="wBW-uy-6eY"/>
                         <outlet property="currentVocabulary" destination="o3T-rB-i7W" id="2Yr-Em-5FA"/>

@@ -30,6 +30,7 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   var filteredData = [(String,String,Float)]()
   var isSearching = false
   var totalProgress = Float(0)
+  var maxProgress = Float(0)
   
   @IBOutlet weak var languageHeader: UILabel!
   
@@ -98,8 +99,10 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     
     if vocabularies.count == 0 {
       searchBar.isHidden = true
+      view.layoutIfNeeded()
     } else {
       searchBar.isHidden = false
+      view.layoutIfNeeded()
     }
     
     return result
@@ -108,18 +111,18 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.vocabularyCell) as? VocabularyCell {
       
-      print("maxProgress: \(totalProgress)")
+      print("totalProgress: \(totalProgress)")
       
       if isSearching {
         cell.vocabularyRoot.text = filteredData[indexPath.item].0
         cell.vocabularyTranslation.text = filteredData[indexPath.item].1
-        cell.vocabularyProgress.progress = 1-filteredData[indexPath.item].2/totalProgress
+        cell.vocabularyProgress.progress = 1-filteredData[indexPath.item].2/maxProgress
         
       } else {
         
         cell.vocabularyRoot.text = vocabularies[indexPath.item].0
         cell.vocabularyTranslation.text = vocabularies[indexPath.item].1
-        cell.vocabularyProgress.progress = 1-vocabularies[indexPath.item].2/totalProgress
+        cell.vocabularyProgress.progress = 1-vocabularies[indexPath.item].2/maxProgress
       }
       
       return cell
@@ -163,29 +166,29 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     return true
   }
   
-  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    if (editingStyle == .delete) {
-      if let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell {
-        guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
-        
-        print(vocabDict)
-        
-        vocabDict.removeValue(forKey: key)
-        vocabProgr.removeValue(forKey: key)
-        
-        print("delete \(key)")
-        
-        print(vocabDict)
-        
-        guard  let language = selectedLanguage else {print("no language given"); return}
-        
-        UserDefaults.standard.set(vocabDict, forKey: language)
-        UserDefaults.standard.set(vocabProgr, forKey: "\(language)Progress")
-        
-        loadDataAndUpdate()
-      }
-    }
-  }
+//  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//    if (editingStyle == .delete) {
+//      if let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell {
+//        guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
+//
+//        print(vocabDict)
+//
+//        vocabDict.removeValue(forKey: key)
+//        vocabProgr.removeValue(forKey: key)
+//
+//        print("delete \(key)")
+//
+//        print(vocabDict)
+//
+//        guard  let language = selectedLanguage else {print("no language given"); return}
+//
+//        UserDefaults.standard.set(vocabDict, forKey: language)
+//        UserDefaults.standard.set(vocabProgr, forKey: "\(language)Progress")
+//
+//        loadDataAndUpdate()
+//      }
+//    }
+//  }
   
   
   func loadDataAndUpdate() {
@@ -212,6 +215,12 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
     
     totalProgress = vocabularies.reduce(0){$0 + $1.2}
+    
+    if let maxItem = vocabularies.max(by: {$0.2 < $1.2 }) {
+      let max = maxItem.2
+      print("max progress: \(max)")
+      maxProgress = max
+    }
     
   }
   
@@ -273,6 +282,73 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
     backButton.setTitleColor(.white, for: .normal)
     
+  }
+  
+  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    
+    let deleteAction = UITableViewRowAction(style: .default, title: "Delete" , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
+      
+            if let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell {
+              guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
+      
+              print(self.vocabDict)
+      
+              self.vocabDict.removeValue(forKey: key)
+              self.vocabProgr.removeValue(forKey: key)
+      
+              print("delete \(key)")
+      
+              print(self.vocabDict)
+      
+              guard  let language = self.selectedLanguage else {print("no language given"); return}
+      
+              UserDefaults.standard.set(self.vocabDict, forKey: language)
+              UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
+      
+              self.loadDataAndUpdate()
+            }
+      
+    })
+    
+    let editAction = UITableViewRowAction(style: .normal, title: "Edit: \(Int.init(vocabularies[indexPath.item].2))/\(Int.init(maxProgress))" , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
+      
+      guard let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell else {return}
+      guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
+      guard let language = self.selectedLanguage else {print("no language selected"); return}
+      
+      let alert = UIAlertController(title: "Change word`s probability", message: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.", preferredStyle: .alert)
+      
+      alert.addTextField { (textField) in
+        
+        guard let progress = self.vocabProgr[key] else {print("no progress found"); return}
+        textField.text = "\(Int.init(progress))"
+      }
+      
+      // 3. Grab the value from the text field, and print it when the user clicks OK.
+      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+        let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
+        print("Text field: \(textField?.text)")
+        
+        guard let input = textField?.text else {return}
+        
+        self.vocabProgr[key] = (input as NSString).floatValue
+        UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
+        
+      }))
+      alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (_) in
+        
+      }))
+      
+      // 4. Present the alert.
+      self.present(alert, animated: true, completion: nil)
+      
+      
+    })
+    
+    editAction.backgroundColor = BackgroundColor.fullBlue
+
+    // 5
+    return [deleteAction,editAction]
   }
   
 }

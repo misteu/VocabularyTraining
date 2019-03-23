@@ -27,6 +27,7 @@ class CellIdentifier {
 
 struct BackgroundColor {
   static let blue = UIColor.init(red: 36/255, green: 110/255, blue: 185/255, alpha: 0.5)
+  static let fullBlue = UIColor.init(red: 36/255, green: 110/255, blue: 185/255, alpha: 1.0)
   static let lightBlue = UIColor.init(red: 36/255, green: 110/255, blue: 185/255, alpha: 0.2)
   static let green = UIColor.init(red: 72/255, green: 175/255, blue: 64/255, alpha: 0.5)
   static let lightGreen = UIColor.init(red: 72/255, green: 175/255, blue: 64/255, alpha: 0.2)
