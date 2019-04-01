@@ -16,11 +16,14 @@ class NewLanguageViewController: UIViewController {
   
   var delegate: NewLanguageScreenProtocol? = nil
   
+  @IBOutlet weak var backButton: UIButton!
+  @IBOutlet weak var addButton: UIButton!
   @IBOutlet weak var newLanguage: UITextField!
   override func viewDidLoad() {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
     // Do any additional setup after loading the view.
+    styleButtons()
   }
   
   @IBAction func addLanguageTapped(_ sender: Any) {
@@ -42,5 +45,17 @@ class NewLanguageViewController: UIViewController {
   }
   @IBAction func backButtonTapped(_ sender: Any) {
     dismiss(animated: true, completion: nil)
+  }
+  
+  func styleButtons() {
+    backButton.backgroundColor = BackgroundColor.blue
+    backButton.layer.cornerRadius = 5.0
+    backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    backButton.setTitleColor(.white, for: .normal)
+    
+    addButton.backgroundColor = BackgroundColor.green
+    addButton.layer.cornerRadius = 5.0
+    addButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    addButton.setTitleColor(.white, for: .normal)
   }
 }

@@ -54,7 +54,7 @@ class AddNewWordViewController: UIViewController {
     UserDefaults.standard.set(vocabularies, forKey: language)
     UserDefaults.standard.set(vocabulariesSuccessRates, forKey: languageVocabProgressKey)
     
-    print( "words: \(UserDefaults.standard.dictionary(forKey: language))")
+    print( "words: \(String(describing: UserDefaults.standard.dictionary(forKey: language)))")
     //dismiss(animated: true, completion: nil)
     
     newWord.text = ""

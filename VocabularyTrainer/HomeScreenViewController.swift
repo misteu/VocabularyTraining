@@ -15,6 +15,16 @@ class LanguageTableViewCell: UITableViewCell {
   
 }
 
+struct LanguageImport {
+  var vocabularies: [String:String]
+  var progresses:[String:Float]
+  
+  init(vocabularies: [String:String], progresses: [String:Float]) {
+    self.vocabularies = vocabularies
+    self.progresses = progresses
+  }
+}
+
 class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewLanguageScreenProtocol {
   @IBOutlet var topButtons: [UIButton]!
   
@@ -22,6 +32,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   @IBOutlet weak var headerTextConstraintTop: NSLayoutConstraint!
   var languages = [String]()
   var selectedRow: Int? = nil
+  private let refreshControl = UIRefreshControl()
   
   func setNewLanguage(language: String) {
     print("\(language) added")
@@ -64,7 +75,13 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     addLanguageButton.layer.cornerRadius = 5.0
     addLanguageButton.setTitleColor(.white, for: .normal)
     
+    if #available(iOS 10.0, *) {
+      tableView.refreshControl = refreshControl
+    } else {
+      tableView.addSubview(refreshControl)
+    }
     
+    refreshControl.addTarget(self, action: #selector(reloadImports), for: .valueChanged)
     
   }
   
@@ -77,10 +94,6 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     tableView.reloadData()
     
     print("appear")
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-
   }
   
   @IBOutlet weak var tableView: UITableView!
@@ -199,6 +212,79 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   func areWordsSavedFor(language: String)->Bool {
     guard let _ = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { print("no vocabularies found"); return false}
     return true
+  }
+  
+  func importLanguageFile(language: String)->String {
+    let file = "\(language).csv"
+    var result = ""
+    
+    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+      let fileURL = dir.appendingPathComponent(file)
+      
+      do {
+        result = try String(contentsOf: fileURL, encoding: .macOSRoman)
+      }
+      catch {/* error handling here */}
+      
+    }
+    return result
+  }
+  
+  func csv(data: String) -> LanguageImport {
+    var vocabDict = [String:String]()
+    var vocabProgr = [String:Float]()
+    
+    let rows = data.components(separatedBy: "\n")
+    for (index,row) in rows.enumerated() {
+      if index > 0 {
+        let columns = row.components(separatedBy: ";")
+        vocabDict[columns[0]] = columns[1]
+        vocabProgr[columns[0]] = (columns[2] as NSString).floatValue
+      }
+    }
+    
+    let result = LanguageImport.init(vocabularies: vocabDict, progresses: vocabProgr)
+  
+    return result
+  }
+  
+  func updateUserDefFromImports(imports: LanguageImport) {
+    let language = "test"
+    let languageVocabProgressKey = "\(language)Progress"
+    
+    UserDefaults.standard.set(imports.vocabularies, forKey: language)
+    UserDefaults.standard.set(imports.progresses, forKey: languageVocabProgressKey)
+    
+    if let savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
+      
+      for lang in savedLanguages {
+        if lang == language { return }
+      }
+      
+      var languages = savedLanguages
+      languages.append(language)
+      UserDefaults.standard.set(languages, forKey: UserDefaultKeys.languages)
+      
+    } else {
+      UserDefaults.standard.set([language], forKey: UserDefaultKeys.languages)
+    }
+    
+  }
+  
+  
+  /// TODO: universal language file support
+  @objc func reloadImports() {
+    let rawCsvImport = importLanguageFile(language: "test")
+    let importedCsvAsDicts = csv(data: rawCsvImport)
+    updateUserDefFromImports(imports: importedCsvAsDicts)
+    
+    if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
+      self.languages = languages
+    }
+    
+    tableView.reloadData()
+    self.refreshControl.endRefreshing()
+    self.view.layoutIfNeeded()
   }
   
 }

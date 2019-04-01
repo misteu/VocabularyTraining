@@ -65,7 +65,7 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     
     // create the alert
     guard let language = selectedLanguage else { return }
-    let alert = UIAlertController(title: "Delete \(language)", message: "Deleting this language will delete all your saved vocabulary and your learning progress.\n Do you want to proceed?", preferredStyle: UIAlertController.Style.alert)
+    let alert = UIAlertController(title: "Delete \(language)", message: "Deleting this language will delete all your saved words and your learning progress.\n Do you want to proceed?", preferredStyle: UIAlertController.Style.alert)
     
     // add the actions (buttons)
     alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
@@ -116,13 +116,13 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
       if isSearching {
         cell.vocabularyRoot.text = filteredData[indexPath.item].0
         cell.vocabularyTranslation.text = filteredData[indexPath.item].1
-        cell.vocabularyProgress.progress = 1-filteredData[indexPath.item].2/maxProgress
+        cell.vocabularyProgress.progress = filteredData[indexPath.item].2/maxProgress
         
       } else {
         
         cell.vocabularyRoot.text = vocabularies[indexPath.item].0
         cell.vocabularyTranslation.text = vocabularies[indexPath.item].1
-        cell.vocabularyProgress.progress = 1-vocabularies[indexPath.item].2/maxProgress
+        cell.vocabularyProgress.progress = vocabularies[indexPath.item].2/maxProgress
       }
       
       return cell
@@ -259,7 +259,9 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   }
   
   @IBAction func exportButtonTapped(_ sender: Any) {
-    sendEmail()
+    //sendEmail()
+    //exportToDocuments()
+    exportAsCsvToDocuments()
   }
   
   func styleButtons() {
@@ -327,11 +329,15 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
       // 3. Grab the value from the text field, and print it when the user clicks OK.
       alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
         let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
-        print("Text field: \(textField?.text)")
+        print("Text field: \(String(describing: textField?.text))")
         
         guard let input = textField?.text else {return}
+        var newProgress = (input as NSString).floatValue
+        if (newProgress < 1) {
+          newProgress = 1
+        }
+        self.vocabProgr[key] = newProgress
         
-        self.vocabProgr[key] = (input as NSString).floatValue
         UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
         
         self.loadDataAndUpdate()
@@ -352,5 +358,79 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     // 5
     return [deleteAction,editAction]
   }
+  
+  func exportToDocuments() {
+    let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String : Any]
+    
+    // Get the url of Persons.json in document directory
+    guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+    guard let language = selectedLanguage else {print("no language selected"); return}
+    let fileUrl = documentDirectoryUrl.appendingPathComponent("\(language).json")
+
+    
+    // Transform array into data and save it into file
+    do {
+      let data = try JSONSerialization.data(withJSONObject: export, options: .prettyPrinted)
+      try data.write(to: fileUrl, options: [])
+    } catch {
+      print(error)
+    }
+  }
+  
+  func exportAsCsvToDocuments() {
+    
+    guard let language = selectedLanguage else {print("no language selected"); return}
+    
+    let exportStringHead = """
+    \(language)
+    word;translation;progress
+    """
+    var exportString = ""
+    
+    for (key, value) in vocabDict {
+      
+      if exportString != "" {
+        exportString = """
+        \(exportString)
+        \(key);\(value);\(vocabProgr[key] ?? 100)
+        """
+      } else {
+        exportString = "\(key);\(value);\(vocabProgr[key] ?? 100)"
+      }
+    }
+    
+    exportString = """
+    \(exportStringHead)
+    \(exportString)
+    """
+    
+    let file = "\(language).csv"
+    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+      
+      let fileURL = dir.appendingPathComponent(file)
+      
+      //writing
+      do {
+        try exportString.write(to: fileURL, atomically: false, encoding: .macOSRoman)
+        let alert = UIAlertController(title: "Export successful: \(language).csv", message: """
+        You may copy your file to your machine via iTunes:
+        iPhone->Filesharing->Flippy->drag \(language).csv into Finder
+        """
+          , preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+      }
+      catch {/* error handling here */}
+      
+//      //reading
+//      do {
+//        let text2 = try String(contentsOf: fileURL, encoding: .utf8)
+//      }
+//      catch {/* error handling here */}
+    }
+    
+  }
+
+  
   
 }

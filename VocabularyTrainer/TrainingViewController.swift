@@ -13,6 +13,8 @@ class TrainingViewController: UIViewController {
   var selectedLanguage: String? = nil
   var vocabularies: [String:String]? = nil
   var vocabulariesProgresses: [String:Float]? = nil
+  var isKeyShown: Bool? = nil
+  var currentKey: String? = nil
 
   @IBOutlet weak var wrongAnswerButton: UIButton!
   @IBOutlet weak var rightAnswerButton: UIButton!
@@ -98,44 +100,55 @@ class TrainingViewController: UIViewController {
     
     let totalProgress = getTotalProgressFrom(progresses)
     
-    let randomKey = pickRandomKeyFrom(vocabs, withProgresses: progresses, totalProgress: totalProgress)
+    currentKey = pickRandomKeyFrom(vocabs, withProgresses: progresses, totalProgress: totalProgress)
     
-    print("randomkey: \(randomKey)")
-    currentVocabulary.text = randomKey
+    guard let key = currentKey else {print("no key"); return}
+    
+    print("all vocabs \(vocabs)")
+    print("all progresses \(progresses)")
+    print("randomkey: \(key)")
+    if (Int.random(in: 0...1) == 0) {
+      currentVocabulary.text = key
+      isKeyShown = true
+    } else {
+      currentVocabulary.text = vocabs[key]
+      isKeyShown = false
+    }
     nextButton.setTitle("Skip word", for: .normal)
   }
   @IBAction func rightAnswerTapped(_ sender: Any) {
-    
-    guard var progresses = vocabulariesProgresses else {print("no progresses"); return}
-    guard let vocabulary = currentVocabulary.text else {print("no vocab"); return}
-    
-    guard let language = selectedLanguage else {print("no language selected"); return}
-    guard let progress = progresses[vocabulary] else {print("no progress"); return}
-    progresses[vocabulary] = progress-Float(3.0)
-    UserDefaults.standard.set(progresses, forKey: "\(language)Progress")
-    
+    guard let key = currentKey else {print("no current key"); return}
+    changeWordsProbability(increase: true, key: key)
     pickNewVocabAndUpdateView()
   }
+  
   @IBAction func wrongAnswerTapped(_ sender: Any) {
-    
-    guard var progresses = vocabulariesProgresses else {print("no progresses"); return}
-    guard let vocabulary = currentVocabulary.text else {print("no vocab"); return}
-    
-    guard let language = selectedLanguage else {print("no language selected"); return}
-    guard let progress = progresses[vocabulary] else {print("no progress"); return}
-    progresses[vocabulary] = progress+Float(10.0)
-    UserDefaults.standard.set(progresses, forKey: "\(language)Progress")
-    
+    guard let key = currentKey else {print("no current key"); return}
+    changeWordsProbability(increase: false, key: key)
     pickNewVocabAndUpdateView()
   }
   
   @IBAction func checkInputTapped(_ sender: Any) {
-    guard let vocabulary = currentVocabulary.text else {print("no vocab"); return}
+
     guard let usersAnswer = answerInput.text else { print("no answer given"); return }
-    guard let solution = vocabularies?[vocabulary] else {print("no solution found"); return}
+//    guard let solution = vocabularies?[vocabulary] else {print("no solution found"); return}
+    var solution: String?
+    guard let isKey = isKeyShown else {print("no key"); return}
+    guard let key = currentKey else {print("no current key"); return}
+    guard let vocabs = vocabularies else {print("no vocabularies"); return}
+    
+    if isKey {
+      solution = vocabs[key]
+    } else {
+      solution = key
+    }
     
     if usersAnswer != "" {
-      if usersAnswer.uppercased() == solution.uppercased() {
+      if usersAnswer.uppercased() == solution?.uppercased() {
+        
+        // update progress
+        changeWordsProbability(increase: false, key: key)
+        
         print("right")
         UIView.animate(withDuration: 0.2, animations: {
           self.answerInput.backgroundColor = BackgroundColor.green
@@ -146,9 +159,14 @@ class TrainingViewController: UIViewController {
           self.takeALookButton.isHidden = true
         })
         showToast(message: "That's right! 🤠", yCoord: 400.0)
+        answerInput.text = solution
         nextButton.setTitle("Next word", for: .normal)
       } else {
-        print("wrong, right is \(solution)")
+        
+        // update progress
+        changeWordsProbability(increase: true, key: key)
+        
+        print("wrong, right is \(String(describing: solution))")
         UIView.animate(withDuration: 0.2, animations: {
           self.answerInput.backgroundColor = BackgroundColor.red
         })
@@ -162,8 +180,15 @@ class TrainingViewController: UIViewController {
   }
   
   @IBAction func takeALookTapped(_ sender: Any) {
-    guard let vocabulary = currentVocabulary.text else {print("no vocab"); return}
-    guard let solution = vocabularies?[vocabulary] else {print("no solution found"); return}
+    guard let key = currentKey else {print("no current key"); return}
+    var solution: String
+    guard let isKey = isKeyShown else {print("no key"); return}
+    
+    if isKey {
+      solution = vocabularies?[key] ?? "nothing given"
+    } else {
+      solution = key
+    }
     
     answerInput.text = solution
     
@@ -230,6 +255,27 @@ class TrainingViewController: UIViewController {
     backButton.layer.cornerRadius = 5.0
     backButton.setTitleColor(.white, for: .normal)
     backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    
+  }
+  
+  func changeWordsProbability(increase: Bool, key: String) {
+    guard var progresses = vocabulariesProgresses else {print("no progresses"); return}
+    
+    guard let key = currentKey else {print("no current key"); return}
+    guard let progress = progresses[key] else {print("no progress"); return}
+    
+    guard let language = selectedLanguage else {print("no language selected"); return}
+    
+    if increase {
+      progresses[key] = progress+Float(10.0)
+    } else {
+      if (progress-Float(3.0) > 0) {
+        progresses[key] = progress-Float(3.0)
+      } else {
+        progresses[key] = 1.0
+      }
+    }
+    UserDefaults.standard.set(progresses, forKey: "\(language)Progress")
     
   }
 }

@@ -214,6 +214,8 @@
                                                 </stackView>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NjL-l1-YyM">
                                                     <rect key="frame" x="15" y="31" width="313" height="2"/>
+                                                    <color key="progressTintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="trackTintColor" red="0.45009386540000001" green="0.98132258650000004" blue="0.4743030667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </progressView>
                                             </subviews>
                                             <constraints>
@@ -516,6 +518,9 @@ Turkish</string>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQf-Gd-xlg">
                                 <rect key="frame" x="32" y="233.5" width="311" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="S5k-FL-GYx"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
@@ -524,6 +529,9 @@ Turkish</string>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4HO-3r-c1X">
                                 <rect key="frame" x="16" y="36" width="61" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="hBY-cJ-Az7"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="&lt; Back"/>
                                 <connections>
@@ -554,6 +562,8 @@ Turkish</string>
                         <viewLayoutGuide key="safeArea" id="1On-Do-9EZ"/>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="TQf-Gd-xlg" id="yN2-Ig-eiq"/>
+                        <outlet property="backButton" destination="4HO-3r-c1X" id="oBf-8n-d1l"/>
                         <outlet property="newLanguage" destination="hDq-cC-3xB" id="dTG-B1-EtM"/>
                     </connections>
                 </viewController>

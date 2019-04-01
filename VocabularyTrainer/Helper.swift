@@ -34,3 +34,4 @@ struct BackgroundColor {
   static let red = UIColor.init(red: 240/255, green: 101/255, blue: 67/255, alpha: 0.8)
   static let yellow = UIColor.init(red: 219/255, green: 213/255, blue: 110/255, alpha: 1.0)
 }
+
