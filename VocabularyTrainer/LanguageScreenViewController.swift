@@ -14,6 +14,11 @@ class VocabularyCell: UITableViewCell {
   @IBOutlet weak var vocabularyTranslation: UILabel!
   @IBOutlet weak var vocabularyProgress: UIProgressView!
   
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    backgroundColor = UIColor(white: 1.0, alpha: 0.0)
+  }
+
 }
 
 class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MFMailComposeViewControllerDelegate {
@@ -22,6 +27,9 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var newWordButton: UIButton!
+  @IBOutlet weak var deleteButton: UIButton!
+  @IBOutlet weak var exportButton: UIButton!
+  
   @IBOutlet weak var tableView: UITableView!
   var selectedLanguage: String?
   var vocabularies = [(String,String,Float)]()
@@ -34,7 +42,6 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   
   @IBOutlet weak var languageHeader: UILabel!
   
-  @IBOutlet weak var deleteButton: UIButton!
   
   override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,8 +55,14 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     languageHeader.text = language
     hideKeyboardWhenTappedAround()
     
+    searchBar.layer.cornerRadius = 10.0
+    searchBar.layer.borderWidth = 0.0
+    searchBar.clipsToBounds = true
     styleButtons()
-    
+    localize()
+    setGradientBackground(view: view)
+    //tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+    tableView.layer.cornerRadius = 10.0
     }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -65,11 +78,11 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     
     // create the alert
     guard let language = selectedLanguage else { return }
-    let alert = UIAlertController(title: "Delete \(language)", message: "Deleting this language will delete all your saved words and your learning progress.\n Do you want to proceed?", preferredStyle: UIAlertController.Style.alert)
+    let alert = UIAlertController(title: String.localizedStringWithFormat(NSLocalizedString("Delete %@", comment: "Delete %@"), language), message: NSLocalizedString("Deleting this language will delete all your saved words and your learning progress.\nDo you want to proceed?", comment: "Deleting this language will delete all your saved words and your learning progress.\nDo you want to proceed?"), preferredStyle: UIAlertController.Style.alert)
     
     // add the actions (buttons)
-    alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
-    alert.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.destructive, handler: { action in
+    alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { action in
       
       guard let languages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] else {print("error getting languages"); return}
       
@@ -267,28 +280,22 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   func styleButtons() {
     newWordButton.backgroundColor = BackgroundColor.green
     newWordButton.layer.cornerRadius = 5.0
-    newWordButton.setTitleColor(.white, for: .normal)
+    newWordButton.setTitleColor(.black, for: .normal)
     
     deleteButton.backgroundColor = BackgroundColor.red
     deleteButton.layer.cornerRadius = 5.0
     deleteButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    deleteButton.setTitleColor(.white, for: .normal)
+    deleteButton.setTitleColor(.black, for: .normal)
     
     backButton.backgroundColor = BackgroundColor.blue
     backButton.layer.cornerRadius = 5.0
     backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    backButton.setTitleColor(.white, for: .normal)
-    
-    backButton.backgroundColor = BackgroundColor.blue
-    backButton.layer.cornerRadius = 5.0
-    backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    backButton.setTitleColor(.white, for: .normal)
-    
+    backButton.setTitleColor(.black, for: .normal)
   }
   
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     
-    let deleteAction = UITableViewRowAction(style: .default, title: "Delete" , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
+    let deleteAction = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: "Delete") , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
       
             if let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell {
               guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
@@ -312,13 +319,13 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
       
     })
     
-    let editAction = UITableViewRowAction(style: .normal, title: "Edit: \(Int.init(vocabularies[indexPath.item].2))/\(Int.init(maxProgress))" , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
+    let editAction = UITableViewRowAction(style: .normal, title: "\(NSLocalizedString("Edit:", comment: "Edit:")) \(Int.init(vocabularies[indexPath.item].2))/\(Int.init(maxProgress))" , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
       
       guard let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell else {return}
       guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
       guard let language = self.selectedLanguage else {print("no language selected"); return}
       
-      let alert = UIAlertController(title: "Change word`s probability", message: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.", preferredStyle: .alert)
+      let alert = UIAlertController(title: NSLocalizedString("Change word`s probability", comment: "Change word`s probability"), message: NSLocalizedString("Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.", comment: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100."), preferredStyle: .alert)
       
       alert.addTextField { (textField) in
         
@@ -412,10 +419,7 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
       //writing
       do {
         try exportString.write(to: fileURL, atomically: false, encoding: .macOSRoman)
-        let alert = UIAlertController(title: "Export successful: \(language).csv", message: """
-        You may copy your file to your machine via iTunes:
-        iPhone->Filesharing->Flippy->drag \(language).csv into Finder
-        """
+        let alert = UIAlertController(title: "\(NSLocalizedString("Export successful:", comment: "Export successful:")) \(language).csv", message: String.localizedStringWithFormat(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder", comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder"), language)
           , preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
@@ -429,6 +433,14 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
 //      catch {/* error handling here */}
     }
     
+  }
+  
+  func localize() {
+    backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
+    deleteButton.setTitle(NSLocalizedString("Delete Language", comment: "Delete Language"), for: .normal)
+    newWordButton.setTitle(NSLocalizedString("New word", comment: "New word"), for: .normal)
+    exportButton.setTitle(NSLocalizedString("export", comment: "export"), for: .normal)
+    searchBar.placeholder = NSLocalizedString("search for words", comment: "search for words")
   }
 
   

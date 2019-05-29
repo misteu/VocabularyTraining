@@ -13,6 +13,16 @@ class LanguageTableViewCell: UITableViewCell {
   @IBOutlet weak var languageLabel: UILabel!
   @IBOutlet weak var languageWordsLabel: UILabel!
   
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    backgroundColor = UIColor(white: 1.0, alpha: 0.0)
+    if let background = backgroundView {
+      background.frame = background.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+    }
+    
+    guard let selected = selectedBackgroundView else { return }
+    selected.frame = selected.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+  }
 }
 
 struct LanguageImport {
@@ -27,43 +37,43 @@ struct LanguageImport {
 
 class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewLanguageScreenProtocol {
   @IBOutlet var topButtons: [UIButton]!
-  
   @IBOutlet weak var addLanguageButton: UIButton!
   @IBOutlet weak var headerTextConstraintTop: NSLayoutConstraint!
+  @IBOutlet weak var headerText: UILabel!
+  @IBOutlet weak var importButton: UIButton!
+  
   var languages = [String]()
   var selectedRow: Int? = nil
   private let refreshControl = UIRefreshControl()
   
   func setNewLanguage(language: String) {
-    print("\(language) added")
-  
+    debugPrint("\(language) added")
   }
 
-
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
     for button in topButtons {
       button.isHidden = true
       button.alpha = 0.0
-      if !(button.title(for: .normal) == "My vocabulary") {
-        button.backgroundColor = BackgroundColor.yellow
-      } else {
-        button.backgroundColor = BackgroundColor.blue
-      }
       button.layer.cornerRadius = 5.0
-      button.setTitleColor(.white, for: .normal)
+      button.setTitleColor(.black, for: .normal)
       button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-      
     }
+    
+    topButtons[0].backgroundColor = BackgroundColor.green
+    topButtons[1].backgroundColor = BackgroundColor.yellow
+    
+    styleButtons()
+    localize()
+  
     headerTextConstraintTop.constant = 32.0
     
     tableView.delegate = self
     tableView.dataSource = self
     
     guard let rows = defaults.array(forKey: UserDefaultKeys.languages)?.count else { return}
-    print("rows \(rows)")
+    debugPrint("rows \(rows)")
 
     if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
       self.languages = languages
@@ -71,18 +81,14 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     hideKeyboardWhenTappedAround()
     
-    addLanguageButton.backgroundColor = BackgroundColor.green
-    addLanguageButton.layer.cornerRadius = 5.0
-    addLanguageButton.setTitleColor(.white, for: .normal)
-    
     if #available(iOS 10.0, *) {
       tableView.refreshControl = refreshControl
     } else {
       tableView.addSubview(refreshControl)
     }
-    
     refreshControl.addTarget(self, action: #selector(reloadImports), for: .valueChanged)
-    
+  
+    debugPrint(getAllLanguageFileUrls())
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -92,8 +98,9 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     tableView.reloadData()
-    
-    print("appear")
+    setGradientBackground(view: view)
+    tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+    tableView.layer.cornerRadius = 10.0
   }
   
   @IBOutlet weak var tableView: UITableView!
@@ -102,6 +109,16 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   
   func tableView(_ tbleView: UITableView, numberOfRowsInSection section: Int) -> Int {
     guard let rows = defaults.array(forKey: UserDefaultKeys.languages)?.count else { return 0}
+    if rows < 1 {
+      let noLanguagesLabel = UILabel(frame: CGRect(x: 20, y: view.frame.maxY/2-75, width: view.frame.width-40, height: 150))
+      noLanguagesLabel.text = NSLocalizedString("Currently there are no languages", comment: "Currently there are no languages")
+      noLanguagesLabel.textAlignment = .center
+      noLanguagesLabel.numberOfLines = 0
+      noLanguagesLabel.tag = 99
+      view.addSubview(noLanguagesLabel)
+    } else {
+      view.viewWithTag(99)?.removeFromSuperview()
+    }
     return rows
   }
   
@@ -109,30 +126,31 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.languageCell) as? LanguageTableViewCell {
       
-      let selectedView = UIView()
-      selectedView.backgroundColor = BackgroundColor.lightBlue
-      selectedView.layer.cornerRadius = 5.0
-      cell.selectedBackgroundView = selectedView
-    
-      guard let language = defaults.array(forKey: UserDefaultKeys.languages)?[indexPath.item] as? String else {print("no language string"); return UITableViewCell()}
+//      let selectedView = UIView()
+//      selectedView.backgroundColor = BackgroundColor.lightBlue
+//      selectedView.frame = selectedView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+//      cell.selectedBackgroundView = selectedView
+//      cell.backgroundView = selectedView
+      
+      guard let language = defaults.array(forKey: UserDefaultKeys.languages)?[indexPath.item] as? String else { debugPrint("no language string"); return UITableViewCell() }
       
       cell.languageLabel.text = language
       
       if let vocabularies = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
         
         if (vocabularies.count > 1 || vocabularies.count == 0) {
-          cell.languageWordsLabel.text = "\(vocabularies.count) words"
+//          cell.languageWordsLabel.text = "\(vocabularies.count) words"
+          cell.languageWordsLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d words", comment: "%d words"), vocabularies.count)
         } else {
-          cell.languageWordsLabel.text = "\(vocabularies.count) word"
+//          cell.languageWordsLabel.text = "\(vocabularies.count) word"
+          cell.languageWordsLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d word", comment: "%d word"), vocabularies.count)
         }
         
       } else {
-        print("no vocab loadable")
-        cell.languageWordsLabel.text = "0 words"
+        debugPrint("no vocab loadable")
+        cell.languageWordsLabel.text = NSLocalizedString("0 words", comment: "0 words")
       }
-      
-
-      
+    
       return cell
     }
     return UITableViewCell()
@@ -168,19 +186,35 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         button.isHidden = false
       }
     })
-
+    
+    
+//      for cell in tableView.visibleCells{
+//        if cell.isSelected{
+//          UIView.animate(withDuration: 0.3, animations: {
+//            cell.backgroundView?.backgroundColor = BackgroundColor.red
+//          })
+//        } else {
+//          UIView.animate(withDuration: 0.3, animations: {
+//            let selectedView = UIView()
+//            selectedView.backgroundColor = BackgroundColor.lightBlue
+//            selectedView.layer.cornerRadius = 5.0
+//            selectedView.frame = selectedView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+//            cell.backgroundView = selectedView
+//          })
+//        }
+//      }
   }
-
+  
   @IBAction func trainingButton(_ sender: Any) {
     deactivateTopButtons()
     
-    guard let row = selectedRow else {print("nothing selected"); return}
+    guard let row = selectedRow else {debugPrint("nothing selected"); return}
     selectedLanguage = languages[row]
     
     if areWordsSavedFor(language: selectedLanguage) {
       performSegue(withIdentifier: SegueName.showTrainingSegue, sender: nil)
     } else {
-      showToast(message: "No words inside 🕵️‍♀️", yCoord: view.frame.maxY/2)
+      showToast(message: NSLocalizedString("No words inside 🕵️‍♀️", comment: "No words inside 🕵️‍♀️"), yCoord: view.frame.maxY/2)
     }
     
   }
@@ -188,7 +222,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     deactivateTopButtons()
     
-    guard let row = selectedRow else {print("nothing selected"); return}
+    guard let row = selectedRow else {debugPrint("nothing selected"); return}
     
     selectedLanguage = languages[row]
     performSegue(withIdentifier: SegueName.showLanguageSegue, sender: nil)
@@ -210,12 +244,12 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   }
   
   func areWordsSavedFor(language: String)->Bool {
-    guard let _ = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { print("no vocabularies found"); return false}
+    guard let _ = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { debugPrint("no vocabularies found"); return false}
     return true
   }
   
   func importLanguageFile(language: String)->String {
-    let file = "\(language).csv"
+    let file = language
     var result = ""
     
     if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -228,6 +262,20 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       
     }
     return result
+  }
+  
+  func getAllLanguageFileUrls()->[URL]? {
+    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+      
+      do {
+        let directoryContents = try FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
+        return directoryContents
+      }
+      catch {
+        return nil
+      }
+    }
+    return nil
   }
   
   func csv(data: String) -> LanguageImport {
@@ -248,8 +296,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     return result
   }
   
-  func updateUserDefFromImports(imports: LanguageImport) {
-    let language = "test"
+  func updateUserDefFromImports(imports: LanguageImport, language: String) {
     let languageVocabProgressKey = "\(language)Progress"
     
     UserDefaults.standard.set(imports.vocabularies, forKey: language)
@@ -274,12 +321,18 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   
   /// TODO: universal language file support
   @objc func reloadImports() {
-    let rawCsvImport = importLanguageFile(language: "test")
-    let importedCsvAsDicts = csv(data: rawCsvImport)
-    updateUserDefFromImports(imports: importedCsvAsDicts)
     
-    if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
-      self.languages = languages
+    guard let files = getAllLanguageFileUrls() else { return }
+    
+    for file in files {
+      debugPrint(file.lastPathComponent)
+      let rawCsvImport = importLanguageFile(language: file.lastPathComponent)
+      let importedCsvAsDicts = csv(data: rawCsvImport)
+      updateUserDefFromImports(imports: importedCsvAsDicts, language: file.deletingPathExtension().lastPathComponent)
+      
+      if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
+        self.languages = languages
+      }
     }
     
     tableView.reloadData()
@@ -287,5 +340,24 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     self.view.layoutIfNeeded()
   }
   
+  @IBAction func tappedImportButton(_ sender: Any) {
+    reloadImports()
+  }
+  
+  func styleButtons() {
+    addLanguageButton.backgroundColor = BackgroundColor.green
+    addLanguageButton.layer.cornerRadius = 5.0
+    addLanguageButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+    addLanguageButton.setTitleColor(.black, for: .normal)
+  }
+  
+  func localize() {
+    headerText.text = NSLocalizedString("Your Languages", comment: "Your Languages")
+    addLanguageButton.setTitle(NSLocalizedString("Add language", comment: "Add language"), for: .normal)
+    
+    topButtons[0].setTitle(NSLocalizedString("Training", comment: "Training"), for: .normal)
+    topButtons[1].setTitle(NSLocalizedString("My words", comment: "My words"), for: .normal)
+    importButton.setTitle(NSLocalizedString("⤵ import", comment: "⤵ import"), for: .normal)
+  }
 }
 

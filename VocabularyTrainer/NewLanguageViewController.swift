@@ -19,11 +19,14 @@ class NewLanguageViewController: UIViewController {
   @IBOutlet weak var backButton: UIButton!
   @IBOutlet weak var addButton: UIButton!
   @IBOutlet weak var newLanguage: UITextField!
+  @IBOutlet weak var newLanguageHeader: UILabel!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
     // Do any additional setup after loading the view.
     styleButtons()
+    localize()
   }
   
   @IBAction func addLanguageTapped(_ sender: Any) {
@@ -51,11 +54,19 @@ class NewLanguageViewController: UIViewController {
     backButton.backgroundColor = BackgroundColor.blue
     backButton.layer.cornerRadius = 5.0
     backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    backButton.setTitleColor(.white, for: .normal)
+    backButton.setTitleColor(.black, for: .normal)
     
     addButton.backgroundColor = BackgroundColor.green
     addButton.layer.cornerRadius = 5.0
     addButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    addButton.setTitleColor(.white, for: .normal)
+    addButton.setTitleColor(.black, for: .normal)
+    addButton.setTitle(NSLocalizedString("Add language", comment: "Add language"), for: .normal)
+  }
+  
+  func localize() {
+    newLanguage.placeholder = NSLocalizedString("which language?", comment: "which language?")
+    addButton.setTitle(NSLocalizedString("Add", comment: "Add"), for: .normal)
+    backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
+    newLanguageHeader.text = NSLocalizedString("Add new language", comment: "Add new language")
   }
 }

@@ -44,6 +44,7 @@ class TrainingViewController: UIViewController {
     answerInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
     
     hideKeyboardWhenTappedAround()
+    localize()
   }
   
   func reloadVocabulariesAndProgresses() {
@@ -241,19 +242,19 @@ class TrainingViewController: UIViewController {
     
     checkInputButton.backgroundColor = BackgroundColor.blue
     checkInputButton.layer.cornerRadius = 5.0
-    checkInputButton.setTitleColor(.white, for: .normal)
+    checkInputButton.setTitleColor(.black, for: .normal)
     
     takeALookButton.backgroundColor = BackgroundColor.blue
     takeALookButton.layer.cornerRadius = 5.0
-    takeALookButton.setTitleColor(.white, for: .normal)
+    takeALookButton.setTitleColor(.black, for: .normal)
     
     nextButton.backgroundColor = BackgroundColor.yellow
     nextButton.layer.cornerRadius = 5.0
-    nextButton.setTitleColor(.white, for: .normal)
+    nextButton.setTitleColor(.black, for: .normal)
     
     backButton.backgroundColor = BackgroundColor.blue
     backButton.layer.cornerRadius = 5.0
-    backButton.setTitleColor(.white, for: .normal)
+    backButton.setTitleColor(.black, for: .normal)
     backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
     
   }
@@ -277,5 +278,13 @@ class TrainingViewController: UIViewController {
     }
     UserDefaults.standard.set(progresses, forKey: "\(language)Progress")
     
+  }
+  
+  func localize() {
+    answerInput.placeholder = NSLocalizedString("answer", comment: "answer")
+    checkInputButton.setTitle(NSLocalizedString("Check", comment: "Check"), for: .normal)
+    takeALookButton.setTitle(NSLocalizedString("Take a look", comment: "Take a look"), for: .normal)
+    nextButton.setTitle(NSLocalizedString("Skip word", comment: "Skip word"), for: .normal)
+    backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
   }
 }

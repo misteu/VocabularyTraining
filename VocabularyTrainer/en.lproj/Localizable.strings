@@ -1,0 +1,43 @@
+/* 
+  File.strings
+  VocabularyTrainer
+
+  Created by skrr on 29.05.19.
+  Copyright © 2019 mic. All rights reserved.
+*/
+
+"Your Languages" = "Your Languages";
+"Currently there are no languages" = "Currently there are no languages.\n\nYou may add new languages via the button below.";
+"Add language" = "➕ Add language";
+"Add new language" = "Add new language";
+"which language?" = "Which language?";
+"Add" = "➕ Add";
+"< Back" = "⬅ Back";
+"%d words" = "%d words";
+"%d word" = "%d word";
+"0 words" = "0 words";
+"My words" = "⚙️ Settings";
+"new Word" = "new word";
+"translation" = "translation";
+"Training" = "📖 Training";
+"Delete Language" = "🗑 Delete Language";
+"export" = "💾 export";
+"New word" = "New word";
+"Add new word" = "Add new word";
+"No words inside 🕵️‍♀️" = "No words inside 🕵️‍♀️";
+"Delete %@" = "Delete %@";
+"Deleting this language will delete all your saved words and your learning progress.\nDo you want to proceed?" = "Deleting this language will delete all your saved words and your learning progress.\nDo you want to proceed?";
+"Cancel" = "Cancel";
+"Delete" = "🗑 Delete";
+"New word added" = "New word added";
+"Change word`s probability" = "Change word`s probability";
+"Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100." = "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.";
+"Edit:" = "🛠 Edit:";
+"Export successful:" = "Export successful:";
+"You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder" = "You may copy your language file to your machine via iTunes. Goto: iPhone->Filesharing->Flippy->drag %@.csv to a folder of your choice.";
+"⤵ import" = "🦀 import";
+"answer" = "answer";
+"Check" = "Check";
+"Take a look" = "Take a look";
+"Skip word" = "Skip word";
+"search for words" = "search for words";

@@ -1,0 +1,43 @@
+/*
+ File.strings
+ VocabularyTrainer
+ 
+ Created by skrr on 29.05.19.
+ Copyright © 2019 mic. All rights reserved.
+ */
+
+"Your Languages" = "Deine Sprachen";
+"Currently there are no languages" = "Es wurden bisher keine Sprachen gespeichert.\n\nMit dem Button unten kannst du neue Sprachen hinzufügen.";
+"Add language" = "➕ Sprache hinzufügen";
+"Add new language" = "Neue Sprache hinzufügen";
+"which language?" = "Welche Sprache?";
+"Add" = "➕ Hinzufügen";
+"< Back" = "⬅ Zurück";
+"% words" = "% Wörter";
+"% word" = "% Wort";
+"0 words" = "0 Wörter";
+"My words" = "⚙️ Einstellungen";
+"new word" = "neues Wort";
+"translation" = "Übersetzung";
+"Training" = "📖 Training";
+"Delete Language" = "🗑 Sprache löschen";
+"export" = "💾 Sprachdatei exportieren";
+"New word" = "Neues Wort";
+"Add new word" = "Neues Wort hinzufügen";
+"No words inside 🕵️‍♀️" = "Keine Wörter vorhanden 🕵️‍♀️";
+"Delete %@" = "%@ löschen";
+"Deleting this language will delete all your saved words and your learning progress.\nDo you want to proceed?" = "Wenn du diese Sprache löschst werden alle gespeicherten Wörter und dein Fortschritt gelöscht.\nWillst du die Sprache wirklich löschen?";
+"Cancel" = "Abbrechen";
+"Delete" = "🗑 Löschen";
+"New word added" = "Neues Wort hinzugefügt";
+"Change word`s probability" = "Wortwahrscheinlichkeit ändern";
+"Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100." = "Ändere die Wortwahrscheinlichkeit. Je höher der Wert, desto wahrscheinlicher wird das Wort beim Training gezogen. Neue Wörter starten mit 100.";
+"Edit:" = "🛠 Bearbeiten:";
+"Export successful:" = "Export erfolgreich:";
+"You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder" = "Du kannst dein exportiertes Vokabular mittels iTunes auf deinen Computer kopieren. Öffne dazu in iTunes: iPhone->Dateifreigabe->Flippy->ziehe %@.csv in einen Ordner deiner Wahl.";
+"⤵ import" = "🦀 Sprachdateien importieren";
+"answer" = "Antwort";
+"Check" = "Prüfen";
+"Take a look" = "Umdrehen";
+"Skip word" = "Wort überspringen";
+"search for words" = "Wort suchen";
