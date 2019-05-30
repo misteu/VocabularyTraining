@@ -19,6 +19,8 @@ class LanguageTableViewCell: UITableViewCell {
     if let background = backgroundView {
       background.frame = background.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
     }
+    languageLabel.textColor = BackgroundColor.japaneseIndigo
+    languageWordsLabel.textColor = BackgroundColor.japaneseIndigo
     
     guard let selected = selectedBackgroundView else { return }
     selected.frame = selected.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
@@ -61,10 +63,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
     }
     
-    topButtons[0].backgroundColor = BackgroundColor.green
-    topButtons[1].backgroundColor = BackgroundColor.yellow
-    
-    styleButtons()
+    styleUi()
     localize()
   
     headerTextConstraintTop.constant = 32.0
@@ -99,8 +98,6 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     tableView.reloadData()
     setGradientBackground(view: view)
-    tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
-    tableView.layer.cornerRadius = 10.0
   }
   
   @IBOutlet weak var tableView: UITableView!
@@ -341,14 +338,32 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   }
   
   @IBAction func tappedImportButton(_ sender: Any) {
+    spinner(start: true)
     reloadImports()
+    _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: {_ in self.spinner(start: false)})
   }
   
-  func styleButtons() {
-    addLanguageButton.backgroundColor = BackgroundColor.green
+  func styleUi() {
+    addLanguageButton.backgroundColor = BackgroundColor.mediumSpringBud
     addLanguageButton.layer.cornerRadius = 5.0
     addLanguageButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    addLanguageButton.setTitleColor(.black, for: .normal)
+    addLanguageButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+  
+    topButtons[0].backgroundColor = BackgroundColor.mediumSpringBud
+    topButtons[0].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+    topButtons[1].backgroundColor = BackgroundColor.hansaYellow
+    topButtons[1].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+    
+    importButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+    importButton.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+    importButton.layer.cornerRadius = 5.0
+    importButton.contentEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
+    
+    headerText.textColor = BackgroundColor.japaneseIndigo
+    
+    tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+    tableView.layer.cornerRadius = 10.0
+  
   }
   
   func localize() {
@@ -356,8 +371,21 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     addLanguageButton.setTitle(NSLocalizedString("Add language", comment: "Add language"), for: .normal)
     
     topButtons[0].setTitle(NSLocalizedString("Training", comment: "Training"), for: .normal)
-    topButtons[1].setTitle(NSLocalizedString("My words", comment: "My words"), for: .normal)
+    topButtons[1].setTitle(NSLocalizedString("My words", comment: "settings"), for: .normal)
     importButton.setTitle(NSLocalizedString("⤵ import", comment: "⤵ import"), for: .normal)
+  }
+  
+  func spinner(start: Bool) {
+    let spinner = UIActivityIndicatorView(style: .whiteLarge)
+    if start {
+      spinner.startAnimating()
+      spinner.tag = 123
+      tableView.backgroundView = spinner
+    } else {
+      guard let spinner = tableView.viewWithTag(123) as? UIActivityIndicatorView else { return }
+      spinner.stopAnimating()
+    }
+    
   }
 }
 

@@ -69,7 +69,7 @@ class AddNewWordViewController: UIViewController {
     backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
     backButton.setTitleColor(.black, for: .normal)
     
-    addButton.backgroundColor = BackgroundColor.green
+    addButton.backgroundColor = BackgroundColor.hansaYellow
     addButton.layer.cornerRadius = 5.0
     addButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
     addButton.setTitleColor(.black, for: .normal)

@@ -17,6 +17,10 @@ class VocabularyCell: UITableViewCell {
   override func layoutSubviews() {
     super.layoutSubviews()
     backgroundColor = UIColor(white: 1.0, alpha: 0.0)
+    vocabularyRoot.textColor = BackgroundColor.japaneseIndigo
+    vocabularyTranslation.textColor = BackgroundColor.japaneseIndigo
+    vocabularyProgress.progressTintColor = BackgroundColor.red
+    vocabularyProgress.trackTintColor = BackgroundColor.mediumSpringBud
   }
 
 }
@@ -58,11 +62,9 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     searchBar.layer.cornerRadius = 10.0
     searchBar.layer.borderWidth = 0.0
     searchBar.clipsToBounds = true
-    styleButtons()
+    styleUi()
     localize()
     setGradientBackground(view: view)
-    //tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
-    tableView.layer.cornerRadius = 10.0
     }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -277,20 +279,31 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     exportAsCsvToDocuments()
   }
   
-  func styleButtons() {
-    newWordButton.backgroundColor = BackgroundColor.green
+  func styleUi() {
+    newWordButton.backgroundColor = BackgroundColor.mediumSpringBud
     newWordButton.layer.cornerRadius = 5.0
-    newWordButton.setTitleColor(.black, for: .normal)
+    newWordButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
     
     deleteButton.backgroundColor = BackgroundColor.red
     deleteButton.layer.cornerRadius = 5.0
     deleteButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    deleteButton.setTitleColor(.black, for: .normal)
+    deleteButton.setTitleColor(BackgroundColor.mediumWhite, for: .normal)
     
-    backButton.backgroundColor = BackgroundColor.blue
+    backButton.backgroundColor = BackgroundColor.hansaYellow
     backButton.layer.cornerRadius = 5.0
     backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    backButton.setTitleColor(.black, for: .normal)
+    backButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+    
+    tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+    tableView.layer.cornerRadius = 10.0
+    
+    exportButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+    exportButton.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+    exportButton.layer.cornerRadius = 5.0
+    exportButton.contentEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
+    
+    searchBar.tintColor = UIColor(white: 1.0, alpha: 0.3)
+  
   }
   
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {

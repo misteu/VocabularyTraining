@@ -28,7 +28,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hmh-sV-OBV">
-                                <rect key="frame" x="16" y="166" width="343" height="411"/>
+                                <rect key="frame" x="16" y="170" width="343" height="407"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="languageCell" id="Vxh-sC-nQk" customClass="LanguageTableViewCell" customModule="VocabularyTrainer" customModuleProvider="target">
@@ -122,7 +122,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hmh-sV-OBV" secondAttribute="trailing" constant="16" id="19m-uM-eWS"/>
-                            <constraint firstItem="Hmh-sV-OBV" firstAttribute="top" secondItem="Wfy-tB-0pH" secondAttribute="bottom" constant="4" id="29k-Uh-opU"/>
+                            <constraint firstItem="Hmh-sV-OBV" firstAttribute="top" secondItem="Wfy-tB-0pH" secondAttribute="bottom" constant="8" id="29k-Uh-opU"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Nrq-QQ-ihD" secondAttribute="trailing" constant="32" id="3Sz-3o-NYf"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Nrq-QQ-ihD" secondAttribute="bottom" constant="32" id="JEr-Rf-D4R"/>
                             <constraint firstItem="Wfy-tB-0pH" firstAttribute="top" secondItem="rNH-Y6-8Zv" secondAttribute="bottom" constant="4" id="Wbc-sd-zag"/>
@@ -189,12 +189,12 @@
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" placeholder="search for words" translatesAutoresizingMaskIntoConstraints="NO" id="4AL-Ff-pOI">
-                                <rect key="frame" x="16" y="164.5" width="343" height="56"/>
+                                <rect key="frame" x="16" y="168.5" width="343" height="56"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QXi-Ew-0GH">
-                                <rect key="frame" x="16" y="236.5" width="343" height="356.5"/>
+                                <rect key="frame" x="16" y="240.5" width="343" height="352.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vocabularyCell" id="Lzo-ia-qrE" customClass="VocabularyCell" customModule="VocabularyTrainer" customModuleProvider="target">
@@ -275,7 +275,7 @@
                         <constraints>
                             <constraint firstItem="BUp-gp-Omw" firstAttribute="leading" secondItem="YqQ-hZ-cy0" secondAttribute="leading" constant="32" id="6bw-5D-fzM"/>
                             <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" secondItem="BUp-gp-Omw" secondAttribute="trailing" constant="32" id="A0a-CU-edC"/>
-                            <constraint firstItem="4AL-Ff-pOI" firstAttribute="top" secondItem="8Cb-Nv-Z0p" secondAttribute="bottom" constant="4" id="BiC-nl-vom"/>
+                            <constraint firstItem="4AL-Ff-pOI" firstAttribute="top" secondItem="8Cb-Nv-Z0p" secondAttribute="bottom" constant="8" id="BiC-nl-vom"/>
                             <constraint firstItem="4AL-Ff-pOI" firstAttribute="leading" secondItem="YqQ-hZ-cy0" secondAttribute="leading" constant="16" id="Cxf-sQ-LKw"/>
                             <constraint firstItem="QXi-Ew-0GH" firstAttribute="leading" secondItem="YqQ-hZ-cy0" secondAttribute="leading" constant="16" id="Kf4-gw-OrY"/>
                             <constraint firstItem="zUX-sC-O0i" firstAttribute="top" secondItem="YqQ-hZ-cy0" secondAttribute="top" constant="16" id="OKV-3E-bTV"/>
