@@ -22,6 +22,14 @@ class VocabularyCell: UITableViewCell {
     vocabularyProgress.progressTintColor = BackgroundColor.red
     vocabularyProgress.trackTintColor = BackgroundColor.mediumSpringBud
   }
+  
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    if selected {
+      contentView.backgroundColor = BackgroundColor.hansaYellow
+    } else {
+        contentView.backgroundColor = UIColor.clear
+    }
+  }
 
 }
 
@@ -33,7 +41,7 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   @IBOutlet weak var newWordButton: UIButton!
   @IBOutlet weak var deleteButton: UIButton!
   @IBOutlet weak var exportButton: UIButton!
-  
+  @IBOutlet weak var swipeToEditLabel: UILabel!
   @IBOutlet weak var tableView: UITableView!
   var selectedLanguage: String?
   var vocabularies = [(String,String,Float)]()
@@ -43,6 +51,9 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   var isSearching = false
   var totalProgress = Float(0)
   var maxProgress = Float(0)
+  var completed: (()->Void)?
+  
+  var delegate: NewLanguageScreenProtocol? = nil
   
   @IBOutlet weak var languageHeader: UILabel!
   
@@ -68,11 +79,11 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     }
   
   override func viewWillAppear(_ animated: Bool) {
-    
     loadDataAndUpdate()
   }
-    
+  
   @IBAction func backButtonTapped(_ sender: Any) {
+    completed?()
     dismiss(animated: true, completion: nil)
   }
   
@@ -96,7 +107,11 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
       UserDefaults.standard.removeObject(forKey: "\(language)Progress")
       
       
-      self.dismiss(animated: true, completion: nil)
+      self.dismiss(animated: true, completion: { () in
+        if let delegate = self.delegate {
+          delegate.updateLanguageTable(language: language)
+        }
+      })
     }))
     
     // show the alert
@@ -114,9 +129,15 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     
     if vocabularies.count == 0 {
       searchBar.isHidden = true
+      tableView.isHidden = true
+      swipeToEditLabel.text = NSLocalizedString("ℹ️ Add new words with the button below", comment: "ℹ️ Add new words with the button below")
       view.layoutIfNeeded()
     } else {
       searchBar.isHidden = false
+      tableView.isHidden = false
+      
+      swipeToEditLabel.text = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
+      
       view.layoutIfNeeded()
     }
     
@@ -156,6 +177,9 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     if segue.identifier == SegueName.showAddWordSegue {
       guard let secondVC = segue.destination as? AddNewWordViewController else { print("no segue found"); return}
       secondVC.selectedLanguage = selectedLanguage
+      secondVC.completed = { [weak self] in
+        self?.loadDataAndUpdate()
+      }
     }
     
   }
@@ -454,6 +478,8 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     newWordButton.setTitle(NSLocalizedString("New word", comment: "New word"), for: .normal)
     exportButton.setTitle(NSLocalizedString("export", comment: "export"), for: .normal)
     searchBar.placeholder = NSLocalizedString("search for words", comment: "search for words")
+  
+    swipeToEditLabel.text = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
   }
 
   

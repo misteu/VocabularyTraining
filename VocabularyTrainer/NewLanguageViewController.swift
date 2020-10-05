@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol NewLanguageScreenProtocol {
-  func setNewLanguage(language: String)
-}
-
 class NewLanguageViewController: UIViewController {
   
   var delegate: NewLanguageScreenProtocol? = nil
@@ -27,12 +23,12 @@ class NewLanguageViewController: UIViewController {
     // Do any additional setup after loading the view.
     styleButtons()
     localize()
+    setGradientBackground(view: view)
   }
   
   @IBAction func addLanguageTapped(_ sender: Any) {
     
     if let delegate = self.delegate, let newLanguage = newLanguage.text {
-      delegate.setNewLanguage(language: newLanguage)
       
       if let savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
         var languages = savedLanguages
@@ -41,7 +37,7 @@ class NewLanguageViewController: UIViewController {
       } else {
         UserDefaults.standard.set([newLanguage], forKey: UserDefaultKeys.languages)
       }
-      
+      delegate.updateLanguageTable(language: newLanguage)
       dismiss(animated: true, completion: nil)
     }
     

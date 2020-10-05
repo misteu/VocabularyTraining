@@ -7,6 +7,11 @@
 //
 
 import UIKit
+import WebKit
+
+protocol NewLanguageScreenProtocol {
+  func updateLanguageTable(language: String)
+}
 
 class LanguageTableViewCell: UITableViewCell {
   
@@ -19,11 +24,22 @@ class LanguageTableViewCell: UITableViewCell {
     if let background = backgroundView {
       background.frame = background.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
     }
-    languageLabel.textColor = BackgroundColor.japaneseIndigo
-    languageWordsLabel.textColor = BackgroundColor.japaneseIndigo
+    
+    languageLabel.textColor = .black
+    languageWordsLabel.textColor = .black
+    
     
     guard let selected = selectedBackgroundView else { return }
     selected.frame = selected.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+  
+  }
+  
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    if selected {
+      contentView.backgroundColor = BackgroundColor.hansaYellow
+    } else {
+      contentView.backgroundColor = UIColor.clear
+    }
   }
 }
 
@@ -43,18 +59,38 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   @IBOutlet weak var headerTextConstraintTop: NSLayoutConstraint!
   @IBOutlet weak var headerText: UILabel!
   @IBOutlet weak var importButton: UIButton!
+  @IBOutlet weak var exportButton: UIButton!
+  @IBOutlet weak var aboutAppButton: UIButton!
   
   var languages = [String]()
   var selectedRow: Int? = nil
   private let refreshControl = UIRefreshControl()
-  
-  func setNewLanguage(language: String) {
-    debugPrint("\(language) added")
-  }
 
+  private var loadingController: UIAlertController?
+  let webView = WKWebView()
+  let webViewVC = UIViewController()
+  
+  func updateLanguageTable(language: String) {
+    debugPrint("\(language) added/deleted")
+    tableView.reloadData()
+    
+    if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
+      self.languages = languages
+    }
+  }
+  
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    if languages.count > 0 {
+      DispatchQueue.main.async {
+        self.view.viewWithTag(99)?.removeFromSuperview()
+      }
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
+    webView.navigationDelegate = self
     for button in topButtons {
       button.isHidden = true
       button.alpha = 0.0
@@ -67,7 +103,6 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     localize()
   
     headerTextConstraintTop.constant = 32.0
-    
     tableView.delegate = self
     tableView.dataSource = self
     
@@ -80,43 +115,73 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     hideKeyboardWhenTappedAround()
     
-    if #available(iOS 10.0, *) {
-      tableView.refreshControl = refreshControl
-    } else {
-      tableView.addSubview(refreshControl)
-    }
-    refreshControl.addTarget(self, action: #selector(reloadImports), for: .valueChanged)
-  
-    debugPrint(getAllLanguageFileUrls())
+//    if #available(iOS 10.0, *) {
+//      tableView.refreshControl = refreshControl
+//    } else {
+//      tableView.addSubview(refreshControl)
+//    }
+//    refreshControl.addTarget(self, action: #selector(reloadImports), for: .valueChanged)
+//
+    debugPrint(ExportImport.getAllLanguageFileUrls())
   }
   
+  
   override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+    _ = checkNumberOfLanguages()
     
     if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
       self.languages = languages
     }
-    
     tableView.reloadData()
     setGradientBackground(view: view)
+  }
+  
+  override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(true)
+    if languages.count > 0 {
+      view.viewWithTag(99)?.removeFromSuperview()
+    }
   }
   
   @IBOutlet weak var tableView: UITableView!
   
   let defaults = UserDefaults.standard
   
-  func tableView(_ tbleView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    guard let rows = defaults.array(forKey: UserDefaultKeys.languages)?.count else { return 0}
+  fileprivate func showNoLanguagesLabel() {
+//    let noLanguagesLabel = UILabel(frame: CGRect(x: 20, y: importButton.frame.maxY, width: view.frame.width-40, height: tableView.frame.height))
+    let noLanguagesLabel = UILabel()
+    view.addSubview(noLanguagesLabel)
+    
+    noLanguagesLabel.text = NSLocalizedString("Currently there are no languages", comment: "Currently there are no languages")
+    noLanguagesLabel.textAlignment = .center
+    noLanguagesLabel.numberOfLines = 0
+    noLanguagesLabel.tag = 99
+    noLanguagesLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+    NSLayoutConstraint.activate([
+      noLanguagesLabel.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 20.0),
+      noLanguagesLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 20.0),
+      noLanguagesLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -20.0)
+    ])
+    
+  }
+  
+  func checkNumberOfLanguages()->Int {
+    guard let rows = defaults.array(forKey: UserDefaultKeys.languages)?.count else {
+      showNoLanguagesLabel()
+      return 0
+    }
     if rows < 1 {
-      let noLanguagesLabel = UILabel(frame: CGRect(x: 20, y: view.frame.maxY/2-75, width: view.frame.width-40, height: 150))
-      noLanguagesLabel.text = NSLocalizedString("Currently there are no languages", comment: "Currently there are no languages")
-      noLanguagesLabel.textAlignment = .center
-      noLanguagesLabel.numberOfLines = 0
-      noLanguagesLabel.tag = 99
-      view.addSubview(noLanguagesLabel)
+      showNoLanguagesLabel()
     } else {
       view.viewWithTag(99)?.removeFromSuperview()
     }
     return rows
+  }
+  
+  func tableView(_ tbleView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return checkNumberOfLanguages()
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -162,6 +227,10 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     if segue.identifier == SegueName.showLanguageSegue {
       let secondVC = segue.destination as! LanguageScreenViewController
       secondVC.selectedLanguage = selectedLanguage
+      secondVC.delegate = self
+      secondVC.completed = { [weak self] in
+        self?.tableView.reloadData()
+      }
     }
     
     if segue.identifier == SegueName.showTrainingSegue {
@@ -183,8 +252,6 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         button.isHidden = false
       }
     })
-    
-    
 //      for cell in tableView.visibleCells{
 //        if cell.isSelected{
 //          UIView.animate(withDuration: 0.3, animations: {
@@ -244,103 +311,83 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     guard let _ = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { debugPrint("no vocabularies found"); return false}
     return true
   }
-  
-  func importLanguageFile(language: String)->String {
-    let file = language
-    var result = ""
-    
-    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-      let fileURL = dir.appendingPathComponent(file)
       
-      do {
-        result = try String(contentsOf: fileURL, encoding: .macOSRoman)
-      }
-      catch {/* error handling here */}
-      
-    }
-    return result
-  }
-  
-  func getAllLanguageFileUrls()->[URL]? {
-    if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-      
-      do {
-        let directoryContents = try FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
-        return directoryContents
-      }
-      catch {
-        return nil
-      }
-    }
-    return nil
-  }
-  
-  func csv(data: String) -> LanguageImport {
-    var vocabDict = [String:String]()
-    var vocabProgr = [String:Float]()
-    
-    let rows = data.components(separatedBy: "\n")
-    for (index,row) in rows.enumerated() {
-      if index > 0 {
-        let columns = row.components(separatedBy: ";")
-        vocabDict[columns[0]] = columns[1]
-        vocabProgr[columns[0]] = (columns[2] as NSString).floatValue
-      }
-    }
-    
-    let result = LanguageImport.init(vocabularies: vocabDict, progresses: vocabProgr)
-  
-    return result
-  }
-  
-  func updateUserDefFromImports(imports: LanguageImport, language: String) {
-    let languageVocabProgressKey = "\(language)Progress"
-    
-    UserDefaults.standard.set(imports.vocabularies, forKey: language)
-    UserDefaults.standard.set(imports.progresses, forKey: languageVocabProgressKey)
-    
-    if let savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
-      
-      for lang in savedLanguages {
-        if lang == language { return }
-      }
-      
-      var languages = savedLanguages
-      languages.append(language)
-      UserDefaults.standard.set(languages, forKey: UserDefaultKeys.languages)
-      
-    } else {
-      UserDefaults.standard.set([language], forKey: UserDefaultKeys.languages)
-    }
-    
-  }
-  
-  
   /// TODO: universal language file support
   @objc func reloadImports() {
     
-    guard let files = getAllLanguageFileUrls() else { return }
+    guard let files = ExportImport.getAllLanguageFileUrls() else { return }
     
-    for file in files {
-      debugPrint(file.lastPathComponent)
-      let rawCsvImport = importLanguageFile(language: file.lastPathComponent)
-      let importedCsvAsDicts = csv(data: rawCsvImport)
-      updateUserDefFromImports(imports: importedCsvAsDicts, language: file.deletingPathExtension().lastPathComponent)
-      
-      if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
+    if files.count == 0 {
+      let alert = UIAlertController(title: NSLocalizedString("No language files found", comment: "No language files found"), message: NSLocalizedString("There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.", comment: "There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.")
+        , preferredStyle: UIAlertController.Style.alert)
+      alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+      self.present(alert, animated: true, completion: nil)
+    } else {
+      view.viewWithTag(99)?.removeFromSuperview()
+      ExportImport.importLanguageFiles(files)
+      if let languages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
         self.languages = languages
       }
+      
+      tableView.reloadData()
+      self.refreshControl.endRefreshing()
+      self.view.layoutIfNeeded()
+      
+      if tableView.numberOfRows(inSection: tableView.numberOfSections-1) > 0 {
+        view.viewWithTag(99)?.removeFromSuperview()
+      }
     }
-    
-    tableView.reloadData()
-    self.refreshControl.endRefreshing()
-    self.view.layoutIfNeeded()
   }
   
   @IBAction func tappedImportButton(_ sender: Any) {
     spinner(start: true)
-    reloadImports()
-    _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: {_ in self.spinner(start: false)})
+    
+    if languages.count > 0 {
+    
+      let alert = UIAlertController(title:NSLocalizedString("Importing language files", comment: "Importing language files"), message: NSLocalizedString("Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?", comment: "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?"), preferredStyle: UIAlertController.Style.alert)
+      
+      // add the actions (buttons)
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertAction.Style.cancel, handler: { action in
+        self.spinner(start: false)
+      }))
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Import", comment: "Import"), style: UIAlertAction.Style.destructive, handler: { action in
+        
+        self.reloadImports()
+        _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: {_ in self.spinner(start: false)})
+        
+      }))
+      self.present(alert, animated: true, completion: nil)
+    } else {
+      self.reloadImports()
+      _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: {_ in self.spinner(start: false)})
+    }
+    
+  }
+  @IBAction func tappedExportButton(_ sender: Any) {
+    if let selectedRow = selectedRow {
+      debugPrint(languages[selectedRow])
+      //    for language in languages {
+      //      ExportImport.exportAsCsvToDocuments(language: language)
+      //    }
+
+      //    let alert = UIAlertController(title: "\(NSLocalizedString("Exported the following languages:", comment: "Exported the following languages:"))", message: "\(languages.joined(separator: ", ")) \n\n\(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder", comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder"))"
+      //      , preferredStyle: UIAlertController.Style.alert)
+      //    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+      //    self.present(alert, animated: true, completion: nil)
+
+      let words = ExportImport.exportAsCsvToDocuments(language: languages[selectedRow])
+      let ac = UIActivityViewController(activityItems: [words], applicationActivities: nil)
+      present(ac, animated: true)
+      self.selectedRow = nil
+      tableView.deselectRow(at: IndexPath(row: selectedRow, section: 0), animated: true)
+    } else {
+      let alert = UIAlertController(title: NSLocalizedString("No language selected",
+                                                             comment: "Title for popup when no language was selected"),
+                                    message: NSLocalizedString("Please select a language to export first.", comment: "Text for no-language-selected popup."),
+                                    preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+      present(alert, animated: true, completion: nil)
+    }
   }
   
   func styleUi() {
@@ -359,10 +406,15 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     importButton.layer.cornerRadius = 5.0
     importButton.contentEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
     
-    headerText.textColor = BackgroundColor.japaneseIndigo
+    exportButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+    exportButton.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+    exportButton.layer.cornerRadius = 5.0
+    exportButton.contentEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
     
     tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
     tableView.layer.cornerRadius = 10.0
+    
+    aboutAppButton.setTitleColor(.white, for: .normal)
   
   }
   
@@ -373,6 +425,8 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     topButtons[0].setTitle(NSLocalizedString("Training", comment: "Training"), for: .normal)
     topButtons[1].setTitle(NSLocalizedString("My words", comment: "settings"), for: .normal)
     importButton.setTitle(NSLocalizedString("⤵ import", comment: "⤵ import"), for: .normal)
+    exportButton.setTitle(NSLocalizedString("↑ export", comment: "↑ export"), for: .normal)
+    aboutAppButton.setTitle(NSLocalizedString("About Flippy App", comment: "About Flippy App"), for: .normal)
   }
   
   func spinner(start: Bool) {
@@ -386,6 +440,97 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       spinner.stopAnimating()
     }
     
+  }
+  
+  
+  @IBAction func tappedAboutApp(_ sender: Any) {
+    let closeButton = UIButton()
+    closeButton.translatesAutoresizingMaskIntoConstraints = false
+    closeButton.backgroundColor = BackgroundColor.hansaYellow
+    closeButton.setTitle(NSLocalizedString("Close", comment: "Close"), for: .normal)
+    closeButton.addTarget(self, action: #selector(tappedClose), for: .touchUpInside)
+    closeButton.setTitleColor(.black, for: .normal)
+    
+    let versionLabel = UILabel()
+    let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    versionLabel.text = "FlippyLearn Version: \(appVersion ?? "unknown")"
+    versionLabel.translatesAutoresizingMaskIntoConstraints = false
+    versionLabel.textAlignment = .center
+    versionLabel.backgroundColor = BackgroundColor.hansaYellow
+
+    webView.translatesAutoresizingMaskIntoConstraints = false
+    webViewVC.view.addSubview(closeButton)
+    webViewVC.view.addSubview(webView)
+    webViewVC.view.addSubview(versionLabel)
+    
+    NSLayoutConstraint.activate([
+      webViewVC.view.topAnchor.constraint(equalTo: closeButton.topAnchor),
+      webViewVC.view.leftAnchor.constraint(equalTo: closeButton.leftAnchor),
+      webViewVC.view.rightAnchor.constraint(equalTo: closeButton.rightAnchor),
+      webViewVC.view.leftAnchor.constraint(equalTo: webView.leftAnchor),
+      webViewVC.view.rightAnchor.constraint(equalTo: webView.rightAnchor),
+      webView.topAnchor.constraint(equalTo: closeButton.bottomAnchor),
+      webView.bottomAnchor.constraint(equalTo: versionLabel.topAnchor),
+      versionLabel.leftAnchor.constraint(equalTo: webViewVC.view.leftAnchor),
+      versionLabel.rightAnchor.constraint(equalTo: webViewVC.view.rightAnchor),
+      versionLabel.bottomAnchor.constraint(equalTo: webViewVC.view.bottomAnchor)
+    ])
+
+    showLoadingIndicator()
+    if let locale = Locale.current.languageCode {
+      var ppUrl: URL?
+      if locale == "de" {
+        ppUrl = URL(string: "https://mic.st/flippyLearn/pp_de.html")
+      } else {
+        ppUrl = URL(string: "https://mic.st/flippyLearn/pp_en.html")
+      }
+      if let ppUrl = ppUrl {
+      	webView.load(URLRequest(url: ppUrl))
+      } else {
+        loadLocalPp(webView)
+      }
+    } else {
+      loadLocalPp(webView)
+    }
+  }
+
+  private func loadLocalPp(_ webView: WKWebView) {
+    guard let htmlFile = Bundle.main.path(forResource: "pp", ofType: "html") else { return }
+    guard let html = try? String(contentsOfFile: htmlFile, encoding: String.Encoding.utf8) else { return }
+    webView.loadHTMLString(html, baseURL: nil)
+  }
+  
+  @objc func tappedClose() {
+    presentedViewController?.dismiss(animated: true)
+  }
+
+  private func showLoadingIndicator() {
+    /// Loading indicator
+     loadingController = UIAlertController(title: nil,
+                                           message: NSLocalizedString("Please wait...",
+                                                                      comment: "Message on loading indicator"),
+                                           preferredStyle: .alert)
+     if let loadingController = loadingController {
+       loadingController.view.tintColor = .black
+       let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
+       loadingIndicator.hidesWhenStopped = true
+       loadingIndicator.style = UIActivityIndicatorView.Style.gray
+       loadingIndicator.startAnimating();
+
+       loadingController.view.addSubview(loadingIndicator)
+       present(loadingController, animated: true, completion: nil)
+     }
+  }
+  
+}
+
+extension HomeScreenViewController: WKNavigationDelegate {
+  func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    dismiss(animated: true) {
+      self.present(self.webViewVC, animated: true) {
+        webView.scrollView.setContentOffset(CGPoint(x: 0, y: webView.safeAreaInsets.top), animated: true)
+      }
+    }
   }
 }
 

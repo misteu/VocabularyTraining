@@ -29,6 +29,7 @@ class TrainingViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    setGradientBackground(view: view)
     currentTrainingHeader.numberOfLines = 0;
     currentTrainingHeader.lineBreakMode = .byWordWrapping
     currentTrainingHeader.text = """
@@ -115,17 +116,17 @@ class TrainingViewController: UIViewController {
       currentVocabulary.text = vocabs[key]
       isKeyShown = false
     }
-    nextButton.setTitle("Skip word", for: .normal)
+    nextButton.setTitle(NSLocalizedString("Skip word", comment: "Skip word"), for: .normal)
   }
   @IBAction func rightAnswerTapped(_ sender: Any) {
     guard let key = currentKey else {print("no current key"); return}
-    changeWordsProbability(increase: true, key: key)
+    changeWordsProbability(increase: false, key: key)
     pickNewVocabAndUpdateView()
   }
   
   @IBAction func wrongAnswerTapped(_ sender: Any) {
     guard let key = currentKey else {print("no current key"); return}
-    changeWordsProbability(increase: false, key: key)
+    changeWordsProbability(increase: true, key: key)
     pickNewVocabAndUpdateView()
   }
   
@@ -217,7 +218,7 @@ class TrainingViewController: UIViewController {
     UIView.animate(withDuration: 0.2, animations: {
       self.rightAnswerButton.alpha = 0.0
       self.wrongAnswerButton.alpha = 0.0
-      self.answerInput.backgroundColor = .white
+      self.answerInput.backgroundColor = .none
     }, completion: { (finished: Bool) in
       self.rightAnswerButton.isHidden = true
       self.wrongAnswerButton.isHidden = true
@@ -252,7 +253,7 @@ class TrainingViewController: UIViewController {
     nextButton.layer.cornerRadius = 5.0
     nextButton.setTitleColor(.black, for: .normal)
     
-    backButton.backgroundColor = BackgroundColor.blue
+    backButton.backgroundColor = BackgroundColor.hansaYellow
     backButton.layer.cornerRadius = 5.0
     backButton.setTitleColor(.black, for: .normal)
     backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
@@ -286,5 +287,11 @@ class TrainingViewController: UIViewController {
     takeALookButton.setTitle(NSLocalizedString("Take a look", comment: "Take a look"), for: .normal)
     nextButton.setTitle(NSLocalizedString("Skip word", comment: "Skip word"), for: .normal)
     backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
+    
+    
+    rightAnswerButton.setTitle(NSLocalizedString("👍 I was right", comment: "👍 I was right"), for: .normal)
+    wrongAnswerButton.setTitle(NSLocalizedString("👎 I was wrong", comment: "👎 I was wrong"), for: .normal)
   }
+  
+  // TODO: Export when pressed Backbutton or closed app (app delegate!)
 }

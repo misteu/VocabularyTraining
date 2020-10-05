@@ -21,6 +21,7 @@
 		CE86C5802235C8AD008A5B73 /* LanguageScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */; };
 		CE86C5822235C971008A5B73 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5812235C971008A5B73 /* Helper.swift */; };
 		CE86C584223684D2008A5B73 /* AddNewWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */; };
+		CECD6342235E54350060911F /* pp.html in Resources */ = {isa = PBXBuildFile; fileRef = CECD6344235E54350060911F /* pp.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,10 @@
 		CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageScreenViewController.swift; sourceTree = "<group>"; };
 		CE86C5812235C971008A5B73 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWordViewController.swift; sourceTree = "<group>"; };
+		CECD6343235E54350060911F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/pp.html; sourceTree = "<group>"; };
+		CECD6346235E54420060911F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/pp.html; sourceTree = "<group>"; };
+		CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocabularyTrainer.entitlements; sourceTree = "<group>"; };
+		CEFC4B9C2393EAA8000B370F /* VocabularyTrainer copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "VocabularyTrainer copy-Info.plist"; path = "/Volumes/ssd/iOS/iOSDev/VocabularyTrainer/VocabularyTraining/VocabularyTrainer copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +102,7 @@
 				CE86C55F2235AE23008A5B73 /* VocabularyTrainerTests */,
 				CE86C56A2235AE23008A5B73 /* VocabularyTrainerUITests */,
 				CE86C5492235AE20008A5B73 /* Products */,
+				CEFC4B9C2393EAA8000B370F /* VocabularyTrainer copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -113,6 +119,7 @@
 		CE86C54A2235AE20008A5B73 /* VocabularyTrainer */ = {
 			isa = PBXGroup;
 			children = (
+				CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */,
 				CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */,
 				CE86C54B2235AE20008A5B73 /* AppDelegate.swift */,
 				CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */,
@@ -126,6 +133,7 @@
 				CE0FE4F72238585A00430FDE /* TrainingViewController.swift */,
 				CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */,
 				CE05F624229F17AF0097E3BB /* Localizable.strings */,
+				CECD6344235E54350060911F /* pp.html */,
 			);
 			path = VocabularyTrainer;
 			sourceTree = "<group>";
@@ -254,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE05F622229F17AF0097E3BB /* Localizable.strings in Resources */,
+				CECD6342235E54350060911F /* pp.html in Resources */,
 				CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */,
 				CE2EB8272245406A006B1C6D /* Launch Screen.storyboard in Resources */,
 				CE86C5512235AE20008A5B73 /* Main.storyboard in Resources */,
@@ -340,6 +349,15 @@
 				CE05F621229F17830097E3BB /* de */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		CECD6344235E54350060911F /* pp.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CECD6343235E54350060911F /* Base */,
+				CECD6346235E54420060911F /* de */,
+			);
+			name = pp.html;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -467,17 +485,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VocabularyTrainer/VocabularyTrainer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T68RPD4WZ;
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -485,17 +509,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = VocabularyTrainer/VocabularyTrainer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T68RPD4WZ;
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.10;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
