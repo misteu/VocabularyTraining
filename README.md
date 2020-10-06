@@ -1,4 +1,7 @@
-# VocabularyTraining
+# Flippy Learn
+
+<img src=https://github.com/misteu/VocabularyTraining/blob/master/screenshots/flippy1.png width=200><img src=https://github.com/misteu/VocabularyTraining/blob/master/screenshots/flippy2.png width=200><img src=https://github.com/misteu/VocabularyTraining/blob/master/screenshots/flippy4.png width=200><img src=https://github.com/misteu/VocabularyTraining/blob/master/screenshots/flippy5.png width=200><img src=https://github.com/misteu/VocabularyTraining/blob/master/screenshots/flippy6.png width=200><img src=https://github.com/misteu/VocabularyTraining/blob/master/screenshots/flippy7.png width=200>
+
 Simple vocabulary Trainer written in Swift
 
 This Vocabulary Trainer is using the basic principle of learning with flash cards. You can create as many languages as you like and write words and their translation.
