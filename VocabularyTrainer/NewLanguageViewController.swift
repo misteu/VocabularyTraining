@@ -27,8 +27,8 @@ class NewLanguageViewController: UIViewController {
   }
   
   @IBAction func addLanguageTapped(_ sender: Any) {
-    
-    if let delegate = self.delegate, let newLanguage = newLanguage.text {
+	
+    if let delegate = self.delegate, let newLanguage = newLanguage.text, newLanguage != "" {
       
       if let savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
         var languages = savedLanguages

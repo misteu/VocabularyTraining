@@ -67,7 +67,6 @@
 		CECD6343235E54350060911F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/pp.html; sourceTree = "<group>"; };
 		CECD6346235E54420060911F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/pp.html; sourceTree = "<group>"; };
 		CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocabularyTrainer.entitlements; sourceTree = "<group>"; };
-		CEFC4B9C2393EAA8000B370F /* VocabularyTrainer copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "VocabularyTrainer copy-Info.plist"; path = "/Volumes/ssd/iOS/iOSDev/VocabularyTrainer/VocabularyTraining/VocabularyTrainer copy-Info.plist"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,7 +101,6 @@
 				CE86C55F2235AE23008A5B73 /* VocabularyTrainerTests */,
 				CE86C56A2235AE23008A5B73 /* VocabularyTrainerUITests */,
 				CE86C5492235AE20008A5B73 /* Products */,
-				CEFC4B9C2393EAA8000B370F /* VocabularyTrainer copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -496,7 +494,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.10;
+				MARKETING_VERSION = 1.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -520,7 +518,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.10;
+				MARKETING_VERSION = 1.0.12;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
