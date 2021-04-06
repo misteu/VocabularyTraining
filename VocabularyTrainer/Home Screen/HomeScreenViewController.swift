@@ -13,43 +13,17 @@ protocol NewLanguageScreenProtocol {
   func updateLanguageTable(language: String)
 }
 
-class LanguageTableViewCell: UITableViewCell {
-  
-  @IBOutlet weak var languageLabel: UILabel!
-  @IBOutlet weak var languageWordsLabel: UILabel!
-  
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    backgroundColor = UIColor(white: 1.0, alpha: 0.0)
-    if let background = backgroundView {
-      background.frame = background.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
-    }
-    
-    languageLabel.textColor = .black
-    languageWordsLabel.textColor = .black
-    
-    
-    guard let selected = selectedBackgroundView else { return }
-    selected.frame = selected.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
-  
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    if selected {
-      contentView.backgroundColor = BackgroundColor.hansaYellow
-    } else {
-      contentView.backgroundColor = UIColor.clear
-    }
-  }
-}
-
 struct LanguageImport {
   var vocabularies: [String:String]
   var progresses:[String:Float]
+	var datesAdded = [String: Date]()
   
-  init(vocabularies: [String:String], progresses: [String:Float]) {
+  init(vocabularies: [String:String],
+	   progresses: [String:Float],
+	   datesAdded: [String: Date]) {
     self.vocabularies = vocabularies
     self.progresses = progresses
+	self.datesAdded = datesAdded
   }
 }
 

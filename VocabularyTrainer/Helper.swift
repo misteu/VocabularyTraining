@@ -105,6 +105,7 @@ class ExportImport {
     var vocabDict: [String:String]
     var vocabProgr: [String:Float]
     var vocabularies = [(String,String,Float)]()
+	var datesAdded = [String:Date]()
     
     /// crappy spaghetti code copied from language Screen VC
     if let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
@@ -114,6 +115,11 @@ class ExportImport {
     }
     
     guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String:Float] else { print("no progresses found"); return ""}
+
+	if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String:Date] {
+		datesAdded = dates
+	}
+
     vocabProgr = vocabProgress
     
     for (key, value) in vocabDict {
@@ -122,7 +128,7 @@ class ExportImport {
     
     let exportStringHead = """
     \(language)
-    word;translation;progress
+    word;translation;progress;dateAdded
     """
     var exportString = ""
     
@@ -131,7 +137,7 @@ class ExportImport {
       if exportString != "" {
         exportString = """
         \(exportString)
-        \(key);\(value);\(vocabProgr[key] ?? 100)
+        \(key);\(value);\(vocabProgr[key] ?? 100);\(VocabularyDateFormatter.dateFormatter.string(from: datesAdded[key] ?? Date()))
         """
       } else {
         exportString = "\(key);\(value);\(vocabProgr[key] ?? 100)"
@@ -227,6 +233,7 @@ class ExportImport {
   static func csv(data: String) -> LanguageImport {
     var vocabDict = [String:String]()
     var vocabProgr = [String:Float]()
+	var datesAdded = [String:Date]()
     
     let rows = data.components(separatedBy: "\n")
     for (index,row) in rows.enumerated() {
@@ -234,10 +241,11 @@ class ExportImport {
         let columns = row.components(separatedBy: ";")
         vocabDict[columns[0]] = columns[1]
         vocabProgr[columns[0]] = (columns[2] as NSString).floatValue
+		datesAdded[columns[0]] = VocabularyDateFormatter.dateFormatter.date(from: columns[3])
       }
     }
   
-    let result = LanguageImport.init(vocabularies: vocabDict, progresses: vocabProgr)
+	let result = LanguageImport.init(vocabularies: vocabDict, progresses: vocabProgr, datesAdded: datesAdded)
   
     return result
   }

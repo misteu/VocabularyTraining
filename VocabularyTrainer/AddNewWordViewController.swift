@@ -14,6 +14,7 @@ class AddNewWordViewController: UIViewController {
   var selectedLanguage: String?
   var vocabularies = [String:String]()
   var vocabulariesSuccessRates = [String:Float]()
+	var vocabulariesAddDates = [String:Date]()
   var completed: (()->Void)?
 
   @IBOutlet weak var newWordTextField: UITextField!
@@ -51,6 +52,7 @@ class AddNewWordViewController: UIViewController {
     guard let language = selectedLanguage else { print("error getting language"); return }
     
     let languageVocabProgressKey = "\(language)Progress"
+	let languageVocabDateAddedKey = "\(language)DateAdded"
   
     if let vocabs = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
       vocabularies = vocabs
@@ -59,14 +61,20 @@ class AddNewWordViewController: UIViewController {
     if let vocabsSuccess = UserDefaults.standard.dictionary(forKey: languageVocabProgressKey) as? [String:Float] {
       vocabulariesSuccessRates = vocabsSuccess
     }
+
+	if let vocabsDates = UserDefaults.standard.dictionary(forKey: languageVocabDateAddedKey) as? [String:Date] {
+		vocabulariesAddDates = vocabsDates
+	}
     
     if let word = newWordTextField.text, let translatedWord = translationTextField.text {
       vocabularies[word] = translatedWord
       vocabulariesSuccessRates[word] = 100
+		vocabulariesAddDates[word] = Date()
     }
     
     UserDefaults.standard.set(vocabularies, forKey: language)
     UserDefaults.standard.set(vocabulariesSuccessRates, forKey: languageVocabProgressKey)
+	UserDefaults.standard.set(vocabulariesAddDates, forKey: languageVocabDateAddedKey)
     
     print( "words: \(String(describing: UserDefaults.standard.dictionary(forKey: language)))")
     //dismiss(animated: true, completion: nil)

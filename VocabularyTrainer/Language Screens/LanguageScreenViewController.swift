@@ -9,31 +9,7 @@
 import UIKit
 import MessageUI
 
-class VocabularyCell: UITableViewCell {
-  @IBOutlet weak var vocabularyRoot: UILabel!
-  @IBOutlet weak var vocabularyTranslation: UILabel!
-  @IBOutlet weak var vocabularyProgress: UIProgressView!
-  
-  override func layoutSubviews() {
-    super.layoutSubviews()
-    backgroundColor = UIColor(white: 1.0, alpha: 0.0)
-    vocabularyRoot.textColor = BackgroundColor.japaneseIndigo
-    vocabularyTranslation.textColor = BackgroundColor.japaneseIndigo
-    vocabularyProgress.progressTintColor = BackgroundColor.red
-    vocabularyProgress.trackTintColor = BackgroundColor.mediumSpringBud
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    if selected {
-      contentView.backgroundColor = BackgroundColor.hansaYellow
-    } else {
-        contentView.backgroundColor = UIColor.clear
-    }
-  }
-
-}
-
-class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, MFMailComposeViewControllerDelegate {
+class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMailComposeViewControllerDelegate {
  
   @IBOutlet weak var searchBar: UISearchBar!
   
@@ -41,17 +17,33 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
   @IBOutlet weak var newWordButton: UIButton!
   @IBOutlet weak var deleteButton: UIButton!
   @IBOutlet weak var exportButton: UIButton!
-  @IBOutlet weak var swipeToEditLabel: UILabel!
+	@IBOutlet weak var sortWordButton: UIButton!
+	@IBOutlet weak var sortTranslationButton: UIButton!
+	@IBOutlet weak var sortDateButton: UIButton!
+
+
   @IBOutlet weak var tableView: UITableView!
   var selectedLanguage: String?
-  var vocabularies = [(String,String,Float)]()
+	var vocabularies = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
   var vocabDict = [String:String]()
   var vocabProgr = [String:Float]()
-  var filteredData = [(String,String,Float)]()
+	var filteredData = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
   var isSearching = false
   var totalProgress = Float(0)
   var maxProgress = Float(0)
   var completed: (()->Void)?
+
+	/// Sorting directions for the vocabulary list.
+	var isSortingAscending = (word: false, translation: false, date: false)
+
+	/// The info text that will appear when tapping on the info button.
+	var infoText = ""
+
+	enum SortElement {
+		case word
+		case translation
+		case date
+	}
   
   var delegate: NewLanguageScreenProtocol? = nil
   
@@ -76,11 +68,9 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     styleUi()
     localize()
     setGradientBackground(view: view)
+	loadDataAndUpdate()
+	sortVocabulary(element: .word, isAscending: true)
     }
-  
-  override func viewWillAppear(_ animated: Bool) {
-    loadDataAndUpdate()
-  }
   
   @IBAction func backButtonTapped(_ sender: Any) {
     completed?()
@@ -117,55 +107,69 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     // show the alert
     self.present(alert, animated: true, completion: nil)
   }
-  
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    var result: Int;
-    
-    if isSearching {
-      result = filteredData.count
-    } else {
-      result = vocabularies.count
-    }
-    
-    if vocabularies.count == 0 {
-      searchBar.isHidden = true
-      tableView.isHidden = true
-      swipeToEditLabel.text = NSLocalizedString("ℹ️ Add new words with the button below", comment: "ℹ️ Add new words with the button below")
-      view.layoutIfNeeded()
-    } else {
-      searchBar.isHidden = false
-      tableView.isHidden = false
-      
-      swipeToEditLabel.text = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
-      
-      view.layoutIfNeeded()
-    }
-    
-    return result
-  }
-  
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.vocabularyCell) as? VocabularyCell {
-      
-      print("totalProgress: \(totalProgress)")
-      
-      if isSearching {
-        cell.vocabularyRoot.text = filteredData[indexPath.item].0
-        cell.vocabularyTranslation.text = filteredData[indexPath.item].1
-        cell.vocabularyProgress.progress = filteredData[indexPath.item].2/maxProgress
-        
-      } else {
-        
-        cell.vocabularyRoot.text = vocabularies[indexPath.item].0
-        cell.vocabularyTranslation.text = vocabularies[indexPath.item].1
-        cell.vocabularyProgress.progress = vocabularies[indexPath.item].2/maxProgress
-      }
-      
-      return cell
-    }
-    return UITableViewCell()
-  }
-  
+
+
+	@IBAction func infoButtonTapped(_ sender: Any) {
+		let alert = UIAlertController(title: nil,
+									  message: infoText,
+									  preferredStyle: .alert)
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"),
+									  style: .cancel,
+									  handler: nil))
+		present(alert, animated: true, completion: nil)
+	}
+
+	@IBAction func sortButtonTapped(_ sender: UIButton) {
+
+		let configuration = UIImage.SymbolConfiguration(textStyle: .title1, scale: .large)
+		let chevronUpImage = UIImage(systemName: "chevron.up.square.fill", withConfiguration: configuration)
+		let chevronDownImage = UIImage(systemName: "chevron.down.square.fill", withConfiguration: configuration)
+		let minusImage = UIImage(systemName: "minus.square.fill", withConfiguration: configuration)
+
+		if sender === sortWordButton {
+			sortWordButton.setImage(isSortingAscending.word ? chevronUpImage : chevronDownImage, for: .normal)
+			sortTranslationButton.setImage(minusImage, for: .normal)
+			sortDateButton.setImage(minusImage, for: .normal)
+			sortVocabulary(element: .word, isAscending: isSortingAscending.word)
+			isSortingAscending.word.toggle()
+		} else if sender === sortTranslationButton {
+			sortTranslationButton.setImage(isSortingAscending.translation ? chevronUpImage : chevronDownImage, for: .normal)
+			sortWordButton.setImage(minusImage, for: .normal)
+			sortDateButton.setImage(minusImage, for: .normal)
+			sortVocabulary(element: .translation, isAscending: isSortingAscending.translation)
+			isSortingAscending.translation.toggle()
+		} else if sender === sortDateButton {
+			sortDateButton.setImage(isSortingAscending.date ? chevronUpImage : chevronDownImage, for: .normal)
+			sortTranslationButton.setImage(minusImage, for: .normal)
+			sortWordButton.setImage(minusImage, for: .normal)
+			sortVocabulary(element: .date, isAscending: isSortingAscending.date)
+			isSortingAscending.date.toggle()
+		}
+
+		tableView.reloadData()
+	}
+
+	private func sortVocabulary(element: SortElement, isAscending: Bool) {
+
+		switch element {
+		case .word:
+		vocabularies.sort(by: {
+			isAscending ? $0.word.lowercased() < $1.word.lowercased() : $0.word.lowercased() > $1.word.lowercased()
+		})
+
+		case .translation:
+			vocabularies.sort(by: {
+				isAscending ? $0.translation.lowercased() < $1.translation.lowercased() : $0.translation.lowercased() > $1.translation.lowercased()
+			})
+		case .date:
+			let defaultDate = Date.init(timeIntervalSince1970: 0)
+			vocabularies.sort(by: {
+				isAscending ? $0.addedDate ?? defaultDate < $1.addedDate ?? defaultDate: $0.addedDate ?? defaultDate > $1.addedDate  ?? defaultDate
+			})
+		}
+	}
+
+
   func loadVocabulary()->[String:String] {
     guard let language = selectedLanguage else {print("language not given"); return [String:String]()}
 
@@ -191,16 +195,20 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
       tableView.reloadData()
     } else {
       isSearching = true
-      filteredData = vocabularies.filter({ $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())})
+      filteredData = vocabularies.filter(
+		{
+			var retVal = $0.0.lowercased().contains(searchBar.text!.lowercased()) ||
+				$0.1.lowercased().contains(searchBar.text!.lowercased())
+			if let date = $0.addedDate {
+				retVal = retVal || VocabularyDateFormatter.prettyDateFormatter.string(from: date).contains(searchBar.text!)
+			}
+			return retVal
+		})
       tableView.reloadData()
       
     }
   }
-  
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    
-  }
-  
+
   func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     return true
   }
@@ -241,16 +249,19 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     
     guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String:Float] else { print("no progresses found"); return}
     vocabProgr = vocabProgress
+
+	var vocabDates = [String: Date]()
+	if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String:Date] {
+		vocabDates = dates
+	}
     
-    vocabularies = [(String,String,Float)]()
+    vocabularies = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
     for (key, value) in vocabDict {
-      vocabularies.append((key,value,vocabProgress[key] ?? 100.0))
+      vocabularies.append((key, value, vocabProgress[key] ?? 100.0, vocabDates[key]))
     }
     
     filteredData = vocabularies.filter({ $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())})
-    
-    print(vocabularies)
-    
+
     UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
     
     totalProgress = vocabularies.reduce(0){$0 + $1.2}
@@ -479,9 +490,69 @@ class LanguageScreenViewController: UIViewController, UITableViewDelegate, UITab
     exportButton.setTitle(NSLocalizedString("export", comment: "export"), for: .normal)
     searchBar.placeholder = NSLocalizedString("search for words", comment: "search for words")
   
-    swipeToEditLabel.text = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
+    infoText = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
   }
+}
 
-  
-  
+// MARK: UITableViewDelegate, UITableViewDataSource
+
+extension LanguageScreenViewController: UITableViewDelegate, UITableViewDataSource  {
+
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		var result: Int;
+
+		if isSearching {
+			result = filteredData.count
+		} else {
+			result = vocabularies.count
+		}
+
+		if vocabularies.count == 0 {
+			searchBar.isHidden = true
+			tableView.isHidden = true
+			infoText = NSLocalizedString("ℹ️ Add new words with the button below", comment: "ℹ️ Add new words with the button below")
+			view.layoutIfNeeded()
+		} else {
+			searchBar.isHidden = false
+			tableView.isHidden = false
+
+			infoText = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
+
+			view.layoutIfNeeded()
+		}
+
+		return result
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.vocabularyCell) as? VocabularyCell {
+
+			print("totalProgress: \(totalProgress)")
+
+			if isSearching {
+				cell.vocabularyRoot.text = filteredData[indexPath.item].word
+				cell.vocabularyTranslation.text = filteredData[indexPath.item].translation
+				cell.vocabularyProgress.progress = filteredData[indexPath.item].progress/maxProgress
+
+				if let date = filteredData[indexPath.item].addedDate {
+					cell.dateAddedLabel.text = VocabularyDateFormatter.prettyDateFormatter.string(from: date)
+				} else {
+					cell.dateAddedLabel.text = ""
+				}
+			} else {
+				cell.vocabularyRoot.text = vocabularies[indexPath.item].word
+				cell.vocabularyTranslation.text = vocabularies[indexPath.item].translation
+				cell.vocabularyProgress.progress = vocabularies[indexPath.item].progress/maxProgress
+
+				if let date = vocabularies[indexPath.item].addedDate {
+					cell.dateAddedLabel.text = VocabularyDateFormatter.prettyDateFormatter.string(from: date)
+				} else {
+					cell.dateAddedLabel.text = ""
+				}
+			}
+
+			return cell
+		}
+		return UITableViewCell()
+	}
 }
