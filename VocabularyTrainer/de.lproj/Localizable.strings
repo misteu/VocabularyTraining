@@ -61,3 +61,5 @@
 "No language selected" = "Keine Sprache ausgewählt";
 "Please select a language to export first." = "Bitte wähle zuerst eine Sprache aus.";
 "Please wait..." = "Bitte warten...";
+"Edit word" = "✏️ Wort bearbeiten";
+"Your progress and probability configuration for this word will be saved" = "Ihre Fortschritts- und Wahrscheinlichkeitskonfiguration für dieses Wort wird gespeichert";

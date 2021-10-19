@@ -208,35 +208,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
       
     }
   }
-
-  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-    return true
-  }
-  
-//  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//    if (editingStyle == .delete) {
-//      if let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell {
-//        guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
-//
-//        print(vocabDict)
-//
-//        vocabDict.removeValue(forKey: key)
-//        vocabProgr.removeValue(forKey: key)
-//
-//        print("delete \(key)")
-//
-//        print(vocabDict)
-//
-//        guard  let language = selectedLanguage else {print("no language given"); return}
-//
-//        UserDefaults.standard.set(vocabDict, forKey: language)
-//        UserDefaults.standard.set(vocabProgr, forKey: "\(language)Progress")
-//
-//        loadDataAndUpdate()
-//      }
-//    }
-//  }
-  
   
   func loadDataAndUpdate() {
     
@@ -341,79 +312,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
   
   }
   
-  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-    
-    let deleteAction = UITableViewRowAction(style: .default, title: NSLocalizedString("Delete", comment: "Delete") , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
-      
-            if let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell {
-              guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
-      
-              print(self.vocabDict)
-      
-              self.vocabDict.removeValue(forKey: key)
-              self.vocabProgr.removeValue(forKey: key)
-      
-              print("delete \(key)")
-      
-              print(self.vocabDict)
-      
-              guard  let language = self.selectedLanguage else {print("no language given"); return}
-      
-              UserDefaults.standard.set(self.vocabDict, forKey: language)
-              UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
-      
-              self.loadDataAndUpdate()
-            }
-      
-    })
-    
-    let editAction = UITableViewRowAction(style: .normal, title: "\(NSLocalizedString("Edit:", comment: "Edit:")) \(Int.init(vocabularies[indexPath.item].2))/\(Int.init(maxProgress))" , handler: { (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
-      
-      guard let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell else {return}
-      guard let key = cell.vocabularyRoot.text else { print("no cell"); return}
-      guard let language = self.selectedLanguage else {print("no language selected"); return}
-      
-      let alert = UIAlertController(title: NSLocalizedString("Change word`s probability", comment: "Change word`s probability"), message: NSLocalizedString("Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.", comment: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100."), preferredStyle: .alert)
-      
-      alert.addTextField { (textField) in
-        
-        guard let progress = self.vocabProgr[key] else {print("no progress found"); return}
-        textField.text = "\(Int.init(progress))"
-      }
-      
-      // 3. Grab the value from the text field, and print it when the user clicks OK.
-      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-        let textField = alert?.textFields![0] // Force unwrapping because we know it exists.
-        print("Text field: \(String(describing: textField?.text))")
-        
-        guard let input = textField?.text else {return}
-        var newProgress = (input as NSString).floatValue
-        if (newProgress < 1) {
-          newProgress = 1
-        }
-        self.vocabProgr[key] = newProgress
-        
-        UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
-        
-        self.loadDataAndUpdate()
-        tableView.reloadData()
-        
-      }))
-      alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: { (_) in
-        
-      }))
-      
-      // 4. Present the alert.
-      self.present(alert, animated: true, completion: nil)
-      
-    })
-    
-    editAction.backgroundColor = BackgroundColor.fullBlue
-
-    // 5
-    return [deleteAction,editAction]
-  }
-  
   func exportToDocuments() {
     let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String : Any]
     
@@ -494,9 +392,9 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
   }
 }
 
-// MARK: UITableViewDelegate, UITableViewDataSource
+// MARK: UITableViewDataSource
 
-extension LanguageScreenViewController: UITableViewDelegate, UITableViewDataSource  {
+extension LanguageScreenViewController: UITableViewDataSource  {
 
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		var result: Int;
@@ -554,5 +452,122 @@ extension LanguageScreenViewController: UITableViewDelegate, UITableViewDataSour
 			return cell
 		}
 		return UITableViewCell()
+	}
+}
+
+// MARK: UITableViewDelegate
+
+extension LanguageScreenViewController: UITableViewDelegate {
+
+	func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { true }
+
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		let deleteAction = makeDeleteContextualAction(tableView: tableView, indexPath: indexPath)
+		let editProbabilityAction = makeEditProbabilityContextualAction(tableView: tableView, indexPath: indexPath)
+		let editWordAction = makeEditWordContextualAction(tableView: tableView, indexPath: indexPath)
+		return UISwipeActionsConfiguration(actions: [deleteAction, editProbabilityAction, editWordAction])
+	}
+
+	private func makeDeleteContextualAction(tableView: UITableView, indexPath: IndexPath) -> UIContextualAction {
+		UIContextualAction(style: .destructive, title: NSLocalizedString("Delete", comment: "Delete")) { [weak self] (_, _, _) in
+			guard let self = self else { return print("Action did run when view controller is already deallocated") }
+			guard let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell,
+				  let key = cell.vocabularyRoot.text else { return print("Cell is configured incorrect or not found") }
+			print(self.vocabDict)
+
+			self.vocabDict.removeValue(forKey: key)
+			self.vocabProgr.removeValue(forKey: key)
+			print("Deleted \(key)")
+
+			guard let language = self.selectedLanguage else { return print("No language selected") }
+
+			UserDefaults.standard.set(self.vocabDict, forKey: language)
+			UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
+
+			self.loadDataAndUpdate()
+		}
+	}
+
+	private func makeEditProbabilityContextualAction(tableView: UITableView, indexPath: IndexPath) -> UIContextualAction {
+		let title = "\(NSLocalizedString("Edit:", comment: "Edit:")) \(Int(vocabularies[indexPath.item].2))/\(Int(maxProgress))"
+		let editProbabilityAction = UIContextualAction(style: .normal, title: title) { [weak self] (_, _, _) in
+			guard let self = self else { return print("Action did run when view controller is already deallocated") }
+			guard let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell,
+				  let key = cell.vocabularyRoot.text else { return print("Cell is configured incorrect or not found") }
+			guard let language = self.selectedLanguage else { return print("No language selected") }
+
+			let title = NSLocalizedString("Change word`s probability", comment: "Change word`s probability")
+			let message = NSLocalizedString("Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.", comment: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.")
+			let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+			alertController.addTextField { (textField) in
+				guard let progress = self.vocabProgr[key] else { return print("No progress found") }
+				textField.text = "\(Int.init(progress))"
+			}
+
+			alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] _ in
+				guard let textField = alertController?.textFields?.first,
+					  let inputText = textField.text else { return print("Input text is missing")}
+				print("Textfield text: \(inputText)")
+
+				self.vocabProgr[key] = max((inputText as NSString).floatValue, 1)
+
+				UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
+
+				self.loadDataAndUpdate()
+				tableView.reloadData()
+			}))
+
+			alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in })
+			self.present(alertController, animated: UIView.areAnimationsEnabled)
+		}
+		editProbabilityAction.backgroundColor = BackgroundColor.fullBlue
+		return editProbabilityAction
+	}
+
+	private func makeEditWordContextualAction(tableView: UITableView, indexPath: IndexPath) -> UIContextualAction {
+		let title = NSLocalizedString("Edit word", comment: "Edit word")
+		let editWordAction = UIContextualAction(style: .normal, title: title) { [weak self] (_, _, _) in
+			guard let self = self else { return print("Action did run when view controller is already deallocated") }
+			guard let cell = tableView.cellForRow(at: indexPath) as? VocabularyCell,
+				  let word = cell.vocabularyRoot.text else { return print("Cell is configured incorrect or not found") }
+			guard let translation = self.vocabDict[word],
+				  let progress = self.vocabProgr[word] else { return print("Current word is missing in data source") }
+			guard let language = self.selectedLanguage else { return print("No language selected") }
+
+			let message = NSLocalizedString("Your progress and probability configuration for this word will be saved",
+											comment: "Your progress and probability configuration for this word will be saved")
+			let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+			alertController.addTextField { (textField) in textField.text = word }
+			alertController.addTextField { (textField) in textField.text = translation }
+
+			alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alertController] _ in
+				guard let wordTextField = alertController?.textFields?.first,
+					  let newWord = wordTextField.text else { return print("New word text is missing") }
+				guard let translationTextField = alertController?.textFields?.last,
+					  let newTranslation = translationTextField.text else { return print("Translation text is missing") }
+
+				// Update data source
+				self.vocabDict.removeValue(forKey: word)
+				self.vocabProgr.removeValue(forKey: word)
+				
+				self.vocabDict[newWord] = newTranslation
+				self.vocabProgr[newWord] = progress
+
+				// Save edit data to user defaults
+				UserDefaults.standard.set(self.vocabDict, forKey: language)
+				UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
+
+				// Reload table view
+				self.loadDataAndUpdate()
+				tableView.reloadData()
+			}))
+
+			alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in })
+			self.present(alertController, animated: UIView.areAnimationsEnabled)
+		}
+		editWordAction.backgroundColor = BackgroundColor.lightGreen
+		return editWordAction
 	}
 }
