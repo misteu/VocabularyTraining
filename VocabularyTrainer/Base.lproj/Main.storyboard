@@ -388,6 +388,7 @@
                         <outlet property="backButton" destination="rDw-Te-IUC" id="g3Q-is-0hs"/>
                         <outlet property="deleteButton" destination="zUX-sC-O0i" id="GjZ-Jo-MHf"/>
                         <outlet property="exportButton" destination="8Cb-Nv-Z0p" id="5rD-gG-5dg"/>
+                        <outlet property="infoBtn" destination="nlS-5J-Dcr" id="l0P-VU-44v"/>
                         <outlet property="languageHeader" destination="4x2-GA-oeg" id="4hb-Fb-WCk"/>
                         <outlet property="newWordButton" destination="BUp-gp-Omw" id="Fdv-1e-ymQ"/>
                         <outlet property="searchBar" destination="4AL-Ff-pOI" id="IKT-8f-gaY"/>

@@ -123,22 +123,15 @@
 		CE86C54A2235AE20008A5B73 /* VocabularyTrainer */ = {
 			isa = PBXGroup;
 			children = (
-				CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */,
-				CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */,
 				CE86C54B2235AE20008A5B73 /* AppDelegate.swift */,
-				E37D1706261BCC22006C1F71 /* Home Screen */,
+				FEBD9ACF271F795D00A5983E /* Model */,
+				FEBD9ACE271F795800A5983E /* View */,
+				FEBD9ACD271F794F00A5983E /* Controller */,
+				CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */,
 				CE86C54F2235AE20008A5B73 /* Main.storyboard */,
-				CE0012FE2243F21C002F86DE /* Extensions.swift */,
 				CE86C5522235AE23008A5B73 /* Assets.xcassets */,
 				CE86C5572235AE23008A5B73 /* Info.plist */,
-				E37D16FD261BCBF9006C1F71 /* Language Screens */,
-				CE86C5812235C971008A5B73 /* Helper.swift */,
-				E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */,
-				CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */,
-				CE0FE4F72238585A00430FDE /* TrainingViewController.swift */,
 				CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */,
-				CE05F624229F17AF0097E3BB /* Localizable.strings */,
-				CECD6344235E54350060911F /* pp.html */,
 			);
 			path = VocabularyTrainer;
 			sourceTree = "<group>";
@@ -161,22 +154,69 @@
 			path = VocabularyTrainerUITests;
 			sourceTree = "<group>";
 		};
-		E37D16FD261BCBF9006C1F71 /* Language Screens */ = {
+		FEBD9ACD271F794F00A5983E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */,
-				E37D16FE261BCC10006C1F71 /* VocabularyCell.swift */,
+				FEBD9AD9271F7C2A00A5983E /* LangaugeScreenViewController */,
+				FEBD9AD8271F7C2300A5983E /* Home */,
+				CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */,
+				CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */,
+				CE0FE4F72238585A00430FDE /* TrainingViewController.swift */,
 			);
-			path = "Language Screens";
+			path = Controller;
 			sourceTree = "<group>";
 		};
-		E37D1706261BCC22006C1F71 /* Home Screen */ = {
+		FEBD9ACE271F795800A5983E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FEBD9AD7271F7BD300A5983E /* Home */,
+				FEBD9AD6271F7AB500A5983E /* LanguageScreenViewController */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FEBD9ACF271F795D00A5983E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CE0012FE2243F21C002F86DE /* Extensions.swift */,
+				CECD6344235E54350060911F /* pp.html */,
+				CE86C5812235C971008A5B73 /* Helper.swift */,
+				E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */,
+				CE05F624229F17AF0097E3BB /* Localizable.strings */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		FEBD9AD6271F7AB500A5983E /* LanguageScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E37D16FE261BCC10006C1F71 /* VocabularyCell.swift */,
+			);
+			path = LanguageScreenViewController;
+			sourceTree = "<group>";
+		};
+		FEBD9AD7271F7BD300A5983E /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FEBD9AD8271F7C2300A5983E /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */,
-				E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */,
 			);
-			path = "Home Screen";
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FEBD9AD9271F7C2A00A5983E /* LangaugeScreenViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */,
+			);
+			path = LangaugeScreenViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
