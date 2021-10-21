@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -32,7 +32,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="languageCell" id="Vxh-sC-nQk" customClass="LanguageTableViewCell" customModule="VocabularyTrainer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="382" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="382" height="52.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vxh-sC-nQk" id="H38-wL-5gJ">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="52.5"/>
@@ -211,15 +211,15 @@
                                 </connections>
                             </button>
                             <searchBar contentMode="redraw" placeholder="search for words" translatesAutoresizingMaskIntoConstraints="NO" id="4AL-Ff-pOI">
-                                <rect key="frame" x="16" y="110.5" width="382" height="56"/>
+                                <rect key="frame" x="16" y="110.5" width="382" height="51"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="QXi-Ew-0GH">
-                                <rect key="frame" x="16" y="219" width="382" height="515"/>
+                                <rect key="frame" x="16" y="209.5" width="382" height="524.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="vocabularyCell" id="Lzo-ia-qrE" customClass="VocabularyCell" customModule="VocabularyTrainer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="382" height="47"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="382" height="47"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Lzo-ia-qrE" id="fAV-Fl-oxz">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="47"/>
@@ -285,6 +285,12 @@
                                     <segue destination="QnJ-3n-hBa" kind="show" identifier="showAddWordSegue" id="XeU-GX-HbZ"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J69-hW-zYM">
+                                <rect key="frame" x="20" y="394" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Cb-Nv-Z0p">
                                 <rect key="frame" x="176.5" y="72.5" width="61" height="30"/>
                                 <state key="normal" title="⤴ export"/>
@@ -299,7 +305,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlS-5J-Dcr">
-                                <rect key="frame" x="16" y="62.5" width="41" height="40"/>
+                                <rect key="frame" x="16" y="67.5" width="36" height="35"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
                                     <imageReference key="image" image="info.circle.fill" catalog="system" symbolScale="large"/>
@@ -312,7 +318,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dNL-Go-MeG">
-                                <rect key="frame" x="32" y="174.5" width="39.5" height="36.5"/>
+                                <rect key="frame" x="32" y="169.5" width="35" height="32"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
                                     <imageReference key="image" image="chevron.up.square.fill" catalog="system" symbolScale="large"/>
@@ -325,7 +331,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZV9-YR-6Qd">
-                                <rect key="frame" x="187.5" y="174.5" width="39.5" height="36.5"/>
+                                <rect key="frame" x="189.5" y="169.5" width="35" height="32"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
                                     <imageReference key="image" image="minus.square.fill" catalog="system" symbolScale="large"/>
@@ -338,7 +344,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hsL-ea-lPa">
-                                <rect key="frame" x="342.5" y="174.5" width="39.5" height="36.5"/>
+                                <rect key="frame" x="347" y="169.5" width="35" height="32"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal">
                                     <imageReference key="image" image="minus.square.fill" catalog="system" symbolScale="large"/>
@@ -355,6 +361,7 @@
                         <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
                             <constraint firstItem="BUp-gp-Omw" firstAttribute="leading" secondItem="YqQ-hZ-cy0" secondAttribute="leading" constant="32" id="6bw-5D-fzM"/>
+                            <constraint firstItem="J69-hW-zYM" firstAttribute="leading" relation="lessThanOrEqual" secondItem="YqQ-hZ-cy0" secondAttribute="leading" constant="20" id="8x8-aF-eYc"/>
                             <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" secondItem="BUp-gp-Omw" secondAttribute="trailing" constant="32" id="A0a-CU-edC"/>
                             <constraint firstItem="nlS-5J-Dcr" firstAttribute="leading" secondItem="YqQ-hZ-cy0" secondAttribute="leading" constant="16" id="A4d-XK-Byp"/>
                             <constraint firstItem="4AL-Ff-pOI" firstAttribute="top" secondItem="8Cb-Nv-Z0p" secondAttribute="bottom" constant="8" id="BiC-nl-vom"/>
@@ -370,9 +377,11 @@
                             <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" secondItem="QXi-Ew-0GH" secondAttribute="trailing" constant="16" id="Vhj-Xn-Fan"/>
                             <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" secondItem="4AL-Ff-pOI" secondAttribute="trailing" constant="16" id="YAz-fc-mHE"/>
                             <constraint firstItem="4x2-GA-oeg" firstAttribute="centerX" secondItem="FMu-tq-CWz" secondAttribute="centerX" id="akC-a5-xOj"/>
+                            <constraint firstItem="J69-hW-zYM" firstAttribute="centerX" secondItem="YqQ-hZ-cy0" secondAttribute="centerX" id="amN-i4-ITG"/>
                             <constraint firstItem="4x2-GA-oeg" firstAttribute="top" secondItem="rDw-Te-IUC" secondAttribute="bottom" constant="16" id="eRI-Ne-TGJ"/>
                             <constraint firstItem="4AL-Ff-pOI" firstAttribute="top" secondItem="nlS-5J-Dcr" secondAttribute="bottom" constant="8" id="ecM-Sf-eV7"/>
                             <constraint firstItem="QXi-Ew-0GH" firstAttribute="top" secondItem="dNL-Go-MeG" secondAttribute="bottom" constant="8" id="fnY-nk-300"/>
+                            <constraint firstItem="YqQ-hZ-cy0" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="J69-hW-zYM" secondAttribute="trailing" constant="20" id="iUW-Mf-Jiq"/>
                             <constraint firstItem="8Cb-Nv-Z0p" firstAttribute="centerX" secondItem="4x2-GA-oeg" secondAttribute="centerX" id="ipX-Vp-WEn"/>
                             <constraint firstItem="4AL-Ff-pOI" firstAttribute="top" secondItem="4x2-GA-oeg" secondAttribute="bottom" constant="4" id="mDN-0l-rUO"/>
                             <constraint firstItem="ZV9-YR-6Qd" firstAttribute="top" secondItem="4AL-Ff-pOI" secondAttribute="bottom" constant="8" id="pRb-h7-FWy"/>
@@ -382,12 +391,14 @@
                             <constraint firstItem="dNL-Go-MeG" firstAttribute="leading" secondItem="QXi-Ew-0GH" secondAttribute="leading" constant="16" id="tck-2h-p6s"/>
                             <constraint firstItem="QXi-Ew-0GH" firstAttribute="top" secondItem="hsL-ea-lPa" secondAttribute="bottom" constant="8" id="u2H-Fe-pHD"/>
                             <constraint firstItem="hsL-ea-lPa" firstAttribute="top" secondItem="4AL-Ff-pOI" secondAttribute="bottom" constant="8" id="v1P-v9-nFI"/>
+                            <constraint firstItem="J69-hW-zYM" firstAttribute="centerY" secondItem="YqQ-hZ-cy0" secondAttribute="centerY" id="zLU-hH-nAT"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="rDw-Te-IUC" id="g3Q-is-0hs"/>
                         <outlet property="deleteButton" destination="zUX-sC-O0i" id="GjZ-Jo-MHf"/>
                         <outlet property="exportButton" destination="8Cb-Nv-Z0p" id="5rD-gG-5dg"/>
+                        <outlet property="hintLabel" destination="J69-hW-zYM" id="aDv-8M-eBo"/>
                         <outlet property="languageHeader" destination="4x2-GA-oeg" id="4hb-Fb-WCk"/>
                         <outlet property="newWordButton" destination="BUp-gp-Omw" id="Fdv-1e-ymQ"/>
                         <outlet property="searchBar" destination="4AL-Ff-pOI" id="IKT-8f-gaY"/>
@@ -684,7 +695,7 @@ Turkish</string>
         <image name="info.circle.fill" catalog="system" width="128" height="121"/>
         <image name="minus.square.fill" catalog="system" width="128" height="114"/>
         <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

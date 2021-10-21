@@ -8,6 +8,7 @@
 
 "Your Languages" = "Your Languages";
 "Currently there are no languages" = "Currently there are no languages.\n\nYou may add new languages via the button below.";
+"Currently there are no words" = "Currently there are no words.\n\nYou may add new word via the button below.";
 /*
 \n\nIf you have any language files uploaded to your iPhone via iTunes, hit the \"import all\" button.";*/
 "Add language" = "➕ Add language";
