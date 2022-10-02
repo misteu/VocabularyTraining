@@ -454,11 +454,14 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     showLoadingIndicator()
     if let locale = Locale.current.languageCode {
       var ppUrl: URL?
-      if locale == "de" {
-        ppUrl = URL(string: "https://mic.st/flippyLearn/pp_de.html")
-      } else {
-        ppUrl = URL(string: "https://mic.st/flippyLearn/pp_en.html")
-      }
+        switch locale {
+        case "de":
+            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_de.html")
+        case "nl":
+            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_nl.html")
+        default:
+            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_en.html")
+        }
       if let ppUrl = ppUrl {
         webView.load(URLRequest(url: ppUrl))
       } else {
