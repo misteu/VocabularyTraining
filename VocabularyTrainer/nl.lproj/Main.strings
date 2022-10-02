@@ -1,0 +1,108 @@
+
+/* Class = "UIButton"; normalTitle = "Take a look"; ObjectID = "1g5-hc-GXA"; */
+"1g5-hc-GXA.normalTitle" = "Take a look";
+
+/* Class = "UISearchBar"; placeholder = "search for words"; ObjectID = "4AL-Ff-pOI"; */
+"4AL-Ff-pOI.placeholder" = "search for words";
+
+/* Class = "UIButton"; normalTitle = "< Back"; ObjectID = "4HO-3r-c1X"; */
+"4HO-3r-c1X.normalTitle" = "< Back";
+
+/* Class = "UILabel"; text = "Language"; ObjectID = "4x2-GA-oeg"; */
+"4x2-GA-oeg.text" = "Language";
+
+/* Class = "UITextField"; placeholder = "answer"; ObjectID = "53n-g1-uwW"; */
+"53n-g1-uwW.placeholder" = "answer";
+
+/* Class = "UILabel"; text = "Training:\nTurkish"; ObjectID = "5Cu-DE-YK3"; */
+"5Cu-DE-YK3.text" = "Training:\nTurkish";
+
+/* Class = "UILabel"; text = "köpek"; ObjectID = "5Gx-1I-CQE"; */
+"5Gx-1I-CQE.text" = "köpek";
+
+/* Class = "UIButton"; normalTitle = "👍"; ObjectID = "87J-6T-hDZ"; */
+"87J-6T-hDZ.normalTitle" = "👍";
+
+/* Class = "UIButton"; normalTitle = "⤴ export"; ObjectID = "8Cb-Nv-Z0p"; */
+"8Cb-Nv-Z0p.normalTitle" = "⤴ export";
+
+/* Class = "UIButton"; normalTitle = "Training"; ObjectID = "8uJ-dW-rui"; */
+"8uJ-dW-rui.normalTitle" = "Training";
+
+/* Class = "UIButton"; normalTitle = "New word"; ObjectID = "BUp-gp-Omw"; */
+"BUp-gp-Omw.normalTitle" = "New word";
+
+/* Class = "UITextField"; placeholder = "new word"; ObjectID = "FUL-dg-T2m"; */
+"FUL-dg-T2m.placeholder" = "new word";
+
+/* Class = "UILabel"; text = "Hund"; ObjectID = "Il2-HT-ikf"; */
+"Il2-HT-ikf.text" = "Hund";
+
+/* Class = "UIButton"; normalTitle = "< Back"; ObjectID = "Jhf-6U-f7J"; */
+"Jhf-6U-f7J.normalTitle" = "< Back";
+
+/* Class = "UILabel"; text = "Dutch"; ObjectID = "Kdj-qz-jtM"; */
+"Kdj-qz-jtM.text" = "Dutch";
+
+/* Class = "UIButton"; normalTitle = "Add language"; ObjectID = "Nrq-QQ-ihD"; */
+"Nrq-QQ-ihD.normalTitle" = "Add language";
+
+/* Class = "UIButton"; normalTitle = "Check"; ObjectID = "SJQ-jN-5Xm"; */
+"SJQ-jN-5Xm.normalTitle" = "Check";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "TQf-Gd-xlg"; */
+"TQf-Gd-xlg.normalTitle" = "Add";
+
+/* Class = "UIButton"; normalTitle = "Add"; ObjectID = "TjA-tq-vO0"; */
+"TjA-tq-vO0.normalTitle" = "Add";
+
+/* Class = "UIButton"; normalTitle = "About FlippyApp"; ObjectID = "WIf-kg-T6U"; */
+"WIf-kg-T6U.normalTitle" = "About FlippyApp";
+
+/* Class = "UIButton"; normalTitle = "⤵ import"; ObjectID = "Wfy-tB-0pH"; */
+"Wfy-tB-0pH.normalTitle" = "⤵ import";
+
+/* Class = "UILabel"; text = "Add new word"; ObjectID = "Yd9-So-Lvv"; */
+"Yd9-So-Lvv.text" = "Add new word";
+
+/* Class = "UILabel"; text = "dateAddedLabel"; ObjectID = "fnA-3F-RPz"; */
+"fnA-3F-RPz.text" = "dateAddedLabel";
+
+/* Class = "UITextField"; placeholder = "which language?"; ObjectID = "hDq-cC-3xB"; */
+"hDq-cC-3xB.placeholder" = "which language?";
+
+/* Class = "UIButton"; normalTitle = "My words"; ObjectID = "iBg-bb-bgl"; */
+"iBg-bb-bgl.normalTitle" = "My words";
+
+/* Class = "UIButton"; normalTitle = "👎"; ObjectID = "lQT-3b-eN5"; */
+"lQT-3b-eN5.normalTitle" = "👎";
+
+/* Class = "UIButton"; normalTitle = "< Back"; ObjectID = "mxH-Yy-qRL"; */
+"mxH-Yy-qRL.normalTitle" = "< Back";
+
+/* Class = "UILabel"; text = "köpek"; ObjectID = "o3T-rB-i7W"; */
+"o3T-rB-i7W.text" = "köpek";
+
+/* Class = "UITextField"; placeholder = "translation"; ObjectID = "oJh-SC-LnC"; */
+"oJh-SC-LnC.placeholder" = "translation";
+
+/* Class = "UIButton"; normalTitle = "< Back"; ObjectID = "rDw-Te-IUC"; */
+"rDw-Te-IUC.normalTitle" = "< Back";
+
+/* Class = "UILabel"; text = "Your languages"; ObjectID = "rNH-Y6-8Zv"; */
+"rNH-Y6-8Zv.text" = "Your languages";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "sIk-MR-VHX"; */
+"sIk-MR-VHX.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "124 words"; ObjectID = "tDl-JN-tww"; */
+"tDl-JN-tww.text" = "124 words";
+
+/* Class = "UIButton"; normalTitle = "Skip word"; ObjectID = "vAt-0V-rIb"; */
+"vAt-0V-rIb.normalTitle" = "Skip word";
+
+/* Class = "UILabel"; text = "Add new language"; ObjectID = "vpN-qS-R7P"; */
+"vpN-qS-R7P.text" = "Add new language";
+
+/* Class = "UIButton"; normalTitle = "Delete Language"; ObjectID = "zUX-sC-O0i"; */
+"zUX-sC-O0i.normalTitle" = "Delete Language";

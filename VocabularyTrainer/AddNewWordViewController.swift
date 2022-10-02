@@ -99,7 +99,7 @@ class AddNewWordViewController: UIViewController {
   func localize() {
     backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
     addButton.setTitle(NSLocalizedString("Add", comment: "Add"), for: .normal)
-    newWordTextField.placeholder = NSLocalizedString("new word", comment: "new word")
+    newWordTextField.placeholder = NSLocalizedString("New word", comment: "new word")
     translationTextField.placeholder = NSLocalizedString("translation", comment: "translation")
     addNewWordHeader.text = NSLocalizedString("Add new word", comment: "Add new word")
   }
