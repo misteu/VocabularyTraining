@@ -61,13 +61,6 @@ class NewLanguageViewController: UIViewController {
     
     setup()
     layout()
-    
-    //    let x = self.view.applyGradient(colours: [.red,.green], locations: [0,1])
-    
-    //    let gradient = x
-    //    gradient.frame = self.view.bounds
-    //    gradient.colors = [UIColor.red.cgColor, UIColor.blue.cgColor]
-    //    self.view.layer.addSublayer(gradient)
   }
 }
 
