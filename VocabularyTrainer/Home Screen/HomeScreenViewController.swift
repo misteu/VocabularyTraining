@@ -196,16 +196,9 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     return UITableViewCell()
   }
-  
-  //TODO: Pop up New Language View Controller
+
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == SegueName.showNewLanguageScreenSegue {
-      let secondVC = segue.destination as! NewLanguageViewController
-      secondVC.delegate = self
-    }
-    
-    
-    
+
     if segue.identifier == SegueName.showLanguageSegue {
       let secondVC = segue.destination as! LanguageScreenViewController
       secondVC.selectedLanguage = selectedLanguage
@@ -516,29 +509,9 @@ extension HomeScreenViewController: WKNavigationDelegate {
   }
 }
 
-
-
 extension HomeScreenViewController{
-  private func setup(){
-    self.view.addSubview(addLanguageButton)
-    self.addLanguageButton.translatesAutoresizingMaskIntoConstraints = false
-    self.addLanguageButton.addTarget(self, action: #selector(addLanguageButtonPressed), for: .touchUpInside)
-  }
-  
-  private func layout(){
-    NSLayoutConstraint.activate([
-      self.addLanguageButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-      self.addLanguageButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.8),
-      self.addLanguageButton.heightAnchor.constraint(equalToConstant: 50),
-      self.addLanguageButton.bottomAnchor.constraint(equalToSystemSpacingBelow: self.tableView.bottomAnchor, multiplier: 3),
-    ])
-  }
-  
-  @objc func addLanguageButtonPressed(){
-    present(NewLanguageViewController(), animated: true)
-  }
-  
+
   @IBAction func addAction(){
-    present(NewLanguageViewController(), animated: true)
+    present(NewLanguageViewController(delegate: self), animated: true)
   }
 }

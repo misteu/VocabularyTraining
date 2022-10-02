@@ -10,7 +10,14 @@ import UIKit
 class NewLanguageViewController: UIViewController {
   
   var delegate: NewLanguageScreenProtocol? = nil
-  
+
+  init(delegate: NewLanguageScreenProtocol?) {
+    self.delegate = delegate
+    super.init(nibName: nil, bundle: nil)
+  }
+
+  required init?(coder: NSCoder) { nil }
+
   ///Back Button
   var goBackButton:UIButton = {
     let button = UIButton(frame: .zero)
@@ -36,7 +43,7 @@ class NewLanguageViewController: UIViewController {
     let field = UITextField(frame: .zero)
     field.placeholder = NSLocalizedString("which language?", comment: "which language?")
     field.font = .preferredFont(forTextStyle: .largeTitle)
-    field.backgroundColor = .white
+    field.backgroundColor = .systemBackground
     field.layer.cornerRadius = 5
     return field
   }()
@@ -64,16 +71,14 @@ class NewLanguageViewController: UIViewController {
   }
 }
 
-
-//Layout & Programmatic UI
+// MARK: - Layout & Programmatic UI
 extension NewLanguageViewController{
   
   private func setup(){
     self.view.addSubview(goBackButton)
     self.goBackButton.translatesAutoresizingMaskIntoConstraints = false
     self.goBackButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
-    
-    
+
     self.view.addSubview(newLanguageHeader)
     self.newLanguageHeader.translatesAutoresizingMaskIntoConstraints = false
     
@@ -135,8 +140,7 @@ extension NewLanguageViewController{
   @objc func backButtonAction(){
     dismiss(animated: true, completion: nil)
   }
-  
-  
+
   ///Add Language Action
   @objc func addLanguageAction() {
     if let delegate = self.delegate, let newLanguage = newLanguage.text, newLanguage != "" {
@@ -154,15 +158,12 @@ extension NewLanguageViewController{
   }
 }
 
-
-
 extension UIView {
   
   func applyGradient(colours: [UIColor]) -> CAGradientLayer {
     return self.applyGradient(colours: colours, locations: nil)
   }
-  
-  
+
   func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
     let gradient: CAGradientLayer = CAGradientLayer()
     gradient.frame = self.bounds
