@@ -16,20 +16,22 @@ protocol NewLanguageScreenProtocol {
 struct LanguageImport {
   var vocabularies: [String:String]
   var progresses:[String:Float]
-	var datesAdded = [String: Date]()
+  var datesAdded = [String: Date]()
   
   init(vocabularies: [String:String],
-	   progresses: [String:Float],
-	   datesAdded: [String: Date]) {
+       progresses: [String:Float],
+       datesAdded: [String: Date]) {
     self.vocabularies = vocabularies
     self.progresses = progresses
-	self.datesAdded = datesAdded
+    self.datesAdded = datesAdded
   }
 }
 
 class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, NewLanguageScreenProtocol {
   @IBOutlet var topButtons: [UIButton]!
+  
   @IBOutlet weak var addLanguageButton: UIButton!
+  
   @IBOutlet weak var headerTextConstraintTop: NSLayoutConstraint!
   @IBOutlet weak var headerText: UILabel!
   @IBOutlet weak var importButton: UIButton!
@@ -39,7 +41,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   var languages = [String]()
   var selectedRow: Int? = nil
   private let refreshControl = UIRefreshControl()
-
+  
   private var loadingController: UIAlertController?
   let webView = WKWebView()
   let webViewVC = UIViewController()
@@ -75,27 +77,30 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     styleUi()
     localize()
-  
+    
+    //        setup()
+    //        layout()
+    
     headerTextConstraintTop.constant = 32.0
     tableView.delegate = self
     tableView.dataSource = self
     
     guard let rows = defaults.array(forKey: UserDefaultKeys.languages)?.count else { return}
     debugPrint("rows \(rows)")
-
+    
     if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
       self.languages = languages
     }
     
     hideKeyboardWhenTappedAround()
     
-//    if #available(iOS 10.0, *) {
-//      tableView.refreshControl = refreshControl
-//    } else {
-//      tableView.addSubview(refreshControl)
-//    }
-//    refreshControl.addTarget(self, action: #selector(reloadImports), for: .valueChanged)
-//
+    //    if #available(iOS 10.0, *) {
+    //      tableView.refreshControl = refreshControl
+    //    } else {
+    //      tableView.addSubview(refreshControl)
+    //    }
+    //    refreshControl.addTarget(self, action: #selector(reloadImports), for: .valueChanged)
+    //
     debugPrint(ExportImport.getAllLanguageFileUrls())
   }
   
@@ -123,7 +128,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   let defaults = UserDefaults.standard
   
   fileprivate func showNoLanguagesLabel() {
-//    let noLanguagesLabel = UILabel(frame: CGRect(x: 20, y: importButton.frame.maxY, width: view.frame.width-40, height: tableView.frame.height))
+    //    let noLanguagesLabel = UILabel(frame: CGRect(x: 20, y: importButton.frame.maxY, width: view.frame.width-40, height: tableView.frame.height))
     let noLanguagesLabel = UILabel()
     view.addSubview(noLanguagesLabel)
     
@@ -162,11 +167,11 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.languageCell) as? LanguageTableViewCell {
       
-//      let selectedView = UIView()
-//      selectedView.backgroundColor = BackgroundColor.lightBlue
-//      selectedView.frame = selectedView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
-//      cell.selectedBackgroundView = selectedView
-//      cell.backgroundView = selectedView
+      //      let selectedView = UIView()
+      //      selectedView.backgroundColor = BackgroundColor.lightBlue
+      //      selectedView.frame = selectedView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+      //      cell.selectedBackgroundView = selectedView
+      //      cell.backgroundView = selectedView
       
       guard let language = defaults.array(forKey: UserDefaultKeys.languages)?[indexPath.item] as? String else { debugPrint("no language string"); return UITableViewCell() }
       
@@ -175,10 +180,10 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       if let vocabularies = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
         
         if (vocabularies.count > 1 || vocabularies.count == 0) {
-//          cell.languageWordsLabel.text = "\(vocabularies.count) words"
+          //          cell.languageWordsLabel.text = "\(vocabularies.count) words"
           cell.languageWordsLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d words", comment: "%d words"), vocabularies.count)
         } else {
-//          cell.languageWordsLabel.text = "\(vocabularies.count) word"
+          //          cell.languageWordsLabel.text = "\(vocabularies.count) word"
           cell.languageWordsLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d word", comment: "%d word"), vocabularies.count)
         }
         
@@ -186,18 +191,14 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         debugPrint("no vocab loadable")
         cell.languageWordsLabel.text = NSLocalizedString("0 words", comment: "0 words")
       }
-    
+      
       return cell
     }
     return UITableViewCell()
   }
-  
+
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == SegueName.showNewLanguageScreenSegue {
-      let secondVC = segue.destination as! NewLanguageViewController
-      secondVC.delegate = self
-    }
-    
+
     if segue.identifier == SegueName.showLanguageSegue {
       let secondVC = segue.destination as! LanguageScreenViewController
       secondVC.selectedLanguage = selectedLanguage
@@ -226,21 +227,21 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
         button.isHidden = false
       }
     })
-//      for cell in tableView.visibleCells{
-//        if cell.isSelected{
-//          UIView.animate(withDuration: 0.3, animations: {
-//            cell.backgroundView?.backgroundColor = BackgroundColor.red
-//          })
-//        } else {
-//          UIView.animate(withDuration: 0.3, animations: {
-//            let selectedView = UIView()
-//            selectedView.backgroundColor = BackgroundColor.lightBlue
-//            selectedView.layer.cornerRadius = 5.0
-//            selectedView.frame = selectedView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
-//            cell.backgroundView = selectedView
-//          })
-//        }
-//      }
+  //      for cell in tableView.visibleCells{
+  //        if cell.isSelected{
+  //          UIView.animate(withDuration: 0.3, animations: {
+  //            cell.backgroundView?.backgroundColor = BackgroundColor.red
+  //          })
+  //        } else {
+  //          UIView.animate(withDuration: 0.3, animations: {
+  //            let selectedView = UIView()
+  //            selectedView.backgroundColor = BackgroundColor.lightBlue
+  //            selectedView.layer.cornerRadius = 5.0
+  //            selectedView.frame = selectedView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+  //            cell.backgroundView = selectedView
+  //          })
+  //        }
+  //      }
   }
   
   @IBAction func trainingButton(_ sender: Any) {
@@ -285,7 +286,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     guard let _ = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { debugPrint("no vocabularies found"); return false}
     return true
   }
-      
+  
   /// TODO: universal language file support
   @objc func reloadImports() {
     
@@ -293,7 +294,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
     if files.count == 0 {
       let alert = UIAlertController(title: NSLocalizedString("No language files found", comment: "No language files found"), message: NSLocalizedString("There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.", comment: "There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.")
-        , preferredStyle: UIAlertController.Style.alert)
+                                    , preferredStyle: UIAlertController.Style.alert)
       alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
       self.present(alert, animated: true, completion: nil)
     } else {
@@ -317,7 +318,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     spinner(start: true)
     
     if languages.count > 0 {
-    
+      
       let alert = UIAlertController(title:NSLocalizedString("Importing language files", comment: "Importing language files"), message: NSLocalizedString("Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?", comment: "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?"), preferredStyle: UIAlertController.Style.alert)
       
       // add the actions (buttons)
@@ -343,12 +344,12 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       //    for language in languages {
       //      ExportImport.exportAsCsvToDocuments(language: language)
       //    }
-
+      
       //    let alert = UIAlertController(title: "\(NSLocalizedString("Exported the following languages:", comment: "Exported the following languages:"))", message: "\(languages.joined(separator: ", ")) \n\n\(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder", comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder"))"
       //      , preferredStyle: UIAlertController.Style.alert)
       //    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
       //    self.present(alert, animated: true, completion: nil)
-
+      
       let words = ExportImport.exportAsCsvToDocuments(language: languages[selectedRow])
       let ac = UIActivityViewController(activityItems: [words], applicationActivities: nil)
       present(ac, animated: true)
@@ -369,7 +370,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     addLanguageButton.layer.cornerRadius = 5.0
     addLanguageButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
     addLanguageButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-  
+    
     topButtons[0].backgroundColor = BackgroundColor.mediumSpringBud
     topButtons[0].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
     topButtons[1].backgroundColor = BackgroundColor.hansaYellow
@@ -389,7 +390,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     tableView.layer.cornerRadius = 10.0
     
     aboutAppButton.setTitleColor(.white, for: .normal)
-  
+    
   }
   
   func localize() {
@@ -431,7 +432,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     versionLabel.translatesAutoresizingMaskIntoConstraints = false
     versionLabel.textAlignment = .center
     versionLabel.backgroundColor = BackgroundColor.hansaYellow
-
+    
     webView.translatesAutoresizingMaskIntoConstraints = false
     webViewVC.view.addSubview(closeButton)
     webViewVC.view.addSubview(webView)
@@ -449,17 +450,20 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       versionLabel.rightAnchor.constraint(equalTo: webViewVC.view.rightAnchor),
       versionLabel.bottomAnchor.constraint(equalTo: webViewVC.view.bottomAnchor)
     ])
-
+    
     showLoadingIndicator()
     if let locale = Locale.current.languageCode {
       var ppUrl: URL?
-      if locale == "de" {
-        ppUrl = URL(string: "https://mic.st/flippyLearn/pp_de.html")
-      } else {
-        ppUrl = URL(string: "https://mic.st/flippyLearn/pp_en.html")
-      }
+        switch locale {
+        case "de":
+            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_de.html")
+        case "nl":
+            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_nl.html")
+        default:
+            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_en.html")
+        }
       if let ppUrl = ppUrl {
-      	webView.load(URLRequest(url: ppUrl))
+        webView.load(URLRequest(url: ppUrl))
       } else {
         loadLocalPp(webView)
       }
@@ -467,7 +471,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       loadLocalPp(webView)
     }
   }
-
+  
   private func loadLocalPp(_ webView: WKWebView) {
     guard let htmlFile = Bundle.main.path(forResource: "pp", ofType: "html") else { return }
     guard let html = try? String(contentsOfFile: htmlFile, encoding: String.Encoding.utf8) else { return }
@@ -477,23 +481,23 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   @objc func tappedClose() {
     presentedViewController?.dismiss(animated: true)
   }
-
+  
   private func showLoadingIndicator() {
     /// Loading indicator
-     loadingController = UIAlertController(title: nil,
-                                           message: NSLocalizedString("Please wait...",
-                                                                      comment: "Message on loading indicator"),
-                                           preferredStyle: .alert)
-     if let loadingController = loadingController {
-       loadingController.view.tintColor = .black
-       let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
-       loadingIndicator.hidesWhenStopped = true
-       loadingIndicator.style = UIActivityIndicatorView.Style.gray
-       loadingIndicator.startAnimating();
-
-       loadingController.view.addSubview(loadingIndicator)
-       present(loadingController, animated: true, completion: nil)
-     }
+    loadingController = UIAlertController(title: nil,
+                                          message: NSLocalizedString("Please wait...",
+                                                                     comment: "Message on loading indicator"),
+                                          preferredStyle: .alert)
+    if let loadingController = loadingController {
+      loadingController.view.tintColor = .black
+      let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
+      loadingIndicator.hidesWhenStopped = true
+      loadingIndicator.style = UIActivityIndicatorView.Style.gray
+      loadingIndicator.startAnimating();
+      
+      loadingController.view.addSubview(loadingIndicator)
+      present(loadingController, animated: true, completion: nil)
+    }
   }
   
 }
@@ -508,3 +512,9 @@ extension HomeScreenViewController: WKNavigationDelegate {
   }
 }
 
+extension HomeScreenViewController{
+
+  @IBAction func addAction(){
+    present(NewLanguageViewController(delegate: self), animated: true)
+  }
+}

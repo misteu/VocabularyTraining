@@ -67,6 +67,8 @@
 		CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageScreenViewController.swift; sourceTree = "<group>"; };
 		CE86C5812235C971008A5B73 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWordViewController.swift; sourceTree = "<group>"; };
+		CE92ABF928E97C5600FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = nl; path = nl.lproj/pp.html; sourceTree = "<group>"; };
+		CE92ABFA28E97CAF00FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CECD6343235E54350060911F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/pp.html; sourceTree = "<group>"; };
 		CECD6346235E54420060911F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/pp.html; sourceTree = "<group>"; };
 		CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocabularyTrainer.entitlements; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				en,
 				Base,
 				de,
+				nl,
 			);
 			mainGroup = CE86C53F2235AE20008A5B73;
 			productRefGroup = CE86C5492235AE20008A5B73 /* Products */;
@@ -364,6 +367,7 @@
 			children = (
 				CE05F623229F17AF0097E3BB /* en */,
 				CE05F625229F17C40097E3BB /* de */,
+				CE92ABFA28E97CAF00FE2EBC /* nl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -382,6 +386,7 @@
 			children = (
 				CECD6343235E54350060911F /* Base */,
 				CECD6346235E54420060911F /* de */,
+				CE92ABF928E97C5600FE2EBC /* nl */,
 			);
 			name = pp.html;
 			sourceTree = "<group>";
@@ -522,7 +527,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.13;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -546,7 +551,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.13;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
