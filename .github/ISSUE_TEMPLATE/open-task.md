@@ -3,7 +3,7 @@ name: Open Task
 about: Generic Open Task, that is ready to be picked up
 title: "[Open Task]"
 labels: beginners-welcome, enhancement, good first issue, hacktober, hacktoberfest,
-  hacktoberfest-approved, help wanted
+  help wanted
 assignees: ''
 
 ---
