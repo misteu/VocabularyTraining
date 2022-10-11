@@ -8,6 +8,7 @@
 
 "Your Languages" = "Jou talen";
 "Currently there are no languages" = "Er zijn op het moment geen talen. \n\nJe kan nieuwe talen toevoegen via de knop hieronder.";
+// "Currently there are no words" = MISSING DUTCH TRANSLATION!
 /*
 \n\nIf you have any language files uploaded to your iPhone via iTunes, hit the \"import all\" button.";*/
 "Add language" = "➕ Taal toevoegen";
