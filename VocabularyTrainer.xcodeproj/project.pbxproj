@@ -22,6 +22,7 @@
 		CE86C5822235C971008A5B73 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5812235C971008A5B73 /* Helper.swift */; };
 		CE86C584223684D2008A5B73 /* AddNewWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C583223684D2008A5B73 /* AddNewWordViewController.swift */; };
 		CECD6342235E54350060911F /* pp.html in Resources */ = {isa = PBXBuildFile; fileRef = CECD6344235E54350060911F /* pp.html */; };
+		CEE4988828F572E200B64FCF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CEE4988728F572E200B64FCF /* README.md */; };
 		E37D16F9261BCBCB006C1F71 /* LanugageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */; };
 		E37D16FF261BCC10006C1F71 /* VocabularyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D16FE261BCC10006C1F71 /* VocabularyCell.swift */; };
 		E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */; };
@@ -71,6 +72,7 @@
 		CE92ABFA28E97CAF00FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CECD6343235E54350060911F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/pp.html; sourceTree = "<group>"; };
 		CECD6346235E54420060911F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/pp.html; sourceTree = "<group>"; };
+		CEE4988728F572E200B64FCF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocabularyTrainer.entitlements; sourceTree = "<group>"; };
 		E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanugageTableViewCell.swift; sourceTree = "<group>"; };
 		E37D16FE261BCC10006C1F71 /* VocabularyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCell.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 		CE86C53F2235AE20008A5B73 = {
 			isa = PBXGroup;
 			children = (
+				CEE4988728F572E200B64FCF /* README.md */,
 				CE86C54A2235AE20008A5B73 /* VocabularyTrainer */,
 				CE86C55F2235AE23008A5B73 /* VocabularyTrainerTests */,
 				CE86C56A2235AE23008A5B73 /* VocabularyTrainerUITests */,
@@ -287,6 +290,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEE4988828F572E200B64FCF /* README.md in Resources */,
 				CE05F622229F17AF0097E3BB /* Localizable.strings in Resources */,
 				CECD6342235E54350060911F /* pp.html in Resources */,
 				CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */,
