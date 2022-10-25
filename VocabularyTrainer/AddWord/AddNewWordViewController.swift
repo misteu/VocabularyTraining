@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Combine
 
 final class AddNewWordViewController: UIViewController {
     
@@ -38,13 +37,13 @@ final class AddNewWordViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = NSLocalizedString("New word", comment: "new word")
         textField.font = UIFont.systemFont(ofSize: 32)
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 5.0
         textField.layer.sublayerTransform = CATransform3DMakeTranslation(8, 0, 0)
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
+        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
@@ -52,13 +51,13 @@ final class AddNewWordViewController: UIViewController {
         let textField = UITextField()
         textField.placeholder = NSLocalizedString("translation", comment: "translation")
         textField.font = UIFont.systemFont(ofSize: 32)
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 5.0
         textField.layer.sublayerTransform = CATransform3DMakeTranslation(8, 0, 0)
         textField.autocapitalizationType = .none
         textField.autocorrectionType = .no
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
+        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
