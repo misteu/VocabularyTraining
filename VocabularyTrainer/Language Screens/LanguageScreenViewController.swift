@@ -70,6 +70,15 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         setGradientBackground(view: view)
         loadDataAndUpdate()
         sortVocabulary(element: .word, isAscending: true)
+        wordAddedObserver()
+    }
+    
+    private func wordAddedObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "wordAdded"), object: nil)
+    }
+    
+    @objc private func reloadData() {
+        loadDataAndUpdate()
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -117,6 +126,11 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
                                       style: .cancel,
                                       handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    @IBAction func newWordButtonTapped(_ sender: Any) {
+        let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
+        self.present(viewController, animated: true)
     }
     
     @IBAction func sortButtonTapped(_ sender: UIButton) {
@@ -175,17 +189,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         guard let vocabulary = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else {print("wrong dictionary format/not found"); return [String:String]()}
         return vocabulary
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SegueName.showAddWordSegue {
-            guard let secondVC = segue.destination as? AddNewWordViewController else { print("no segue found"); return}
-            secondVC.selectedLanguage = selectedLanguage
-            secondVC.completed = { [weak self] in
-                self?.loadDataAndUpdate()
-            }
-        }
-        
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
