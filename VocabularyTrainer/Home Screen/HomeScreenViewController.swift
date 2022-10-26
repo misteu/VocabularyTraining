@@ -264,8 +264,14 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     guard let row = selectedRow else {debugPrint("nothing selected"); return}
     
     selectedLanguage = languages[row]
-    performSegue(withIdentifier: SegueName.showLanguageSegue, sender: nil)
-    
+      
+    let languageVC = LanguageScreenViewController()
+    languageVC.selectedLanguage = selectedLanguage
+    languageVC.delegate = self
+    languageVC.completed = { [weak self] in
+      self?.tableView.reloadData()
+    }
+    present(languageVC, animated: true)
   }
   
   func deactivateTopButtons() {

@@ -11,27 +11,163 @@ import MessageUI
 
 class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMailComposeViewControllerDelegate {
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    let buttonHeight: CGFloat = 36
+    let symbolConfig = UIImage.SymbolConfiguration(textStyle: .title1, scale: .large)
+
+    lazy var backButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+        button.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
+        button.backgroundColor = BackgroundColor.hansaYellow
+        button.layer.cornerRadius = 5.0
+        button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+        button.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+        return button
+    }()
     
-    @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var newWordButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var exportButton: UIButton!
-    @IBOutlet weak var sortWordButton: UIButton!
-    @IBOutlet weak var sortTranslationButton: UIButton!
-    @IBOutlet weak var sortDateButton: UIButton!
-    @IBOutlet weak var hintLabel: UILabel!
+    lazy var deleteButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
+        button.setTitle(NSLocalizedString("Delete Language", comment: "Delete Language"), for: .normal)
+        button.backgroundColor = BackgroundColor.red
+        button.layer.cornerRadius = 5.0
+        button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
+        button.setTitleColor(BackgroundColor.mediumWhite, for: .normal)
+        return button
+    }()
     
-    @IBOutlet weak var tableView: UITableView!
+    lazy var searchBar: UISearchBar = {
+        let searchBar: UISearchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.tintColor = UIColor(white: 1.0, alpha: 0.3)
+        return searchBar
+    }()
+    
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+        tableView.layer.cornerRadius = 10.0
+        return tableView
+    }()
+    
+    lazy var newWordButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = .systemFont(ofSize: 25)
+        button.setTitle(NSLocalizedString("New Word", comment: "New Word"), for: .normal)
+        button.backgroundColor = BackgroundColor.mediumSpringBud
+        button.layer.cornerRadius = 5.0
+        button.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+        return button
+    }()
+    
+    lazy var hintLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 17)
+        return label
+    }()
+    
+    lazy var exportButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.text = NSLocalizedString("⤴ export", comment: "⤴ export")
+        button.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+        button.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
+        button.layer.cornerRadius = 5.0
+        button.contentEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
+        return button
+    }()
+    
+    lazy var languageHeader: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = NSLocalizedString("Language", comment: "Language")
+        label.font = .systemFont(ofSize: 32)
+        return label
+    }()
+    
+    lazy var infoButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(
+            UIImage(
+                systemName: "info.circle.fill",
+                withConfiguration: symbolConfig
+            ),
+            for: .normal
+        )
+        button.sizeToFit()
+        button.setTitleColor(.white, for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
+    lazy var sortWordButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        button.setImage(
+            UIImage(
+                systemName: "chevron.up.square.fill",
+                withConfiguration: symbolConfig
+            ),
+            for: .normal
+        )
+        button.sizeToFit()
+        button.setTitleColor(.blue, for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
+    lazy var sortTranslationButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(
+            UIImage(
+                systemName: "minus.square.fill",
+                withConfiguration: symbolConfig
+            ),
+            for: .normal
+        )
+        button.sizeToFit()
+        button.setTitleColor(.blue, for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
+    lazy var sortDateButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+        button.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
+        button.setImage(
+            UIImage(
+                systemName: "minus.square.fill",
+                withConfiguration: symbolConfig
+            ),
+            for: .normal
+        )
+        button.setTitleColor(.blue, for: .normal)
+        button.tintColor = .white
+        return button
+    }()
+    
+    
     var selectedLanguage: String?
     var vocabularies = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
-    var vocabDict = [String: String]()
-    var vocabProgr = [String: Float]()
+    var vocabDict = [String:String]()
+    var vocabProgr = [String:Float]()
     var filteredData = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
     var isSearching = false
     var totalProgress = Float(0)
     var maxProgress = Float(0)
-    var completed: (() -> Void)?
+    var completed: (()->Void)?
     
     /// Sorting directions for the vocabulary list.
     var isSortingAscending = (word: false, translation: false, date: false)
@@ -45,14 +181,356 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         case date
     }
     
-    var delegate: NewLanguageScreenProtocol?
+    var delegate: NewLanguageScreenProtocol? = nil
     
-    @IBOutlet weak var languageHeader: UILabel!
+    override func loadView() {
+        super.loadView()
+        setUpLayout()
+        hookButtonActions()
+    }
+    
+    func setUpLayout() {
+        view.backgroundColor = .systemTeal
+        view.addSubview(tableView)
+        view.addSubview(backButton)
+        view.addSubview(deleteButton)
+        view.addSubview(searchBar)
+        view.addSubview(languageHeader)
+        view.addSubview(exportButton)
+        view.addSubview(hintLabel)
+        view.addSubview(infoButton)
+        view.addSubview(newWordButton)
+        view.addSubview(sortDateButton)
+        view.addSubview(sortWordButton)
+        view.addSubview(sortTranslationButton)
+        NSLayoutConstraint.activate([
+            // constraints for back button.
+            NSLayoutConstraint(
+                item: backButton,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: backButton,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .top,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: backButton,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: languageHeader,
+                attribute: .top,
+                multiplier: 1,
+                constant: -16
+            ),
+            // constraints for delete button.
+            NSLayoutConstraint(
+                item: deleteButton,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .top,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: deleteButton,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 16
+            ),
+            // constraints for language label.
+            NSLayoutConstraint(
+                item: languageHeader,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: backButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: languageHeader,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: view,
+                attribute: .centerX,
+                multiplier: 1,
+                constant: 0
+            ),
+            NSLayoutConstraint(
+                item: exportButton,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: languageHeader,
+                attribute: .centerX,
+                multiplier: 1,
+                constant: 0
+            ),
+            // constraints for searchBar.
+            NSLayoutConstraint(
+                item: searchBar,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: languageHeader,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 4
+            ),
+            NSLayoutConstraint(
+                item: searchBar,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: exportButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            ),
+            NSLayoutConstraint(
+                item: searchBar,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: infoButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            ),
+            NSLayoutConstraint(
+                item: searchBar,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: searchBar,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 16
+            ),
+            // constraints for sortWord Button.
+            NSLayoutConstraint(
+                item: sortWordButton,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: tableView,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: sortWordButton,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: searchBar,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            ),
+            NSLayoutConstraint(
+                item: tableView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: sortWordButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            ),
+            // constraints for sortTranslation button.
+            NSLayoutConstraint(
+                item: sortTranslationButton,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: searchBar,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            ),
+            NSLayoutConstraint(
+                item: sortTranslationButton,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: tableView,
+                attribute: .centerX,
+                multiplier: 1,
+                constant: 0
+            ),
+            NSLayoutConstraint(
+                item: tableView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: sortTranslationButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            ),
+            // constraints for sortDate button.
+            NSLayoutConstraint(
+                item: sortDateButton,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: tableView,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: -16
+            ),
+            NSLayoutConstraint(
+                item: sortWordButton,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: searchBar,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            ),
+            NSLayoutConstraint(
+                item: tableView,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: sortDateButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            ),
+            // constraints for tableView button.
+            NSLayoutConstraint(
+                item: tableView,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: tableView,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: newWordButton,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: tableView,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 16
+            ),
+            //constraints for newWord button.
+            NSLayoutConstraint(
+                item: newWordButton,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 32
+            ),
+            NSLayoutConstraint(
+                item: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                relatedBy: .equal,
+                toItem: newWordButton,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 32
+            ),
+            NSLayoutConstraint(
+                item: view.safeAreaLayoutGuide,
+                attribute: .bottom,
+                relatedBy: .equal,
+                toItem: newWordButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 16
+            ),
+            //constraints for hintLabel.
+            NSLayoutConstraint(
+                item: hintLabel,
+                attribute: .leading,
+                relatedBy: .lessThanOrEqual,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 20
+            ),
+            NSLayoutConstraint(
+                item: view.safeAreaLayoutGuide,
+                attribute: .trailing,
+                relatedBy: .greaterThanOrEqual,
+                toItem: hintLabel,
+                attribute: .trailing,
+                multiplier: 1,
+                constant: 20
+            ),
+            NSLayoutConstraint(
+                item: hintLabel,
+                attribute: .centerX,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .centerX,
+                multiplier: 1,
+                constant: 0
+            ),
+            NSLayoutConstraint(
+                item: hintLabel,
+                attribute: .centerY,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .centerY,
+                multiplier: 1,
+                constant: 0
+            ),
+            NSLayoutConstraint(
+                item: infoButton,
+                attribute: .leading,
+                relatedBy: .equal,
+                toItem: view.safeAreaLayoutGuide,
+                attribute: .leading,
+                multiplier: 1,
+                constant: 16
+            ),
+            NSLayoutConstraint(
+                item: searchBar,
+                attribute: .top,
+                relatedBy: .equal,
+                toItem: infoButton,
+                attribute: .bottom,
+                multiplier: 1,
+                constant: 8
+            )
+        ])
+        
+        //TechDebt: Don't know why we have a export button here when it was not unhidden before
+        exportButton.isHidden = true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
+        tableView.register(VocabularyCell.self, forCellReuseIdentifier: CellIdentifier.vocabularyCell)
+        
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
@@ -64,7 +542,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         searchBar.layer.cornerRadius = 10.0
         searchBar.layer.borderWidth = 0.0
         searchBar.clipsToBounds = true
-        styleUi()
         localize()
         setGradientBackground(view: view)
         loadDataAndUpdate()
@@ -80,12 +557,32 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         loadDataAndUpdate()
     }
     
-    @IBAction func backButtonTapped(_ sender: Any) {
+    func hookButtonActions() {
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        
+        infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
+        
+        sortWordButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        sortTranslationButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        sortDateButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
+        
+        exportButton.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
+        newWordButton.addTarget(self, action: #selector(addNewWordTapped), for: .touchUpInside)
+    }
+    
+    @objc func backButtonTapped(_ sender: Any) {
         completed?()
         dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func deleteButtonTapped(_ sender: Any) {
+    @objc func addNewWordTapped(_ sender: Any) {
+        let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
+        self.present(viewController, animated: true)
+    }
+    
+    @objc func deleteButtonTapped(_ sender: Any) {
         
         // create the alert
         guard let language = selectedLanguage else { return }
@@ -93,7 +590,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         // add the actions (buttons)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { action in
             
             guard let languages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] else {print("error getting languages"); return}
             
@@ -103,7 +600,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             
             UserDefaults.standard.removeObject(forKey: language)
             UserDefaults.standard.removeObject(forKey: "\(language)Progress")
-                        
+            
+            
             self.dismiss(animated: true, completion: { () in
                 if let delegate = self.delegate {
                     delegate.updateLanguageTable(language: language)
@@ -114,8 +612,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         // show the alert
         self.present(alert, animated: true, completion: nil)
     }
-        
-    @IBAction func infoButtonTapped(_ sender: Any) {
+    
+    @objc func infoButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: nil,
                                       message: infoText,
                                       preferredStyle: .alert)
@@ -125,39 +623,39 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         present(alert, animated: true, completion: nil)
     }
     
-    @IBAction func newWordButtonTapped(_ sender: Any) {
-        let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
-        self.present(viewController, animated: true)
-    }
+   @objc func sortButtonTapped(_ sender: UIButton) {
+       
+       let chevronUpImage = UIImage(systemName: "chevron.up.square.fill", withConfiguration: symbolConfig)
+       let chevronDownImage = UIImage(systemName: "chevron.down.square.fill", withConfiguration: symbolConfig)
+       let minusImage = UIImage(systemName: "minus.square.fill", withConfiguration: symbolConfig)
+       
+       if sender === sortWordButton {
+           sortWordButton.setImage(isSortingAscending.word ? chevronUpImage : chevronDownImage, for: .normal)
+           sortTranslationButton.setImage(minusImage, for: .normal)
+           sortDateButton.setImage(minusImage, for: .normal)
+           sortVocabulary(element: .word, isAscending: isSortingAscending.word)
+           isSortingAscending.word.toggle()
+       } else if sender === sortTranslationButton {
+           sortTranslationButton.setImage(isSortingAscending.translation ? chevronUpImage : chevronDownImage, for: .normal)
+           sortWordButton.setImage(minusImage, for: .normal)
+           sortDateButton.setImage(minusImage, for: .normal)
+           sortVocabulary(element: .translation, isAscending: isSortingAscending.translation)
+           isSortingAscending.translation.toggle()
+       } else if sender === sortDateButton {
+           sortDateButton.setImage(isSortingAscending.date ? chevronUpImage : chevronDownImage, for: .normal)
+           sortTranslationButton.setImage(minusImage, for: .normal)
+           sortWordButton.setImage(minusImage, for: .normal)
+           sortVocabulary(element: .date, isAscending: isSortingAscending.date)
+           isSortingAscending.date.toggle()
+       }
+       
+       tableView.reloadData()
+   }
     
-    @IBAction func sortButtonTapped(_ sender: UIButton) {
-        
-        let configuration = UIImage.SymbolConfiguration(textStyle: .title1, scale: .large)
-        let chevronUpImage = UIImage(systemName: "chevron.up.square.fill", withConfiguration: configuration)
-        let chevronDownImage = UIImage(systemName: "chevron.down.square.fill", withConfiguration: configuration)
-        let minusImage = UIImage(systemName: "minus.square.fill", withConfiguration: configuration)
-        
-        if sender === sortWordButton {
-            sortWordButton.setImage(isSortingAscending.word ? chevronUpImage : chevronDownImage, for: .normal)
-            sortTranslationButton.setImage(minusImage, for: .normal)
-            sortDateButton.setImage(minusImage, for: .normal)
-            sortVocabulary(element: .word, isAscending: isSortingAscending.word)
-            isSortingAscending.word.toggle()
-        } else if sender === sortTranslationButton {
-            sortTranslationButton.setImage(isSortingAscending.translation ? chevronUpImage : chevronDownImage, for: .normal)
-            sortWordButton.setImage(minusImage, for: .normal)
-            sortDateButton.setImage(minusImage, for: .normal)
-            sortVocabulary(element: .translation, isAscending: isSortingAscending.translation)
-            isSortingAscending.translation.toggle()
-        } else if sender === sortDateButton {
-            sortDateButton.setImage(isSortingAscending.date ? chevronUpImage : chevronDownImage, for: .normal)
-            sortTranslationButton.setImage(minusImage, for: .normal)
-            sortWordButton.setImage(minusImage, for: .normal)
-            sortVocabulary(element: .date, isAscending: isSortingAscending.date)
-            isSortingAscending.date.toggle()
-        }
-        
-        tableView.reloadData()
+    @objc func exportButtonTapped(_ sender: Any) {
+        //sendEmail()
+        //exportToDocuments()
+        exportAsCsvToDocuments()
     }
     
     private func sortVocabulary(element: SortElement, isAscending: Bool) {
@@ -179,45 +677,46 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             })
         }
     }
+    
+    
+    func loadVocabulary()->[String:String] {
+        guard let language = selectedLanguage else {print("language not given"); return [String:String]()}
         
-    func loadVocabulary() -> [String: String] {
-        guard let language = selectedLanguage else {print("language not given"); return [String: String]()}
-        
-        guard let vocabulary = UserDefaults.standard.dictionary(forKey: language) as? [String: String] else {print("wrong dictionary format/not found"); return [String: String]()}
+        guard let vocabulary = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else {print("wrong dictionary format/not found"); return [String:String]()}
         return vocabulary
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text == nil || (searchBar.text?.isEmpty ?? false) {
+        if searchBar.text == nil || searchBar.text == "" {
             isSearching = false
             view.endEditing(true)
             tableView.reloadData()
         } else {
             isSearching = true
-            filteredData = vocabularies.filter {
-              var retVal = $0.0.lowercased().contains(searchBar.text!.lowercased()) ||
-              $0.1.lowercased().contains(searchBar.text!.lowercased())
-              
-              if let date = $0.addedDate {
-                retVal = retVal || VocabularyDateFormatter.prettyDateFormatter.string(from: date).contains(searchBar.text!)
-                }
-              return retVal
-            }
-            
+            filteredData = vocabularies.filter(
+                {
+                    var retVal = $0.0.lowercased().contains(searchBar.text!.lowercased()) ||
+                    $0.1.lowercased().contains(searchBar.text!.lowercased())
+                    if let date = $0.addedDate {
+                        retVal = retVal || VocabularyDateFormatter.prettyDateFormatter.string(from: date).contains(searchBar.text!)
+                    }
+                    return retVal
+                })
             tableView.reloadData()
+            
         }
     }
     
     func loadDataAndUpdate() {
         
         guard  let language = selectedLanguage else {print("no language given"); return}
-        if let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String: String] {
+        if let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
             vocabDict = vocab
         } else {
-            vocabDict = [String: String]()
+            vocabDict = [String:String]()
         }
         
-        guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String: Float] else {
+        guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String:Float] else {
             print("no progresses found")
             showEmptyHint()
             return
@@ -225,7 +724,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         vocabProgr = vocabProgress
         
         var vocabDates = [String: Date]()
-        if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String: Date] {
+        if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String:Date] {
             vocabDates = dates
         }
         
@@ -234,12 +733,11 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             vocabularies.append((key, value, vocabProgress[key] ?? 100.0, vocabDates[key]))
         }
         
-        filteredData = vocabularies.filter { $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())            
-        }
+        filteredData = vocabularies.filter({ $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())})
         
         UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
         
-        totalProgress = vocabularies.reduce(0) { $0 + $1.2 }
+        totalProgress = vocabularies.reduce(0){$0 + $1.2}
         
         if let maxItem = vocabularies.max(by: {$0.2 < $1.2 }) {
             let max = maxItem.2
@@ -247,11 +745,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             maxProgress = max
         }
         
-        if vocabDict.isEmpty {
-            showEmptyHint()
-        } else {
-            hideEmptyHint()
-        }        
+        vocabDict.isEmpty ? showEmptyHint() : hideEmptyHint()
     }
     
     fileprivate func showEmptyHint() {
@@ -271,7 +765,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         hintLabel.isHidden = true
     }
 
-    func convertToJSON(dic: NSDictionary) -> String? {
+    
+    func convertToJSON(dic: NSDictionary)->String? {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
             guard let result = String(data: jsonData, encoding: String.Encoding.utf8) else {return nil}
@@ -288,9 +783,9 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            // mail.setToRecipients(["m.steudter@gmx.de"])
+            //mail.setToRecipients(["m.steudter@gmx.de"])
             
-            let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String: Any]
+            let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String : Any]
             
             mail.setMessageBody(convertToJSON(dic: export as NSDictionary) ?? "no vocabularies", isHTML: false)
             mail.setSubject("Vocabulary export")
@@ -305,46 +800,14 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         controller.dismiss(animated: true)
     }
     
-    @IBAction func exportButtonTapped(_ sender: Any) {
-        // sendEmail()
-        // exportToDocuments()
-        exportAsCsvToDocuments()
-    }
-    
-    func styleUi() {
-        newWordButton.backgroundColor = BackgroundColor.mediumSpringBud
-        newWordButton.layer.cornerRadius = 5.0
-        newWordButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-        
-        deleteButton.backgroundColor = BackgroundColor.red
-        deleteButton.layer.cornerRadius = 5.0
-        deleteButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-        deleteButton.setTitleColor(BackgroundColor.mediumWhite, for: .normal)
-        
-        backButton.backgroundColor = BackgroundColor.hansaYellow
-        backButton.layer.cornerRadius = 5.0
-        backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-        backButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-        
-        tableView.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
-        tableView.layer.cornerRadius = 10.0
-        
-        exportButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-        exportButton.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
-        exportButton.layer.cornerRadius = 5.0
-        exportButton.contentEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
-        
-        searchBar.tintColor = UIColor(white: 1.0, alpha: 0.3)
-        
-    }
-    
     func exportToDocuments() {
-        let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String: Any]
+        let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String : Any]
         
         // Get the url of Persons.json in document directory
         guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         guard let language = selectedLanguage else {print("no language selected"); return}
         let fileUrl = documentDirectoryUrl.appendingPathComponent("\(language).json")
+        
         
         // Transform array into data and save it into file
         do {
@@ -367,35 +830,35 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         for (key, value) in vocabDict {
             
-            if !exportString.isEmpty {
+            if exportString != "" {
                 exportString = """
-                    \(exportString)
-                    \(key);\(value);\(vocabProgr[key] ?? 100)
-                """
+        \(exportString)
+        \(key);\(value);\(vocabProgr[key] ?? 100)
+        """
             } else {
                 exportString = "\(key);\(value);\(vocabProgr[key] ?? 100)"
             }
         }
         
         exportString = """
-            \(exportStringHead)
-            \(exportString)
-        """
+    \(exportStringHead)
+    \(exportString)
+    """
         
         let file = "\(language).csv"
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
             let fileURL = dir.appendingPathComponent(file)
             
-            // writing
+            //writing
             do {
                 try exportString.write(to: fileURL, atomically: false, encoding: .macOSRoman)
-                
                 let alert = UIAlertController(title: "\(NSLocalizedString("Export successful:", comment: "Export successful:")) \(language).csv", message: String.localizedStringWithFormat(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder", comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder"), language)
                                               , preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
-            } catch {/* error handling here */}
+            }
+            catch {/* error handling here */}
             
             //      //reading
             //      do {
@@ -415,14 +878,14 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         infoText = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
     }
+    
 }
 
-// MARK: UITableViewDataSource
 
 extension LanguageScreenViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var result: Int
+        var result: Int;
         
         if isSearching {
             result = filteredData.count
@@ -430,7 +893,7 @@ extension LanguageScreenViewController: UITableViewDataSource {
             result = vocabularies.count
         }
         
-        if vocabularies.isEmpty {
+        if vocabularies.count == 0 {
             searchBar.isHidden = true
             tableView.isHidden = true
             infoText = NSLocalizedString("ℹ️ Add new words with the button below", comment: "ℹ️ Add new words with the button below")
@@ -480,7 +943,6 @@ extension LanguageScreenViewController: UITableViewDataSource {
     }
 }
 
-// MARK: UITableViewDelegate
 
 extension LanguageScreenViewController: UITableViewDelegate {
     

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18943A0A29094F470017E1A2 /* LanguageScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18943A0929094F470017E1A2 /* LanguageScreenViewController.swift */; };
+		18943A0C2909726B0017E1A2 /* VocabularyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18943A0B2909726B0017E1A2 /* VocabularyCell.swift */; };
 		B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3657DFC290740D8000D76C8 /* AddNewWordViewController.swift */; };
 		CE0012FF2243F21C002F86DE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0012FE2243F21C002F86DE /* Extensions.swift */; };
 		CE05F622229F17AF0097E3BB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE05F624229F17AF0097E3BB /* Localizable.strings */; };
@@ -19,12 +21,10 @@
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
 		CE86C56C2235AE23008A5B73 /* VocabularyTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */; };
 		CE86C57E2235BDC9008A5B73 /* NewLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */; };
-		CE86C5802235C8AD008A5B73 /* LanguageScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */; };
 		CE86C5822235C971008A5B73 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5812235C971008A5B73 /* Helper.swift */; };
 		CECD6342235E54350060911F /* pp.html in Resources */ = {isa = PBXBuildFile; fileRef = CECD6344235E54350060911F /* pp.html */; };
 		CEE4988828F572E200B64FCF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CEE4988728F572E200B64FCF /* README.md */; };
 		E37D16F9261BCBCB006C1F71 /* LanugageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */; };
-		E37D16FF261BCC10006C1F71 /* VocabularyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D16FE261BCC10006C1F71 /* VocabularyCell.swift */; };
 		E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18943A0929094F470017E1A2 /* LanguageScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageScreenViewController.swift; sourceTree = "<group>"; };
+		18943A0B2909726B0017E1A2 /* VocabularyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCell.swift; sourceTree = "<group>"; };
 		B3657DFC290740D8000D76C8 /* AddNewWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWordViewController.swift; sourceTree = "<group>"; };
 		CE0012FE2243F21C002F86DE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CE05F621229F17830097E3BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
@@ -66,7 +68,6 @@
 		CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyTrainerUITests.swift; sourceTree = "<group>"; };
 		CE86C56D2235AE23008A5B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLanguageViewController.swift; sourceTree = "<group>"; };
-		CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageScreenViewController.swift; sourceTree = "<group>"; };
 		CE86C5812235C971008A5B73 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		CE92ABF928E97C5600FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = nl; path = nl.lproj/pp.html; sourceTree = "<group>"; };
 		CE92ABFA28E97CAF00FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -75,7 +76,6 @@
 		CEE4988728F572E200B64FCF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocabularyTrainer.entitlements; sourceTree = "<group>"; };
 		E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanugageTableViewCell.swift; sourceTree = "<group>"; };
-		E37D16FE261BCC10006C1F71 /* VocabularyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCell.swift; sourceTree = "<group>"; };
 		E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyDateFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -177,8 +177,8 @@
 		E37D16FD261BCBF9006C1F71 /* Language Screens */ = {
 			isa = PBXGroup;
 			children = (
-				CE86C57F2235C8AD008A5B73 /* LanguageScreenViewController.swift */,
-				E37D16FE261BCC10006C1F71 /* VocabularyCell.swift */,
+				18943A0929094F470017E1A2 /* LanguageScreenViewController.swift */,
+				18943A0B2909726B0017E1A2 /* VocabularyCell.swift */,
 			);
 			path = "Language Screens";
 			sourceTree = "<group>";
@@ -354,16 +354,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE86C584223684D2008A5B73 /* AddNewWordViewController.swift in Sources */,
 				CE86C5802235C8AD008A5B73 /* LanguageScreenViewController.swift in Sources */,
 				B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */,
 				CE86C54E2235AE20008A5B73 /* HomeScreenViewController.swift in Sources */,
-				E37D16FF261BCC10006C1F71 /* VocabularyCell.swift in Sources */,
 				CE0012FF2243F21C002F86DE /* Extensions.swift in Sources */,
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
 				CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */,
 				CE86C54C2235AE20008A5B73 /* AppDelegate.swift in Sources */,
+				18943A0A29094F470017E1A2 /* LanguageScreenViewController.swift in Sources */,
 				CE86C57E2235BDC9008A5B73 /* NewLanguageViewController.swift in Sources */,
 				CE86C5822235C971008A5B73 /* Helper.swift in Sources */,
+				18943A0C2909726B0017E1A2 /* VocabularyCell.swift in Sources */,
 				E37D16F9261BCBCB006C1F71 /* LanugageTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
