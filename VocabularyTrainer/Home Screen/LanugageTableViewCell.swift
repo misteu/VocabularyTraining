@@ -23,7 +23,6 @@ class LanguageTableViewCell: UITableViewCell {
 		languageLabel.textColor = .black
 		languageWordsLabel.textColor = .black
 
-
 		guard let selected = selectedBackgroundView else { return }
 		selected.frame = selected.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
 

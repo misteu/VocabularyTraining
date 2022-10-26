@@ -25,13 +25,13 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     @IBOutlet weak var tableView: UITableView!
     var selectedLanguage: String?
     var vocabularies = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
-    var vocabDict = [String:String]()
-    var vocabProgr = [String:Float]()
+    var vocabDict = [String: String]()
+    var vocabProgr = [String: Float]()
     var filteredData = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
     var isSearching = false
     var totalProgress = Float(0)
     var maxProgress = Float(0)
-    var completed: (()->Void)?
+    var completed: (() -> Void)?
     
     /// Sorting directions for the vocabulary list.
     var isSortingAscending = (word: false, translation: false, date: false)
@@ -45,10 +45,9 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         case date
     }
     
-    var delegate: NewLanguageScreenProtocol? = nil
+    var delegate: NewLanguageScreenProtocol?
     
     @IBOutlet weak var languageHeader: UILabel!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,7 +93,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         // add the actions (buttons)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { action in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { _ in
             
             guard let languages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] else {print("error getting languages"); return}
             
@@ -104,8 +103,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             
             UserDefaults.standard.removeObject(forKey: language)
             UserDefaults.standard.removeObject(forKey: "\(language)Progress")
-            
-            
+                        
             self.dismiss(animated: true, completion: { () in
                 if let delegate = self.delegate {
                     delegate.updateLanguageTable(language: language)
@@ -116,8 +114,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         // show the alert
         self.present(alert, animated: true, completion: nil)
     }
-    
-    
+        
     @IBAction func infoButtonTapped(_ sender: Any) {
         let alert = UIAlertController(title: nil,
                                       message: infoText,
@@ -182,46 +179,45 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             })
         }
     }
-    
-    
-    func loadVocabulary()->[String:String] {
-        guard let language = selectedLanguage else {print("language not given"); return [String:String]()}
         
-        guard let vocabulary = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else {print("wrong dictionary format/not found"); return [String:String]()}
+    func loadVocabulary() -> [String: String] {
+        guard let language = selectedLanguage else {print("language not given"); return [String: String]()}
+        
+        guard let vocabulary = UserDefaults.standard.dictionary(forKey: language) as? [String: String] else {print("wrong dictionary format/not found"); return [String: String]()}
         return vocabulary
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text == nil || searchBar.text == "" {
+        if searchBar.text == nil || (searchBar.text?.isEmpty ?? false) {
             isSearching = false
             view.endEditing(true)
             tableView.reloadData()
         } else {
             isSearching = true
-            filteredData = vocabularies.filter(
-                {
-                    var retVal = $0.0.lowercased().contains(searchBar.text!.lowercased()) ||
-                    $0.1.lowercased().contains(searchBar.text!.lowercased())
-                    if let date = $0.addedDate {
-                        retVal = retVal || VocabularyDateFormatter.prettyDateFormatter.string(from: date).contains(searchBar.text!)
-                    }
-                    return retVal
-                })
-            tableView.reloadData()
+            filteredData = vocabularies.filter {
+              var retVal = $0.0.lowercased().contains(searchBar.text!.lowercased()) ||
+              $0.1.lowercased().contains(searchBar.text!.lowercased())
+              
+              if let date = $0.addedDate {
+                retVal = retVal || VocabularyDateFormatter.prettyDateFormatter.string(from: date).contains(searchBar.text!)
+                }
+              return retVal
+            }
             
+            tableView.reloadData()
         }
     }
     
     func loadDataAndUpdate() {
         
         guard  let language = selectedLanguage else {print("no language given"); return}
-        if let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
+        if let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String: String] {
             vocabDict = vocab
         } else {
-            vocabDict = [String:String]()
+            vocabDict = [String: String]()
         }
         
-        guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String:Float] else {
+        guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String: Float] else {
             print("no progresses found")
             showEmptyHint()
             return
@@ -229,7 +225,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         vocabProgr = vocabProgress
         
         var vocabDates = [String: Date]()
-        if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String:Date] {
+        if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String: Date] {
             vocabDates = dates
         }
         
@@ -238,11 +234,12 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             vocabularies.append((key, value, vocabProgress[key] ?? 100.0, vocabDates[key]))
         }
         
-        filteredData = vocabularies.filter({ $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())})
+        filteredData = vocabularies.filter { $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())            
+        }
         
         UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
         
-        totalProgress = vocabularies.reduce(0){$0 + $1.2}
+        totalProgress = vocabularies.reduce(0) { $0 + $1.2 }
         
         if let maxItem = vocabularies.max(by: {$0.2 < $1.2 }) {
             let max = maxItem.2
@@ -250,7 +247,11 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             maxProgress = max
         }
         
-        vocabDict.isEmpty ? showEmptyHint() : hideEmptyHint()
+        if vocabDict.isEmpty {
+            showEmptyHint()
+        } else {
+            hideEmptyHint()
+        }        
     }
     
     fileprivate func showEmptyHint() {
@@ -270,8 +271,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         hintLabel.isHidden = true
     }
 
-    
-    func convertToJSON(dic: NSDictionary)->String? {
+    func convertToJSON(dic: NSDictionary) -> String? {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: dic, options: .prettyPrinted)
             guard let result = String(data: jsonData, encoding: String.Encoding.utf8) else {return nil}
@@ -288,9 +288,9 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            //mail.setToRecipients(["m.steudter@gmx.de"])
+            // mail.setToRecipients(["m.steudter@gmx.de"])
             
-            let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String : Any]
+            let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String: Any]
             
             mail.setMessageBody(convertToJSON(dic: export as NSDictionary) ?? "no vocabularies", isHTML: false)
             mail.setSubject("Vocabulary export")
@@ -306,8 +306,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
     
     @IBAction func exportButtonTapped(_ sender: Any) {
-        //sendEmail()
-        //exportToDocuments()
+        // sendEmail()
+        // exportToDocuments()
         exportAsCsvToDocuments()
     }
     
@@ -339,13 +339,12 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
     
     func exportToDocuments() {
-        let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String : Any]
+        let export = ["vocabularies": vocabDict, "progresses": vocabProgr] as [String: Any]
         
         // Get the url of Persons.json in document directory
         guard let documentDirectoryUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
         guard let language = selectedLanguage else {print("no language selected"); return}
         let fileUrl = documentDirectoryUrl.appendingPathComponent("\(language).json")
-        
         
         // Transform array into data and save it into file
         do {
@@ -368,35 +367,35 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         for (key, value) in vocabDict {
             
-            if exportString != "" {
+            if !exportString.isEmpty {
                 exportString = """
-        \(exportString)
-        \(key);\(value);\(vocabProgr[key] ?? 100)
-        """
+                    \(exportString)
+                    \(key);\(value);\(vocabProgr[key] ?? 100)
+                """
             } else {
                 exportString = "\(key);\(value);\(vocabProgr[key] ?? 100)"
             }
         }
         
         exportString = """
-    \(exportStringHead)
-    \(exportString)
-    """
+            \(exportStringHead)
+            \(exportString)
+        """
         
         let file = "\(language).csv"
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             
             let fileURL = dir.appendingPathComponent(file)
             
-            //writing
+            // writing
             do {
                 try exportString.write(to: fileURL, atomically: false, encoding: .macOSRoman)
+                
                 let alert = UIAlertController(title: "\(NSLocalizedString("Export successful:", comment: "Export successful:")) \(language).csv", message: String.localizedStringWithFormat(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder", comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder"), language)
                                               , preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
-            }
-            catch {/* error handling here */}
+            } catch {/* error handling here */}
             
             //      //reading
             //      do {
@@ -420,10 +419,10 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
 
 // MARK: UITableViewDataSource
 
-extension LanguageScreenViewController: UITableViewDataSource  {
+extension LanguageScreenViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var result: Int;
+        var result: Int
         
         if isSearching {
             result = filteredData.count
@@ -431,7 +430,7 @@ extension LanguageScreenViewController: UITableViewDataSource  {
             result = vocabularies.count
         }
         
-        if vocabularies.count == 0 {
+        if vocabularies.isEmpty {
             searchBar.isHidden = true
             tableView.isHidden = true
             infoText = NSLocalizedString("ℹ️ Add new words with the button below", comment: "ℹ️ Add new words with the button below")
