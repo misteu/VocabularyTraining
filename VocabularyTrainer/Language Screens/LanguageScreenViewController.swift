@@ -623,6 +623,11 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         present(alert, animated: true, completion: nil)
     }
     
+   @IBAction func newWordButtonTapped(_ sender: Any) {
+        let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
+        self.present(viewController, animated: true)
+    }
+   
    @objc func sortButtonTapped(_ sender: UIButton) {
        
        let chevronUpImage = UIImage(systemName: "chevron.up.square.fill", withConfiguration: symbolConfig)

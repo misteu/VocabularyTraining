@@ -1,0 +1,67 @@
+/* 
+  File.strings
+  VocabularyTrainer
+
+  Created by skrr on 29.05.19.
+  Copyright © 2019 mic. All rights reserved.
+*/
+
+"Your Languages" = "Seus idiomas";
+"Currently there are no languages" = "Atualmente não há idiomas.\n\nVocê pode adicionar um novo idioma no botão abaixo.";
+"Currently there are no words" = "Atualmente não há palavras.\n\nVocê pode adicionar uma nova palavra no botão abaixo.";
+/*
+\n\nIf you have any language files uploaded to your iPhone via iTunes, hit the \"import all\" button.";*/
+"Add language" = "➕ Adicionar idioma";
+"Add new language" = "Adicionar novo idioma";
+"which language?" = "Idioma";
+"Add" = "➕ Adicionar";
+"< Back" = "↤ Voltar";
+"%d words" = "%d palavras";
+"%d word" = "%d palavra";
+"0 words" = "0 palavras";
+"My words" = "⚙️ Editar";
+"new Word" = "nova palavra";
+"translation" = "tradução";
+"Training" = "📖 Treinar";
+"Training:" = "Treinando:";
+"Delete Language" = "🗑 Excluir idioma";
+"export" = "💾 exportar idioma";
+"New word" = "Nova palavra";
+"Add new word" = "Adicionar nova palavra";
+"No words inside 🕵️‍♀️" = "Sem palavras adicionadas 🕵️‍♀️";
+"Delete %@" = "Deletar %@";
+"Deleting this language will delete all your saved words and your learning progress.\nDo you want to proceed?" = "Deletando esse idioma, você irá deletar todas as palavras salvas e o seu progresso de aprendizado.\nVocê gostaria de continuar?";
+"Cancel" = "Cancelar";
+"Delete" = "🗑 Deletar";
+"New word added" = "Nova palavra adicionada";
+"Change word`s probability" = "Alterar probabilidade da palavra aparecer";
+"Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100." = "Alterar a probabilidade da palavra aparecer. Valores maiores significa que há maior probabilidade da palavra aparecer.\nNovas palavras começam com o valor 100.";
+"Edit:" = "🛠 Editar:";
+"Export successful:" = "Exportado com sucesso:";
+"Exported the following languages:" = "Exportado os seguintes idiomas:";
+"You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder" = "Você pode copiar o arquivo de idiomas para o seu computador pelo iTunes.\nAcesse: iPhone->Compartilhamento de Arquivos->Flippy->arraste %@.csv para uma pasta da sua preferência";
+"You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder" = "Você pode copiar o arquivo para o seu computador pelo iTunes.\nAcesse: iPhone->Compartilhamento de Arquivos->Flippy->arraste csv-files para o Finder";
+"⤵ import" = "⤋ importar";
+"↑ export" = "⇪ exportar";
+"answer" = "resposta";
+"Check" = "Confirmar";
+"Take a look" = "Espiar";
+"Skip word" = "Pular palavra";
+"search for words" = "buscar palavras";
+"Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Os idiomas existentes no seu aparelho caso possuam o mesmo nome que os arquivos csv-file a serem importados serão sobrescritos.\n Você gostaria de continuar?";
+"There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it." = "Não foi encontrado qualquer arquivo de idioma para o seu app.\nPara ter o modelo do arquivo de idioma, você terá que criar um novo idioma com algumas palavras adicionadas dentro do app e exportar.";
+"No language files found" = "Nenhum arquivo de idioma foi encontrado";
+"👍 I was right" = "👍";
+"👎 I was wrong" = "👎";
+"Swipe left to edit word (edit its probability or delete it)" = "ℹ️ Arraste a palavra para a esquerda para editar.\nPalavras que estejam com uma barra vermelha maior, terá uma probabilidade maior de aparecer durante a prática.";
+"ℹ️ Add new words with the button below" = "ℹ️ Adicione novas palavras pelo botão abaixo.";
+"Importing language files" = "Importando arquivos de idiomas";
+"Close" = "Fechar";
+"About Flippy App" = "Sobre o Flippy";
+"No language selected" = "Nenhum idioma selecionado";
+"Please select a language to export first." = "Por favor, selecione um idioma primeiro para exportar.";
+"Please wait..." = "Por favor, aguarde...";
+"Edit word" = "✏️ Editar palavra";
+"Your progress and probability configuration for this word will be saved" = "Seu progresso e configuração de probabilidade para essa palavra não será alterado com essa mudança";
+"That's wrong 😕" = "Errado 😕";
+"That's right! 🤠" = "Acertou! 🤠";

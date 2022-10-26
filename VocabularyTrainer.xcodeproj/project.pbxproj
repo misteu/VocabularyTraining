@@ -283,6 +283,7 @@
 				Base,
 				de,
 				nl,
+				"pt-BR",
 			);
 			mainGroup = CE86C53F2235AE20008A5B73;
 			productRefGroup = CE86C5492235AE20008A5B73 /* Products */;
@@ -385,6 +386,7 @@
 				CE05F623229F17AF0097E3BB /* en */,
 				CE05F625229F17C40097E3BB /* de */,
 				CE92ABFA28E97CAF00FE2EBC /* nl */,
+				B31F83DB2909BB99005FB514 /* pt-BR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -394,6 +396,7 @@
 			children = (
 				CE86C5502235AE20008A5B73 /* Base */,
 				CE05F621229F17830097E3BB /* de */,
+				B31F83DA2909BB99005FB514 /* pt-BR */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				CECD6343235E54350060911F /* Base */,
 				CECD6346235E54420060911F /* de */,
 				CE92ABF928E97C5600FE2EBC /* nl */,
+				B31F83DC2909BB99005FB514 /* pt-BR */,
 			);
 			name = pp.html;
 			sourceTree = "<group>";
