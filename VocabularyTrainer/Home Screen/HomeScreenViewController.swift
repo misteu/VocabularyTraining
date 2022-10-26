@@ -101,7 +101,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     //    }
     //    refreshControl.addTarget(self, action: #selector(reloadImports), for: .valueChanged)
     //
-    debugPrint(ExportImport.getAllLanguageFileUrls())
+    debugPrint("[DEBUG] Language file URLS: \(ExportImport.getAllLanguageFileUrls().debugDescription)")
   }
   
   
@@ -405,7 +405,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   }
   
   func spinner(start: Bool) {
-    let spinner = UIActivityIndicatorView(style: .whiteLarge)
+    let spinner = UIActivityIndicatorView(style: .large)
     if start {
       spinner.startAnimating()
       spinner.tag = 123
@@ -492,7 +492,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       loadingController.view.tintColor = .black
       let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
       loadingIndicator.hidesWhenStopped = true
-      loadingIndicator.style = UIActivityIndicatorView.Style.gray
+      loadingIndicator.style = .medium
       loadingIndicator.startAnimating();
       
       loadingController.view.addSubview(loadingIndicator)

@@ -61,15 +61,16 @@ struct BackgroundColor {
 }
 
 func setGradientBackground(view: UIView) {
-  let colorTop = UIColor(named: "backgroundGradientTop")?.cgColor
-  let colorBottom = UIColor(named: "backgroundGradientBottom")?.cgColor
-  
-  let gradientLayer = CAGradientLayer()
-  gradientLayer.colors = [colorTop, colorBottom]
-  gradientLayer.locations = [0.0, 1.0]
-  gradientLayer.frame = view.bounds
-  
-  view.layer.insertSublayer(gradientLayer, at:0)
+  if let colorTop = UIColor(named: "backgroundGradientTop")?.cgColor,
+     let colorBottom = UIColor(named: "backgroundGradientBottom")?.cgColor {
+
+    let gradientLayer = CAGradientLayer()
+    gradientLayer.colors = [colorTop, colorBottom]
+    gradientLayer.locations = [0.0, 1.0]
+    gradientLayer.frame = view.bounds
+
+    view.layer.insertSublayer(gradientLayer, at:0)
+  }
 }
 
 func setGradientBackgroundTraining(view: UIView) {
@@ -99,7 +100,7 @@ func loadVocabs(forLanguage language: String)->[(String,String,Float)]? {
 
 class ExportImport {
   
-  static func exportAsCsvToDocuments(language: String) -> String {
+  @discardableResult static func exportAsCsvToDocuments(language: String) -> String {
     var vocabDict: [String:String]
     var vocabProgr: [String:Float]
     var vocabularies = [(String,String,Float)]()
