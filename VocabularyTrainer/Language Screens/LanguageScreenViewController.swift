@@ -74,7 +74,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
     
     private func wordAddedObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: NSNotification.Name(rawValue: "wordAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .wordAdded, object: nil)
     }
     
     @objc private func reloadData() {

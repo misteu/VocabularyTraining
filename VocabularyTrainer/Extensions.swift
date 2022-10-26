@@ -42,3 +42,12 @@ extension UIViewController {
     })
   }
 }
+
+extension Notification.Name {
+    static let wordAdded = Notification.Name("wordAdded")
+}
+
+@objc extension NSNotification {
+    public static let wordAdded = Notification.Name.wordAdded
+}
+

@@ -164,7 +164,7 @@ final class AddNewWordViewController: UIViewController {
     }
     
     private func wordAddedNotification() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "wordAdded"), object: nil)
+        NotificationCenter.default.post(name: .wordAdded, object: nil)
     }
     
     private func resetConfigs() {
