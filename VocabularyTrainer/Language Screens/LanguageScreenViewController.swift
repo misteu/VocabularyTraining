@@ -67,6 +67,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     lazy var hintLabel: UILabel = {
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         label.font = .systemFont(ofSize: 17)
         return label
     }()
