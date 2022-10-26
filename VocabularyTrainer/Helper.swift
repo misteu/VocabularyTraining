@@ -11,7 +11,6 @@ import UIKit
 
 class SegueName {
   static let showLanguageSegue = "showLanguageSegue"
-  static let showAddWordSegue = "showAddWordSegue"
   static let showTrainingSegue = "showTrainingSegue"
 }
 

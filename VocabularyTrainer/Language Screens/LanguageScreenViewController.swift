@@ -545,6 +545,15 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         setGradientBackground(view: view)
         loadDataAndUpdate()
         sortVocabulary(element: .word, isAscending: true)
+        wordAddedObserver()
+    }
+    
+    private func wordAddedObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .wordAdded, object: nil)
+    }
+    
+    @objc private func reloadData() {
+        loadDataAndUpdate()
     }
     
     func hookButtonActions() {
@@ -568,16 +577,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
     
     @objc func addNewWordTapped(_ sender: Any) {
-        guard let addNewWordVC = UIStoryboard(name: "Main", bundle: nil)
-            .instantiateViewController(withIdentifier: "AddNewWordViewController") as? AddNewWordViewController else {
-            assertionFailure("View controller not found")
-            return
-        }
-        addNewWordVC.selectedLanguage = selectedLanguage
-        addNewWordVC.completed = { [weak self] in
-            self?.loadDataAndUpdate()
-        }
-        present(addNewWordVC, animated: true)
+        let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
+        self.present(viewController, animated: true)
     }
     
     @objc func deleteButtonTapped(_ sender: Any) {
