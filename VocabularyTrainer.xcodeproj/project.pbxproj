@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -199,6 +199,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE86C5702235AE23008A5B73 /* Build configuration list for PBXNativeTarget "VocabularyTrainer" */;
 			buildPhases = (
+				B553F5ED2909A72400020A2E /* SwiftLint */,
 				CE86C5442235AE20008A5B73 /* Sources */,
 				CE86C5452235AE20008A5B73 /* Frameworks */,
 				CE86C5462235AE20008A5B73 /* Resources */,
@@ -325,6 +326,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B553F5ED2909A72400020A2E /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# export PATH=\"$PATH:/opt/homebrew/bin\" // Uncomment if using Homebrew on an M1\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		CE86C5442235AE20008A5B73 /* Sources */ = {

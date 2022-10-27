@@ -14,12 +14,12 @@ protocol NewLanguageScreenProtocol {
 }
 
 struct LanguageImport {
-  var vocabularies: [String:String]
-  var progresses:[String:Float]
+  var vocabularies: [String: String]
+  var progresses: [String: Float]
   var datesAdded = [String: Date]()
   
-  init(vocabularies: [String:String],
-       progresses: [String:Float],
+  init(vocabularies: [String: String],
+       progresses: [String: Float],
        datesAdded: [String: Date]) {
     self.vocabularies = vocabularies
     self.progresses = progresses
@@ -39,7 +39,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   @IBOutlet weak var aboutAppButton: UIButton!
   
   var languages = [String]()
-  var selectedRow: Int? = nil
+  var selectedRow: Int?
   private let refreshControl = UIRefreshControl()
   
   private var loadingController: UIAlertController?
@@ -57,7 +57,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-    if languages.count > 0 {
+    if !languages.isEmpty {
       DispatchQueue.main.async {
         self.view.viewWithTag(99)?.removeFromSuperview()
       }
@@ -104,7 +104,6 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     debugPrint("[DEBUG] Language file URLS: \(ExportImport.getAllLanguageFileUrls().debugDescription)")
   }
   
-  
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
     _ = checkNumberOfLanguages()
@@ -118,7 +117,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(true)
-    if languages.count > 0 {
+    if !languages.isEmpty {
       view.viewWithTag(99)?.removeFromSuperview()
     }
   }
@@ -143,10 +142,9 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       noLanguagesLabel.leftAnchor.constraint(equalTo: tableView.leftAnchor, constant: 20.0),
       noLanguagesLabel.rightAnchor.constraint(equalTo: tableView.rightAnchor, constant: -20.0)
     ])
-    
   }
   
-  func checkNumberOfLanguages()->Int {
+  func checkNumberOfLanguages() -> Int {
     guard let rows = defaults.array(forKey: UserDefaultKeys.languages)?.count else {
       showNoLanguagesLabel()
       return 0
@@ -177,9 +175,9 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       
       cell.languageLabel.text = language
       
-      if let vocabularies = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
+      if let vocabularies = UserDefaults.standard.dictionary(forKey: language) as? [String: String] {
         
-        if (vocabularies.count > 1 || vocabularies.count == 0) {
+        if (vocabularies.count != 1) {
           //          cell.languageWordsLabel.text = "\(vocabularies.count) words"
           cell.languageWordsLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d words", comment: "%d words"), vocabularies.count)
         } else {
@@ -200,17 +198,19 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
     if segue.identifier == SegueName.showLanguageSegue {
-      let secondVC = segue.destination as! LanguageScreenViewController
-      secondVC.selectedLanguage = selectedLanguage
-      secondVC.delegate = self
-      secondVC.completed = { [weak self] in
-        self?.tableView.reloadData()
+      if let secondVC = segue.destination as? LanguageScreenViewController {
+        secondVC.selectedLanguage = selectedLanguage
+        secondVC.delegate = self
+        secondVC.completed = { [weak self] in
+          self?.tableView.reloadData()
+        }
       }
     }
     
     if segue.identifier == SegueName.showTrainingSegue {
-      let secondVC = segue.destination as! TrainingViewController
-      secondVC.selectedLanguage = selectedLanguage
+        if let secondVC = segue.destination as? TrainingViewController {
+          secondVC.selectedLanguage = selectedLanguage
+        }
     }
   }
   
@@ -281,26 +281,38 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       for button in self.topButtons {
         button.alpha = 0.0
       }
-    }, completion: {res in
+    }, completion: {_ in
       for button in self.topButtons {
         button.isHidden = true
       }
     })
   }
   
-  func areWordsSavedFor(language: String)->Bool {
-    guard let _ = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { debugPrint("no vocabularies found"); return false}
-    return true
+  func areWordsSavedFor(language: String) -> Bool {
+      
+    if UserDefaults.standard.dictionary(forKey: language) == nil {
+        debugPrint("no vocabularies found")
+        return false
+    } else {
+        return true
+    }      
   }
   
-  /// TODO: universal language file support
+  // TODO: universal language file support
   @objc func reloadImports() {
     
     guard let files = ExportImport.getAllLanguageFileUrls() else { return }
     
-    if files.count == 0 {
-      let alert = UIAlertController(title: NSLocalizedString("No language files found", comment: "No language files found"), message: NSLocalizedString("There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.", comment: "There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.")
-                                    , preferredStyle: UIAlertController.Style.alert)
+    if files.isEmpty {
+      let message = """
+        There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.
+      """
+      let alert = UIAlertController(
+        title: NSLocalizedString("No language files found",
+        comment: "No language files found"),
+        message: NSLocalizedString(message, comment: message),
+        preferredStyle: UIAlertController.Style.alert)
+        
       alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
       self.present(alert, animated: true, completion: nil)
     } else {
@@ -323,15 +335,23 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   @IBAction func tappedImportButton(_ sender: Any) {
     spinner(start: true)
     
-    if languages.count > 0 {
+    if !languages.isEmpty {
       
-      let alert = UIAlertController(title:NSLocalizedString("Importing language files", comment: "Importing language files"), message: NSLocalizedString("Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?", comment: "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?"), preferredStyle: UIAlertController.Style.alert)
+      let message = """
+        Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?
+      """
+      
+       let alert = UIAlertController(
+         title: NSLocalizedString("Importing language files",
+         comment: "Importing language files"),
+         message: NSLocalizedString(message, comment: message),
+         preferredStyle: UIAlertController.Style.alert)
       
       // add the actions (buttons)
-      alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertAction.Style.cancel, handler: { action in
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertAction.Style.cancel, handler: { _ in
         self.spinner(start: false)
       }))
-      alert.addAction(UIAlertAction(title: NSLocalizedString("Import", comment: "Import"), style: UIAlertAction.Style.destructive, handler: { action in
+      alert.addAction(UIAlertAction(title: NSLocalizedString("Import", comment: "Import"), style: UIAlertAction.Style.destructive, handler: { _ in
         
         self.reloadImports()
         _ = Timer.scheduledTimer(withTimeInterval: 0.4, repeats: false, block: {_ in self.spinner(start: false)})
@@ -423,7 +443,6 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     
   }
   
-  
   @IBAction func tappedAboutApp(_ sender: Any) {
     let closeButton = UIButton()
     closeButton.translatesAutoresizingMaskIntoConstraints = false
@@ -489,7 +508,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   }
   
   private func showLoadingIndicator() {
-    /// Loading indicator
+    // Loading indicator
     loadingController = UIAlertController(title: nil,
                                           message: NSLocalizedString("Please wait...",
                                                                      comment: "Message on loading indicator"),
@@ -499,7 +518,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
       loadingIndicator.hidesWhenStopped = true
       loadingIndicator.style = .medium
-      loadingIndicator.startAnimating();
+      loadingIndicator.startAnimating()
       
       loadingController.view.addSubview(loadingIndicator)
       present(loadingController, animated: true, completion: nil)
@@ -518,9 +537,9 @@ extension HomeScreenViewController: WKNavigationDelegate {
   }
 }
 
-extension HomeScreenViewController{
+extension HomeScreenViewController {
 
-  @IBAction func addAction(){
+  @IBAction func addAction() {
     present(NewLanguageViewController(delegate: self), animated: true)
   }
 }

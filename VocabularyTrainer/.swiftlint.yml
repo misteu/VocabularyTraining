@@ -1,0 +1,70 @@
+disabled_rules:
+- control_statement
+- trailing_whitespace
+- no_fallthrough_only
+
+excluded:
+- Carthage
+- Pods
+- VocabularyTrainerTests 
+- VocabularyTrainerUITests 
+
+opt_in_rules:
+- empty_count
+- empty_string
+- force_unwrapping
+
+nesting:
+  type_level:
+    warning: 3
+  statement_level:
+    warning: 10
+
+line_length:
+    warning: 250
+    error: 500
+    ignores_function_declarations: true
+    ignores_comments: true
+    ignores_urls: true
+
+identifier_name:
+  severity: warning
+  allowed_symbols: "_"
+  min_length: 2
+  max_length:
+    warning: 90
+  validates_start_with_lowercase: false
+  excluded:
+    - i
+    - j
+
+function_body_length:
+    warning: 600
+
+function_parameter_count:
+    warning: 10
+
+type_body_length:
+    warning: 600
+
+file_length:
+    warning: 1500
+    ignore_comment_only_lines: true
+
+force_try:
+  severity: warning
+
+force_cast:
+  severity: warning
+
+force_unwrapping:
+  severity: warning 
+
+cyclomatic_complexity:
+   warning: 15
+   ignores_case_statements: true
+
+large_tuple:
+   - 7
+
+reporter: "xcode"
