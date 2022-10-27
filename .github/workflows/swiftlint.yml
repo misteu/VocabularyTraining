@@ -1,9 +1,6 @@
 name: SwiftLint
 
 on:
-  push:
-    branches:
-      - 'feature/**'
 
   pull_request:
     paths:
