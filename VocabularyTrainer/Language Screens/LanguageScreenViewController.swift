@@ -546,17 +546,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         setGradientBackground(view: view)
         loadDataAndUpdate()
         sortVocabulary(element: .word, isAscending: true)
-        wordAddedObserver()
     }
-    
-    private func wordAddedObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadData), name: .wordAdded, object: nil)
-    }
-    
-    @objc private func reloadData() {
-        loadDataAndUpdate()
-    }
-    
+        
     func hookButtonActions() {
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         
@@ -579,6 +570,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     
     @objc func addNewWordTapped(_ sender: Any) {
         let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
+        viewController.addWordDelegate = self
+        
         self.present(viewController, animated: true)
     }
     
@@ -1056,5 +1049,11 @@ extension LanguageScreenViewController: UITableViewDelegate {
         }
         editWordAction.backgroundColor = BackgroundColor.lightGreen
         return editWordAction
+    }
+}
+
+extension LanguageScreenViewController: AddWordDelegate {
+    func wordAdded() {
+        self.loadDataAndUpdate()
     }
 }

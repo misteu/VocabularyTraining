@@ -43,8 +43,3 @@ extension UIViewController {
   }
 }
 
-extension Notification.Name {
-    static let wordAdded = Notification.Name("wordAdded")
-}
-
-

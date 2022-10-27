@@ -11,6 +11,7 @@ import UIKit
 final class AddNewWordViewController: UIViewController {
     
     // MARK: - Private Properties
+    var addWordDelegate: AddWordDelegate?
     
     private lazy var backButton: UIButton = {
         let button = UIButton()
@@ -162,11 +163,7 @@ final class AddNewWordViewController: UIViewController {
             addButton.isEnabled = isEnabled
         }
     }
-    
-    private func wordAddedNotification() {
-        NotificationCenter.default.post(name: .wordAdded, object: nil)
-    }
-    
+        
     private func resetConfigs() {
         newWordTextField.text = ""
         translationTextField.text = ""
@@ -209,7 +206,7 @@ final class AddNewWordViewController: UIViewController {
         UserDefaults.standard.set(vocabulariesAddDates, forKey: languageVocabDateAddedKey)
         
         resetConfigs()
-        wordAddedNotification()
+        self.addWordDelegate?.wordAdded()
         showToast(message: NSLocalizedString("New word added", comment: "New word added"), yCoord: 340.0)
     }
     

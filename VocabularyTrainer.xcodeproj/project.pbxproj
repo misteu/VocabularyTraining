@@ -10,6 +10,7 @@
 		18943A0A29094F470017E1A2 /* LanguageScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18943A0929094F470017E1A2 /* LanguageScreenViewController.swift */; };
 		18943A0C2909726B0017E1A2 /* VocabularyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18943A0B2909726B0017E1A2 /* VocabularyCell.swift */; };
 		B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3657DFC290740D8000D76C8 /* AddNewWordViewController.swift */; };
+		B553F5F1290A38C100020A2E /* AddWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B553F5F0290A38C100020A2E /* AddWordDelegate.swift */; };
 		CE0012FF2243F21C002F86DE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0012FE2243F21C002F86DE /* Extensions.swift */; };
 		CE05F622229F17AF0097E3BB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE05F624229F17AF0097E3BB /* Localizable.strings */; };
 		CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0FE4F72238585A00430FDE /* TrainingViewController.swift */; };
@@ -49,6 +50,7 @@
 		18943A0929094F470017E1A2 /* LanguageScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageScreenViewController.swift; sourceTree = "<group>"; };
 		18943A0B2909726B0017E1A2 /* VocabularyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCell.swift; sourceTree = "<group>"; };
 		B3657DFC290740D8000D76C8 /* AddNewWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWordViewController.swift; sourceTree = "<group>"; };
+		B553F5F0290A38C100020A2E /* AddWordDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWordDelegate.swift; sourceTree = "<group>"; };
 		CE0012FE2243F21C002F86DE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CE05F621229F17830097E3BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		CE05F623229F17AF0097E3BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -108,8 +110,31 @@
 			isa = PBXGroup;
 			children = (
 				B3657DFC290740D8000D76C8 /* AddNewWordViewController.swift */,
+				B553F5F0290A38C100020A2E /* AddWordDelegate.swift */,
 			);
 			path = AddWord;
+			sourceTree = "<group>";
+		};
+		B553F5EE290A371C00020A2E /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */,
+				CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */,
+				CE86C54F2235AE20008A5B73 /* Main.storyboard */,
+				CE86C5522235AE23008A5B73 /* Assets.xcassets */,
+				CE86C5572235AE23008A5B73 /* Info.plist */,
+				CE05F624229F17AF0097E3BB /* Localizable.strings */,
+				CECD6344235E54350060911F /* pp.html */,
+			);
+			name = Support;
+			sourceTree = "<group>";
+		};
+		B553F5EF290A377A00020A2E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CE86C54B2235AE20008A5B73 /* AppDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 		CE86C53F2235AE20008A5B73 = {
@@ -136,22 +161,15 @@
 		CE86C54A2235AE20008A5B73 /* VocabularyTrainer */ = {
 			isa = PBXGroup;
 			children = (
-				CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */,
-				CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */,
-				CE86C54B2235AE20008A5B73 /* AppDelegate.swift */,
+				B553F5EF290A377A00020A2E /* App */,
 				E37D1706261BCC22006C1F71 /* Home Screen */,
-				CE86C54F2235AE20008A5B73 /* Main.storyboard */,
+				B553F5EE290A371C00020A2E /* Support */,
 				CE0012FE2243F21C002F86DE /* Extensions.swift */,
-				CE86C5522235AE23008A5B73 /* Assets.xcassets */,
-				CE86C5572235AE23008A5B73 /* Info.plist */,
 				E37D16FD261BCBF9006C1F71 /* Language Screens */,
 				CE86C5812235C971008A5B73 /* Helper.swift */,
 				E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */,
 				B3657DFE290740F8000D76C8 /* AddWord */,
 				CE0FE4F72238585A00430FDE /* TrainingViewController.swift */,
-				CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */,
-				CE05F624229F17AF0097E3BB /* Localizable.strings */,
-				CECD6344235E54350060911F /* pp.html */,
 			);
 			path = VocabularyTrainer;
 			sourceTree = "<group>";
@@ -178,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				18943A0929094F470017E1A2 /* LanguageScreenViewController.swift */,
+				CE86C57D2235BDC9008A5B73 /* NewLanguageViewController.swift */,
 				18943A0B2909726B0017E1A2 /* VocabularyCell.swift */,
 			);
 			path = "Language Screens";
@@ -331,12 +350,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE86C584223684D2008A5B73 /* AddNewWordViewController.swift in Sources */,
-				CE86C5802235C8AD008A5B73 /* LanguageScreenViewController.swift in Sources */,
 				B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */,
 				CE86C54E2235AE20008A5B73 /* HomeScreenViewController.swift in Sources */,
 				CE0012FF2243F21C002F86DE /* Extensions.swift in Sources */,
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
+				B553F5F1290A38C100020A2E /* AddWordDelegate.swift in Sources */,
 				CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */,
 				CE86C54C2235AE20008A5B73 /* AppDelegate.swift in Sources */,
 				18943A0A29094F470017E1A2 /* LanguageScreenViewController.swift in Sources */,
