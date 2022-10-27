@@ -3,7 +3,7 @@ name: SwiftLint
 on:
   push:
     branches:
-      - master
+      - 'feature/**'
 
   pull_request:
     branches:
