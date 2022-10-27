@@ -6,18 +6,15 @@ on:
       - 'feature/**'
 
   pull_request:
-    branches:
-      - master
+    paths:
+      - '.github/workflows/swiftlint.yml'
+      - '.swiftlint.yml'
+      - '**/*.swift'
 
 jobs:
   SwiftLint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Run SwiftLint
+      - uses: actions/checkout@v1
+      - name: GitHub Action for SwiftLint
         uses: norio-nomura/action-swiftlint@3.2.1
-        with:
-          args: --config ../../VocabularyTrainer/.swiftlint.yml
-        env:
-          DIFF_BASE: ${{ github.base_ref }}
