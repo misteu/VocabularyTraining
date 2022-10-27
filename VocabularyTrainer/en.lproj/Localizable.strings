@@ -23,6 +23,7 @@
 "new Word" = "new word";
 "translation" = "translation";
 "Training" = "📖 Training";
+"Training:" = "Training:";
 "Delete Language" = "🗑 Delete Language";
 "export" = "💾 export language";
 "New word" = "New word";
@@ -63,3 +64,6 @@
 "Please wait..." = "Please wait...";
 "Edit word" = "✏️ Edit word";
 "Your progress and probability configuration for this word will be saved" = "Your progress and probability configuration for this word will be saved";
+"That's wrong 😕" = "That's wrong 😕";
+"That's right! 🤠" = "That's right! 🤠";
+"Import" = "Import";

@@ -33,8 +33,8 @@ class TrainingViewController: UIViewController {
     currentTrainingHeader.numberOfLines = 0
     currentTrainingHeader.lineBreakMode = .byWordWrapping
     currentTrainingHeader.text = """
-    Training:
-    \(selectedLanguage ?? "no language selected")
+    \(NSLocalizedString("Training:", comment: "Training:"))
+    \(selectedLanguage ?? NSLocalizedString("No language selected", comment: "No language selected"))
     """
     
     styleButtons()
@@ -167,7 +167,7 @@ class TrainingViewController: UIViewController {
           self.checkInputButton.isHidden = true
           self.takeALookButton.isHidden = true
         })
-        showToast(message: "That's right! 🤠", yCoord: 400.0)
+        showToast(message: NSLocalizedString("That's right! 🤠", comment: "That's right! 🤠"), yCoord: 400.0)
         answerInput.text = solution
         nextButton.setTitle("Next word", for: .normal)
       } else {
@@ -179,7 +179,7 @@ class TrainingViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {
           self.answerInput.backgroundColor = BackgroundColor.red
         })
-        showToast(message: "That's wrong 😕", yCoord: 400.0)
+        showToast(message: NSLocalizedString("That's wrong 😕", comment: "That's wrong 😕"), yCoord: 400.0)
       }
     }
   }

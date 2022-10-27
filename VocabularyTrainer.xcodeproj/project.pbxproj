@@ -49,6 +49,8 @@
 		18943A0929094F470017E1A2 /* LanguageScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageScreenViewController.swift; sourceTree = "<group>"; };
 		18943A0B2909726B0017E1A2 /* VocabularyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyCell.swift; sourceTree = "<group>"; };
 		B3657DFC290740D8000D76C8 /* AddNewWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewWordViewController.swift; sourceTree = "<group>"; };
+		B3BBF4422909F64B004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "pt-BR"; path = "pt-BR.lproj/pp.html"; sourceTree = "<group>"; };
+		B3BBF4432909F653004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CE0012FE2243F21C002F86DE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CE05F621229F17830097E3BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		CE05F623229F17AF0097E3BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -284,6 +286,7 @@
 				Base,
 				de,
 				nl,
+				"pt-BR",
 			);
 			mainGroup = CE86C53F2235AE20008A5B73;
 			productRefGroup = CE86C5492235AE20008A5B73 /* Products */;
@@ -354,8 +357,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE86C584223684D2008A5B73 /* AddNewWordViewController.swift in Sources */,
-				CE86C5802235C8AD008A5B73 /* LanguageScreenViewController.swift in Sources */,
 				B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */,
 				CE86C54E2235AE20008A5B73 /* HomeScreenViewController.swift in Sources */,
 				CE0012FF2243F21C002F86DE /* Extensions.swift in Sources */,
@@ -408,6 +409,7 @@
 				CE05F623229F17AF0097E3BB /* en */,
 				CE05F625229F17C40097E3BB /* de */,
 				CE92ABFA28E97CAF00FE2EBC /* nl */,
+				B3BBF4432909F653004B2125 /* pt-BR */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -427,6 +429,7 @@
 				CECD6343235E54350060911F /* Base */,
 				CECD6346235E54420060911F /* de */,
 				CE92ABF928E97C5600FE2EBC /* nl */,
+				B3BBF4422909F64B004B2125 /* pt-BR */,
 			);
 			name = pp.html;
 			sourceTree = "<group>";

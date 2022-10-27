@@ -1,0 +1,84 @@
+
+/* Class = "UIButton"; normalTitle = "Take a look"; ObjectID = "1g5-hc-GXA"; */
+"1g5-hc-GXA.normalTitle" = "Espiar";
+
+/* Class = "UISearchBar"; placeholder = "search for words"; ObjectID = "4AL-Ff-pOI"; */
+"4AL-Ff-pOI.placeholder" = "buscar palavras";
+
+/* Class = "UILabel"; text = "Language"; ObjectID = "4x2-GA-oeg"; */
+"4x2-GA-oeg.text" = "Idioma";
+
+/* Class = "UITextField"; placeholder = "answer"; ObjectID = "53n-g1-uwW"; */
+"53n-g1-uwW.placeholder" = "resposta";
+
+/* Class = "UILabel"; text = "Training:\nTurkish"; ObjectID = "5Cu-DE-YK3"; */
+"5Cu-DE-YK3.text" = "Praticando:\nTurco";
+
+/* Class = "UILabel"; text = "köpek"; ObjectID = "5Gx-1I-CQE"; */
+"5Gx-1I-CQE.text" = "köpek";
+
+/* Class = "UIButton"; normalTitle = "👍"; ObjectID = "87J-6T-hDZ"; */
+"87J-6T-hDZ.normalTitle" = "👍";
+
+/* Class = "UIButton"; normalTitle = "⤴ export"; ObjectID = "8Cb-Nv-Z0p"; */
+"8Cb-Nv-Z0p.normalTitle" = "⤴ exportar";
+
+/* Class = "UIButton"; normalTitle = "Training"; ObjectID = "8uJ-dW-rui"; */
+"8uJ-dW-rui.normalTitle" = "Praticar";
+
+/* Class = "UIButton"; normalTitle = "New word"; ObjectID = "BUp-gp-Omw"; */
+"BUp-gp-Omw.normalTitle" = "Nova palavra";
+
+/* Class = "UILabel"; text = "Hund"; ObjectID = "Il2-HT-ikf"; */
+"Il2-HT-ikf.text" = "Hund";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "J69-hW-zYM"; */
+"J69-hW-zYM.text" = "Label";
+
+/* Class = "UIButton"; normalTitle = "< Back"; ObjectID = "Jhf-6U-f7J"; */
+"Jhf-6U-f7J.normalTitle" = "< Voltar";
+
+/* Class = "UILabel"; text = "Dutch"; ObjectID = "Kdj-qz-jtM"; */
+"Kdj-qz-jtM.text" = "Holandês";
+
+/* Class = "UIButton"; normalTitle = "Add language"; ObjectID = "Nrq-QQ-ihD"; */
+"Nrq-QQ-ihD.normalTitle" = "Adicionar Idioma";
+
+/* Class = "UIButton"; normalTitle = "Check"; ObjectID = "SJQ-jN-5Xm"; */
+"SJQ-jN-5Xm.normalTitle" = "Confirmar";
+
+/* Class = "UIButton"; normalTitle = "About FlippyApp"; ObjectID = "WIf-kg-T6U"; */
+"WIf-kg-T6U.normalTitle" = "Sobre FlippyApp";
+
+/* Class = "UIButton"; normalTitle = "⤵ import"; ObjectID = "Wfy-tB-0pH"; */
+"Wfy-tB-0pH.normalTitle" = "⤵ importar";
+
+/* Class = "UILabel"; text = "dateAddedLabel"; ObjectID = "fnA-3F-RPz"; */
+"fnA-3F-RPz.text" = "dateAddedLabel";
+
+/* Class = "UIButton"; normalTitle = "My words"; ObjectID = "iBg-bb-bgl"; */
+"iBg-bb-bgl.normalTitle" = "Minhas palavras";
+
+/* Class = "UIButton"; normalTitle = "👎"; ObjectID = "lQT-3b-eN5"; */
+"lQT-3b-eN5.normalTitle" = "👎";
+
+/* Class = "UILabel"; text = "köpek"; ObjectID = "o3T-rB-i7W"; */
+"o3T-rB-i7W.text" = "köpek";
+
+/* Class = "UIButton"; normalTitle = "< Back"; ObjectID = "rDw-Te-IUC"; */
+"rDw-Te-IUC.normalTitle" = "< Voltar";
+
+/* Class = "UILabel"; text = "Your languages"; ObjectID = "rNH-Y6-8Zv"; */
+"rNH-Y6-8Zv.text" = "Seus idiomas";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "sIk-MR-VHX"; */
+"sIk-MR-VHX.normalTitle" = "Botão";
+
+/* Class = "UILabel"; text = "124 words"; ObjectID = "tDl-JN-tww"; */
+"tDl-JN-tww.text" = "124 palavras";
+
+/* Class = "UIButton"; normalTitle = "Skip word"; ObjectID = "vAt-0V-rIb"; */
+"vAt-0V-rIb.normalTitle" = "Pular palavra";
+
+/* Class = "UIButton"; normalTitle = "Delete Language"; ObjectID = "zUX-sC-O0i"; */
+"zUX-sC-O0i.normalTitle" = "Excluir idioma";
