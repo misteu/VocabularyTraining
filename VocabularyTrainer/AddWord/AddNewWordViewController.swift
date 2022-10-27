@@ -11,7 +11,7 @@ import UIKit
 final class AddNewWordViewController: UIViewController {
     
     // MARK: - Private Properties
-    var addWordDelegate: AddWordDelegate?
+    weak var addWordDelegate: AddWordDelegate?
     
     private lazy var backButton: UIButton = {
         let button = UIButton()

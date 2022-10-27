@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol AddWordDelegate {    
+protocol AddWordDelegate: AnyObject {    
     func wordAdded()
 }
