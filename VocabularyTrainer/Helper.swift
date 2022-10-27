@@ -69,7 +69,7 @@ func setGradientBackground(view: UIView) {
     gradientLayer.locations = [0.0, 1.0]
     gradientLayer.frame = view.bounds
 
-    view.layer.insertSublayer(gradientLayer, at:0)
+    view.layer.insertSublayer(gradientLayer, at: 0)
   }
 }
 
@@ -82,18 +82,18 @@ func setGradientBackgroundTraining(view: UIView) {
   gradientLayer.locations = [0.0, 1.0]
   gradientLayer.frame = view.bounds
   
-  view.layer.insertSublayer(gradientLayer, at:0)
+  view.layer.insertSublayer(gradientLayer, at: 0)
 }
 
-func loadVocabs(forLanguage language: String)->[(String,String,Float)]? {
+func loadVocabs(forLanguage language: String) -> [(String, String, Float)]? {
   
-  guard let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { return nil }
+  guard let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String: String] else { return nil }
   
-  guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String:Float] else { print("no progresses found"); return nil }
+  guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String: Float] else { print("no progresses found"); return nil }
 
-  var vocabularies = [(String,String,Float)]()
+  var vocabularies = [(String, String, Float)]()
   for (key, value) in vocab {
-    vocabularies.append((key,value,vocabProgress[key] ?? 100.0))
+    vocabularies.append((key, value, vocabProgress[key] ?? 100.0))
   }
   return vocabularies
 }
@@ -101,28 +101,28 @@ func loadVocabs(forLanguage language: String)->[(String,String,Float)]? {
 class ExportImport {
   
   @discardableResult static func exportAsCsvToDocuments(language: String) -> String {
-    var vocabDict: [String:String]
-    var vocabProgr: [String:Float]
-    var vocabularies = [(String,String,Float)]()
-	var datesAdded = [String:Date]()
+    var vocabDict: [String: String]
+    var vocabProgr: [String: Float]
+    var vocabularies = [(String, String, Float)]()
+	var datesAdded = [String: Date]()
     
-    /// crappy spaghetti code copied from language Screen VC
-    if let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
+    // FIXME: crappy spaghetti code copied from language Screen VC
+    if let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String: String] {
       vocabDict = vocab
     } else {
-      vocabDict = [String:String]()
+      vocabDict = [String: String]()
     }
     
-    guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String:Float] else { print("no progresses found"); return ""}
+    guard let vocabProgress = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String: Float] else { print("no progresses found"); return ""}
 
-	if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String:Date] {
+	if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String: Date] {
 		datesAdded = dates
 	}
 
     vocabProgr = vocabProgress
     
     for (key, value) in vocabDict {
-      vocabularies.append((key,value,vocabProgress[key] ?? 100.0))
+      vocabularies.append((key, value, vocabProgress[key] ?? 100.0))
     }
     
     let exportStringHead = """
@@ -133,7 +133,7 @@ class ExportImport {
     
     for (key, value) in vocabDict {
       
-      if exportString != "" {
+      if !exportString.isEmpty {
         exportString = """
         \(exportString)
         \(key);\(value);\(vocabProgr[key] ?? 100);\(VocabularyDateFormatter.dateFormatter.string(from: datesAdded[key] ?? Date()))
@@ -168,14 +168,13 @@ class ExportImport {
     
   }
   
-  static func getAllLanguageFileUrls()->[URL]? {
+  static func getAllLanguageFileUrls() -> [URL]? {
     if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
       
       do {
         let directoryContents = try FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: [])
         return directoryContents
-      }
-      catch {
+      } catch {
         return nil
       }
     }
@@ -191,7 +190,7 @@ class ExportImport {
     }
   }
   
-  static func importLanguageFile(language: String)->String {
+  static func importLanguageFile(language: String) -> String {
     let file = language
     var result = ""
     
@@ -200,8 +199,7 @@ class ExportImport {
       
       do {
         result = try String(contentsOf: fileURL, encoding: .utf8)
-      }
-      catch { let error = error
+      } catch { let error = error
         print(error)
       }
       
@@ -215,27 +213,26 @@ class ExportImport {
      UserDefaults.standard.set(imports.vocabularies, forKey: language)
      UserDefaults.standard.set(imports.progresses, forKey: languageVocabProgressKey)
      
-     if let savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
+     if var savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
        
-       for lang in savedLanguages {
-         if lang == language { return }
+       // Append language if not found
+       if !savedLanguages.contains(language) {
+         savedLanguages.append(language)
        }
-       
-       var languages = savedLanguages
-       languages.append(language)
-       UserDefaults.standard.set(languages, forKey: UserDefaultKeys.languages)
+         
+       UserDefaults.standard.set(savedLanguages, forKey: UserDefaultKeys.languages)
      } else {
        UserDefaults.standard.set([language], forKey: UserDefaultKeys.languages)
      }
    }
   
   static func csv(data: String) -> LanguageImport {
-    var vocabDict = [String:String]()
-    var vocabProgr = [String:Float]()
-	var datesAdded = [String:Date]()
+    var vocabDict = [String: String]()
+    var vocabProgr = [String: Float]()
+	var datesAdded = [String: Date]()
     
     let rows = data.components(separatedBy: "\n")
-    for (index,row) in rows.enumerated() {
+    for (index, row) in rows.enumerated() {
       if index > 1 {
         let columns = row.components(separatedBy: ";")
         vocabDict[columns[0]] = columns[1]

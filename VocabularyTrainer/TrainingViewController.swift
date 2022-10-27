@@ -10,11 +10,11 @@ import UIKit
 
 class TrainingViewController: UIViewController {
   
-  var selectedLanguage: String? = nil
-  var vocabularies: [String:String]? = nil
-  var vocabulariesProgresses: [String:Float]? = nil
-  var isKeyShown: Bool? = nil
-  var currentKey: String? = nil
+  var selectedLanguage: String?
+  var vocabularies: [String: String]?
+  var vocabulariesProgresses: [String: Float]?
+  var isKeyShown: Bool?
+  var currentKey: String?
 
   @IBOutlet weak var wrongAnswerButton: UIButton!
   @IBOutlet weak var rightAnswerButton: UIButton!
@@ -30,11 +30,11 @@ class TrainingViewController: UIViewController {
     super.viewDidLoad()
     
     setGradientBackground(view: view)
-    currentTrainingHeader.numberOfLines = 0;
+    currentTrainingHeader.numberOfLines = 0
     currentTrainingHeader.lineBreakMode = .byWordWrapping
     currentTrainingHeader.text = """
-    Training:
-    \(selectedLanguage ?? "no language selected")
+    \(NSLocalizedString("Training:", comment: "Training:"))
+    \(selectedLanguage ?? NSLocalizedString("No language selected", comment: "No language selected"))
     """
     
     styleButtons()
@@ -51,14 +51,21 @@ class TrainingViewController: UIViewController {
   func reloadVocabulariesAndProgresses() {
     guard let language = selectedLanguage else {print("no language selected"); return}
     
-    guard let vocabs = UserDefaults.standard.dictionary(forKey: language) as? [String:String] else { print("no vocabularies found"); return}
-    guard let progresses = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String:Float]? else { print("no progresses found"); return}
+    guard let vocabs = UserDefaults.standard.dictionary(forKey: language) as? [String: String] else {
+        print("no vocabularies found")
+        return
+    }
+      
+    guard let progresses = UserDefaults.standard.dictionary(forKey: "\(language)Progress") as? [String: Float]? else {
+        print("no progresses found")
+        return
+    }
     
     vocabularies = vocabs
     vocabulariesProgresses = progresses
   }
   
-  func getTotalProgressFrom(_ vocabulariesProgresses: [String:Float])->Float {
+  func getTotalProgressFrom(_ vocabulariesProgresses: [String: Float]) -> Float {
     var result = Float(0)
     
     for progress in vocabulariesProgresses {
@@ -68,9 +75,9 @@ class TrainingViewController: UIViewController {
     return result
   }
   
-  func pickRandomKeyFrom(_ vocabularies: [String:String], withProgresses vocabulariesProgresses: [String:Float], totalProgress:Float)->String {
+  func pickRandomKeyFrom(_ vocabularies: [String: String], withProgresses vocabulariesProgresses: [String: Float], totalProgress: Float) -> String {
     let randomThreshold = Float.random(in: 0...totalProgress)
-    //print(randomThreshold)
+    // print(randomThreshold)
     var summedUpProgresses = Float(0)
     var resultKey = ""
     
@@ -145,8 +152,8 @@ class TrainingViewController: UIViewController {
       solution = key
     }
     
-    if usersAnswer != "" {
-      if usersAnswer.uppercased() == solution?.uppercased() {
+      if !usersAnswer.isEmpty {
+        if usersAnswer.uppercased() == solution?.uppercased() {
         
         // update progress
         changeWordsProbability(increase: false, key: key)
@@ -156,11 +163,11 @@ class TrainingViewController: UIViewController {
           self.answerInput.backgroundColor = BackgroundColor.green
           self.checkInputButton.alpha = 0.0
           self.takeALookButton.alpha = 0.0
-        }, completion: { (finished: Bool) in
+        }, completion: { _ in
           self.checkInputButton.isHidden = true
           self.takeALookButton.isHidden = true
         })
-        showToast(message: "That's right! 🤠", yCoord: 400.0)
+        showToast(message: NSLocalizedString("That's right! 🤠", comment: "That's right! 🤠"), yCoord: 400.0)
         answerInput.text = solution
         nextButton.setTitle("Next word", for: .normal)
       } else {
@@ -172,7 +179,7 @@ class TrainingViewController: UIViewController {
         UIView.animate(withDuration: 0.2, animations: {
           self.answerInput.backgroundColor = BackgroundColor.red
         })
-        showToast(message: "That's wrong 😕", yCoord: 400.0)
+        showToast(message: NSLocalizedString("That's wrong 😕", comment: "That's wrong 😕"), yCoord: 400.0)
       }
     }
   }
@@ -198,7 +205,7 @@ class TrainingViewController: UIViewController {
       self.answerInput.backgroundColor = BackgroundColor.blue
       self.checkInputButton.alpha = 0.0
       self.takeALookButton.alpha = 0.0
-    }, completion: { (finished: Bool) in
+    }, completion: { _ in
       self.rightAnswerButton.isHidden = false
       self.wrongAnswerButton.isHidden = false
       self.checkInputButton.isHidden = true
@@ -219,7 +226,7 @@ class TrainingViewController: UIViewController {
       self.rightAnswerButton.alpha = 0.0
       self.wrongAnswerButton.alpha = 0.0
       self.answerInput.backgroundColor = .none
-    }, completion: { (finished: Bool) in
+    }, completion: { _ in
       self.rightAnswerButton.isHidden = true
       self.wrongAnswerButton.isHidden = true
       self.checkInputButton.isHidden = false
@@ -231,7 +238,6 @@ class TrainingViewController: UIViewController {
         self.view.layoutIfNeeded()
       })
     })
-    
   }
   
   func styleButtons() {
@@ -287,8 +293,7 @@ class TrainingViewController: UIViewController {
     takeALookButton.setTitle(NSLocalizedString("Take a look", comment: "Take a look"), for: .normal)
     nextButton.setTitle(NSLocalizedString("Skip word", comment: "Skip word"), for: .normal)
     backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
-    
-    
+        
     rightAnswerButton.setTitle(NSLocalizedString("👍 I was right", comment: "👍 I was right"), for: .normal)
     wrongAnswerButton.setTitle(NSLocalizedString("👎 I was wrong", comment: "👎 I was wrong"), for: .normal)
   }

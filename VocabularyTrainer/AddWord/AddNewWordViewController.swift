@@ -76,12 +76,12 @@ final class AddNewWordViewController: UIViewController {
     }()
     
     private var selectedLanguage: String?
-    private var vocabularies = [String:String]()
-    private var vocabulariesSuccessRates = [String:Float]()
-    private var vocabulariesAddDates = [String:Date]()
+    private var vocabularies = [String: String]()
+    private var vocabulariesSuccessRates = [String: Float]()
+    private var vocabulariesAddDates = [String: Date]()
     private var newWordHasText = false
     private var translationHasText = false
-    private var completed: (()->Void)?
+    private var completed: (() -> Void)?
     
     // MARK: - Initializer
     
@@ -131,6 +131,7 @@ final class AddNewWordViewController: UIViewController {
     
     private func setUpInterfaceStyleUI() {
         switch traitCollection.userInterfaceStyle {
+        
         case .light, .unspecified:
             addNewWordLabel.textColor = .black
             
@@ -139,6 +140,7 @@ final class AddNewWordViewController: UIViewController {
             
             translationTextField.backgroundColor = .white
             translationTextField.textColor = .black
+        
         case .dark:
             addNewWordLabel.textColor = .white
             
@@ -147,6 +149,10 @@ final class AddNewWordViewController: UIViewController {
             
             translationTextField.backgroundColor = .black
             translationTextField.textColor = .white
+        
+        @unknown default:
+            // Crash if new unhandled cases added
+            fatalError()
         }
     }
     
@@ -185,15 +191,15 @@ final class AddNewWordViewController: UIViewController {
         let languageVocabProgressKey = "\(language)Progress"
         let languageVocabDateAddedKey = "\(language)DateAdded"
         
-        if let vocabs = UserDefaults.standard.dictionary(forKey: language) as? [String:String] {
+        if let vocabs = UserDefaults.standard.dictionary(forKey: language) as? [String: String] {
             vocabularies = vocabs
         }
         
-        if let vocabsSuccess = UserDefaults.standard.dictionary(forKey: languageVocabProgressKey) as? [String:Float] {
+        if let vocabsSuccess = UserDefaults.standard.dictionary(forKey: languageVocabProgressKey) as? [String: Float] {
             vocabulariesSuccessRates = vocabsSuccess
         }
         
-        if let vocabsDates = UserDefaults.standard.dictionary(forKey: languageVocabDateAddedKey) as? [String:Date] {
+        if let vocabsDates = UserDefaults.standard.dictionary(forKey: languageVocabDateAddedKey) as? [String: Date] {
             vocabulariesAddDates = vocabsDates
         }
         
@@ -211,8 +217,12 @@ final class AddNewWordViewController: UIViewController {
     }
     
     @objc private func textFieldChanged(_ sender: UITextField) {
-        let hasText = !(sender.text == nil || sender.text == "")
         
+        var hasText = false
+        if let senderText = sender.text, !senderText.isEmpty {
+            hasText = true
+        }
+                
         if sender === newWordTextField {
             newWordHasText = hasText
         }
