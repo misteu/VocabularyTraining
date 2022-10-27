@@ -11,7 +11,7 @@ import UIKit
 final class AddNewWordViewController: UIViewController {
     
     // MARK: - Private Properties
-    weak var addWordDelegate: AddWordDelegate?
+    weak var delegate: AddWordDelegate?
     
     private lazy var backButton: UIButton = {
         let button = UIButton()
@@ -206,7 +206,7 @@ final class AddNewWordViewController: UIViewController {
         UserDefaults.standard.set(vocabulariesAddDates, forKey: languageVocabDateAddedKey)
         
         resetConfigs()
-        self.addWordDelegate?.wordAdded()
+        self.delegate?.wordAdded()
         showToast(message: NSLocalizedString("New word added", comment: "New word added"), yCoord: 340.0)
     }
     

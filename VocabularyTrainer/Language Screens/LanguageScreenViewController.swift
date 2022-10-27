@@ -570,7 +570,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     
     @objc func addNewWordTapped(_ sender: Any) {
         let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
-        viewController.addWordDelegate = self
+        viewController.delegate = self
         
         self.present(viewController, animated: true)
     }
