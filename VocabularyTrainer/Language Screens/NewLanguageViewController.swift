@@ -117,8 +117,8 @@ extension NewLanguageViewController {
   private func fieldLayout() {
     NSLayoutConstraint.activate([
       self.newLanguage.topAnchor.constraint(equalToSystemSpacingBelow: newLanguageHeader.bottomAnchor, multiplier: 4),
-      self.newLanguage.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-      self.newLanguage.widthAnchor.constraint(equalToConstant: 339),
+      self.newLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
+      self.newLanguage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
       self.newLanguage.heightAnchor.constraint(equalToConstant: 48)
     ])
   }
@@ -126,8 +126,8 @@ extension NewLanguageViewController {
   private func addLanguageLayout() {
     NSLayoutConstraint.activate([
       self.addButton.topAnchor.constraint(equalToSystemSpacingBelow: newLanguage.bottomAnchor, multiplier: 4),
-      self.addButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-      self.addButton.widthAnchor.constraint(equalToConstant: 350),
+      self.addButton.leadingAnchor.constraint(equalTo: newLanguage.leadingAnchor),
+      self.addButton.trailingAnchor.constraint(equalTo: newLanguage.trailingAnchor),
       self.addButton.heightAnchor.constraint(equalToConstant: 42)
     ])
   }
