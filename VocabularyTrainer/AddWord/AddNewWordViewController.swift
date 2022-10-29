@@ -83,6 +83,16 @@ final class AddNewWordViewController: UIViewController {
     private var translationHasText = false
     private var completed: (() -> Void)?
     
+    var hasDuplicates : Bool {
+        let word = newWordTextField.text ?? ""
+        guard let selectedLanguage = selectedLanguage,
+              let dictionary = UserDefaults.standard.dictionary(forKey: selectedLanguage) as? [String: String] else {
+                  return false
+              }
+        let matches = dictionary.map{String($0.key) }.filter({ $0.lowercased().elementsEqual(word.lowercased()) })
+        return !matches.isEmpty
+    }
+    
     // MARK: - Initializer
     
     init(selectedLanguage: String?) {
@@ -183,7 +193,7 @@ final class AddNewWordViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    @objc private func addNewWordTapped() {
+    func addWordToDictionary(){
         guard let language = selectedLanguage,
               let word = newWordTextField.text,
               let translatedWord = translationTextField.text else { return }
@@ -210,10 +220,22 @@ final class AddNewWordViewController: UIViewController {
         UserDefaults.standard.set(vocabularies, forKey: language)
         UserDefaults.standard.set(vocabulariesSuccessRates, forKey: languageVocabProgressKey)
         UserDefaults.standard.set(vocabulariesAddDates, forKey: languageVocabDateAddedKey)
-        
         resetConfigs()
         self.delegate?.wordAdded()
         showToast(message: NSLocalizedString("New word added", comment: "New word added"), yCoord: 340.0)
+    }
+    
+    @objc private func addNewWordTapped() {
+        hasDuplicates ? showAlert() : addWordToDictionary()
+    }
+    
+    func showAlert() {
+        let duplicateWordAlert = UIAlertController(title: "Duplicate Word Detected", message: "This word already exists in the word list", preferredStyle: .alert)
+        duplicateWordAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        duplicateWordAlert.addAction(UIAlertAction(title: "Add Anyway", style: .default, handler: { _ in
+            self.addWordToDictionary()
+        }))
+        self.present(duplicateWordAlert, animated: true)
     }
     
     @objc private func textFieldChanged(_ sender: UITextField) {
