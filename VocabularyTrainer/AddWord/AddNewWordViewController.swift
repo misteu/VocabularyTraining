@@ -89,7 +89,9 @@ final class AddNewWordViewController: UIViewController {
               let dictionary = UserDefaults.standard.dictionary(forKey: selectedLanguage) as? [String: String] else {
                   return false
               }
-        let matches = dictionary.map{String($0.key) }.filter({ $0.lowercased().elementsEqual(word.lowercased()) })
+        let matches = dictionary
+          .map { String($0.key) }
+          .filter { $0.lowercased().elementsEqual(word.lowercased()) }
         return !matches.isEmpty
     }
     
