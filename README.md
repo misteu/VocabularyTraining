@@ -34,3 +34,8 @@ This project uses SwiftLint so please follow the guidance at https://github.com/
 Please make sure, that you do not re-indent whole files while doing changes in some file. Doing so makes it really hard to see your actual changes in the PR. I am aware that indentations are differing throughout the project. However, this is not a priority for now, I will align all of these once storyboards are gone.
 
 I am planning to align the whole project to this setting: https://github.com/raywenderlich/swift-style-guide#spacing
+
+
+## Redesign and Accessibility
+
+For redesign and accessibility issues, check the Flippy Figma: https://www.figma.com/file/n2i1f7nrrI6n9TtH7aqFR3/Flippy-Learn?node-id=0%3A1
