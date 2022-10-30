@@ -83,7 +83,7 @@ final class AddNewWordViewController: UIViewController {
     private var translationHasText = false
     private var completed: (() -> Void)?
     
-    var hasDuplicates : Bool {
+    var hasDuplicates: Bool {
         let word = newWordTextField.text ?? ""
         guard let selectedLanguage = selectedLanguage,
               let dictionary = UserDefaults.standard.dictionary(forKey: selectedLanguage) as? [String: String] else {
