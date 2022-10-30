@@ -193,7 +193,7 @@ final class AddNewWordViewController: UIViewController {
         dismiss(animated: true)
     }
     
-    func addWordToDictionary(){
+    func addWordToDictionary() {
         guard let language = selectedLanguage,
               let word = newWordTextField.text,
               let translatedWord = translationTextField.text else { return }
