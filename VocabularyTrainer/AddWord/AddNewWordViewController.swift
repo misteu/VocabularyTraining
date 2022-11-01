@@ -12,6 +12,7 @@ final class AddNewWordViewController: UIViewController {
     
     // MARK: - Private Properties
     weak var delegate: AddWordDelegate?
+    var coordinator: MainCoordinator?
     
     private lazy var backButton: UIButton = {
         let button = UIButton()

@@ -10,33 +10,14 @@ import UIKit
 class NewLanguageViewController: UIViewController {
   
   var delegate: NewLanguageScreenProtocol?
-
+  var coordinator: MainCoordinator?
+    
   init(delegate: NewLanguageScreenProtocol?) {
     self.delegate = delegate
     super.init(nibName: nil, bundle: nil)
   }
 
   required init?(coder: NSCoder) { nil }
-
-  // Back Button
-  var goBackButton: UIButton = {
-    let button = UIButton(frame: .zero)
-    
-    button.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
-    button.setTitleColor(.black, for: .normal)
-    
-    button.backgroundColor = BackgroundColor.blue
-    button.layer.cornerRadius = 5.0
-    return button
-  }()
-  
-  // New Language Header
-  var newLanguageHeader: UILabel = {
-    let label = UILabel(frame: .zero)
-    label.text = NSLocalizedString("Add new language", comment: "Add new language")
-    label.font = .preferredFont(forTextStyle: .title1)
-    return label
-  }()
   
   // New Language Text Field
   var newLanguage: UITextField = {
@@ -65,22 +46,28 @@ class NewLanguageViewController: UIViewController {
     super.viewDidLoad()
     hideKeyboardWhenTappedAround()
     setGradientBackground(view: view)
-    
     setup()
     layout()
+    navBarSetUp()
   }
+    
+    func navBarSetUp() {
+      title =  NSLocalizedString("Add new language", comment: "Add new language")
+      navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("< Back", comment: "< Back"), style: .plain, target: self, action: #selector(actionGoBack))
+    }
+    
+    @objc func actionGoBack(){
+        coordinator?.popVC()
+    }
 }
+
 
 // MARK: - Layout & Programmatic UI
 extension NewLanguageViewController {
   
   private func setup() {
-    self.view.addSubview(goBackButton)
-    self.goBackButton.translatesAutoresizingMaskIntoConstraints = false
-    self.goBackButton.addTarget(self, action: #selector(backButtonAction), for: .touchUpInside)
-
-    self.view.addSubview(newLanguageHeader)
-    self.newLanguageHeader.translatesAutoresizingMaskIntoConstraints = false
+    //self.view.addSubview(newLanguageHeader)
+    //self.newLanguageHeader.translatesAutoresizingMaskIntoConstraints = false
     
     self.view.addSubview(newLanguage)
     self.newLanguage.translatesAutoresizingMaskIntoConstraints = false
@@ -91,32 +78,15 @@ extension NewLanguageViewController {
   }
   
   private func layout() {
-    backButtonLayout()
-    newLanguageHeaderLayout()
     fieldLayout()
     
     addLanguageLayout()
   }
-  
-  private func backButtonLayout() {
-    NSLayoutConstraint.activate([
-      goBackButton.leadingAnchor.constraint(equalToSystemSpacingAfter: self.view.leadingAnchor, multiplier: 2.5),
-      goBackButton.topAnchor.constraint(equalToSystemSpacingBelow: self.view.topAnchor, multiplier: 2.5),
-      goBackButton.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 0.2),
-      goBackButton.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.05)
-    ])
-  }
-  
-  private func newLanguageHeaderLayout() {
-    NSLayoutConstraint.activate([
-      self.newLanguageHeader.topAnchor.constraint(equalToSystemSpacingBelow: goBackButton.bottomAnchor, multiplier: 2.5),
-      self.newLanguageHeader.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
-    ])
-  }
-  
+
+    
   private func fieldLayout() {
     NSLayoutConstraint.activate([
-      self.newLanguage.topAnchor.constraint(equalToSystemSpacingBelow: newLanguageHeader.bottomAnchor, multiplier: 4),
+        self.newLanguage.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
       self.newLanguage.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
       self.newLanguage.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
       self.newLanguage.heightAnchor.constraint(equalToConstant: 48)
@@ -152,8 +122,8 @@ extension NewLanguageViewController {
         UserDefaults.standard.set([newLanguage], forKey: UserDefaultKeys.languages)
       }
       delegate.updateLanguageTable(language: newLanguage)
-      dismiss(animated: true, completion: nil)
-    }
+          coordinator?.popVC()
+      }
   }
 }
 
@@ -172,3 +142,5 @@ extension UIView {
     return gradient
   }
 }
+
+extension NewLanguageViewController: StoryBoarded {}

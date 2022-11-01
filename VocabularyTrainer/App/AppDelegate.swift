@@ -12,13 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  var coordinator: MainCoordinator?
   func application(_ application: UIApplication,
                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //    activate later!
 //    if let files = ExportImport.getAllLanguageFileUrls() {
 //      ExportImport.importLanguageFiles(files)
 //    }
+      window = .init()
+      let navigationController = UINavigationController()
+      navigationController.navigationBar.tintColor = .black
+      coordinator = MainCoordinator(navigationController: navigationController)
+      coordinator?.start()
+      window?.rootViewController = navigationController
+      window?.makeKeyAndVisible()
+      
     return true
   }
 

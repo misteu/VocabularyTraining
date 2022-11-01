@@ -13,30 +13,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     
     let buttonHeight: CGFloat = 36
     let symbolConfig = UIImage.SymbolConfiguration(textStyle: .title1, scale: .large)
+    var coordinator: MainCoordinator?
 
-    lazy var backButton: UIButton = {
-        let button: UIButton = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        button.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
-        button.backgroundColor = BackgroundColor.hansaYellow
-        button.layer.cornerRadius = 5.0
-        button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-        button.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-        return button
-    }()
-    
-    lazy var deleteButton: UIButton = {
-        let button: UIButton = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        button.setTitle(NSLocalizedString("Delete Language", comment: "Delete Language"), for: .normal)
-        button.backgroundColor = BackgroundColor.red
-        button.layer.cornerRadius = 5.0
-        button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-        button.setTitleColor(BackgroundColor.mediumWhite, for: .normal)
-        return button
-    }()
     
     lazy var searchBar: UISearchBar = {
         let searchBar: UISearchBar = UISearchBar()
@@ -81,14 +59,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         button.layer.cornerRadius = 5.0
         button.contentEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
         return button
-    }()
-    
-    lazy var languageHeader: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = NSLocalizedString("Language", comment: "Language")
-        label.font = .systemFont(ofSize: 32)
-        return label
     }()
     
     lazy var infoButton: UIButton = {
@@ -186,15 +156,21 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         super.loadView()
         setUpLayout()
         hookButtonActions()
+        setUpNavBar()
+    }
+    
+    func setUpNavBar() {
+        let backTitle =  NSLocalizedString("< Back", comment: "< Back")
+        let deleteTitle = NSLocalizedString("Delete Language", comment: "Delete Language")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: backTitle, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: deleteTitle, style: .plain, target: self, action: #selector(deleteButtonTapped))
+        title = NSLocalizedString("Language", comment: "Language")
     }
     
     func setUpLayout() {
         view.backgroundColor = .systemTeal
         view.addSubview(tableView)
-        view.addSubview(backButton)
-        view.addSubview(deleteButton)
         view.addSubview(searchBar)
-        view.addSubview(languageHeader)
         view.addSubview(exportButton)
         view.addSubview(hintLabel)
         view.addSubview(infoButton)
@@ -204,64 +180,9 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         view.addSubview(sortTranslationButton)
         NSLayoutConstraint.activate([
             // constraints for back button.
+            
             NSLayoutConstraint(
-                item: backButton,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: view.safeAreaLayoutGuide,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 16
-            ),
-            NSLayoutConstraint(
-                item: backButton,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: view.safeAreaLayoutGuide,
-                attribute: .top,
-                multiplier: 1,
-                constant: 16
-            ),
-            NSLayoutConstraint(
-                item: backButton,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: languageHeader,
-                attribute: .top,
-                multiplier: 1,
-                constant: -16
-            ),
-            // constraints for delete button.
-            NSLayoutConstraint(
-                item: deleteButton,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: view.safeAreaLayoutGuide,
-                attribute: .top,
-                multiplier: 1,
-                constant: 16
-            ),
-            NSLayoutConstraint(
-                item: view.safeAreaLayoutGuide,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: deleteButton,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 16
-            ),
-            // constraints for language label.
-            NSLayoutConstraint(
-                item: languageHeader,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: backButton,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 16
-            ),
-            NSLayoutConstraint(
-                item: languageHeader,
+                item: exportButton,
                 attribute: .centerX,
                 relatedBy: .equal,
                 toItem: view,
@@ -269,34 +190,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
                 multiplier: 1,
                 constant: 0
             ),
-            NSLayoutConstraint(
-                item: exportButton,
-                attribute: .centerX,
-                relatedBy: .equal,
-                toItem: languageHeader,
-                attribute: .centerX,
-                multiplier: 1,
-                constant: 0
-            ),
+            infoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
             // constraints for searchBar.
-            NSLayoutConstraint(
-                item: searchBar,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: languageHeader,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 4
-            ),
-            NSLayoutConstraint(
-                item: searchBar,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: exportButton,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 8
-            ),
             NSLayoutConstraint(
                 item: searchBar,
                 attribute: .top,
@@ -535,7 +430,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         searchBar.delegate = self
         
         guard let language = selectedLanguage else {return}
-        languageHeader.text = language
+        title = language
         hideKeyboardWhenTappedAround()
         
         searchBar.layer.cornerRadius = 10.0
@@ -548,9 +443,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
         
     func hookButtonActions() {
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+       
         
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
         
@@ -562,16 +455,13 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         newWordButton.addTarget(self, action: #selector(addNewWordTapped), for: .touchUpInside)
     }
     
-    @objc func backButtonTapped(_ sender: Any) {
+    @objc func backButtonTapped() {
         completed?()
-        dismiss(animated: true, completion: nil)
+        coordinator?.popVC()
     }
     
     @objc func addNewWordTapped(_ sender: Any) {
-        let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
-        viewController.delegate = self
-        
-        self.present(viewController, animated: true)
+        coordinator?.navigateToAddNewWordViewController(selectedLanguage: selectedLanguage, delegate: self)
     }
     
     @objc func deleteButtonTapped(_ sender: Any) {
@@ -871,14 +761,14 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
     
     func localize() {
-        backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
-        deleteButton.setTitle(NSLocalizedString("Delete Language", comment: "Delete Language"), for: .normal)
         newWordButton.setTitle(NSLocalizedString("New word", comment: "New word"), for: .normal)
         exportButton.setTitle(NSLocalizedString("export", comment: "export"), for: .normal)
         searchBar.placeholder = NSLocalizedString("search for words", comment: "search for words")
         
         infoText = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
     }
+    
+
     
 }
 
@@ -1063,3 +953,4 @@ extension LanguageScreenViewController: AddWordDelegate {
         self.loadDataAndUpdate()
     }
 }
+

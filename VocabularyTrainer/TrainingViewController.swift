@@ -15,6 +15,7 @@ class TrainingViewController: UIViewController {
   var vocabulariesProgresses: [String: Float]?
   var isKeyShown: Bool?
   var currentKey: String?
+    var coordinator: MainCoordinator?
 
   @IBOutlet weak var wrongAnswerButton: UIButton!
   @IBOutlet weak var rightAnswerButton: UIButton!
@@ -300,3 +301,5 @@ class TrainingViewController: UIViewController {
   
   // TODO: Export when pressed Backbutton or closed app (app delegate!)
 }
+
+extension TrainingViewController: StoryBoarded {}
