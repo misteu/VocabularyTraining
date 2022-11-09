@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-protocol NewLanguageScreenProtocol {
+protocol NewLanguageScreenProtocol: AnyObject {
   func updateLanguageTable(language: String)
 }
 
@@ -45,7 +45,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
   private var loadingController: UIAlertController?
   let webView = WKWebView()
   let webViewVC = UIViewController()
-  
+  var coordinator: MainCoordinator?
   func updateLanguageTable(language: String) {
     debugPrint("\(language) added/deleted")
     tableView.reloadData()
@@ -195,25 +195,6 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     return UITableViewCell()
   }
 
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-    if segue.identifier == SegueName.showLanguageSegue {
-      if let secondVC = segue.destination as? LanguageScreenViewController {
-        secondVC.selectedLanguage = selectedLanguage
-        secondVC.delegate = self
-        secondVC.completed = { [weak self] in
-          self?.tableView.reloadData()
-        }
-      }
-    }
-    
-    if segue.identifier == SegueName.showTrainingSegue {
-        if let secondVC = segue.destination as? TrainingViewController {
-          secondVC.selectedLanguage = selectedLanguage
-        }
-    }
-  }
-  
   var selectedLanguage = ""
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -251,7 +232,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     selectedLanguage = languages[row]
     
     if areWordsSavedFor(language: selectedLanguage) {
-      performSegue(withIdentifier: SegueName.showTrainingSegue, sender: nil)
+        coordinator?.navigateToTrainingViewController(with: selectedLanguage)
     } else {
       showToast(message: NSLocalizedString("No words inside 🕵️‍♀️", comment: "No words inside 🕵️‍♀️"), yCoord: view.frame.maxY/2)
     }
@@ -264,14 +245,10 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     guard let row = selectedRow else {debugPrint("nothing selected"); return}
     
     selectedLanguage = languages[row]
-      
-    let languageVC = LanguageScreenViewController()
-    languageVC.selectedLanguage = selectedLanguage
-    languageVC.delegate = self
-    languageVC.completed = { [weak self] in
-      self?.tableView.reloadData()
-    }
-    present(languageVC, animated: true)
+      coordinator?.navigateToLanguageScreenViewController(selectedLanguage: selectedLanguage, newLanguageScreenProtocol: self, completion: { [weak self] in
+            self?.tableView.reloadData()
+          
+      })
   }
   
   func deactivateTopButtons() {
@@ -542,6 +519,8 @@ extension HomeScreenViewController: WKNavigationDelegate {
 extension HomeScreenViewController {
 
   @IBAction func addAction() {
-    present(NewLanguageViewController(delegate: self), animated: true)
+      coordinator?.navigateToNewLanguageViewController(newLanguageScreenProtocol: self)
   }
 }
+
+extension HomeScreenViewController: StoryBoarded {}

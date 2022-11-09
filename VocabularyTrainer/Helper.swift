@@ -232,13 +232,11 @@ class ExportImport {
 	var datesAdded = [String: Date]()
     
     let rows = data.components(separatedBy: "\n")
-    for (index, row) in rows.enumerated() {
-      if index > 1 {
+    for (index, row) in rows.enumerated() where index > 1 {
         let columns = row.components(separatedBy: ";")
         vocabDict[columns[0]] = columns[1]
         vocabProgr[columns[0]] = (columns[2] as NSString).floatValue
-		datesAdded[columns[0]] = VocabularyDateFormatter.dateFormatter.date(from: columns[3])
-      }
+        datesAdded[columns[0]] = VocabularyDateFormatter.dateFormatter.date(from: columns[3])
     }
   
 	let result = LanguageImport.init(vocabularies: vocabDict, progresses: vocabProgr, datesAdded: datesAdded)

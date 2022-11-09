@@ -15,6 +15,7 @@ class TrainingViewController: UIViewController {
   var vocabulariesProgresses: [String: Float]?
   var isKeyShown: Bool?
   var currentKey: String?
+    var coordinator: MainCoordinator?
 
   @IBOutlet weak var wrongAnswerButton: UIButton!
   @IBOutlet weak var rightAnswerButton: UIButton!
@@ -24,8 +25,7 @@ class TrainingViewController: UIViewController {
   @IBOutlet weak var takeALookButton: UIButton!
   @IBOutlet weak var nextButton: UIButton!
   @IBOutlet weak var currentTrainingHeader: UILabel!
-  
-  @IBOutlet weak var backButton: UIButton!
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -258,12 +258,7 @@ class TrainingViewController: UIViewController {
     nextButton.backgroundColor = BackgroundColor.yellow
     nextButton.layer.cornerRadius = 5.0
     nextButton.setTitleColor(.black, for: .normal)
-    
-    backButton.backgroundColor = BackgroundColor.hansaYellow
-    backButton.layer.cornerRadius = 5.0
-    backButton.setTitleColor(.black, for: .normal)
-    backButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    
+
   }
   
   func changeWordsProbability(increase: Bool, key: String) {
@@ -292,11 +287,12 @@ class TrainingViewController: UIViewController {
     checkInputButton.setTitle(NSLocalizedString("Check", comment: "Check"), for: .normal)
     takeALookButton.setTitle(NSLocalizedString("Take a look", comment: "Take a look"), for: .normal)
     nextButton.setTitle(NSLocalizedString("Skip word", comment: "Skip word"), for: .normal)
-    backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
-        
+  
     rightAnswerButton.setTitle(NSLocalizedString("👍 I was right", comment: "👍 I was right"), for: .normal)
     wrongAnswerButton.setTitle(NSLocalizedString("👎 I was wrong", comment: "👎 I was wrong"), for: .normal)
   }
   
   // TODO: Export when pressed Backbutton or closed app (app delegate!)
 }
+
+extension TrainingViewController: StoryBoarded {}

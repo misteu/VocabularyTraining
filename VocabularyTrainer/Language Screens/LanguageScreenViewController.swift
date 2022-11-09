@@ -13,31 +13,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     
     let buttonHeight: CGFloat = 36
     let symbolConfig = UIImage.SymbolConfiguration(textStyle: .title1, scale: .large)
+    var coordinator: MainCoordinator?
 
-    lazy var backButton: UIButton = {
-        let button: UIButton = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        button.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
-        button.backgroundColor = BackgroundColor.hansaYellow
-        button.layer.cornerRadius = 5.0
-        button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-        button.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-        return button
-    }()
-    
-    lazy var deleteButton: UIButton = {
-        let button: UIButton = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: buttonHeight).isActive = true
-        button.setTitle(NSLocalizedString("Delete Language", comment: "Delete Language"), for: .normal)
-        button.backgroundColor = BackgroundColor.red
-        button.layer.cornerRadius = 5.0
-        button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-        button.setTitleColor(BackgroundColor.mediumWhite, for: .normal)
-        return button
-    }()
-    
     lazy var searchBar: UISearchBar = {
         let searchBar: UISearchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -81,14 +58,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         button.layer.cornerRadius = 5.0
         button.contentEdgeInsets = UIEdgeInsets(top: 4.0, left: 4.0, bottom: 4.0, right: 4.0)
         return button
-    }()
-    
-    lazy var languageHeader: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = NSLocalizedString("Language", comment: "Language")
-        label.font = .systemFont(ofSize: 32)
-        return label
     }()
     
     lazy var infoButton: UIButton = {
@@ -162,6 +131,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     var vocabularies = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
     var vocabDict = [String: String]()
     var vocabProgr = [String: Float]()
+    var vocabDates = [String: Date]()
     var filteredData = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
     var isSearching = false
     var totalProgress = Float(0)
@@ -180,21 +150,27 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         case date
     }
     
-    var delegate: NewLanguageScreenProtocol?
+    weak var delegate: NewLanguageScreenProtocol?
     
     override func loadView() {
         super.loadView()
         setUpLayout()
         hookButtonActions()
+        setUpNavBar()
+    }
+    
+    func setUpNavBar() {
+        let backTitle =  NSLocalizedString("< Back", comment: "< Back")
+        let deleteTitle = NSLocalizedString("Delete Language", comment: "Delete Language")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: backTitle, style: .plain, target: self, action: #selector(backButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: deleteTitle, style: .plain, target: self, action: #selector(deleteButtonTapped))
+        title = NSLocalizedString("Language", comment: "Language")
     }
     
     func setUpLayout() {
         view.backgroundColor = .systemTeal
         view.addSubview(tableView)
-        view.addSubview(backButton)
-        view.addSubview(deleteButton)
         view.addSubview(searchBar)
-        view.addSubview(languageHeader)
         view.addSubview(exportButton)
         view.addSubview(hintLabel)
         view.addSubview(infoButton)
@@ -204,64 +180,9 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         view.addSubview(sortTranslationButton)
         NSLayoutConstraint.activate([
             // constraints for back button.
+            
             NSLayoutConstraint(
-                item: backButton,
-                attribute: .leading,
-                relatedBy: .equal,
-                toItem: view.safeAreaLayoutGuide,
-                attribute: .leading,
-                multiplier: 1,
-                constant: 16
-            ),
-            NSLayoutConstraint(
-                item: backButton,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: view.safeAreaLayoutGuide,
-                attribute: .top,
-                multiplier: 1,
-                constant: 16
-            ),
-            NSLayoutConstraint(
-                item: backButton,
-                attribute: .bottom,
-                relatedBy: .equal,
-                toItem: languageHeader,
-                attribute: .top,
-                multiplier: 1,
-                constant: -16
-            ),
-            // constraints for delete button.
-            NSLayoutConstraint(
-                item: deleteButton,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: view.safeAreaLayoutGuide,
-                attribute: .top,
-                multiplier: 1,
-                constant: 16
-            ),
-            NSLayoutConstraint(
-                item: view.safeAreaLayoutGuide,
-                attribute: .trailing,
-                relatedBy: .equal,
-                toItem: deleteButton,
-                attribute: .trailing,
-                multiplier: 1,
-                constant: 16
-            ),
-            // constraints for language label.
-            NSLayoutConstraint(
-                item: languageHeader,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: backButton,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 16
-            ),
-            NSLayoutConstraint(
-                item: languageHeader,
+                item: exportButton,
                 attribute: .centerX,
                 relatedBy: .equal,
                 toItem: view,
@@ -269,34 +190,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
                 multiplier: 1,
                 constant: 0
             ),
-            NSLayoutConstraint(
-                item: exportButton,
-                attribute: .centerX,
-                relatedBy: .equal,
-                toItem: languageHeader,
-                attribute: .centerX,
-                multiplier: 1,
-                constant: 0
-            ),
+            infoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
             // constraints for searchBar.
-            NSLayoutConstraint(
-                item: searchBar,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: languageHeader,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 4
-            ),
-            NSLayoutConstraint(
-                item: searchBar,
-                attribute: .top,
-                relatedBy: .equal,
-                toItem: exportButton,
-                attribute: .bottom,
-                multiplier: 1,
-                constant: 8
-            ),
             NSLayoutConstraint(
                 item: searchBar,
                 attribute: .top,
@@ -535,7 +430,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         searchBar.delegate = self
         
         guard let language = selectedLanguage else {return}
-        languageHeader.text = language
+        title = language
         hideKeyboardWhenTappedAround()
         
         searchBar.layer.cornerRadius = 10.0
@@ -548,10 +443,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
         
     func hookButtonActions() {
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
-        
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
         
         sortWordButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
@@ -562,16 +453,13 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         newWordButton.addTarget(self, action: #selector(addNewWordTapped), for: .touchUpInside)
     }
     
-    @objc func backButtonTapped(_ sender: Any) {
+    @objc func backButtonTapped() {
         completed?()
-        dismiss(animated: true, completion: nil)
+        coordinator?.popVC()
     }
     
     @objc func addNewWordTapped(_ sender: Any) {
-        let viewController = AddNewWordViewController(selectedLanguage: selectedLanguage)
-        viewController.delegate = self
-        
-        self.present(viewController, animated: true)
+        coordinator?.navigateToAddNewWordViewController(selectedLanguage: selectedLanguage, delegate: self)
     }
     
     @objc func deleteButtonTapped(_ sender: Any) {
@@ -586,7 +474,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         // add the actions (buttons)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { [weak self] _ in
             
             guard let languages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] else {print("error getting languages"); return}
             
@@ -597,10 +485,11 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             UserDefaults.standard.removeObject(forKey: language)
             UserDefaults.standard.removeObject(forKey: "\(language)Progress")
             
-            self.dismiss(animated: true, completion: { () in
-                if let delegate = self.delegate {
+            self?.dismiss(animated: true, completion: { () in
+                if let delegate = self?.delegate {
                     delegate.updateLanguageTable(language: language)
                 }
+              self?.coordinator?.navigationController.popViewController(animated: true)
             })
         }))
         
@@ -721,8 +610,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             return
         }
         vocabProgr = vocabProgress
-        
-        var vocabDates = [String: Date]()
+
         if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String: Date] {
             vocabDates = dates
         }
@@ -735,9 +623,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         filteredData = vocabularies.filter {
             $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())
         }
-        
-        UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
-        
+        tableView.reloadData()
+
         totalProgress = vocabularies.reduce(0) { $0 + $1.2 }
         
         if let maxItem = vocabularies.max(by: { $0.2 < $1.2 }) {
@@ -856,7 +743,10 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             // writing
             do {
                 try exportString.write(to: fileURL, atomically: false, encoding: .macOSRoman)
-                let alert = UIAlertController(title: "\(NSLocalizedString("Export successful:", comment: "Export successful:")) \(language).csv", message: String.localizedStringWithFormat(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder", comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder"), language), preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "\(NSLocalizedString("Export successful:", comment: "Export successful:")) \(language).csv",
+                                              message: String.localizedStringWithFormat(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder",
+                                                                                                          comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder"), language),
+                                              preferredStyle: UIAlertController.Style.alert)
                 
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -871,15 +761,12 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
     
     func localize() {
-        backButton.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
-        deleteButton.setTitle(NSLocalizedString("Delete Language", comment: "Delete Language"), for: .normal)
         newWordButton.setTitle(NSLocalizedString("New word", comment: "New word"), for: .normal)
         exportButton.setTitle(NSLocalizedString("export", comment: "export"), for: .normal)
         searchBar.placeholder = NSLocalizedString("search for words", comment: "search for words")
         
         infoText = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
     }
-    
 }
 
 extension LanguageScreenViewController: UITableViewDataSource {
@@ -983,7 +870,8 @@ extension LanguageScreenViewController: UITableViewDelegate {
             guard let language = self.selectedLanguage else { return print("No language selected") }
             
             let title = NSLocalizedString("Change word`s probability", comment: "Change word`s probability")
-            let message = NSLocalizedString("Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.", comment: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.")
+            let message = NSLocalizedString("Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.",
+                                            comment: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.")
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
             
             alertController.addTextField { (textField) in
@@ -1035,6 +923,11 @@ extension LanguageScreenViewController: UITableViewDelegate {
                       let newTranslation = translationTextField.text else { return print("Translation text is missing") }
                 
                 // Update data source
+
+              if let date = self.vocabDates[word] {
+                self.vocabDates.removeValue(forKey: word)
+                self.vocabDates[newWord] = date
+              }
                 self.vocabDict.removeValue(forKey: word)
                 self.vocabProgr.removeValue(forKey: word)
                 
@@ -1044,7 +937,8 @@ extension LanguageScreenViewController: UITableViewDelegate {
                 // Save edit data to user defaults
                 UserDefaults.standard.set(self.vocabDict, forKey: language)
                 UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
-                
+                UserDefaults.standard.set(self.vocabDates, forKey: "\(language)DateAdded")
+
                 // Reload table view
                 self.loadDataAndUpdate()
                 tableView.reloadData()
