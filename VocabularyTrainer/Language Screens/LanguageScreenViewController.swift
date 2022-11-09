@@ -15,7 +15,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     let symbolConfig = UIImage.SymbolConfiguration(textStyle: .title1, scale: .large)
     var coordinator: MainCoordinator?
 
-    
     lazy var searchBar: UISearchBar = {
         let searchBar: UISearchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -132,6 +131,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     var vocabularies = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
     var vocabDict = [String: String]()
     var vocabProgr = [String: Float]()
+    var vocabDates = [String: Date]()
     var filteredData = [(word: String, translation: String, progress: Float, addedDate: Date?)]()
     var isSearching = false
     var totalProgress = Float(0)
@@ -150,7 +150,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         case date
     }
     
-    var delegate: NewLanguageScreenProtocol?
+    weak var delegate: NewLanguageScreenProtocol?
     
     override func loadView() {
         super.loadView()
@@ -443,8 +443,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
     }
         
     func hookButtonActions() {
-       
-        
         infoButton.addTarget(self, action: #selector(infoButtonTapped), for: .touchUpInside)
         
         sortWordButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
@@ -476,7 +474,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         // add the actions (buttons)
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel"), style: UIAlertAction.Style.cancel, handler: nil))
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: "Delete"), style: UIAlertAction.Style.destructive, handler: { [weak self] _ in
             
             guard let languages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] else {print("error getting languages"); return}
             
@@ -487,10 +485,11 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             UserDefaults.standard.removeObject(forKey: language)
             UserDefaults.standard.removeObject(forKey: "\(language)Progress")
             
-            self.dismiss(animated: true, completion: { () in
-                if let delegate = self.delegate {
+            self?.dismiss(animated: true, completion: { () in
+                if let delegate = self?.delegate {
                     delegate.updateLanguageTable(language: language)
                 }
+              self?.coordinator?.navigationController.popViewController(animated: true)
             })
         }))
         
@@ -611,8 +610,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             return
         }
         vocabProgr = vocabProgress
-        
-        var vocabDates = [String: Date]()
+
         if let dates = UserDefaults.standard.dictionary(forKey: "\(language)DateAdded") as? [String: Date] {
             vocabDates = dates
         }
@@ -625,9 +623,8 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         filteredData = vocabularies.filter {
             $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())
         }
-        
-        UIView.transition(with: tableView, duration: 0.3, options: .transitionCrossDissolve, animations: {self.tableView.reloadData()}, completion: nil)
-        
+        tableView.reloadData()
+
         totalProgress = vocabularies.reduce(0) { $0 + $1.2 }
         
         if let maxItem = vocabularies.max(by: { $0.2 < $1.2 }) {
@@ -746,7 +743,10 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             // writing
             do {
                 try exportString.write(to: fileURL, atomically: false, encoding: .macOSRoman)
-                let alert = UIAlertController(title: "\(NSLocalizedString("Export successful:", comment: "Export successful:")) \(language).csv", message: String.localizedStringWithFormat(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder", comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder"), language), preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title: "\(NSLocalizedString("Export successful:", comment: "Export successful:")) \(language).csv",
+                                              message: String.localizedStringWithFormat(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder",
+                                                                                                          comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder"), language),
+                                              preferredStyle: UIAlertController.Style.alert)
                 
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
                 self.present(alert, animated: true, completion: nil)
@@ -767,9 +767,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         
         infoText = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")
     }
-    
-
-    
 }
 
 extension LanguageScreenViewController: UITableViewDataSource {
@@ -873,7 +870,8 @@ extension LanguageScreenViewController: UITableViewDelegate {
             guard let language = self.selectedLanguage else { return print("No language selected") }
             
             let title = NSLocalizedString("Change word`s probability", comment: "Change word`s probability")
-            let message = NSLocalizedString("Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.", comment: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.")
+            let message = NSLocalizedString("Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.",
+                                            comment: "Change word`s probability value. Higher value -> higher probability for word to appear.\nNew words start with 100.")
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
             
             alertController.addTextField { (textField) in
@@ -925,6 +923,11 @@ extension LanguageScreenViewController: UITableViewDelegate {
                       let newTranslation = translationTextField.text else { return print("Translation text is missing") }
                 
                 // Update data source
+
+              if let date = self.vocabDates[word] {
+                self.vocabDates.removeValue(forKey: word)
+                self.vocabDates[newWord] = date
+              }
                 self.vocabDict.removeValue(forKey: word)
                 self.vocabProgr.removeValue(forKey: word)
                 
@@ -934,7 +937,8 @@ extension LanguageScreenViewController: UITableViewDelegate {
                 // Save edit data to user defaults
                 UserDefaults.standard.set(self.vocabDict, forKey: language)
                 UserDefaults.standard.set(self.vocabProgr, forKey: "\(language)Progress")
-                
+                UserDefaults.standard.set(self.vocabDates, forKey: "\(language)DateAdded")
+
                 // Reload table view
                 self.loadDataAndUpdate()
                 tableView.reloadData()
@@ -953,4 +957,3 @@ extension LanguageScreenViewController: AddWordDelegate {
         self.loadDataAndUpdate()
     }
 }
-

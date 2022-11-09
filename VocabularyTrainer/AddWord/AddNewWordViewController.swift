@@ -13,18 +13,18 @@ final class AddNewWordViewController: UIViewController {
     // MARK: - Private Properties
     weak var delegate: AddWordDelegate?
     var coordinator: MainCoordinator?
-    
-    private lazy var backButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
-        button.backgroundColor = BackgroundColor.hansaYellow
-        button.layer.cornerRadius = 5.0
-        button.contentEdgeInsets = .init(top: 5, left: 10, bottom: 5, right: 10)
-        button.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+//
+//    private lazy var backButton: UIButton = {
+//        let button = UIButton()
+//        button.setTitle(NSLocalizedString("< Back", comment: "< Back"), for: .normal)
+//        button.backgroundColor = BackgroundColor.hansaYellow
+//        button.layer.cornerRadius = 5.0
+//        button.contentEdgeInsets = .init(top: 5, left: 10, bottom: 5, right: 10)
+//        button.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+//        button.addTarget(self, action: #selector(didTapBackButton), for: .touchUpInside)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
     
     private lazy var addNewWordLabel: UILabel = {
         let label = UILabel()
@@ -103,7 +103,7 @@ final class AddNewWordViewController: UIViewController {
     
     private func setUpUI() {
         setGradientBackground(view: view)
-        view.addSubview(backButton)
+//        view.addSubview(backButton)
         view.addSubview(addNewWordLabel)
         view.addSubview(newWordTextField)
         view.addSubview(translationTextField)
@@ -111,11 +111,11 @@ final class AddNewWordViewController: UIViewController {
     }
     
     private func setUpConstraints() {
-        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
-        backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
-        
+//        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
+//        backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
+//
         addNewWordLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        addNewWordLabel.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: 16).isActive = true
+        addNewWordLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor).isActive = true
         
         newWordTextField.topAnchor.constraint(equalTo: addNewWordLabel.bottomAnchor, constant: 16).isActive = true
         newWordTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true

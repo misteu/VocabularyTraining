@@ -9,7 +9,7 @@
 import UIKit
 import WebKit
 
-protocol NewLanguageScreenProtocol {
+protocol NewLanguageScreenProtocol: AnyObject {
   func updateLanguageTable(language: String)
 }
 
@@ -195,7 +195,6 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     return UITableViewCell()
   }
 
-  
   var selectedLanguage = ""
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -233,7 +232,7 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     selectedLanguage = languages[row]
     
     if areWordsSavedFor(language: selectedLanguage) {
-        coordinator?.navigateToTrainingViewController()
+        coordinator?.navigateToTrainingViewController(with: selectedLanguage)
     } else {
       showToast(message: NSLocalizedString("No words inside 🕵️‍♀️", comment: "No words inside 🕵️‍♀️"), yCoord: view.frame.maxY/2)
     }

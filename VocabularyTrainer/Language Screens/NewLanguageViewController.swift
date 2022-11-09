@@ -9,7 +9,7 @@
 import UIKit
 class NewLanguageViewController: UIViewController {
   
-  var delegate: NewLanguageScreenProtocol?
+  weak var delegate: NewLanguageScreenProtocol?
   var coordinator: MainCoordinator?
     
   init(delegate: NewLanguageScreenProtocol?) {
@@ -56,18 +56,17 @@ class NewLanguageViewController: UIViewController {
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("< Back", comment: "< Back"), style: .plain, target: self, action: #selector(actionGoBack))
     }
     
-    @objc func actionGoBack(){
+    @objc func actionGoBack() {
         coordinator?.popVC()
     }
 }
-
 
 // MARK: - Layout & Programmatic UI
 extension NewLanguageViewController {
   
   private func setup() {
-    //self.view.addSubview(newLanguageHeader)
-    //self.newLanguageHeader.translatesAutoresizingMaskIntoConstraints = false
+    // self.view.addSubview(newLanguageHeader)
+    // self.newLanguageHeader.translatesAutoresizingMaskIntoConstraints = false
     
     self.view.addSubview(newLanguage)
     self.newLanguage.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +82,6 @@ extension NewLanguageViewController {
     addLanguageLayout()
   }
 
-    
   private func fieldLayout() {
     NSLayoutConstraint.activate([
         self.newLanguage.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
@@ -142,5 +140,3 @@ extension UIView {
     return gradient
   }
 }
-
-extension NewLanguageViewController: StoryBoarded {}

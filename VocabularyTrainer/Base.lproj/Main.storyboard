@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your languages" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rNH-Y6-8Zv">
-                                <rect key="frame" x="108" y="116" width="198.5" height="40"/>
+                                <rect key="frame" x="108" y="112" width="198.5" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="6Ip-Gd-olA"/>
                                 </constraints>
@@ -26,11 +26,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hmh-sV-OBV">
-                                <rect key="frame" x="16" y="204" width="382" height="536"/>
+                                <rect key="frame" x="16" y="200" width="382" height="540"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="languageCell" id="Vxh-sC-nQk" customClass="LanguageTableViewCell" customModule="VocabularyTrainer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="382" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="382" height="52.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vxh-sC-nQk" id="H38-wL-5gJ">
                                             <rect key="frame" x="0.0" y="0.0" width="382" height="52.5"/>
@@ -85,7 +85,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8uJ-dW-rui">
-                                <rect key="frame" x="16" y="64" width="70" height="36"/>
+                                <rect key="frame" x="16" y="60" width="70" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="Tto-sh-m4b"/>
                                 </constraints>
@@ -96,7 +96,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBg-bb-bgl">
-                                <rect key="frame" x="312" y="64" width="86" height="36"/>
+                                <rect key="frame" x="312" y="60" width="86" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="QCc-lh-Sgm"/>
                                 </constraints>
@@ -107,7 +107,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wfy-tB-0pH">
-                                <rect key="frame" x="20" y="160" width="78" height="36"/>
+                                <rect key="frame" x="20" y="156" width="78" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="⤵ import"/>
                                 <connections>
@@ -115,7 +115,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-MR-VHX">
-                                <rect key="frame" x="335" y="160" width="59" height="36"/>
+                                <rect key="frame" x="335" y="156" width="59" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
@@ -178,22 +178,11 @@
             <objects>
                 <viewController storyboardIdentifier="TrainingViewController" id="uJ8-Md-qZD" customClass="TrainingViewController" customModule="VocabularyTrainer" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TMn-2J-cMy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="838"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jhf-6U-f7J">
-                                <rect key="frame" x="16" y="64" width="61" height="36"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36" id="4cV-mt-1Aw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="&lt; Back"/>
-                                <connections>
-                                    <action selector="backButtonTapped:" destination="uJ8-Md-qZD" eventType="touchUpInside" id="SBr-Kw-K4A"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Cu-DE-YK3">
-                                <rect key="frame" x="16" y="116" width="382" height="57.5"/>
+                                <rect key="frame" x="16" y="16" width="382" height="57.5"/>
                                 <string key="text">Training:
 Turkish</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
@@ -201,18 +190,18 @@ Turkish</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="köpek" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o3T-rB-i7W">
-                                <rect key="frame" x="16" y="189.5" width="382" height="38.5"/>
+                                <rect key="frame" x="16" y="89.5" width="382" height="38.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="answer" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="53n-g1-uwW">
-                                <rect key="frame" x="16" y="244" width="382" height="48"/>
+                                <rect key="frame" x="16" y="144" width="382" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="Ldd-Vk-eaL">
-                                <rect key="frame" x="16" y="308" width="382" height="41"/>
+                                <rect key="frame" x="16" y="208" width="382" height="41"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJQ-jN-5Xm">
                                         <rect key="frame" x="0.0" y="0.0" width="173" height="41"/>
@@ -233,7 +222,7 @@ Turkish</string>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="4uh-hF-zO5">
-                                <rect key="frame" x="16" y="308" width="382" height="41"/>
+                                <rect key="frame" x="16" y="208" width="382" height="41"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="87J-6T-hDZ">
                                         <rect key="frame" x="0.0" y="0.0" width="173" height="41"/>
@@ -254,7 +243,7 @@ Turkish</string>
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vAt-0V-rIb">
-                                <rect key="frame" x="16" y="365" width="382" height="41"/>
+                                <rect key="frame" x="16" y="265" width="382" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <state key="normal" title="Skip word"/>
                                 <connections>
@@ -268,7 +257,6 @@ Turkish</string>
                             <constraint firstItem="vAt-0V-rIb" firstAttribute="top" secondItem="53n-g1-uwW" secondAttribute="bottom" constant="73" id="0vQ-HA-i8F"/>
                             <constraint firstItem="vAt-0V-rIb" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="2eE-3t-Vdd"/>
                             <constraint firstItem="4uh-hF-zO5" firstAttribute="top" secondItem="53n-g1-uwW" secondAttribute="bottom" constant="16" id="C0i-1E-LhN"/>
-                            <constraint firstItem="5Cu-DE-YK3" firstAttribute="top" secondItem="Jhf-6U-f7J" secondAttribute="bottom" constant="16" id="Eji-uY-btk"/>
                             <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="5Cu-DE-YK3" secondAttribute="trailing" constant="16" id="Eto-vz-4Fn"/>
                             <constraint firstItem="Ldd-Vk-eaL" firstAttribute="top" secondItem="53n-g1-uwW" secondAttribute="bottom" constant="16" id="JL2-9J-ii6"/>
                             <constraint firstItem="5Cu-DE-YK3" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="K7K-Sc-Ld6"/>
@@ -276,20 +264,18 @@ Turkish</string>
                             <constraint firstItem="o3T-rB-i7W" firstAttribute="top" secondItem="5Cu-DE-YK3" secondAttribute="bottom" constant="16" id="OYn-DE-f3u"/>
                             <constraint firstItem="o3T-rB-i7W" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="QYg-5Q-OQU"/>
                             <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="Ldd-Vk-eaL" secondAttribute="trailing" constant="16" id="QuM-4u-FGv"/>
+                            <constraint firstItem="5Cu-DE-YK3" firstAttribute="top" secondItem="wgg-aC-UbX" secondAttribute="top" constant="16" id="SAw-CN-FsD"/>
                             <constraint firstItem="53n-g1-uwW" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="V5N-B8-Bfs"/>
-                            <constraint firstItem="Jhf-6U-f7J" firstAttribute="top" secondItem="wgg-aC-UbX" secondAttribute="top" constant="16" id="W8d-XV-UdC"/>
                             <constraint firstItem="Ldd-Vk-eaL" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="Wmg-if-WOf"/>
                             <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="o3T-rB-i7W" secondAttribute="trailing" constant="16" id="a6t-0z-gj9"/>
                             <constraint firstItem="4uh-hF-zO5" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="iRn-dn-wgO"/>
                             <constraint firstItem="53n-g1-uwW" firstAttribute="top" secondItem="o3T-rB-i7W" secondAttribute="bottom" constant="16" id="pfp-TW-2f5"/>
                             <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="53n-g1-uwW" secondAttribute="trailing" constant="16" id="pkf-rC-IAd"/>
                             <constraint firstItem="wgg-aC-UbX" firstAttribute="trailing" secondItem="4uh-hF-zO5" secondAttribute="trailing" constant="16" id="r3L-6N-Lsg"/>
-                            <constraint firstItem="Jhf-6U-f7J" firstAttribute="leading" secondItem="wgg-aC-UbX" secondAttribute="leading" constant="16" id="vBl-4e-AWn"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="answerInput" destination="53n-g1-uwW" id="A1Q-Vi-jbk"/>
-                        <outlet property="backButton" destination="Jhf-6U-f7J" id="tvI-Pi-8AE"/>
                         <outlet property="checkInputButton" destination="SJQ-jN-5Xm" id="UUr-Lf-Hlw"/>
                         <outlet property="currentTrainingHeader" destination="5Cu-DE-YK3" id="wBW-uy-6eY"/>
                         <outlet property="currentVocabulary" destination="o3T-rB-i7W" id="2Yr-Em-5FA"/>

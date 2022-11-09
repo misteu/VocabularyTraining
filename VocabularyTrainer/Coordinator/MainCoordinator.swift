@@ -19,12 +19,11 @@ class MainCoordinator: Coordinator {
     }
     
     func start() {
-        let vc = HomeScreenViewController.instantiate()
+        guard let vc = HomeScreenViewController.instantiate() else { print("[ERROR] Unable to instantiate TrainingViewController"); return }
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
     }
-    
-    
+
     func navigateToNewLanguageViewController(newLanguageScreenProtocol: NewLanguageScreenProtocol) {
         let newLanguageVC = NewLanguageViewController(delegate: newLanguageScreenProtocol)
         newLanguageVC.coordinator = self
@@ -43,16 +42,17 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(languageScreenVC, animated: true)
     }
     
-    func navigateToAddNewWordViewController(selectedLanguage: String?,delegate: AddWordDelegate?) {
+    func navigateToAddNewWordViewController(selectedLanguage: String?, delegate: AddWordDelegate?) {
         let addNewWordVC = AddNewWordViewController(selectedLanguage: selectedLanguage)
         addNewWordVC.coordinator = self
         addNewWordVC.delegate = delegate
         navigationController.pushViewController(addNewWordVC, animated: true)
     }
     
-    func navigateToTrainingViewController() {
-        let trainingVC = TrainingViewController.instantiate()
+  func navigateToTrainingViewController(with language: String) {
+      guard let trainingVC = TrainingViewController.instantiate() else { print("[ERROR] Unable to instantiate TrainingViewController"); return }
         trainingVC.coordinator = self
+    trainingVC.selectedLanguage = language
         navigationController.pushViewController(trainingVC, animated: true)
     }
     
