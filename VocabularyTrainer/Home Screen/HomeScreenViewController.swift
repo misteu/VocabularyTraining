@@ -454,21 +454,14 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     ])
     
     showLoadingIndicator()
-    if let locale = Locale.current.languageCode {
-      var ppUrl: URL?
-//        switch locale {
-//        case "de":
-//            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_de.html")
-//        case "nl":
-//            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_nl.html")
-//        case "pt_BR":
-//            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_pt_br.html")
-//        default:
-//            ppUrl = URL(string: "https://mic.st/flippyLearn/pp_en.html")
-//        }
+    var langString = "en"
+    if let languageCode = Locale.current.languageCode {
+      if languageCode == "pt" {
+        langString = "pt-BR"
+      } else {
+        langString = languageCode
+      }
 
-      var langString = "en"
-      langString = locale.replacingOccurrences(of: "_", with: "-")
     let urlString = "https://htmlpreview.github.io/?https://github.com/misteu/VocabularyTraining/blob/master/VocabularyTrainer/\(langString).lproj/pp.html"
 
       if let ppUrl = URL(string: urlString) {
