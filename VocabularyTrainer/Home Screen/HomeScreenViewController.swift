@@ -434,11 +434,17 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
     versionLabel.translatesAutoresizingMaskIntoConstraints = false
     versionLabel.textAlignment = .center
     versionLabel.backgroundColor = BackgroundColor.hansaYellow
+
+    // view below label making it nicer for devices without home button
+    let bottomView = UIView()
+    bottomView.backgroundColor = BackgroundColor.hansaYellow
     
     webView.translatesAutoresizingMaskIntoConstraints = false
+    bottomView.translatesAutoresizingMaskIntoConstraints = false
     webViewVC.view.addSubview(closeButton)
     webViewVC.view.addSubview(webView)
     webViewVC.view.addSubview(versionLabel)
+    webViewVC.view.addSubview(bottomView)
     
     NSLayoutConstraint.activate([
       webViewVC.view.topAnchor.constraint(equalTo: closeButton.topAnchor),
@@ -450,7 +456,12 @@ class HomeScreenViewController: UIViewController, UITableViewDelegate, UITableVi
       webView.bottomAnchor.constraint(equalTo: versionLabel.topAnchor),
       versionLabel.leftAnchor.constraint(equalTo: webViewVC.view.leftAnchor),
       versionLabel.rightAnchor.constraint(equalTo: webViewVC.view.rightAnchor),
-      versionLabel.bottomAnchor.constraint(equalTo: webViewVC.view.bottomAnchor)
+      versionLabel.bottomAnchor.constraint(equalTo: webViewVC.view.layoutMarginsGuide.bottomAnchor),
+
+      bottomView.topAnchor.constraint(equalTo: versionLabel.bottomAnchor),
+      bottomView.leftAnchor.constraint(equalTo: webViewVC.view.leftAnchor),
+      bottomView.rightAnchor.constraint(equalTo: webViewVC.view.rightAnchor),
+      bottomView.bottomAnchor.constraint(equalTo: webViewVC.view.bottomAnchor)
     ])
     
     showLoadingIndicator()
