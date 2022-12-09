@@ -50,12 +50,11 @@ class MainCoordinator: Coordinator {
     }
     
   func navigateToTrainingViewController(with language: String) {
-      guard let trainingVC = TrainingViewController.instantiate() else { print("[ERROR] Unable to instantiate TrainingViewController"); return }
-        trainingVC.coordinator = self
-    trainingVC.selectedLanguage = language
-        navigationController.pushViewController(trainingVC, animated: true)
-    }
-    
+    let trainingVC = TrainingViewController(with: language)
+    trainingVC.coordinator = self
+    navigationController.pushViewController(trainingVC, animated: true)
+  }
+
     func popVC() {
         navigationController.popViewController(animated: true)
     }

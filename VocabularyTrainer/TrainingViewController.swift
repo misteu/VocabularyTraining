@@ -10,31 +10,130 @@ import UIKit
 
 class TrainingViewController: UIViewController {
   
-  var selectedLanguage: String?
+  private let selectedLanguage: String
   var vocabularies: [String: String]?
   var vocabulariesProgresses: [String: Float]?
   var isKeyShown: Bool?
   var currentKey: String?
     var coordinator: MainCoordinator?
 
-  @IBOutlet weak var wrongAnswerButton: UIButton!
-  @IBOutlet weak var rightAnswerButton: UIButton!
-  @IBOutlet weak var currentVocabulary: UILabel!
-  @IBOutlet weak var answerInput: UITextField!
-  @IBOutlet weak var checkInputButton: UIButton!
-  @IBOutlet weak var takeALookButton: UIButton!
-  @IBOutlet weak var nextButton: UIButton!
-  @IBOutlet weak var currentTrainingHeader: UILabel!
+  var wrongAnswerButton = UIButton()
+  var rightAnswerButton = UIButton()
+  var nextButton = UIButton()
+  var checkInputButton = UIButton()
+  var takeALookButton = UIButton()
+
+  var currentVocabulary = UILabel()
+  var answerInput = UITextField()
+  var currentTrainingHeader = UILabel()
+
+  let checkLookStackView = UIStackView()
+  let rightWrongStackView = UIStackView()
+
+  let defaultInputBackground = UIColor.systemBackground.withAlphaComponent(0.5)
+
+  // MARK: - Init
+
+  init(with language: String) {
+    self.selectedLanguage = language
+    super.init(nibName: nil, bundle: nil)
+    setButtonActions()
+    setViewHierarchy()
+    setConstraints()
+  }
+
+  required init?(coder: NSCoder) { nil }
+
+  private func setButtonActions() {
+    wrongAnswerButton.addTarget(self, action: #selector(wrongAnswerTapped(_:)), for: .touchUpInside)
+    rightAnswerButton.addTarget(self, action: #selector(rightAnswerTapped(_:)), for: .touchUpInside)
+    nextButton.addTarget(self, action: #selector(nextButtonTapped(_:)), for: .touchUpInside)
+    checkInputButton.addTarget(self, action: #selector(checkInputTapped(_:)), for: .touchUpInside)
+    takeALookButton.addTarget(self, action: #selector(takeALookTapped(_:)), for: .touchUpInside)
+  }
+
+  private func setViewHierarchy() {
+
+    let rightWrongButtons = [wrongAnswerButton, rightAnswerButton]
+    let checkTakeLookButtons = [checkInputButton, takeALookButton]
+
+    rightWrongButtons.forEach { rightWrongStackView.addArrangedSubview($0) }
+    checkTakeLookButtons.forEach { checkLookStackView.addArrangedSubview($0) }
+    rightWrongStackView.distribution = .fillEqually
+    rightWrongStackView.spacing = 16
+    checkLookStackView.distribution = .fillEqually
+    checkLookStackView.spacing = 16
+
+    [
+      currentTrainingHeader,
+      currentVocabulary,
+      answerInput,
+      checkLookStackView,
+      rightWrongStackView,
+      nextButton
+    ].forEach { view.addSubview($0) }
+  }
+
+  private func setConstraints() {
+    [
+      // inside rightWrongStackView
+      wrongAnswerButton, rightAnswerButton,
+      // inside checkLookStackView
+      checkInputButton, takeALookButton,
+
+      currentTrainingHeader,
+      currentVocabulary,
+      answerInput,
+      checkLookStackView,
+      rightWrongStackView,
+      nextButton
+    ].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+
+    NSLayoutConstraint.activate([
+      currentTrainingHeader.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+      currentTrainingHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+      currentVocabulary.topAnchor.constraint(equalTo: currentTrainingHeader.bottomAnchor, constant: 16),
+      currentVocabulary.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+      answerInput.topAnchor.constraint(equalTo: currentVocabulary.bottomAnchor, constant: 16),
+      answerInput.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
+      answerInput.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
+
+      checkLookStackView.topAnchor.constraint(equalTo: answerInput.bottomAnchor, constant: 16),
+      checkLookStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
+      checkLookStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
+
+      rightWrongStackView.topAnchor.constraint(equalTo: answerInput.bottomAnchor, constant: 16),
+      rightWrongStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
+      rightWrongStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
+
+      nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
+      nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+      nextButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
+      nextButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
+
+      wrongAnswerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+      rightAnswerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+      checkInputButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
+      takeALookButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+    ])
+
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    setup()
+  }
+
+  private func setup() {
     
     setGradientBackground(view: view)
     currentTrainingHeader.numberOfLines = 0
     currentTrainingHeader.lineBreakMode = .byWordWrapping
     currentTrainingHeader.text = """
     \(NSLocalizedString("Training:", comment: "Training:"))
-    \(selectedLanguage ?? NSLocalizedString("No language selected", comment: "No language selected"))
+    \(selectedLanguage)
     """
     
     styleButtons()
@@ -43,14 +142,16 @@ class TrainingViewController: UIViewController {
     self.wrongAnswerButton.isHidden = true
     
     answerInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-    
+    answerInput.backgroundColor = defaultInputBackground
+    answerInput.font = UIFont.preferredFont(forTextStyle: .title1)
+
     hideKeyboardWhenTappedAround()
     localize()
   }
   
   func reloadVocabulariesAndProgresses() {
-    guard let language = selectedLanguage else {print("no language selected"); return}
-    
+    let language = selectedLanguage
+
     guard let vocabs = UserDefaults.standard.dictionary(forKey: language) as? [String: String] else {
         print("no vocabularies found")
         return
@@ -91,13 +192,7 @@ class TrainingViewController: UIViewController {
     }
     return resultKey
   }
-  @IBAction func backButtonTapped(_ sender: Any) {
-    dismiss(animated: true, completion: nil)
-  }
-  @IBAction func nextButtonTapped(_ sender: Any) {
-    pickNewVocabAndUpdateView()
-  }
-  
+
   func pickNewVocabAndUpdateView() {
     
     resetAnswerInput()
@@ -125,19 +220,24 @@ class TrainingViewController: UIViewController {
     }
     nextButton.setTitle(NSLocalizedString("Skip word", comment: "Skip word"), for: .normal)
   }
-  @IBAction func rightAnswerTapped(_ sender: Any) {
+
+  @objc func nextButtonTapped(_ sender: Any) {
+    pickNewVocabAndUpdateView()
+  }
+
+  @objc func rightAnswerTapped(_ sender: Any) {
     guard let key = currentKey else {print("no current key"); return}
     changeWordsProbability(increase: false, key: key)
     pickNewVocabAndUpdateView()
   }
   
-  @IBAction func wrongAnswerTapped(_ sender: Any) {
+  @objc func wrongAnswerTapped(_ sender: Any) {
     guard let key = currentKey else {print("no current key"); return}
     changeWordsProbability(increase: true, key: key)
     pickNewVocabAndUpdateView()
   }
   
-  @IBAction func checkInputTapped(_ sender: Any) {
+  @objc func checkInputTapped(_ sender: Any) {
 
     guard let usersAnswer = answerInput.text else { print("no answer given"); return }
 //    guard let solution = vocabularies?[vocabulary] else {print("no solution found"); return}
@@ -183,12 +283,8 @@ class TrainingViewController: UIViewController {
       }
     }
   }
-  
-  @objc func textFieldDidChange(_ textField: UITextField) {
-    resetAnswerInput()
-  }
-  
-  @IBAction func takeALookTapped(_ sender: Any) {
+
+  @objc func takeALookTapped(_ sender: Any) {
     guard let key = currentKey else {print("no current key"); return}
     var solution: String
     guard let isKey = isKeyShown else {print("no key"); return}
@@ -219,13 +315,17 @@ class TrainingViewController: UIViewController {
 
     })
   }
-  
+
+  @objc func textFieldDidChange(_ textField: UITextField) {
+    resetAnswerInput()
+  }
+
   func resetAnswerInput() {
     
     UIView.animate(withDuration: 0.2, animations: {
       self.rightAnswerButton.alpha = 0.0
       self.wrongAnswerButton.alpha = 0.0
-      self.answerInput.backgroundColor = .none
+      self.answerInput.backgroundColor = self.defaultInputBackground
     }, completion: { _ in
       self.rightAnswerButton.isHidden = true
       self.wrongAnswerButton.isHidden = true
@@ -267,8 +367,8 @@ class TrainingViewController: UIViewController {
     guard let key = currentKey else {print("no current key"); return}
     guard let progress = progresses[key] else {print("no progress"); return}
     
-    guard let language = selectedLanguage else {print("no language selected"); return}
-    
+    let language = selectedLanguage
+
     if increase {
       progresses[key] = progress+Float(10.0)
     } else {
