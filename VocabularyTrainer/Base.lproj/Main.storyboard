@@ -68,10 +68,6 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="GHJ-ju-QaT"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="31y-uq-Qcy"/>
-                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nrq-QQ-ihD">
                                 <rect key="frame" x="32" y="756" width="350" height="42"/>
@@ -80,9 +76,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <state key="normal" title="Add language"/>
-                                <connections>
-                                    <action selector="addAction" destination="BYZ-38-t0r" eventType="touchUpInside" id="sBd-pz-Uvq"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8uJ-dW-rui">
                                 <rect key="frame" x="16" y="60" width="70" height="36"/>
@@ -91,9 +84,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Training"/>
-                                <connections>
-                                    <action selector="trainingButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hPF-Ue-bN7"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBg-bb-bgl">
                                 <rect key="frame" x="312" y="60" width="86" height="36"/>
@@ -102,33 +92,21 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="My words"/>
-                                <connections>
-                                    <action selector="editButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e7X-0o-d3N"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wfy-tB-0pH">
                                 <rect key="frame" x="20" y="156" width="78" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="⤵ import"/>
-                                <connections>
-                                    <action selector="tappedImportButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z10-Qo-mWQ"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sIk-MR-VHX">
                                 <rect key="frame" x="335" y="156" width="59" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="tappedExportButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oUF-ym-fC2"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIf-kg-T6U">
                                 <rect key="frame" x="147" y="830" width="120" height="32"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <state key="normal" title="About FlippyApp"/>
-                                <connections>
-                                    <action selector="tappedAboutApp:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9uy-2d-zhL"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -156,17 +134,6 @@
                             <constraint firstItem="Nrq-QQ-ihD" firstAttribute="top" secondItem="Hmh-sV-OBV" secondAttribute="bottom" constant="16" id="xRx-0g-VSE"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="aboutAppButton" destination="WIf-kg-T6U" id="g6X-0g-yqI"/>
-                        <outlet property="addLanguageButton" destination="Nrq-QQ-ihD" id="S4Y-5s-T1d"/>
-                        <outlet property="exportButton" destination="sIk-MR-VHX" id="tSp-WM-2hP"/>
-                        <outlet property="headerText" destination="rNH-Y6-8Zv" id="wU2-74-aeh"/>
-                        <outlet property="headerTextConstraintTop" destination="t22-cs-xgQ" id="d26-dB-yl3"/>
-                        <outlet property="importButton" destination="Wfy-tB-0pH" id="gWt-C1-tr5"/>
-                        <outlet property="tableView" destination="Hmh-sV-OBV" id="Pxw-m0-Ymv"/>
-                        <outletCollection property="topButtons" destination="8uJ-dW-rui" collectionClass="NSMutableArray" id="ZUM-YJ-uxm"/>
-                        <outletCollection property="topButtons" destination="iBg-bb-bgl" collectionClass="NSMutableArray" id="dTd-R2-WpU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
