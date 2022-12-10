@@ -163,32 +163,6 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     return rows
   }
 
-  @IBAction func trainingButton(_ sender: Any) {
-    deactivateTopButtons()
-    
-    guard let row = selectedRow else {debugPrint("nothing selected"); return}
-    selectedLanguage = languages[row]
-    
-    if areWordsSavedFor(language: selectedLanguage) {
-        coordinator?.navigateToTrainingViewController(with: selectedLanguage)
-    } else {
-      showToast(message: NSLocalizedString("No words inside 🕵️‍♀️", comment: "No words inside 🕵️‍♀️"), yCoord: view.frame.maxY/2)
-    }
-    
-  }
-  @IBAction func editButton(_ sender: Any) {
-    
-    deactivateTopButtons()
-    
-    guard let row = selectedRow else {debugPrint("nothing selected"); return}
-    
-    selectedLanguage = languages[row]
-      coordinator?.navigateToLanguageScreenViewController(selectedLanguage: selectedLanguage, newLanguageScreenProtocol: self, completion: { [weak self] in
-            self?.tableView.reloadData()
-          
-      })
-  }
-  
   func deactivateTopButtons() {
     self.headerTextConstraintTop?.constant = 16.0
     UIView.animate(withDuration: 0.2, animations: {
@@ -304,6 +278,33 @@ extension HomeScreenViewController: WKNavigationDelegate {
 // MARK: - Button Actions
 
 extension HomeScreenViewController {
+
+  @objc func trainingButton(_ sender: Any) {
+    deactivateTopButtons()
+
+    guard let row = selectedRow else {debugPrint("nothing selected"); return}
+    selectedLanguage = languages[row]
+
+    if areWordsSavedFor(language: selectedLanguage) {
+      coordinator?.navigateToTrainingViewController(with: selectedLanguage)
+    } else {
+      showToast(message: NSLocalizedString("No words inside 🕵️‍♀️", comment: "No words inside 🕵️‍♀️"), yCoord: view.frame.maxY/2)
+    }
+
+  }
+  
+  @objc func editButton(_ sender: Any) {
+
+    deactivateTopButtons()
+
+    guard let row = selectedRow else {debugPrint("nothing selected"); return}
+
+    selectedLanguage = languages[row]
+    coordinator?.navigateToLanguageScreenViewController(selectedLanguage: selectedLanguage, newLanguageScreenProtocol: self, completion: { [weak self] in
+      self?.tableView.reloadData()
+
+    })
+  }
 
   // MARK: - Import
 
