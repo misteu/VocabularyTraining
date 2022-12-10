@@ -21,11 +21,11 @@
 		CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */; };
 		CE31ED7B290AC4D700AD3300 /* NewLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED7A290AC4D700AD3300 /* NewLanguageViewController.swift */; };
 		CE86C54E2235AE20008A5B73 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */; };
-		CE86C5512235AE20008A5B73 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE86C54F2235AE20008A5B73 /* Main.storyboard */; };
 		CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE86C5522235AE23008A5B73 /* Assets.xcassets */; };
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
 		CE86C56C2235AE23008A5B73 /* VocabularyTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */; };
 		CE86C5822235C971008A5B73 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5812235C971008A5B73 /* Helper.swift */; };
+		CEB92EDB29449686000D26A3 /* HomeScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */; };
 		CECD6342235E54350060911F /* pp.html in Resources */ = {isa = PBXBuildFile; fileRef = CECD6344235E54350060911F /* pp.html */; };
 		CEE4988828F572E200B64FCF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CEE4988728F572E200B64FCF /* README.md */; };
 		E37D16F9261BCBCB006C1F71 /* LanugageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */; };
@@ -61,7 +61,6 @@
 		B3BBF4422909F64B004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "pt-BR"; path = "pt-BR.lproj/pp.html"; sourceTree = "<group>"; };
 		B3BBF4432909F653004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		CE0012FE2243F21C002F86DE /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		CE05F621229F17830097E3BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		CE05F623229F17AF0097E3BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE05F625229F17C40097E3BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE0FE4F72238585A00430FDE /* TrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
@@ -71,7 +70,6 @@
 		CE31ED7A290AC4D700AD3300 /* NewLanguageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewLanguageViewController.swift; sourceTree = "<group>"; };
 		CE86C5482235AE20008A5B73 /* VocabularyTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
-		CE86C5502235AE20008A5B73 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CE86C5522235AE23008A5B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE86C5572235AE23008A5B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE86C55C2235AE23008A5B73 /* VocabularyTrainerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VocabularyTrainerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,6 +81,7 @@
 		CE86C5812235C971008A5B73 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		CE92ABF928E97C5600FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = nl; path = nl.lproj/pp.html; sourceTree = "<group>"; };
 		CE92ABFA28E97CAF00FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenCell.swift; sourceTree = "<group>"; };
 		CECD6343235E54350060911F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/pp.html; sourceTree = "<group>"; };
 		CECD6346235E54420060911F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/pp.html; sourceTree = "<group>"; };
 		CEE4988728F572E200B64FCF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -171,7 +170,6 @@
 				CE31ED75290AC49F00AD3300 /* App */,
 				CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */,
 				E37D1706261BCC22006C1F71 /* Home Screen */,
-				CE86C54F2235AE20008A5B73 /* Main.storyboard */,
 				CE0012FE2243F21C002F86DE /* Extensions.swift */,
 				CE86C5522235AE23008A5B73 /* Assets.xcassets */,
 				CE86C5572235AE23008A5B73 /* Info.plist */,
@@ -220,6 +218,7 @@
 			children = (
 				CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */,
 				E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */,
+				CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -341,7 +340,6 @@
 				CECD6342235E54350060911F /* pp.html in Resources */,
 				CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */,
 				CE2EB8272245406A006B1C6D /* Launch Screen.storyboard in Resources */,
-				CE86C5512235AE20008A5B73 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,6 +394,7 @@
 				CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */,
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
 				CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */,
+				CEB92EDB29449686000D26A3 /* HomeScreenCell.swift in Sources */,
 				18943A0A29094F470017E1A2 /* LanguageScreenViewController.swift in Sources */,
 				28716F4F290EF54B00EACCA1 /* StoryBoarded.swift in Sources */,
 				CE86C5822235C971008A5B73 /* Helper.swift in Sources */,
@@ -448,15 +447,6 @@
 				95333B91290B36A400016F8E /* hi */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		CE86C54F2235AE20008A5B73 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CE86C5502235AE20008A5B73 /* Base */,
-				CE05F621229F17830097E3BB /* de */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		CECD6344235E54350060911F /* pp.html */ = {
@@ -604,7 +594,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T68RPD4WZ;
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -628,7 +618,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T68RPD4WZ;
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

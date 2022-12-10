@@ -9,18 +9,17 @@
 import Foundation
 import UIKit
 
-class SegueName {
-  static let showLanguageSegue = "showLanguageSegue"
-  static let showTrainingSegue = "showTrainingSegue"
-}
-
-class UserDefaultKeys {
+enum UserDefaultKeys {
   static let languages = "languages"
 }
 
-class CellIdentifier {
+enum CellIdentifier {
   static let vocabularyCell = "vocabularyCell"
-  static let languageCell = "languageCell"
+}
+
+enum Layout {
+  static let defaultButtonHeight: CGFloat = 44
+  static let defaultMargin: CGFloat = 16
 }
 
 struct BackgroundColor {

@@ -113,10 +113,10 @@ class TrainingViewController: UIViewController {
       nextButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
       nextButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
 
-      wrongAnswerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-      rightAnswerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-      checkInputButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-      takeALookButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44)
+      wrongAnswerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
+      rightAnswerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
+      checkInputButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
+      takeALookButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight)
     ])
 
   }
@@ -127,7 +127,8 @@ class TrainingViewController: UIViewController {
   }
 
   private func setup() {
-    
+
+    currentVocabulary.font = .preferredFont(forTextStyle: .title1)
     setGradientBackground(view: view)
     currentTrainingHeader.numberOfLines = 0
     currentTrainingHeader.lineBreakMode = .byWordWrapping

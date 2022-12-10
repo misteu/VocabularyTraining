@@ -18,11 +18,11 @@ class MainCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
-    func start() {
-        guard let vc = HomeScreenViewController.instantiate() else { print("[ERROR] Unable to instantiate TrainingViewController"); return }
-        vc.coordinator = self
-        navigationController.pushViewController(vc, animated: false)
-    }
+  func start() {
+    let homeVC = HomeScreenViewController()
+    homeVC.coordinator = self
+    navigationController.pushViewController(homeVC, animated: false)
+  }
 
     func navigateToNewLanguageViewController(newLanguageScreenProtocol: NewLanguageScreenProtocol) {
         let newLanguageVC = NewLanguageViewController(delegate: newLanguageScreenProtocol)
