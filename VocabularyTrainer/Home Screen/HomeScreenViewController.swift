@@ -163,7 +163,7 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     return rows
   }
 
-  func deactivateTopButtons() {
+  private func deactivateTopButtons() {
     self.headerTextConstraintTop?.constant = 16.0
     UIView.animate(withDuration: 0.2, animations: {
       self.view.layoutIfNeeded()
@@ -177,7 +177,7 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     })
   }
   
-  func areWordsSavedFor(language: String) -> Bool {
+  private func areWordsSavedFor(language: String) -> Bool {
       
     if UserDefaults.standard.dictionary(forKey: language) == nil {
         debugPrint("no vocabularies found")
@@ -187,7 +187,7 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     }      
   }
 
-  func styleUi() {
+  private func styleUi() {
     addLanguageButton.backgroundColor = BackgroundColor.mediumSpringBud
     addLanguageButton.layer.cornerRadius = 5.0
     addLanguageButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
@@ -215,7 +215,7 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     
   }
   
-  func localize() {
+  private func localize() {
     headerText.text = NSLocalizedString("Your Languages", comment: "Your Languages")
     addLanguageButton.setTitle(NSLocalizedString("Add language", comment: "Add language"), for: .normal)
     
@@ -226,7 +226,7 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     aboutAppButton.setTitle(NSLocalizedString("About Flippy App", comment: "About Flippy App"), for: .normal)
   }
   
-  func spinner(start: Bool) {
+  private func spinner(start: Bool) {
     let spinner = UIActivityIndicatorView(style: .large)
     if start {
       spinner.startAnimating()
@@ -292,7 +292,7 @@ extension HomeScreenViewController {
     }
 
   }
-  
+
   @objc func editButton(_ sender: Any) {
 
     deactivateTopButtons()
