@@ -28,18 +28,20 @@ struct LanguageImport {
 }
 
 final class HomeScreenViewController: UIViewController, NewLanguageScreenProtocol {
-  var topButtons: [UIButton] = []
-  
+
+  var coordinator: MainCoordinator?
+
+  var trainingButton = UIBarButtonItem()
+  var editButton = UIBarButtonItem()
+
+//  var headerTextConstraintTop: NSLayoutConstraint?
+//  var headerText = UILabel()
   var addLanguageButton = UIButton()
-  
-  var headerTextConstraintTop: NSLayoutConstraint?
-  var headerText = UILabel()
   var importButton = UIButton()
   var exportButton = UIButton()
   var aboutAppButton = UIButton()
 
   var tableView = UITableView()
-  private let refreshControl = UIRefreshControl()
 
   let defaults = UserDefaults.standard
   
@@ -47,9 +49,9 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
   var selectedRow: Int?
 
   private var loadingController: UIAlertController?
+
   let webView = WKWebView()
   let webViewVC = UIViewController()
-  var coordinator: MainCoordinator?
 
   var selectedLanguage = ""
 
@@ -57,6 +59,10 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
 
   init() {
     super.init(nibName: nil, bundle: nil)
+    setTableView()
+    setViewHierarchy()
+    setConstraints()
+    setTapHandlers()
   }
 
   required init?(coder: NSCoder) { nil }
@@ -66,20 +72,11 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
   override func viewDidLoad() {
     super.viewDidLoad()
     webView.navigationDelegate = self
-    for button in topButtons {
-      button.isHidden = true
-      button.alpha = 0.0
-      button.layer.cornerRadius = 5.0
-      button.setTitleColor(.black, for: .normal)
-      button.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-    }
-    
+
     styleUi()
     localize()
-    headerTextConstraintTop?.constant = 32.0
-    tableView.delegate = self
-    tableView.dataSource = self
-    
+//    headerTextConstraintTop?.constant = 32.0
+
     guard let rows = defaults.array(forKey: UserDefaultKeys.languages)?.count else { return}
     debugPrint("rows \(rows)")
     
@@ -132,6 +129,70 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
 
   // MARK: - Private Methods
 
+  private func setTapHandlers() {
+    trainingButton.primaryAction = .init(handler: { [weak self] _ in
+      self?.tappedTrainingButton()
+    })
+    editButton.primaryAction = .init(handler: { [weak self] _ in
+      self?.tappedEditButton()
+    })
+    addLanguageButton.addTarget(self, action: #selector(tappedNewLanguage), for: .touchUpInside)
+    importButton.addTarget(self, action: #selector(tappedImport), for: .touchUpInside)
+    exportButton.addTarget(self, action: #selector(tappedExportButton), for: .touchUpInside)
+    aboutAppButton.addTarget(self, action: #selector(tappedAboutApp), for: .touchUpInside)
+  }
+
+  private func setTableView() {
+    tableView.delegate = self
+    tableView.dataSource = self
+
+    tableView.backgroundColor = .clear
+    tableView.register(HomeScreenCell.self, forCellReuseIdentifier: HomeScreenCell.identifier)
+    tableView.rowHeight = UITableView.automaticDimension
+  }
+
+  private func setViewHierarchy() {
+    [addLanguageButton,
+     importButton,
+     exportButton,
+     aboutAppButton,
+     tableView
+    ].forEach { view.addSubview($0) }
+  }
+
+  private func setConstraints() {
+    [addLanguageButton,
+     importButton,
+     exportButton,
+     aboutAppButton,
+     tableView
+    ].forEach { $0.translatesAutoresizingMaskIntoConstraints = false }
+
+    NSLayoutConstraint.activate([
+      importButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+      importButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+      importButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
+
+      exportButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+      exportButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+      exportButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
+
+      tableView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+      tableView.topAnchor.constraint(equalTo: importButton.bottomAnchor, constant: 16),
+      tableView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+      tableView.bottomAnchor.constraint(equalTo: addLanguageButton.topAnchor, constant: -16),
+
+      addLanguageButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+      addLanguageButton.bottomAnchor.constraint(equalTo: aboutAppButton.topAnchor, constant: -16),
+      addLanguageButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+      addLanguageButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
+
+      aboutAppButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+      aboutAppButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -16),
+      aboutAppButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor)
+    ])
+  }
+
   fileprivate func showNoLanguagesLabel() {
     //    let noLanguagesLabel = UILabel(frame: CGRect(x: 20, y: importButton.frame.maxY, width: view.frame.width-40, height: tableView.frame.height))
     let noLanguagesLabel = UILabel()
@@ -164,17 +225,8 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
   }
 
   private func deactivateTopButtons() {
-    self.headerTextConstraintTop?.constant = 16.0
-    UIView.animate(withDuration: 0.2, animations: {
-      self.view.layoutIfNeeded()
-      for button in self.topButtons {
-        button.alpha = 0.0
-      }
-    }, completion: {_ in
-      for button in self.topButtons {
-        button.isHidden = true
-      }
-    })
+    navigationItem.setLeftBarButton(nil, animated: true)
+    navigationItem.setRightBarButton(nil, animated: true)
   }
   
   private func areWordsSavedFor(language: String) -> Bool {
@@ -193,10 +245,10 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     addLanguageButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
     addLanguageButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
     
-    topButtons[0].backgroundColor = BackgroundColor.mediumSpringBud
-    topButtons[0].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-    topButtons[1].backgroundColor = BackgroundColor.hansaYellow
-    topButtons[1].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+//    topButtons[0].backgroundColor = BackgroundColor.mediumSpringBud
+//    topButtons[0].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
+//    topButtons[1].backgroundColor = BackgroundColor.hansaYellow
+//    topButtons[1].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
     
     importButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
     importButton.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
@@ -216,11 +268,10 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
   }
   
   private func localize() {
-    headerText.text = NSLocalizedString("Your Languages", comment: "Your Languages")
-    addLanguageButton.setTitle(NSLocalizedString("Add language", comment: "Add language"), for: .normal)
+    title = NSLocalizedString("Your Languages", comment: "Your Languages")
     
-    topButtons[0].setTitle(NSLocalizedString("Training", comment: "Training"), for: .normal)
-    topButtons[1].setTitle(NSLocalizedString("My words", comment: "settings"), for: .normal)
+    addLanguageButton.setTitle(NSLocalizedString("Add language", comment: "Add language"), for: .normal)
+
     importButton.setTitle(NSLocalizedString("⤵ import", comment: "⤵ import"), for: .normal)
     exportButton.setTitle(NSLocalizedString("↑ export", comment: "↑ export"), for: .normal)
     aboutAppButton.setTitle(NSLocalizedString("About Flippy App", comment: "About Flippy App"), for: .normal)
@@ -279,7 +330,7 @@ extension HomeScreenViewController: WKNavigationDelegate {
 
 extension HomeScreenViewController {
 
-  @objc func trainingButton(_ sender: Any) {
+  func tappedTrainingButton() {
     deactivateTopButtons()
 
     guard let row = selectedRow else {debugPrint("nothing selected"); return}
@@ -293,7 +344,7 @@ extension HomeScreenViewController {
 
   }
 
-  @objc func editButton(_ sender: Any) {
+  func tappedEditButton() {
 
     deactivateTopButtons()
 
@@ -308,7 +359,7 @@ extension HomeScreenViewController {
 
   // MARK: - Import
 
-  @objc func reloadImports() {
+  @objc func tappedImport() {
 
     guard let files = ExportImport.getAllLanguageFileUrls() else { return }
 
@@ -332,7 +383,6 @@ extension HomeScreenViewController {
       }
 
       tableView.reloadData()
-      self.refreshControl.endRefreshing()
       self.view.layoutIfNeeded()
 
       if tableView.numberOfRows(inSection: tableView.numberOfSections-1) > 0 {
@@ -377,7 +427,7 @@ extension HomeScreenViewController {
 
   // MARK: - Export
 
-  @objc func tappedExportButton(_ sender: Any) {
+  @objc func tappedExportButton() {
     if let selectedRow = selectedRow {
       debugPrint(languages[selectedRow])
       //    for language in languages {
@@ -406,7 +456,7 @@ extension HomeScreenViewController {
 
   // MARK: - About
   // TODO: - Refactor this, create some UIViewController subclass for the webview.
-  @objc func tappedAboutApp(_ sender: Any) {
+  @objc func tappedAboutApp() {
     let closeButton = UIButton()
     closeButton.translatesAutoresizingMaskIntoConstraints = false
     closeButton.backgroundColor = BackgroundColor.hansaYellow
@@ -477,19 +527,19 @@ extension HomeScreenViewController {
   }
 
   // MARK: - New Language
-  @objc func addAction() {
+  @objc func tappedNewLanguage() {
       coordinator?.navigateToNewLanguageViewController(newLanguageScreenProtocol: self)
   }
 }
 
 extension HomeScreenViewController: UITableViewDataSource, UITableViewDelegate {
-  func tableView(_ tbleView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return checkNumberOfLanguages()
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-    if let cell = tableView.dequeueReusableCell(withIdentifier: CellIdentifier.languageCell) as? LanguageTableViewCell {
+    if let cell = tableView.dequeueReusableCell(withIdentifier: HomeScreenCell.identifier) as? HomeScreenCell {
 
       guard let language = defaults.array(forKey: UserDefaultKeys.languages)?[indexPath.item] as? String else { debugPrint("no language string"); return UITableViewCell() }
 
@@ -499,15 +549,15 @@ extension HomeScreenViewController: UITableViewDataSource, UITableViewDelegate {
 
         if (vocabularies.count != 1) {
           //          cell.languageWordsLabel.text = "\(vocabularies.count) words"
-          cell.languageWordsLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d words", comment: "%d words"), vocabularies.count)
+          cell.wordCountLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d words", comment: "%d words"), vocabularies.count)
         } else {
           //          cell.languageWordsLabel.text = "\(vocabularies.count) word"
-          cell.languageWordsLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d word", comment: "%d word"), vocabularies.count)
+          cell.wordCountLabel.text = String.localizedStringWithFormat(NSLocalizedString("%d word", comment: "%d word"), vocabularies.count)
         }
 
       } else {
         debugPrint("no vocab loadable")
-        cell.languageWordsLabel.text = NSLocalizedString("0 words", comment: "0 words")
+        cell.wordCountLabel.text = NSLocalizedString("0 words", comment: "0 words")
       }
 
       return cell
@@ -518,14 +568,13 @@ extension HomeScreenViewController: UITableViewDataSource, UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     selectedRow = indexPath.item
 
-    self.headerTextConstraintTop?.constant = 68.0
-    UIView.animate(withDuration: 0.2, animations: {
-      self.view.layoutIfNeeded()
-      for button in self.topButtons {
-        button.alpha = 1.0
-        button.isHidden = false
-      }
-    })
+    DispatchQueue.main.async {
+      self.trainingButton.title = NSLocalizedString("Training", comment: "Training")
+      self.editButton.title = NSLocalizedString("My words", comment: "settings")
+
+      self.navigationItem.setLeftBarButton(self.trainingButton, animated: true)
+      self.navigationItem.setRightBarButton(self.editButton, animated: true)
+    }
   }
 }
 

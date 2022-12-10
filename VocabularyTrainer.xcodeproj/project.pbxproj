@@ -26,6 +26,7 @@
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
 		CE86C56C2235AE23008A5B73 /* VocabularyTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */; };
 		CE86C5822235C971008A5B73 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5812235C971008A5B73 /* Helper.swift */; };
+		CEB92EDB29449686000D26A3 /* HomeScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */; };
 		CECD6342235E54350060911F /* pp.html in Resources */ = {isa = PBXBuildFile; fileRef = CECD6344235E54350060911F /* pp.html */; };
 		CEE4988828F572E200B64FCF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CEE4988728F572E200B64FCF /* README.md */; };
 		E37D16F9261BCBCB006C1F71 /* LanugageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */; };
@@ -83,6 +84,7 @@
 		CE86C5812235C971008A5B73 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		CE92ABF928E97C5600FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = nl; path = nl.lproj/pp.html; sourceTree = "<group>"; };
 		CE92ABFA28E97CAF00FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenCell.swift; sourceTree = "<group>"; };
 		CECD6343235E54350060911F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/pp.html; sourceTree = "<group>"; };
 		CECD6346235E54420060911F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/pp.html; sourceTree = "<group>"; };
 		CEE4988728F572E200B64FCF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			children = (
 				CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */,
 				E37D16F8261BCBCB006C1F71 /* LanugageTableViewCell.swift */,
+				CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */,
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
 				CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */,
+				CEB92EDB29449686000D26A3 /* HomeScreenCell.swift in Sources */,
 				18943A0A29094F470017E1A2 /* LanguageScreenViewController.swift in Sources */,
 				28716F4F290EF54B00EACCA1 /* StoryBoarded.swift in Sources */,
 				CE86C5822235C971008A5B73 /* Helper.swift in Sources */,
@@ -604,7 +608,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T68RPD4WZ;
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -628,7 +632,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T68RPD4WZ;
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
