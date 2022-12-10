@@ -170,10 +170,10 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
 
     NSLayoutConstraint.activate([
       importButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
-      importButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+      importButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: Layout.defaultMargin),
       importButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
 
-      exportButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+      exportButton.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: Layout.defaultMargin),
       exportButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
       exportButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
 
@@ -244,12 +244,7 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     addLanguageButton.layer.cornerRadius = 5.0
     addLanguageButton.contentEdgeInsets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
     addLanguageButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-    
-//    topButtons[0].backgroundColor = BackgroundColor.mediumSpringBud
-//    topButtons[0].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-//    topButtons[1].backgroundColor = BackgroundColor.hansaYellow
-//    topButtons[1].setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
-    
+
     importButton.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
     importButton.backgroundColor = UIColor(white: 1.0, alpha: 0.3)
     importButton.layer.cornerRadius = 5.0

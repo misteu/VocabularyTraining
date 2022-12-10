@@ -19,6 +19,7 @@ enum CellIdentifier {
 
 enum Layout {
   static let defaultButtonHeight: CGFloat = 44
+  static let defaultMargin: CGFloat = 16
 }
 
 struct BackgroundColor {
