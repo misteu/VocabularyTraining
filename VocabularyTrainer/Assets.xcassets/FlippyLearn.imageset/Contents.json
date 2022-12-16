@@ -1,9 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "Flippy Learn.pdf",
-      "idiom" : "universal",
-      "scale" : "1x"
+      "filename" : "FlippyLearnLightMode.pdf",
+      "idiom" : "universal"
     },
     {
       "appearances" : [
@@ -12,41 +11,8 @@
           "value" : "dark"
         }
       ],
-      "filename" : "Flippy Learn (1).pdf",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "Flippy Learn 1.pdf",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "Flippy Learn (1) 1.pdf",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "Flippy Learn 2.pdf",
-      "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
-      "filename" : "Flippy Learn (1) 2.pdf",
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "FlippyLearnDarkMode.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
