@@ -27,6 +27,12 @@ class MainCoordinator: Coordinator {
     func navigateToNewLanguageViewController(newLanguageScreenProtocol: NewLanguageScreenProtocol) {
         let newLanguageVC = NewLanguageViewController(delegate: newLanguageScreenProtocol)
         newLanguageVC.coordinator = self
+        newLanguageVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            if let sheet = newLanguageVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+            }
+        }
         navigationController.present(newLanguageVC, animated: true)
     }
     

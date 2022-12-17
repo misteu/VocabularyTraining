@@ -152,7 +152,7 @@ final class NewLanguageViewController: UIViewController {
     @objc
     private func addButtonAction() {
         guard let delegate = self.delegate,
-              let textField = textField.text else { return }
+              let newLanguage = textField.text else { return }
 
         if hasDuplicates {
             languageDuplicate()
@@ -161,11 +161,13 @@ final class NewLanguageViewController: UIViewController {
 
         if let savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
             var languages = savedLanguages
-            languages.append(textField)
+            languages.append(newLanguage)
             UserDefaults.standard.set(languages, forKey: UserDefaultKeys.languages)
-        }
+        } else {
+            UserDefaults.standard.set([newLanguage], forKey: UserDefaultKeys.languages)
+          }
 
-        delegate.updateLanguageTable(language: textField)
+        delegate.updateLanguageTable(language: newLanguage)
         dismiss(animated: true)
     }
 
