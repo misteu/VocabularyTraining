@@ -135,8 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				B3606D1C294D3D55009E62E9 /* NewLanguageViewController.swift */,
-				B38C29D9294D68B4006FCDEA /* String+Extension.swift */,
-				B38C29D7294D578C006FCDEA /* UILabel+Extension.swift */,
 			);
 			path = NewLanguage;
 			sourceTree = "<group>";
@@ -157,6 +155,15 @@
 				CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */,
 			);
 			path = AddWord;
+			sourceTree = "<group>";
+		};
+		B38C29DB294D6A70006FCDEA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B38C29D9294D68B4006FCDEA /* String+Extension.swift */,
+				B38C29D7294D578C006FCDEA /* UILabel+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		CE31ED75290AC49F00AD3300 /* App */ = {
@@ -201,6 +208,7 @@
 				E37D16FD261BCBF9006C1F71 /* Language Screens */,
 				CE86C5812235C971008A5B73 /* Helper.swift */,
 				E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */,
+				B38C29DB294D6A70006FCDEA /* Extensions */,
 				B3606D1B294D3D3E009E62E9 /* NewLanguage */,
 				B3657DFE290740F8000D76C8 /* AddWord */,
 				CE0FE4F72238585A00430FDE /* TrainingViewController.swift */,
