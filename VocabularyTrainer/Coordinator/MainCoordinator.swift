@@ -27,8 +27,7 @@ class MainCoordinator: Coordinator {
     func navigateToNewLanguageViewController(newLanguageScreenProtocol: NewLanguageScreenProtocol) {
         let newLanguageVC = NewLanguageViewController(delegate: newLanguageScreenProtocol)
         newLanguageVC.coordinator = self
-        
-        navigationController.pushViewController(newLanguageVC, animated: true)
+        navigationController.present(newLanguageVC, animated: true)
     }
     
     func navigateToLanguageScreenViewController(selectedLanguage: String?, newLanguageScreenProtocol: NewLanguageScreenProtocol, completion: @escaping(() -> Void)) {

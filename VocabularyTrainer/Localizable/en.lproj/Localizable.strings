@@ -11,10 +11,12 @@
 "Currently there are no words" = "Currently there are no words.\n\nYou may add new word via the button below.";
 /*
 \n\nIf you have any language files uploaded to your iPhone via iTunes, hit the \"import all\" button.";*/
+"language" = "Language";
+"languageExists" = "Language already exists";
 "Add language" = "➕ Add language";
-"Add new language" = "Add new language";
-"which language?" = "Name of language";
-"Add" = "➕ Add";
+"addNewLanguage" = "Add new language";
+"whichLanguage" = "Name of language";
+"add" = "Add";
 "< Back" = "↤ Back";
 "%d words" = "%d words";
 "%d word" = "%d word";
@@ -57,7 +59,7 @@
 "Swipe left to edit word (edit its probability or delete it)" = "ℹ️ Swipe a word to the left to edit it.\nWords with longer red bars are more likely to be shown in training.";
 "ℹ️ Add new words with the button below" = "ℹ️ Add new words via the button below.";
 "Importing language files" = "Importing language files";
-"Close" = "Close";
+"close" = "Close";
 "About Flippy App" = "About Flippy App";
 "No language selected" = "No language selected";
 "Please select a language to export first." = "Please select a language to export first.";

@@ -11,10 +11,11 @@
 // "Currently there are no words" = MISSING DUTCH TRANSLATION!
 /*
 \n\nIf you have any language files uploaded to your iPhone via iTunes, hit the \"import all\" button.";*/
+"language" = "Taal";
 "Add language" = "➕ Taal toevoegen";
-"Add new language" = "Nieuwe taal toevoegen";
-"which language?" = "Naam van taal";
-"Add" = "➕ Toevoegen";
+"addNewLanguage" = "Nieuwe taal toevoegen";
+"whichLanguage" = "Naam van taal";
+"add" = "Toevoegen";
 "< Back" = "↤ Terug";
 "%d words" = "%d woorden";
 "%d word" = "%d woord";
@@ -56,7 +57,7 @@
 "Swipe left to edit word (edit its probability or delete it)" = "ℹ️ Swipe een woord naar links om te bewerken.\nWoorden met een langere balk komen vaker voor in de training.";
 "ℹ️ Add new words with the button below" = "ℹ️ Voeg nieuwe woorden toe met de knop hieronder.";
 "Importing language files" = "Taal bestanden importeren";
-"Close" = "Afsluiten";
+"close" = "Afsluiten";
 "About Flippy App" = "Over Flippy App";
 "No language selected" = "Geen taal geselecteerd";
 "Please select a language to export first." = "Selecteer een taal om te exporteren alsjeblieft.";
