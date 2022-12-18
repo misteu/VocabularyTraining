@@ -13,14 +13,18 @@ extension UILabel {
                             text: String,
                             isHidden: Bool = false,
                             accessibilityTrait: UIAccessibilityTraits = .staticText,
-                            fontColor: String? = nil) -> UILabel {
+                            fontColor: String? = nil,
+                            numberOfLines: Int = 0,
+                            textAlignment: NSTextAlignment = .natural) -> UILabel {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = font
         label.text = text
         label.isHidden = isHidden
         label.accessibilityTraits = accessibilityTrait
-        label.numberOfLines = 0
+        label.numberOfLines = numberOfLines
+        label.lineBreakMode = .byWordWrapping
+        label.textAlignment = textAlignment
 
         guard let fontColor = fontColor else { return label }
         label.textColor = UIColor(named: fontColor)

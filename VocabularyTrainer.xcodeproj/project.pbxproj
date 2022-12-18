@@ -19,6 +19,7 @@
 		B38C29DA294D68B4006FCDEA /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C29D9294D68B4006FCDEA /* String+Extensions.swift */; };
 		B3E5421D294FB17A0015FD9C /* ModalCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E5421C294FB17A0015FD9C /* ModalCloseButton.swift */; };
 		B3E54220294FC3290015FD9C /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E5421F294FC3290015FD9C /* UIView+Extensions.swift */; };
+		B3E54224294FDBA60015FD9C /* UIAccessibility+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E54223294FDBA60015FD9C /* UIAccessibility+Extensions.swift */; };
 		CE0012FF2243F21C002F86DE /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0012FE2243F21C002F86DE /* UIViewController+Extensions.swift */; };
 		CE05F622229F17AF0097E3BB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE05F624229F17AF0097E3BB /* Localizable.strings */; };
 		CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0FE4F72238585A00430FDE /* TrainingViewController.swift */; };
@@ -71,6 +72,7 @@
 		B3BBF4432909F653004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B3E5421C294FB17A0015FD9C /* ModalCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCloseButton.swift; sourceTree = "<group>"; };
 		B3E5421F294FC3290015FD9C /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		B3E54223294FDBA60015FD9C /* UIAccessibility+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAccessibility+Extensions.swift"; sourceTree = "<group>"; };
 		CE0012FE2243F21C002F86DE /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		CE05F623229F17AF0097E3BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE05F625229F17C40097E3BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				B38C29D9294D68B4006FCDEA /* String+Extensions.swift */,
 				B38C29D7294D578C006FCDEA /* UILabel+Extensions.swift */,
 				B3E5421F294FC3290015FD9C /* UIView+Extensions.swift */,
+				B3E54223294FDBA60015FD9C /* UIAccessibility+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3E54224294FDBA60015FD9C /* UIAccessibility+Extensions.swift in Sources */,
 				B3E54220294FC3290015FD9C /* UIView+Extensions.swift in Sources */,
 				CE31ED77290AC49F00AD3300 /* AppDelegate.swift in Sources */,
 				B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */,

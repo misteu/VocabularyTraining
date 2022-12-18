@@ -30,7 +30,8 @@ final class NewLanguageViewController: UIViewController {
 
     private lazy var titleLabel: UILabel = .createLabel(font: titleFont,
                                                         text: Localizable.addNewLanguage.localize(),
-                                                        accessibilityTrait: .header)
+                                                        accessibilityTrait: .header,
+                                                        textAlignment: .center)
 
     private lazy var languageLabel: UILabel = .createLabel(font: .preferredFont(forTextStyle: .headline),
                                                            text: Localizable.language.localize(),
@@ -120,10 +121,12 @@ final class NewLanguageViewController: UIViewController {
             closeButton.heightAnchor.constraint(equalToConstant: 6),
             closeButton.widthAnchor.constraint(equalToConstant: 37),
 
-            titleLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 40),
+            titleLabel.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 30),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
 
-            languageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
+            languageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             languageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             languageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 
@@ -138,7 +141,7 @@ final class NewLanguageViewController: UIViewController {
 
             addButton.heightAnchor.constraint(equalToConstant: 48),
             addButton.widthAnchor.constraint(equalToConstant: 168),
-            addButton.topAnchor.constraint(equalTo: textField.bottomAnchor, constant: 44),
+            addButton.topAnchor.constraint(equalTo: feedbackLabel.bottomAnchor, constant: 12),
             addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
