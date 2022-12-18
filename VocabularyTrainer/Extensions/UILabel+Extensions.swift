@@ -1,5 +1,5 @@
 //
-//  UILabel+Extension.swift
+//  UILabel+Extensions.swift
 //  VocabularyTrainer
 //
 //  Created by Mariana Brasil on 16/12/22.
@@ -9,7 +9,7 @@
 import UIKit
 
 extension UILabel {
-    static func createLabel(font: UIFont? = .systemFont(ofSize: 16, weight: .regular),
+    static func createLabel(font: UIFont? = .preferredFont(forTextStyle: .body),
                             text: String,
                             isHidden: Bool = false,
                             accessibilityTrait: UIAccessibilityTraits = .staticText,
@@ -20,6 +20,7 @@ extension UILabel {
         label.text = text
         label.isHidden = isHidden
         label.accessibilityTraits = accessibilityTrait
+        label.numberOfLines = 0
 
         guard let fontColor = fontColor else { return label }
         label.textColor = UIColor(named: fontColor)

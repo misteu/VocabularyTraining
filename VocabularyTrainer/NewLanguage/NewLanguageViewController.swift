@@ -18,59 +18,58 @@ final class NewLanguageViewController: UIViewController {
     // MARK: - Private Properties
 
     private lazy var closeButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = UIColor(named: "closeButton")
-        button.layer.cornerRadius = 3
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.accessibilityTraits = .button
-        button.accessibilityLabel = Localizable.close.localize()
+        let button = ModalCloseButton()
         button.addTarget(self,
-                         action: #selector(closeButtonAction),
+                         action: #selector(dismissView),
                          for: .touchUpInside)
         return button
     }()
 
-    private lazy var titleLabel: UILabel = .createLabel(font: .systemFont(ofSize: 20, weight: .semibold),
+    private let titleFont = UIFontMetrics(forTextStyle: .title3)
+        .scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+
+    private lazy var titleLabel: UILabel = .createLabel(font: titleFont,
                                                         text: Localizable.addNewLanguage.localize(),
                                                         accessibilityTrait: .header)
 
-    private lazy var languageLabel: UILabel = .createLabel(font: .systemFont(ofSize: 16,
-                                                                             weight: .semibold),
+    private lazy var languageLabel: UILabel = .createLabel(font: .preferredFont(forTextStyle: .headline),
                                                            text: Localizable.language.localize(),
                                                            accessibilityTrait: .header)
     private lazy var textField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = Localizable.whichLanguage.localize()
-        textField.font = UIFont.systemFont(ofSize: 17, weight: .regular)
+        textField.font = .preferredFont(forTextStyle: .body)
         textField.backgroundColor = .systemBackground
         textField.leftView = UIView(frame: .init(x: 0,
                                                  y: 0,
                                                  width: 16,
                                                  height: textField.frame.height))
         textField.leftViewMode = .always
-        textField.addTarget(self,
-                            action: #selector(textFieldDidChange),
-                            for: .editingChanged)
-        textField.addTarget(self, action: #selector(textFieldAllEvents), for: .allEvents)
+        textField.addTarget(self, action: #selector(textFieldEvent), for: .allEvents)
         return textField
     }()
 
-    private lazy var feedbackLabel: UILabel = .createLabel(font: .systemFont(ofSize: 14, weight: .light),
+    private let feedbackFont = UIFontMetrics(forTextStyle: .footnote)
+        .scaledFont(for: .systemFont(ofSize: 14, weight: .light))
+
+    private lazy var feedbackLabel: UILabel = .createLabel(font: feedbackFont,
                                                            text: Localizable.languageExists.localize(),
                                                            isHidden: true,
                                                            fontColor: "red")
 
     private lazy var addButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(frame: .zero,
+                              primaryAction: .init(handler: { [weak self] _ in
+            self?.addButtonAction()
+        }))
         button.backgroundColor = .systemGray2
         button.layer.cornerRadius = 10
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
         button.accessibilityTraits = .button
         button.setTitle(Localizable.add.localize(), for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
-        button.addTarget(self, action: #selector(addButtonAction), for: .touchUpInside)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         return button
     }()
 
@@ -105,12 +104,12 @@ final class NewLanguageViewController: UIViewController {
 
     private func setUpUI() {
         view.backgroundColor = UIColor(named: "background")
-        view.addSubview(closeButton)
-        view.addSubview(titleLabel)
-        view.addSubview(languageLabel)
-        view.addSubview(textField)
-        view.addSubview(feedbackLabel)
-        view.addSubview(addButton)
+        view.addSubviews([closeButton,
+                          titleLabel,
+                          languageLabel,
+                          textField,
+                          feedbackLabel,
+                          addButton])
         setUpConstraints()
     }
 
@@ -145,11 +144,6 @@ final class NewLanguageViewController: UIViewController {
     }
 
     @objc
-    private func closeButtonAction() {
-        dismiss(animated: true)
-    }
-
-    @objc
     private func addButtonAction() {
         guard let delegate = self.delegate,
               let newLanguage = textField.text else { return }
@@ -165,21 +159,15 @@ final class NewLanguageViewController: UIViewController {
             UserDefaults.standard.set(languages, forKey: UserDefaultKeys.languages)
         } else {
             UserDefaults.standard.set([newLanguage], forKey: UserDefaultKeys.languages)
-          }
+        }
 
+        successHapticFeedback()
         delegate.updateLanguageTable(language: newLanguage)
-        dismiss(animated: true)
+        dismissView()
     }
 
     @objc
-    private func textFieldDidChange() {
-        textField.borderStyle = .none
-        textField.layer.borderWidth = 0
-        feedbackLabel.isHidden = true
-    }
-
-    @objc
-    private func textFieldAllEvents() {
+    private func textFieldEvent() {
         guard let text = textField.text else { return }
 
         if text.isEmptyOrWhitespace() {
@@ -189,6 +177,10 @@ final class NewLanguageViewController: UIViewController {
             addButton.backgroundColor = UIColor(named: "greenButton")
             addButton.isEnabled = true
         }
+
+        textField.borderStyle = .none
+        textField.layer.borderWidth = 0
+        feedbackLabel.isHidden = true
     }
 
     private func languageDuplicate() {
@@ -196,5 +188,27 @@ final class NewLanguageViewController: UIViewController {
         textField.layer.borderColor = UIColor(named: "red")?.cgColor
         textField.layer.borderWidth = 1
         feedbackLabel.isHidden = false
+        addButton.shake()
+        errorHapticFeedback()
+        focusOnErrorMessage()
+    }
+
+    private func focusOnErrorMessage() {
+        UIAccessibility.focusOn(feedbackLabel)
+    }
+
+    private func successHapticFeedback() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+    }
+
+    private func errorHapticFeedback() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.error)
+    }
+
+    @objc
+    private func dismissView() {
+        dismiss(animated: true)
     }
 }

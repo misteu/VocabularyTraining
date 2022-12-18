@@ -1,5 +1,5 @@
 //
-//  String+Extension.swift
+//  String+Extensions.swift
 //  VocabularyTrainer
 //
 //  Created by Mariana Brasil on 17/12/22.
