@@ -1,5 +1,5 @@
 //
-//  Extensions.swift
+//  UIViewController+Extensions.swift
 //  VocabularyTrainer
 //
 //  Created by skrr on 21.03.19.

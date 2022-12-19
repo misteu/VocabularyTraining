@@ -65,7 +65,7 @@ final class AddNewWordViewController: UIViewController {
     
     private lazy var addButton: UIButton = {
         let button = UIButton()
-        button.setTitle(NSLocalizedString("Add", comment: "Add"), for: .normal)
+        button.setTitle(Localizable.add.localize(), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 32)
         button.layer.cornerRadius = 5.0
         button.contentEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 10)

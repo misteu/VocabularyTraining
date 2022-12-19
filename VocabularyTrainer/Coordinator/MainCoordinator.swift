@@ -27,8 +27,13 @@ class MainCoordinator: Coordinator {
     func navigateToNewLanguageViewController(newLanguageScreenProtocol: NewLanguageScreenProtocol) {
         let newLanguageVC = NewLanguageViewController(delegate: newLanguageScreenProtocol)
         newLanguageVC.coordinator = self
-        
-        navigationController.pushViewController(newLanguageVC, animated: true)
+        newLanguageVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            if let sheet = newLanguageVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+            }
+        }
+        navigationController.present(newLanguageVC, animated: true)
     }
     
     func navigateToLanguageScreenViewController(selectedLanguage: String?, newLanguageScreenProtocol: NewLanguageScreenProtocol, completion: @escaping(() -> Void)) {

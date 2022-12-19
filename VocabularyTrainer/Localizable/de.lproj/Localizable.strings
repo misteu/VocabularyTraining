@@ -12,10 +12,11 @@
 /*
 \n\nWenn du per iTunes Sprachdateien auf dein iPhone geladen hast, kannst du sie über den Import Button laden.
 */
+"language" = "Sprache";
  "Add language" = "➕ Sprache hinzufügen";
-"Add new language" = "Neue Sprache hinzufügen";
-"which language?" = "Name der Sprache";
-"Add" = "➕ Hinzufügen";
+"addNewLanguage" = "Neue Sprache hinzufügen";
+"whichLanguage" = "Name der Sprache";
+"add" = "Hinzufügen";
 "< Back" = "↤ Zurück";
 "%d words" = "%d Wörter";
 "%d word" = "%d Wort";
@@ -57,7 +58,7 @@
 "Swipe left to edit word (edit its probability or delete it)" = "Wort nach links wischen um es zu bearbeiten.\nJe länger die rote Anzeige unter dem Wort ist, desto wahrscheinlicher wird es beim Training gezogen.";
 "ℹ️ Add new words with the button below" = "ℹ️ Füge über den Button unten neue Wörter hinzu.";
 "Importing language files" = "Sprachdateien importieren";
-"Close" = "Schließen";
+"close" = "Schließen";
 "About Flippy App" = "Über Flippy App";
 "No language selected" = "Keine Sprache ausgewählt";
 "Please select a language to export first." = "Bitte wähle zuerst eine Sprache aus.";

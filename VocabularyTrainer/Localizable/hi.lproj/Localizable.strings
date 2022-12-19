@@ -6,13 +6,14 @@
   Copyright © 2022 KC. All rights reserved.
 */
 
+"language" = "भाषा";
 "Your Languages" = "आपकी भाषाएं";
 "Currently there are no languages" = "वर्तमान में कोई भाषा नहीं हैं। \n\n आप नीचे दिए गए बटन के माध्यम से नई भाषाएं जोड़ सकते हैं।";
 "Currently there are no words" = "वर्तमान में कोई शब्द नहीं हैं। \n\n आप नीचे दिए गए बटन के माध्यम से नया शब्द जोड़ सकते हैं।";
 "Add language" = "➕ भाषा जोड़ें";
-"Add new language" = "नई भाषा जोड़ें";
-"which language?" = "कौनसी भाषा?";
-"Add" = "➕ जोड़ें";
+"addNewLanguage" = "नई भाषा जोड़ें";
+"whichLanguage" = "कौनसी भाषा?";
+"add" = "जोड़ें";
 "< Back" = "↤ पीछे";
 "%d words" = "%d शब्दों";
 "%d word" = "%d शब्द";
@@ -55,7 +56,7 @@
 "Swipe left to edit word (edit its probability or delete it)" = "ℹ️ शब्द edit करने के लिए बाएं स्वाइप करें (इसकी प्रायिकता edit करें या इसे हटा दें)";
 "ℹ️ Add new words with the button below" = "ℹ️ नीचे दिए गए बटन से नए शब्द जोड़ें।";
 "Importing language files" = "Importing language files";
-"Close" = "Close";
+"close" = "Close";
 "About Flippy App" = "Flippy App के बारे में";
 "No language selected" = "No language selected";
 "Please select a language to export first." = "कृपया पहले export करने के लिए एक भाषा चुनें।";
