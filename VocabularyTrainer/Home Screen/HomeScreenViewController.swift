@@ -13,29 +13,12 @@ protocol NewLanguageScreenProtocol: AnyObject {
   func updateLanguageTable(language: String)
 }
 
-struct LanguageImport {
-  var vocabularies: [String: String]
-  var progresses: [String: Float]
-  var datesAdded = [String: Date]()
-  
-  init(vocabularies: [String: String],
-       progresses: [String: Float],
-       datesAdded: [String: Date]) {
-    self.vocabularies = vocabularies
-    self.progresses = progresses
-    self.datesAdded = datesAdded
-  }
-}
-
 final class HomeScreenViewController: UIViewController, NewLanguageScreenProtocol {
 
   var coordinator: MainCoordinator?
 
   var trainingButton = UIBarButtonItem()
   var editButton = UIBarButtonItem()
-
-//  var headerTextConstraintTop: NSLayoutConstraint?
-//  var headerText = UILabel()
   var addLanguageButton = UIButton()
   var importButton = UIButton()
   var exportButton = UIButton()
