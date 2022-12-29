@@ -29,8 +29,6 @@ class HomeViewController: UIViewController {
     }
 
     private lazy var collectionView: UICollectionView = {
-        var listConfiguration = UICollectionViewCompositionalLayoutConfiguration()
-
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.backgroundColor = HomeViewModel.Colors.background
@@ -64,6 +62,7 @@ class HomeViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         headerView.delegate = self
         collectionView.delegate = self
+        setNavigationItem()
         setupView()
     }
 
@@ -80,7 +79,7 @@ class HomeViewController: UIViewController {
 
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalCollectionViewMargins),
-            headerView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            headerView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: Layout.defaultMargin),
             headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalCollectionViewMargins),
 
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalCollectionViewMargins),
@@ -100,6 +99,56 @@ class HomeViewController: UIViewController {
         snap.appendSections([0])
         snap.appendItems(viewModel.data)
         datasource.apply(snap)
+    }
+
+    private func setNavigationItem() {
+        let label = UILabel()
+        let text = NSMutableAttributedString(string: "Flippy ",
+                                             attributes: [.foregroundColor: Colors.flippyGreen])
+        text.append(.init(string: "Learn"))
+        label.attributedText = text
+        let leftItem = UIBarButtonItem(customView: label)
+        navigationItem.leftBarButtonItem = leftItem
+
+        let importButton = UIBarButtonItem(customView: labelWithImage(
+            text: "Import",
+            image: UIImage(systemName: "square.and.arrow.down"),
+            tapHandler: {
+                print("import")
+            }
+        ))
+        let exportButton = UIBarButtonItem(customView: labelWithImage(
+            text: "Export",
+            image: UIImage(systemName: "square.and.arrow.up"),
+            tapHandler: {
+                print("export")
+            }
+        ))
+        navigationItem.rightBarButtonItems = [exportButton, importButton]
+    }
+
+    private func labelWithImage(text: String, image: UIImage?, tapHandler: (() -> Void)?) -> UIButton {
+        let label = UILabel()
+        let text = NSMutableAttributedString(string: text)
+        guard let image = image else { return UIButton() }
+        let attachment = NSTextAttachment(image: image)
+        let padding = NSTextAttachment()
+        padding.bounds = .init(origin: .zero, size: .init(width: 4, height: 0))
+        text.append(.init(attachment: padding))
+        text.append(.init(attachment: attachment))
+        label.attributedText = text
+        let button = UIButton(
+            type: .system,
+            primaryAction: .init(handler: { _ in
+            tapHandler?()
+        }))
+        button.setAttributedTitle(text, for: .normal)
+        return button
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        removeNavigationBarBackground()
     }
 }
 
