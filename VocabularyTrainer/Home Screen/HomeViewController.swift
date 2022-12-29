@@ -113,15 +113,15 @@ class HomeViewController: UIViewController {
         let importButton = UIBarButtonItem(customView: labelWithImage(
             text: "Import",
             image: UIImage(systemName: "square.and.arrow.down"),
-            tapHandler: {
-                print("import")
+            tapHandler: { [weak self] in
+                self?.tappedImport()
             }
         ))
         let exportButton = UIBarButtonItem(customView: labelWithImage(
             text: "Export",
             image: UIImage(systemName: "square.and.arrow.up"),
-            tapHandler: {
-                print("export")
+            tapHandler: { [weak self] in
+                self?.tappedExport()
             }
         ))
         navigationItem.rightBarButtonItems = [exportButton, importButton]
@@ -188,5 +188,49 @@ extension HomeViewController: NewLanguageScreenProtocol {
     func updateLanguageTable(language: String) {
         debugPrint("\(language) added/deleted")
         self.applyCollectionViewChanges()
+    }
+}
+
+
+// MARK: - Legacy Import / Export
+// TODO: Move to iCloud Export / Import
+
+extension HomeViewController {
+
+    private func tappedImport() {
+        guard let files = ExportImport.getAllLanguageFileUrls() else { return }
+
+        if files.isEmpty {
+            let message = """
+        There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.
+      """
+            let alert = UIAlertController(
+                title: NSLocalizedString("No language files found",
+                                         comment: "No language files found"),
+                message: NSLocalizedString(message, comment: message),
+                preferredStyle: UIAlertController.Style.alert)
+
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            ExportImport.importLanguageFiles(files)
+            applyCollectionViewChanges()
+        }
+    }
+
+    private func tappedExport() {
+        if let selectedLanguage = selectedLanguage {
+
+            let words = ExportImport.exportAsCsvToDocuments(language: selectedLanguage)
+            let ac = UIActivityViewController(activityItems: [words], applicationActivities: nil)
+            present(ac, animated: true)
+        } else {
+            let alert = UIAlertController(title: NSLocalizedString("No language selected",
+                                                                   comment: "Title for popup when no language was selected"),
+                                          message: NSLocalizedString("Please select a language to export first.", comment: "Text for no-language-selected popup."),
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
+        }
     }
 }
