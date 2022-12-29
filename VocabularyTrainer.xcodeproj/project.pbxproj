@@ -38,6 +38,7 @@
 		CEF0605429510A27001D2CEA /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0604F29510A26001D2CEA /* HomeViewModel.swift */; };
 		CEF0605529510A27001D2CEA /* LanguageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0605029510A26001D2CEA /* LanguageCellViewModel.swift */; };
 		CEF0605629510A27001D2CEA /* LanguageImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0605129510A27001D2CEA /* LanguageImport.swift */; };
+		CEF0605829510CD3001D2CEA /* HomeLanguageHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0605729510CD3001D2CEA /* HomeLanguageHeaderView.swift */; };
 		E37D16F9261BCBCB006C1F71 /* LanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D16F8261BCBCB006C1F71 /* LanguageTableViewCell.swift */; };
 		E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */; };
 /* End PBXBuildFile section */
@@ -105,6 +106,7 @@
 		CEF0604F29510A26001D2CEA /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		CEF0605029510A26001D2CEA /* LanguageCellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageCellViewModel.swift; sourceTree = "<group>"; };
 		CEF0605129510A27001D2CEA /* LanguageImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanguageImport.swift; sourceTree = "<group>"; };
+		CEF0605729510CD3001D2CEA /* HomeLanguageHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLanguageHeaderView.swift; sourceTree = "<group>"; };
 		CEFC4B862393EA71000B370F /* VocabularyTrainer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = VocabularyTrainer.entitlements; sourceTree = "<group>"; };
 		E37D16F8261BCBCB006C1F71 /* LanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTableViewCell.swift; sourceTree = "<group>"; };
 		E37D170A261BCD59006C1F71 /* VocabularyDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VocabularyDateFormatter.swift; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 				CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */,
 				CEF0604E29510A26001D2CEA /* HomeViewController.swift */,
 				CEF0604F29510A26001D2CEA /* HomeViewModel.swift */,
+				CEF0605729510CD3001D2CEA /* HomeLanguageHeaderView.swift */,
 				CEF0605029510A26001D2CEA /* LanguageCellViewModel.swift */,
 				CEF0605129510A27001D2CEA /* LanguageImport.swift */,
 				E37D16F8261BCBCB006C1F71 /* LanguageTableViewCell.swift */,
@@ -455,6 +458,7 @@
 				CEF0605429510A27001D2CEA /* HomeViewModel.swift in Sources */,
 				B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */,
 				28716F4E290EF54B00EACCA1 /* Coordinator.swift in Sources */,
+				CEF0605829510CD3001D2CEA /* HomeLanguageHeaderView.swift in Sources */,
 				CEF0605529510A27001D2CEA /* LanguageCellViewModel.swift in Sources */,
 				B38C29DA294D68B4006FCDEA /* String+Extensions.swift in Sources */,
 				CE86C54E2235AE20008A5B73 /* HomeScreenViewController.swift in Sources */,

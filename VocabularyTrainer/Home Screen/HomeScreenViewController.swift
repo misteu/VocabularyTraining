@@ -13,7 +13,7 @@ protocol NewLanguageScreenProtocol: AnyObject {
   func updateLanguageTable(language: String)
 }
 
-final class HomeScreenViewController: UIViewController, NewLanguageScreenProtocol {
+final class HomeScreenViewController: UIViewController {
 
   var coordinator: MainCoordinator?
 
@@ -96,17 +96,6 @@ final class HomeScreenViewController: UIViewController, NewLanguageScreenProtoco
     super.viewDidAppear(true)
     if !languages.isEmpty {
       view.viewWithTag(99)?.removeFromSuperview()
-    }
-  }
-
-  // MARK: - Internal Methods
-
-  func updateLanguageTable(language: String) {
-    debugPrint("\(language) added/deleted")
-    tableView.reloadData()
-
-    if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
-      self.languages = languages
     }
   }
 
@@ -557,3 +546,14 @@ extension HomeScreenViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension HomeScreenViewController: StoryBoarded {}
+
+extension HomeScreenViewController: NewLanguageScreenProtocol {
+    func updateLanguageTable(language: String) {
+        debugPrint("\(language) added/deleted")
+        tableView.reloadData()
+
+        if let languages = defaults.array(forKey: UserDefaultKeys.languages) as? [String] {
+            self.languages = languages
+        }
+    }
+}
