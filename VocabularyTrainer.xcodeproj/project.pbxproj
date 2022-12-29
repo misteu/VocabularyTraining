@@ -26,6 +26,10 @@
 		CE2EB8272245406A006B1C6D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */; };
 		CE31ED77290AC49F00AD3300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED76290AC49F00AD3300 /* AppDelegate.swift */; };
 		CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */; };
+		CE431520295E0621000F7FA2 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43151F295E0621000F7FA2 /* WaterfallLayout.swift */; };
+		CE431522295E06CB000F7FA2 /* WaterfallLayout+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE431521295E06CB000F7FA2 /* WaterfallLayout+Config.swift */; };
+		CE431524295E0707000F7FA2 /* WaterfallLayout+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE431523295E0707000F7FA2 /* WaterfallLayout+Builder.swift */; };
+		CE431526295E08F4000F7FA2 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */; };
 		CE86C54E2235AE20008A5B73 /* HomeScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */; };
 		CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE86C5522235AE23008A5B73 /* Assets.xcassets */; };
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
@@ -85,6 +89,10 @@
 		CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CE31ED76290AC49F00AD3300 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordDelegate.swift; sourceTree = "<group>"; };
+		CE43151F295E0621000F7FA2 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
+		CE431521295E06CB000F7FA2 /* WaterfallLayout+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaterfallLayout+Config.swift"; sourceTree = "<group>"; };
+		CE431523295E0707000F7FA2 /* WaterfallLayout+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaterfallLayout+Builder.swift"; sourceTree = "<group>"; };
+		CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CE86C5482235AE20008A5B73 /* VocabularyTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenViewController.swift; sourceTree = "<group>"; };
 		CE86C5522235AE23008A5B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -201,6 +209,17 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		CE43151E295E05F3000F7FA2 /* CollectionView Layout */ = {
+			isa = PBXGroup;
+			children = (
+				CE43151F295E0621000F7FA2 /* WaterfallLayout.swift */,
+				CE431521295E06CB000F7FA2 /* WaterfallLayout+Config.swift */,
+				CE431523295E0707000F7FA2 /* WaterfallLayout+Builder.swift */,
+				CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */,
+			);
+			path = "CollectionView Layout";
+			sourceTree = "<group>";
+		};
 		CE86C53F2235AE20008A5B73 = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */,
+				CE43151E295E05F3000F7FA2 /* CollectionView Layout */,
 				CE86C54D2235AE20008A5B73 /* HomeScreenViewController.swift */,
 				CEF0604E29510A26001D2CEA /* HomeViewController.swift */,
 				CEF0604F29510A26001D2CEA /* HomeViewModel.swift */,
@@ -465,8 +485,12 @@
 				CE0012FF2243F21C002F86DE /* UIViewController+Extensions.swift in Sources */,
 				B38C29D4294D45F1006FCDEA /* Localizable.swift in Sources */,
 				CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */,
+				CE431526295E08F4000F7FA2 /* CollectionViewCell.swift in Sources */,
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
 				CEF0605329510A27001D2CEA /* HomeViewController.swift in Sources */,
+				CE431522295E06CB000F7FA2 /* WaterfallLayout+Config.swift in Sources */,
+				CE431520295E0621000F7FA2 /* WaterfallLayout.swift in Sources */,
+				CE431524295E0707000F7FA2 /* WaterfallLayout+Builder.swift in Sources */,
 				B3E5421D294FB17A0015FD9C /* ModalCloseButton.swift in Sources */,
 				B38C29D8294D578C006FCDEA /* UILabel+Extensions.swift in Sources */,
 				CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */,

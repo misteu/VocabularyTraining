@@ -40,19 +40,23 @@ class HomeViewController: UIViewController {
     }()
 
     lazy var datasource: UICollectionViewDiffableDataSource<Int, LanguageCellViewModel> = { [weak self] in
-        let cellConfig = UICollectionView.CellRegistration<UICollectionViewListCell, LanguageCellViewModel> { [self] cell, _, model in
-            var contentConfiguration = cell.defaultContentConfiguration()
-            contentConfiguration.text = model.languageName
-            contentConfiguration.textProperties.font = .preferredFont(forTextStyle: .headline)
-            contentConfiguration.textProperties.color = HomeViewModel.Colors.title
-            contentConfiguration.textProperties.numberOfLines = 0
-            contentConfiguration.secondaryText = "\(model.numberOfWords) words"
-            contentConfiguration.secondaryTextProperties.font = .preferredFont(forTextStyle: .body)
-            contentConfiguration.secondaryTextProperties.color = Colors.subtitle
-            contentConfiguration.image = UIImage(systemName: "hare")
-            cell.contentConfiguration = contentConfiguration
-            cell.backgroundConfiguration?.backgroundColor = Colors.cellBackground
-            cell.backgroundConfiguration?.cornerRadius = 7
+//        let cellConfig = UICollectionView.CellRegistration<UICollectionViewListCell, LanguageCellViewModel> { [self] cell, _, model in
+//            var contentConfiguration = cell.defaultContentConfiguration()
+//            contentConfiguration.text = model.languageName
+//            contentConfiguration.textProperties.font = .preferredFont(forTextStyle: .headline)
+//            contentConfiguration.textProperties.color = HomeViewModel.Colors.title
+//            contentConfiguration.textProperties.numberOfLines = 0
+//            contentConfiguration.secondaryText = "\(model.numberOfWords) words"
+//            contentConfiguration.secondaryTextProperties.font = .preferredFont(forTextStyle: .body)
+//            contentConfiguration.secondaryTextProperties.color = Colors.subtitle
+//            contentConfiguration.image = UIImage(systemName: "hare")
+//            cell.contentConfiguration = contentConfiguration
+//            cell.backgroundConfiguration?.backgroundColor = Colors.cellBackground
+//            cell.backgroundConfiguration?.cornerRadius = 7
+//        }
+
+        let cellConfig = UICollectionView.CellRegistration<CollectionViewCell, LanguageCellViewModel> { cell, _, item in
+            cell.configure(with: item)
         }
 
         let datasource = UICollectionViewDiffableDataSource<Int, LanguageCellViewModel>(collectionView: collectionView) { collectionView, indexPath, model in
@@ -63,6 +67,7 @@ class HomeViewController: UIViewController {
         }
         return datasource
     }()
+    
     /// Width of leading and trailing margins around `collectionView`.
     private let horizontalCollectionViewMargins: CGFloat = 24
 
@@ -85,6 +90,29 @@ class HomeViewController: UIViewController {
         view.backgroundColor = HomeViewModel.Colors.background
         view.addSubview(collectionView)
         view.addSubview(headerView)
+
+
+        let configuration = WaterfallTrueCompositionalLayout.Configuration(
+            columnCount: 2,
+            interItemSpacing: 8,
+            contentInsetsReference: .automatic,
+            itemCountProvider: { [weak self] in
+                return 10
+            },
+            itemHeightProvider: { [weak self] row, width in
+                return CGFloat.random(in: 30...100)
+            }
+        )
+
+        let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
+            WaterfallTrueCompositionalLayout.makeLayoutSection(
+                config: configuration,
+                environment: environment,
+                sectionIndex: sectionIndex
+            )
+        }
+
+        collectionView.setCollectionViewLayout(layout, animated: true)
 
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalCollectionViewMargins),
