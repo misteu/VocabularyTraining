@@ -91,16 +91,18 @@ class HomeViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(headerView)
 
-
         let configuration = WaterfallTrueCompositionalLayout.Configuration(
             columnCount: 2,
             interItemSpacing: 8,
             contentInsetsReference: .automatic,
             itemCountProvider: { [weak self] in
-                return 10
+                return self?.viewModel.data.count ?? 0
             },
             itemHeightProvider: { [weak self] row, width in
-                return CGFloat.random(in: 30...100)
+                guard let self = self,
+                      self.viewModel.data.indices.contains(row) else { return .zero }
+                let rowModel = self.viewModel.data[row]
+                return rowModel.labelsHeight(with: width)
             }
         )
 
@@ -160,11 +162,6 @@ class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(viewModel.data[indexPath.row].languageName)
-        collectionView.visibleCells.forEach { cell in
-            cell.setBackground(color: Colors.cellBackground)
-        }
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.setBackground(color: Colors.selectedCellBackground)
     }
 }
 

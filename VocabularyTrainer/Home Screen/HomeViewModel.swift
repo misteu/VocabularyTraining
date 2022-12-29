@@ -40,7 +40,5 @@ struct HomeViewModel {
         static let title = UIColor.label
         static let subtitle = UIColor.secondaryLabel
         static let flippyGreen = UIColor(named: "flippyGreen")
-        static let cellBackground = UIColor.systemBackground
-        static let selectedCellBackground = UIColor(red: 0.685, green: 0.95, blue: 0.861, alpha: 1)
     }
 }
