@@ -31,8 +31,7 @@ class HomeViewController: UIViewController {
     private lazy var collectionView: UICollectionView = {
         var listConfiguration = UICollectionViewCompositionalLayoutConfiguration()
 
-        let layout = makeCollectionViewLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.backgroundColor = HomeViewModel.Colors.background
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -40,20 +39,6 @@ class HomeViewController: UIViewController {
     }()
 
     lazy var datasource: UICollectionViewDiffableDataSource<Int, LanguageCellViewModel> = { [weak self] in
-//        let cellConfig = UICollectionView.CellRegistration<UICollectionViewListCell, LanguageCellViewModel> { [self] cell, _, model in
-//            var contentConfiguration = cell.defaultContentConfiguration()
-//            contentConfiguration.text = model.languageName
-//            contentConfiguration.textProperties.font = .preferredFont(forTextStyle: .headline)
-//            contentConfiguration.textProperties.color = HomeViewModel.Colors.title
-//            contentConfiguration.textProperties.numberOfLines = 0
-//            contentConfiguration.secondaryText = "\(model.numberOfWords) words"
-//            contentConfiguration.secondaryTextProperties.font = .preferredFont(forTextStyle: .body)
-//            contentConfiguration.secondaryTextProperties.color = Colors.subtitle
-//            contentConfiguration.image = UIImage(systemName: "hare")
-//            cell.contentConfiguration = contentConfiguration
-//            cell.backgroundConfiguration?.backgroundColor = Colors.cellBackground
-//            cell.backgroundConfiguration?.cornerRadius = 7
-//        }
 
         let cellConfig = UICollectionView.CellRegistration<CollectionViewCell, LanguageCellViewModel> { cell, _, item in
             cell.configure(with: item)
@@ -91,30 +76,7 @@ class HomeViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(headerView)
 
-        let configuration = WaterfallTrueCompositionalLayout.Configuration(
-            columnCount: 2,
-            interItemSpacing: 8,
-            contentInsetsReference: .automatic,
-            itemCountProvider: { [weak self] in
-                return self?.viewModel.data.count ?? 0
-            },
-            itemHeightProvider: { [weak self] row, width in
-                guard let self = self,
-                      self.viewModel.data.indices.contains(row) else { return .zero }
-                let rowModel = self.viewModel.data[row]
-                return rowModel.labelsHeight(with: width)
-            }
-        )
-
-        let layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
-            WaterfallTrueCompositionalLayout.makeLayoutSection(
-                config: configuration,
-                environment: environment,
-                sectionIndex: sectionIndex
-            )
-        }
-
-        collectionView.setCollectionViewLayout(layout, animated: true)
+        collectionView.setCollectionViewLayout(viewModel.layout, animated: true)
 
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalCollectionViewMargins),
@@ -138,24 +100,6 @@ class HomeViewController: UIViewController {
         snap.appendSections([0])
         snap.appendItems(viewModel.data)
         datasource.apply(snap)
-    }
-
-    private func makeCollectionViewLayout() -> UICollectionViewLayout {
-        let horizontalMargins = 2 * horizontalCollectionViewMargins
-        let interItemSpacing: CGFloat = Layout.defaultMargin
-        let itemSize = NSCollectionLayoutSize(widthDimension: .absolute((UIScreen.main.bounds.width - horizontalMargins - interItemSpacing) / 2),
-                                              heightDimension: .estimated(59))
-        let items = (0...1).map { _ in NSCollectionLayoutItem(layoutSize: itemSize) }
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                               heightDimension: .estimated(59))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
-                                                       subitems: items)
-        group.interItemSpacing = .fixed(interItemSpacing)
-        group.edgeSpacing = .init(leading: .fixed(0), top: .fixed(Layout.defaultMargin / 4), trailing: .fixed(0), bottom: .fixed(Layout.defaultMargin / 4))
-        let section = NSCollectionLayoutSection(group: group)
-        let layout = UICollectionViewCompositionalLayout(section: section)
-
-        return layout
     }
 }
 
@@ -195,17 +139,5 @@ extension HomeViewController: NewLanguageScreenProtocol {
     func updateLanguageTable(language: String) {
         debugPrint("\(language) added/deleted")
         self.applyCollectionViewChanges()
-    }
-}
-
-// MARK: - Update cell color
-
-extension UICollectionViewCell {
-    /// Updates cell's `backgroundConfiguration` with given color.
-    /// - Parameter color: The color to apply.
-    func setBackground(color: UIColor) {
-        var backgroundConfig = backgroundConfiguration
-        backgroundConfig?.backgroundColor = color
-        backgroundConfiguration = backgroundConfig
     }
 }

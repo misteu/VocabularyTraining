@@ -8,15 +8,8 @@
 
 import UIKit
 
-struct HomeViewModel {
+final class HomeViewModel {
     var coordinator: MainCoordinator?
-
-//    let data: [LanguageCellViewModel] = [
-//        .init(languageName: "Greek", numberOfWords: 122),
-//        .init(languageName: "German", numberOfWords: 314),
-//        .init(languageName: "English", numberOfWords: 426),
-//        .init(languageName: "Korean", numberOfWords: 231)
-//    ]
 
     var data: [LanguageCellViewModel] {
         var retVal: [LanguageCellViewModel] = []
@@ -27,6 +20,33 @@ struct HomeViewModel {
             }
         }
         return retVal
+    }
+
+    lazy var layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
+        let configuration = WaterfallTrueCompositionalLayout.Configuration(
+            columnCount: 2,
+            interItemSpacing: 8,
+            contentInsetsReference: .automatic,
+            itemCountProvider: { [weak self] in
+                return self?.data.count ?? 0
+            },
+            itemHeightProvider: { [weak self] row, width in
+                guard let self = self,
+                    self.data.indices.contains(row) else { return .zero }
+                let rowModel = self.data[row]
+                return rowModel.labelsHeight(with: width)
+            }
+        )
+
+        return WaterfallTrueCompositionalLayout.makeLayoutSection(
+            config: configuration,
+            environment: environment,
+            sectionIndex: sectionIndex
+        )
+    }
+
+    init(coordinator: MainCoordinator?) {
+        self.coordinator = coordinator
     }
 
     enum Strings {
