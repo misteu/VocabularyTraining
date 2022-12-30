@@ -161,6 +161,7 @@ final class HomeViewController: UIViewController {
             tapHandler?()
         }))
         button.setAttributedTitle(text, for: .normal)
+        button.setTitleColor(.label, for: .normal)
         return button
     }
 }
