@@ -84,6 +84,16 @@ final class NewLanguageViewController: UIViewController {
             .filter { $0.lowercased().elementsEqual(newLanguage.lowercased()) }
         return !matches.isEmpty
     }
+
+    private lazy var randomEmojiLabel: UILabel = {
+        let label = UILabel()
+        label.text = randomEmoji
+        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 30))
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let randomEmoji: String = EmojiChooser.choose
     
     // MARK: - Init
 
@@ -110,7 +120,8 @@ final class NewLanguageViewController: UIViewController {
                           languageLabel,
                           textField,
                           feedbackLabel,
-                          addButton])
+                          addButton,
+                          randomEmojiLabel])
         setUpConstraints()
     }
 
@@ -126,7 +137,10 @@ final class NewLanguageViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
 
-            languageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            randomEmojiLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
+            randomEmojiLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+
+            languageLabel.topAnchor.constraint(equalTo: randomEmojiLabel.bottomAnchor, constant: 24),
             languageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             languageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 
@@ -142,7 +156,7 @@ final class NewLanguageViewController: UIViewController {
             addButton.heightAnchor.constraint(equalToConstant: 48),
             addButton.widthAnchor.constraint(equalToConstant: 168),
             addButton.topAnchor.constraint(equalTo: feedbackLabel.bottomAnchor, constant: 12),
-            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            addButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
 
@@ -163,7 +177,8 @@ final class NewLanguageViewController: UIViewController {
         } else {
             UserDefaults.standard.set([newLanguage], forKey: UserDefaultKeys.languages)
         }
-
+        // TODO: set emoji from to be implemented emoji chooser
+        UserDefaults.standard.setLanguageEmoji(for: newLanguage, emoji: randomEmoji)
         successHapticFeedback()
         delegate.updateLanguageTable(language: newLanguage)
         dismissView()

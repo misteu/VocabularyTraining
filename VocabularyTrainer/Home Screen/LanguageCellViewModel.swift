@@ -12,11 +12,16 @@ struct LanguageCellViewModel: Hashable {
     let id = UUID()
     let languageName: String
     let numberOfWords: Int
-    // To be implemented
-    let emoji: String = ""
+    // TODO: implement emoji chooser
+    var emoji: String {
+        UserDefaults.standard.languageEmoji(for: languageName) ?? ""
+    }
 
+    /// Subtitle containing word counter,
+    // TODO: use plural localization
     var subtitle: String {
-        String(format: LanguageCellViewModel.Strings.numberOfWordsTitle, numberOfWords)
+        String(format: LanguageCellViewModel.Strings.numberOfWordsTitle,
+               numberOfWords)
     }
 
     func labelsHeight(with width: CGFloat) -> CGFloat {
@@ -33,7 +38,7 @@ struct LanguageCellViewModel: Hashable {
 
 extension LanguageCellViewModel {
     enum Dimensions {
-        static let imageWidth: CGFloat = 36
+        static let imageWidth: CGFloat = 24
         static let labelSpacing: CGFloat = 2
         static let horizontalMargin: CGFloat = Layout.defaultMargin / 2
         static let verticalContainerMargin: CGFloat = Layout.defaultMargin / 2

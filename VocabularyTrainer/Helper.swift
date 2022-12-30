@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-enum UserDefaultKeys {
-  static let languages = "languages"
-}
-
 enum CellIdentifier {
   static let vocabularyCell = "vocabularyCell"
 }
