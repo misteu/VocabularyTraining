@@ -3,10 +3,10 @@
     "pins": [
       {
         "package": "WaterfallTrueCompositionalLayout",
-        "repositoryURL": "git@github.com:misteu/WaterfallTrueCompositionalLayout.git",
+        "repositoryURL": "git@github.com:eeshishko/WaterfallTrueCompositionalLayout.git",
         "state": {
-          "branch": "feature/fix-typo",
-          "revision": "83d662fd6247d2cca781530ff3cb77ad4bc0b641",
+          "branch": null,
+          "revision": "f45da38f2f08aa557be75f64b1b5499149ae95d9",
           "version": null
         }
       }

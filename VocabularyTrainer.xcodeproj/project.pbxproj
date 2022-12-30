@@ -34,7 +34,7 @@
 		CEB77943295E503F00D7BF35 /* NewLanguageScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */; };
 		CEB77945295E563200D7BF35 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77944295E563200D7BF35 /* UserDefaults+Extensions.swift */; };
 		CEB77947295E59E800D7BF35 /* EmojiChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77946295E59E800D7BF35 /* EmojiChooser.swift */; };
-		CEB7794E295ED80000D7BF35 /* WaterfallTrueCompositionalLayout in Frameworks */ = {isa = PBXBuildFile; productRef = CEB7794D295ED80000D7BF35 /* WaterfallTrueCompositionalLayout */; };
+		CEB77951295F681300D7BF35 /* WaterfallTrueCompositionalLayout in Frameworks */ = {isa = PBXBuildFile; productRef = CEB77950295F681300D7BF35 /* WaterfallTrueCompositionalLayout */; };
 		CECD6342235E54350060911F /* pp.html in Resources */ = {isa = PBXBuildFile; fileRef = CECD6344235E54350060911F /* pp.html */; };
 		CEE4988828F572E200B64FCF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CEE4988728F572E200B64FCF /* README.md */; };
 		CEF0605329510A27001D2CEA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0604E29510A26001D2CEA /* HomeViewController.swift */; };
@@ -120,7 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEB7794E295ED80000D7BF35 /* WaterfallTrueCompositionalLayout in Frameworks */,
+				CEB77951295F681300D7BF35 /* WaterfallTrueCompositionalLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,7 +311,7 @@
 			);
 			name = VocabularyTrainer;
 			packageProductDependencies = (
-				CEB7794D295ED80000D7BF35 /* WaterfallTrueCompositionalLayout */,
+				CEB77950295F681300D7BF35 /* WaterfallTrueCompositionalLayout */,
 			);
 			productName = VocabularyTrainer;
 			productReference = CE86C5482235AE20008A5B73 /* VocabularyTrainer.app */;
@@ -393,7 +393,7 @@
 			);
 			mainGroup = CE86C53F2235AE20008A5B73;
 			packageReferences = (
-				CEB7794C295ED80000D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */,
+				CEB7794F295F681300D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */,
 			);
 			productRefGroup = CE86C5492235AE20008A5B73 /* Products */;
 			projectDirPath = "";
@@ -844,20 +844,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CEB7794C295ED80000D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */ = {
+		CEB7794F295F681300D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "git@github.com:misteu/WaterfallTrueCompositionalLayout.git";
+			repositoryURL = "git@github.com:eeshishko/WaterfallTrueCompositionalLayout.git";
 			requirement = {
-				branch = "feature/fix-typo";
-				kind = branch;
+				kind = revision;
+				revision = f45da38f2f08aa557be75f64b1b5499149ae95d9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CEB7794D295ED80000D7BF35 /* WaterfallTrueCompositionalLayout */ = {
+		CEB77950295F681300D7BF35 /* WaterfallTrueCompositionalLayout */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CEB7794C295ED80000D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */;
+			package = CEB7794F295F681300D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */;
 			productName = WaterfallTrueCompositionalLayout;
 		};
 /* End XCSwiftPackageProductDependency section */
