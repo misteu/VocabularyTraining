@@ -42,7 +42,7 @@ extension UIViewController {
   }
 
     func removeNavigationBarBackground() {
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for:.default)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for :.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.layoutIfNeeded()
     }
