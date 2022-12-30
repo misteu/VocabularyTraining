@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WaterfallTrueCompositionalLayout
 
 final class HomeViewModel {
     var coordinator: MainCoordinator?
@@ -50,9 +51,11 @@ final class HomeViewModel {
     }
 
     enum Strings {
-        static let headerTitle = "My Languages"
-        static let practiceButtonTitle = "Practice"
-        static let editButtonTitle = "Edit"
+        static let headerTitle = NSLocalizedString("home_header_title", comment: "Title of the header above the language tiles")
+        static let practiceButtonTitle = NSLocalizedString("home_practice_button_title", comment: "Title of the button for starting practicing")
+        static let editButtonTitle = NSLocalizedString("home_edit_button_title", comment: "Title of the button for editing a language")
+        static let importButtonTitle = NSLocalizedString("home_import_button_title", comment: "Title of the button for importing saved languages")
+        static let exportButtonTitle = NSLocalizedString("home_export_button_title", comment: "Title of the button for exporting saved languages")
     }
 
     enum Colors {

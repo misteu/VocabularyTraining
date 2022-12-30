@@ -26,9 +26,6 @@
 		CE2EB8272245406A006B1C6D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */; };
 		CE31ED77290AC49F00AD3300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED76290AC49F00AD3300 /* AppDelegate.swift */; };
 		CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */; };
-		CE431520295E0621000F7FA2 /* WaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE43151F295E0621000F7FA2 /* WaterfallLayout.swift */; };
-		CE431522295E06CB000F7FA2 /* WaterfallLayout+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE431521295E06CB000F7FA2 /* WaterfallLayout+Config.swift */; };
-		CE431524295E0707000F7FA2 /* WaterfallLayout+Builder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE431523295E0707000F7FA2 /* WaterfallLayout+Builder.swift */; };
 		CE431526295E08F4000F7FA2 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */; };
 		CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE86C5522235AE23008A5B73 /* Assets.xcassets */; };
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
@@ -37,7 +34,7 @@
 		CEB77943295E503F00D7BF35 /* NewLanguageScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */; };
 		CEB77945295E563200D7BF35 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77944295E563200D7BF35 /* UserDefaults+Extensions.swift */; };
 		CEB77947295E59E800D7BF35 /* EmojiChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77946295E59E800D7BF35 /* EmojiChooser.swift */; };
-		CEB92EDB29449686000D26A3 /* HomeScreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */; };
+		CEB7794E295ED80000D7BF35 /* WaterfallTrueCompositionalLayout in Frameworks */ = {isa = PBXBuildFile; productRef = CEB7794D295ED80000D7BF35 /* WaterfallTrueCompositionalLayout */; };
 		CECD6342235E54350060911F /* pp.html in Resources */ = {isa = PBXBuildFile; fileRef = CECD6344235E54350060911F /* pp.html */; };
 		CEE4988828F572E200B64FCF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CEE4988728F572E200B64FCF /* README.md */; };
 		CEF0605329510A27001D2CEA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0604E29510A26001D2CEA /* HomeViewController.swift */; };
@@ -90,9 +87,6 @@
 		CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CE31ED76290AC49F00AD3300 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordDelegate.swift; sourceTree = "<group>"; };
-		CE43151F295E0621000F7FA2 /* WaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallLayout.swift; sourceTree = "<group>"; };
-		CE431521295E06CB000F7FA2 /* WaterfallLayout+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaterfallLayout+Config.swift"; sourceTree = "<group>"; };
-		CE431523295E0707000F7FA2 /* WaterfallLayout+Builder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WaterfallLayout+Builder.swift"; sourceTree = "<group>"; };
 		CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		CE86C5482235AE20008A5B73 /* VocabularyTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE86C5522235AE23008A5B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,7 +103,6 @@
 		CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLanguageScreenProtocol.swift; sourceTree = "<group>"; };
 		CEB77944295E563200D7BF35 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		CEB77946295E59E800D7BF35 /* EmojiChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiChooser.swift; sourceTree = "<group>"; };
-		CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenCell.swift; sourceTree = "<group>"; };
 		CECD6343235E54350060911F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/pp.html; sourceTree = "<group>"; };
 		CECD6346235E54420060911F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/pp.html; sourceTree = "<group>"; };
 		CEE4988728F572E200B64FCF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -127,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEB7794E295ED80000D7BF35 /* WaterfallTrueCompositionalLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,17 +207,6 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		CE43151E295E05F3000F7FA2 /* CollectionView Layout */ = {
-			isa = PBXGroup;
-			children = (
-				CE43151F295E0621000F7FA2 /* WaterfallLayout.swift */,
-				CE431521295E06CB000F7FA2 /* WaterfallLayout+Config.swift */,
-				CE431523295E0707000F7FA2 /* WaterfallLayout+Builder.swift */,
-				CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */,
-			);
-			path = "CollectionView Layout";
-			sourceTree = "<group>";
-		};
 		CE86C53F2235AE20008A5B73 = {
 			isa = PBXGroup;
 			children = (
@@ -299,8 +282,7 @@
 		E37D1706261BCC22006C1F71 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
-				CEB92EDA29449686000D26A3 /* HomeScreenCell.swift */,
-				CE43151E295E05F3000F7FA2 /* CollectionView Layout */,
+				CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */,
 				CEF0604E29510A26001D2CEA /* HomeViewController.swift */,
 				CEF0604F29510A26001D2CEA /* HomeViewModel.swift */,
 				CEF0605729510CD3001D2CEA /* HomeLanguageHeaderView.swift */,
@@ -328,6 +310,9 @@
 			dependencies = (
 			);
 			name = VocabularyTrainer;
+			packageProductDependencies = (
+				CEB7794D295ED80000D7BF35 /* WaterfallTrueCompositionalLayout */,
+			);
 			productName = VocabularyTrainer;
 			productReference = CE86C5482235AE20008A5B73 /* VocabularyTrainer.app */;
 			productType = "com.apple.product-type.application";
@@ -407,6 +392,9 @@
 				hi,
 			);
 			mainGroup = CE86C53F2235AE20008A5B73;
+			packageReferences = (
+				CEB7794C295ED80000D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */,
+			);
 			productRefGroup = CE86C5492235AE20008A5B73 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -491,15 +479,11 @@
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
 				CEF0605329510A27001D2CEA /* HomeViewController.swift in Sources */,
 				CEB77943295E503F00D7BF35 /* NewLanguageScreenProtocol.swift in Sources */,
-				CE431522295E06CB000F7FA2 /* WaterfallLayout+Config.swift in Sources */,
-				CE431520295E0621000F7FA2 /* WaterfallLayout.swift in Sources */,
-				CE431524295E0707000F7FA2 /* WaterfallLayout+Builder.swift in Sources */,
 				CEB77947295E59E800D7BF35 /* EmojiChooser.swift in Sources */,
 				B3E5421D294FB17A0015FD9C /* ModalCloseButton.swift in Sources */,
 				B38C29D8294D578C006FCDEA /* UILabel+Extensions.swift in Sources */,
 				CEB77945295E563200D7BF35 /* UserDefaults+Extensions.swift in Sources */,
 				CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */,
-				CEB92EDB29449686000D26A3 /* HomeScreenCell.swift in Sources */,
 				18943A0A29094F470017E1A2 /* LanguageScreenViewController.swift in Sources */,
 				28716F4F290EF54B00EACCA1 /* StoryBoarded.swift in Sources */,
 				CE86C5822235C971008A5B73 /* Helper.swift in Sources */,
@@ -858,6 +842,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CEB7794C295ED80000D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:misteu/WaterfallTrueCompositionalLayout.git";
+			requirement = {
+				branch = "feature/fix-typo";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CEB7794D295ED80000D7BF35 /* WaterfallTrueCompositionalLayout */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CEB7794C295ED80000D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */;
+			productName = WaterfallTrueCompositionalLayout;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE86C5402235AE20008A5B73 /* Project object */;
 }

@@ -12,6 +12,7 @@ import UIKit
 class HomeViewController: UIViewController {
 
     typealias Colors = HomeViewModel.Colors
+    typealias Strings = HomeViewModel.Strings
 
     // MARK: - Private
 
@@ -37,11 +38,9 @@ class HomeViewController: UIViewController {
     }()
 
     lazy var datasource: UICollectionViewDiffableDataSource<Int, LanguageCellViewModel> = { [weak self] in
-
         let cellConfig = UICollectionView.CellRegistration<CollectionViewCell, LanguageCellViewModel> { cell, _, item in
             cell.configure(with: item)
         }
-
         let datasource = UICollectionViewDiffableDataSource<Int, LanguageCellViewModel>(collectionView: collectionView) { collectionView, indexPath, model in
             let configType = cellConfig
             return collectionView.dequeueConfiguredReusableCell(using: configType,
@@ -53,6 +52,18 @@ class HomeViewController: UIViewController {
     
     /// Width of leading and trailing margins around `collectionView`.
     private let horizontalCollectionViewMargins: CGFloat = 24
+
+    /// Colored Flippy logo shown at the leading side of the home screen's navbar.
+    private let navbarLogo: UIBarButtonItem = {
+        let label = UILabel()
+        let text = NSMutableAttributedString(
+            string: "Flippy ",
+            attributes: [.foregroundColor: Colors.flippyGreen as Any]
+        )
+        text.append(.init(string: "Learn"))
+        label.attributedText = text
+        return UIBarButtonItem(customView: label)
+    }()
 
     // MARK: - Init
 
@@ -102,24 +113,19 @@ class HomeViewController: UIViewController {
     }
 
     private func setNavigationItem() {
-        let label = UILabel()
-        let text = NSMutableAttributedString(string: "Flippy ",
-                                             attributes: [.foregroundColor: Colors.flippyGreen])
-        text.append(.init(string: "Learn"))
-        label.attributedText = text
-        let leftItem = UIBarButtonItem(customView: label)
-        navigationItem.leftBarButtonItem = leftItem
 
-        let importButton = UIBarButtonItem(customView: labelWithImage(
-            text: "Import",
-            image: UIImage(systemName: "square.and.arrow.down"),
+        navigationItem.leftBarButtonItem = navbarLogo
+
+        let importButton = UIBarButtonItem(customView: iconButton(
+            text: Strings.importButtonTitle,
+            trailingImage: UIImage(systemName: "square.and.arrow.down"),
             tapHandler: { [weak self] in
                 self?.tappedImport()
             }
         ))
-        let exportButton = UIBarButtonItem(customView: labelWithImage(
-            text: "Export",
-            image: UIImage(systemName: "square.and.arrow.up"),
+        let exportButton = UIBarButtonItem(customView: iconButton(
+            text: Strings.exportButtonTitle,
+            trailingImage: UIImage(systemName: "square.and.arrow.up"),
             tapHandler: { [weak self] in
                 self?.tappedExport()
             }
@@ -127,7 +133,7 @@ class HomeViewController: UIViewController {
         navigationItem.rightBarButtonItems = [exportButton, importButton]
     }
 
-    private func labelWithImage(text: String, image: UIImage?, tapHandler: (() -> Void)?) -> UIButton {
+    private func iconButton(text: String, trailingImage image: UIImage?, tapHandler: (() -> Void)?) -> UIButton {
         let label = UILabel()
         let text = NSMutableAttributedString(string: text)
         guard let image = image else { return UIButton() }
@@ -191,8 +197,8 @@ extension HomeViewController: NewLanguageScreenProtocol {
     }
 }
 
-// MARK: - Legacy Import / Export
-// TODO: Move to iCloud Export / Import
+// MARK: - Import / Export
+// TODO: Move to iCloud Export / Import later
 
 extension HomeViewController {
 

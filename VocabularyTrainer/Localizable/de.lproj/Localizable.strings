@@ -65,3 +65,8 @@
 "Please wait..." = "Bitte warten...";
 "Edit word" = "✏️ Wort bearbeiten";
 "Your progress and probability configuration for this word will be saved" = "Ihre Fortschritts- und Wahrscheinlichkeitskonfiguration für dieses Wort wird gespeichert";
+"home_header_title" = "Meine Sprachen";
+"home_practice_button_title" = "Üben";
+"home_edit_button_title" = "Bearbeiten";
+"home_import_button_title" = "Importieren";
+"home_export_button_title" = "Exportieren";

@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "WaterfallTrueCompositionalLayout",
+        "repositoryURL": "git@github.com:misteu/WaterfallTrueCompositionalLayout.git",
+        "state": {
+          "branch": "feature/fix-typo",
+          "revision": "83d662fd6247d2cca781530ff3cb77ad4bc0b641",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

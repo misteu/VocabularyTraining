@@ -64,3 +64,8 @@
 "Please wait..." = "Even wachten...";
 "Edit word" = "✏️ Woord aanpassen";
 "Your progress and probability configuration for this word will be saved" = "Je voortgang en frequentie voor dit woord worden opgeslagen";
+"home_header_title" = "My Languages";
+"home_practice_button_title" = "Practice";
+"home_edit_button_title" = "Edit";
+"home_import_button_title" = "Import";
+"home_export_button_title" = "Export";
