@@ -9,14 +9,17 @@
 import Foundation
 import UIKit
 
-class HomeViewController: UIViewController {
+/// The home screen, showing tiles for each saved language in a waterfall style layout.
+final class HomeViewController: UIViewController {
 
     typealias Colors = HomeViewModel.Colors
     typealias Strings = HomeViewModel.Strings
 
     // MARK: - Private
 
+    /// The view model.
     private let viewModel: HomeViewModel
+    /// The header view shown above `collectionView`.
     private let headerView: HomeLanguageHeaderView
     /// The currently selected index path.
     private var selectedIndexPath: IndexPath? {
@@ -28,7 +31,7 @@ class HomeViewController: UIViewController {
               viewModel.data.indices.contains(selectedIndexPath.row) else { return nil }
         return viewModel.data[selectedIndexPath.row].languageName
     }
-
+    /// The collection view showing all the languages.
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -36,7 +39,7 @@ class HomeViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
-
+    /// Data source of `collectionView`.
     lazy var datasource: UICollectionViewDiffableDataSource<Int, LanguageCellViewModel> = { [weak self] in
         let cellConfig = UICollectionView.CellRegistration<CollectionViewCell, LanguageCellViewModel> { cell, _, item in
             cell.configure(with: item)
@@ -49,10 +52,8 @@ class HomeViewController: UIViewController {
         }
         return datasource
     }()
-    
     /// Width of leading and trailing margins around `collectionView`.
     private let horizontalCollectionViewMargins: CGFloat = 24
-
     /// Colored Flippy logo shown at the leading side of the home screen's navbar.
     private let navbarLogo: UIBarButtonItem = {
         let label = UILabel()
@@ -78,6 +79,13 @@ class HomeViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) { nil }
+
+    // MARK: - View Lifecycle
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        removeNavigationBarBackground()
+    }
 
     // MARK: - Private Methods
 
@@ -112,10 +120,9 @@ class HomeViewController: UIViewController {
         datasource.apply(snap)
     }
 
+    /// Sets `navigationItem` with Flippy logo and import/export buttons.
     private func setNavigationItem() {
-
         navigationItem.leftBarButtonItem = navbarLogo
-
         let importButton = UIBarButtonItem(customView: iconButton(
             text: Strings.importButtonTitle,
             trailingImage: UIImage(systemName: "square.and.arrow.down"),
@@ -133,6 +140,11 @@ class HomeViewController: UIViewController {
         navigationItem.rightBarButtonItems = [exportButton, importButton]
     }
 
+    /// Creates and returns button with trailing image.
+    /// - Parameters:
+    ///   - text: The text to show.
+    ///   - image: The trailing image shown next to the text.
+    ///   - tapHandler: The block, executed when tapping the button.
     private func iconButton(text: String, trailingImage image: UIImage?, tapHandler: (() -> Void)?) -> UIButton {
         let label = UILabel()
         let text = NSMutableAttributedString(string: text)
@@ -150,11 +162,6 @@ class HomeViewController: UIViewController {
         }))
         button.setAttributedTitle(text, for: .normal)
         return button
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        removeNavigationBarBackground()
     }
 }
 

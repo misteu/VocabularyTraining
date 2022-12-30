@@ -9,20 +9,27 @@
 import UIKit
 import WaterfallTrueCompositionalLayout
 
+/// View model for the home screen.
 final class HomeViewModel {
+    /// Coordinator managing the navigation
     var coordinator: MainCoordinator?
 
+    /// The data (language tiles) shown in the home screen's collection view.
     var data: [LanguageCellViewModel] {
         var retVal: [LanguageCellViewModel] = []
         if let languages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
             retVal = languages.map {
                 let languageDict = UserDefaults.standard.dictionary(forKey: $0) as? [String: String]
-                return LanguageCellViewModel(languageName: $0, numberOfWords: languageDict?.count ?? 0)
+                let emoji = UserDefaults.standard.languageEmoji(for: $0) ?? ""
+                return LanguageCellViewModel(languageName: $0,
+                                             numberOfWords: languageDict?.count ?? 0,
+                                             emoji: emoji)
             }
         }
         return retVal
     }
 
+    /// Layout for the collection view on the home screen.
     lazy var layout = UICollectionViewCompositionalLayout { sectionIndex, environment in
         let configuration = WaterfallTrueCompositionalLayout.Configuration(
             columnCount: 2,
@@ -35,7 +42,7 @@ final class HomeViewModel {
                 guard let self = self,
                     self.data.indices.contains(row) else { return .zero }
                 let rowModel = self.data[row]
-                return rowModel.labelsHeight(with: width)
+                return rowModel.requiredCellHeight(with: width)
             }
         )
 
@@ -46,9 +53,13 @@ final class HomeViewModel {
         )
     }
 
+    // MARK: - Init
+
     init(coordinator: MainCoordinator?) {
         self.coordinator = coordinator
     }
+
+    // MARK: - Static Data
 
     enum Strings {
         static let headerTitle = NSLocalizedString("home_header_title", comment: "Title of the header above the language tiles")

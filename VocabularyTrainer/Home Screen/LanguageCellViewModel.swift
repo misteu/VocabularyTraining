@@ -12,10 +12,7 @@ struct LanguageCellViewModel: Hashable {
     let id = UUID()
     let languageName: String
     let numberOfWords: Int
-    // TODO: implement emoji chooser
-    var emoji: String {
-        UserDefaults.standard.languageEmoji(for: languageName) ?? ""
-    }
+    let emoji: String
 
     /// Subtitle containing word counter,
     // TODO: use plural localization
@@ -24,7 +21,9 @@ struct LanguageCellViewModel: Hashable {
                numberOfWords)
     }
 
-    func labelsHeight(with width: CGFloat) -> CGFloat {
+    /// Calculates required height of cell for given `width` based on text to be rendered in the cell.
+    /// - Parameter width: The cell's width.
+    func requiredCellHeight(with width: CGFloat) -> CGFloat {
         let finalWidth = width - Self.Dimensions.imageWidth - 3 * Self.Dimensions.horizontalMargin
         let titleHeight = languageName.height(withConstrainedWidth: finalWidth,
                                               font: .preferredFont(forTextStyle: .headline))
