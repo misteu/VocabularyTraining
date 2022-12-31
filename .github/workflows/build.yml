@@ -22,3 +22,10 @@ jobs:
     - name: Build
       run: |
         set -o pipefail && xcodebuild clean build -project 'VocabularyTrainer.xcodeproj' -scheme 'VocabularyTrainer' -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 13' | xcbeautify
+    - uses: actions/cache@v3
+            name: "Cache: SPM"
+            with:
+              path: ~/Library/Developer/Xcode/DerivedData/VocabularyTrainer*/SourcePackages/
+              key: ${{ runner.os }}-spm-${{ hashFiles('VocabularyTrainer.xcworkspace/xcshareddata/swiftpm/Package.resolved') }}
+              restore-keys: |
+                ${{ runner.os }}-spm-
