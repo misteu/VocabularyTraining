@@ -72,7 +72,6 @@ final class HomeViewController: UIViewController {
         self.headerView = HomeLanguageHeaderView()
         super.init(nibName: nil, bundle: nil)
         headerView.delegate = self
-        collectionView.delegate = self
         setNavigationItem()
         setupView()
     }
@@ -136,28 +135,19 @@ final class HomeViewController: UIViewController {
     }
 }
 
-extension HomeViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(viewModel.data[indexPath.row].languageName)
-    }
-}
-
 // MARK: - HomeLanguageHeaderViewDelegate
 
 extension HomeViewController: HomeLanguageHeaderViewDelegate {
     func tappedAddLanguageButton() {
-        print("tapped add language")
         viewModel.coordinator?.navigateToNewLanguageViewController(newLanguageScreenProtocol: self)
     }
 
     func tappedPracticeButton() {
-        print("tapped practice")
         guard let selectedLanguage = selectedLanguage else { return }
         viewModel.coordinator?.navigateToTrainingViewController(with: selectedLanguage)
     }
 
     func tappedEditButton() {
-        print("tapped edit")
         guard let selectedLanguage = selectedLanguage else { return }
         viewModel.coordinator?.navigateToLanguageScreenViewController(
             selectedLanguage: selectedLanguage,
@@ -170,7 +160,6 @@ extension HomeViewController: HomeLanguageHeaderViewDelegate {
 
 extension HomeViewController: NewLanguageScreenProtocol {
     func updateLanguageTable(language: String) {
-        debugPrint("\(language) added/deleted")
         self.applyCollectionViewChanges()
     }
 }
