@@ -13,23 +13,16 @@ class CollectionViewCell: UICollectionViewCell {
     typealias Dimensions = LanguageCellViewModel.Dimensions
     typealias Colors = LanguageCellViewModel.Colors
 
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = HomeViewModel.Colors.title
-        label.font = .preferredFont(forTextStyle: .headline)
-        label.numberOfLines = 0
-        return label
-    }()
+    private let titleLabel = UILabel.createLabel(
+        font: .preferredFont(forTextStyle: .headline),
+        accessibilityTrait: .header,
+        fontColor: HomeViewModel.Colors.title
+    )
 
-    private let subtitleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = HomeViewModel.Colors.subtitle
-        label.font = .preferredFont(forTextStyle: .body)
-        label.numberOfLines = 0
-        return label
-    }()
+    private let subtitleLabel = UILabel.createLabel(
+        font: .preferredFont(forTextStyle: .body),
+        fontColor: HomeViewModel.Colors.subtitle
+    )
 
     private let labelContainer: UIStackView = {
         let stackView = UIStackView()
@@ -74,7 +67,8 @@ class CollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUp()
+        setUpUI()
+        setUpConstraints()
     }
 
     /// Not supported.
@@ -86,8 +80,7 @@ class CollectionViewCell: UICollectionViewCell {
         emojiLabel.text = item.emoji
     }
 
-    private func setUp() {
-
+    private func setUpUI() {
         backgroundView = background
         selectedBackgroundView = selectedBackground
         contentView.backgroundColor = .clear
@@ -95,16 +88,11 @@ class CollectionViewCell: UICollectionViewCell {
         labelContainer.addArrangedSubview(titleLabel)
         labelContainer.addArrangedSubview(subtitleLabel)
         contentView.addSubview(labelContainer)
-//        contentView.addSubview(imageView)
         contentView.addSubview(emojiLabel)
+    }
 
+    private func setUpConstraints() {
         NSLayoutConstraint.activate([
-//            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Dimensions.horizontalMargin),
-//            imageView.trailingAnchor.constraint(equalTo: labelContainer.leadingAnchor, constant: -Dimensions.horizontalMargin),
-//            imageView.centerYAnchor.constraint(equalTo: labelContainer.centerYAnchor),
-//            imageView.heightAnchor.constraint(equalToConstant: Dimensions.imageWidth),
-//            imageView.widthAnchor.constraint(equalToConstant: Dimensions.imageWidth),
-
             emojiLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Dimensions.horizontalMargin),
             emojiLabel.trailingAnchor.constraint(equalTo: labelContainer.leadingAnchor, constant: -Dimensions.horizontalMargin),
             emojiLabel.centerYAnchor.constraint(equalTo: labelContainer.centerYAnchor),
