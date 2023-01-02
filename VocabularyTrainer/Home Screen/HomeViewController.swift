@@ -2,11 +2,10 @@
 //  HomeViewController.swift
 //  VocabularyTrainer
 //
-//  Created by skrr on 18.12.22.
+//  Created by Michael Steudter on 18.12.22.
 //  Copyright © 2022 mic. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 /// The home screen, showing tiles for each saved language in a waterfall style layout.

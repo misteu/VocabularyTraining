@@ -26,7 +26,12 @@ final class HomeLanguageHeaderView: UIView {
         let button = UIButton(type: .contactAdd)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .label
-        button.addAction(.init(handler: { [weak self] _ in self?.delegate?.tappedAddLanguageButton() }), for: .touchUpInside)
+        button.addAction(
+            .init(handler: { [weak self] _ in
+                self?.delegate?.tappedAddLanguageButton()
+            }),
+            for: .touchUpInside
+        )
         return button
     }()
     /// Button for starting practicing mode.
@@ -64,21 +69,23 @@ final class HomeLanguageHeaderView: UIView {
 
     init() {
         super.init(frame: .zero)
-        setupView()
+        setupUI()
+        setupConstraints()
     }
 
     required init?(coder: NSCoder) { nil }
 
     // MARK: - Setup
 
-    private func setupView() {
+    private func setupUI() {
         titleLabel.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
         titleLabel.text = Strings.headerTitle
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         translatesAutoresizingMaskIntoConstraints = false
-
         addSubviews([titleLabel, addLanguageButton, buttonStackView])
+    }
 
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
