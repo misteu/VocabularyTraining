@@ -122,46 +122,17 @@ final class HomeViewController: UIViewController {
     /// Sets `navigationItem` with Flippy logo and import/export buttons.
     private func setNavigationItem() {
         navigationItem.leftBarButtonItem = navbarLogo
-        let importButton = UIBarButtonItem(customView: iconButton(
-            text: Strings.importButtonTitle,
-            trailingImage: UIImage(systemName: "square.and.arrow.down"),
-            tapHandler: { [weak self] in
+        let importButton = UIBarButtonItem(
+            customView: UIButton.iconButton(type: .importButton) { [weak self] in
                 self?.tappedImport()
             }
-        ))
-        let exportButton = UIBarButtonItem(customView: iconButton(
-            text: Strings.exportButtonTitle,
-            trailingImage: UIImage(systemName: "square.and.arrow.up"),
-            tapHandler: { [weak self] in
+        )
+        let exportButton = UIBarButtonItem(
+            customView: UIButton.iconButton(type: .exportButton) { [weak self] in
                 self?.tappedExport()
             }
-        ))
+        )
         navigationItem.rightBarButtonItems = [exportButton, importButton]
-    }
-
-    /// Creates and returns button with trailing image.
-    /// - Parameters:
-    ///   - text: The text to show.
-    ///   - image: The trailing image shown next to the text.
-    ///   - tapHandler: The block, executed when tapping the button.
-    private func iconButton(text: String, trailingImage image: UIImage?, tapHandler: (() -> Void)?) -> UIButton {
-        let label = UILabel()
-        let text = NSMutableAttributedString(string: text)
-        guard let image = image else { return UIButton() }
-        let attachment = NSTextAttachment(image: image)
-        let padding = NSTextAttachment()
-        padding.bounds = .init(origin: .zero, size: .init(width: 4, height: 0))
-        text.append(.init(attachment: padding))
-        text.append(.init(attachment: attachment))
-        label.attributedText = text
-        let button = UIButton(
-            type: .system,
-            primaryAction: .init(handler: { _ in
-            tapHandler?()
-        }))
-        button.setAttributedTitle(text, for: .normal)
-        button.setTitleColor(.label, for: .normal)
-        return button
     }
 }
 

@@ -27,6 +27,7 @@
 		CE31ED77290AC49F00AD3300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED76290AC49F00AD3300 /* AppDelegate.swift */; };
 		CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */; };
 		CE431526295E08F4000F7FA2 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */; };
+		CE49D67E2963440300A8DDEB /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE49D67D2963440300A8DDEB /* UIButton+Extensions.swift */; };
 		CE86C5532235AE23008A5B73 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE86C5522235AE23008A5B73 /* Assets.xcassets */; };
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
 		CE86C56C2235AE23008A5B73 /* VocabularyTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */; };
@@ -88,6 +89,7 @@
 		CE31ED76290AC49F00AD3300 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordDelegate.swift; sourceTree = "<group>"; };
 		CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		CE49D67D2963440300A8DDEB /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
 		CE86C5482235AE20008A5B73 /* VocabularyTrainer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VocabularyTrainer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE86C5522235AE23008A5B73 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE86C5572235AE23008A5B73 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				B3E5421F294FC3290015FD9C /* UIView+Extensions.swift */,
 				B3E54223294FDBA60015FD9C /* UIAccessibility+Extensions.swift */,
 				CEB77944295E563200D7BF35 /* UserDefaults+Extensions.swift */,
+				CE49D67D2963440300A8DDEB /* UIButton+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 				B3E54224294FDBA60015FD9C /* UIAccessibility+Extensions.swift in Sources */,
 				CEF0605629510A27001D2CEA /* LanguageImport.swift in Sources */,
 				B3E54220294FC3290015FD9C /* UIView+Extensions.swift in Sources */,
+				CE49D67E2963440300A8DDEB /* UIButton+Extensions.swift in Sources */,
 				CE31ED77290AC49F00AD3300 /* AppDelegate.swift in Sources */,
 				CEF0605429510A27001D2CEA /* HomeViewModel.swift in Sources */,
 				B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */,
