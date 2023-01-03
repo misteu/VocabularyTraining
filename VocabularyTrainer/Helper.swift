@@ -9,10 +9,6 @@
 import Foundation
 import UIKit
 
-enum UserDefaultKeys {
-  static let languages = "languages"
-}
-
 enum CellIdentifier {
   static let vocabularyCell = "vocabularyCell"
 }
@@ -104,8 +100,7 @@ class ExportImport {
     var vocabProgr: [String: Float]
     var vocabularies = [(String, String, Float)]()
 	var datesAdded = [String: Date]()
-    
-    // FIXME: crappy spaghetti code copied from language Screen VC
+
     if let vocab = UserDefaults.standard.dictionary(forKey: language) as? [String: String] {
       vocabDict = vocab
     } else {

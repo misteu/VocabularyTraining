@@ -65,4 +65,8 @@
 "Your progress and probability configuration for this word will be saved" = "इस शब्द के लिए आपकी प्रगति और profile configuration सहेजा जाएगा";
 "That's wrong 😕" = "यह गलत है 😕";
 "That's right! 🤠" = "यह सही है! 🤠";
-"Import" = "Import";
+"home_header_title" = "My Languages";
+"home_practice_button_title" = "Practice";
+"home_edit_button_title" = "Edit";
+"home_import_button_title" = "Import";
+"home_export_button_title" = "Export";

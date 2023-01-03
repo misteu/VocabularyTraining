@@ -233,7 +233,7 @@ final class AddNewWordViewController: UIViewController {
     }
     
     func showAlert() {
-        var alertTitle = String.localizedStringWithFormat(NSLocalizedString("The word %@ already exists. Adding the new pair will overwrite the old pair of words.",
+        let alertTitle = String.localizedStringWithFormat(NSLocalizedString("The word %@ already exists. Adding the new pair will overwrite the old pair of words.",
                                                                             comment: "The word %@ already exists. Adding the new pair will overwrite the old pair of words."), newWordTextField.text ?? "")
         
         let duplicateWordAlert = UIAlertController(title: "Duplicate Word Detected", message: alertTitle, preferredStyle: .alert)
