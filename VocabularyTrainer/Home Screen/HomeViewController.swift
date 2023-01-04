@@ -65,11 +65,15 @@ final class HomeViewController: UIViewController {
         return UIBarButtonItem(customView: label)
     }()
     /// Button for opening the about page of the app.
-    private let aboutButton: UIButton = {
-        UIButton.aboutButton {
-            print("hello")
+    private lazy var aboutButton: UIButton = {
+        UIButton.aboutButton { [weak self] in
+            guard let self = self else { return }
+            let navigationController = UINavigationController(rootViewController: self.aboutViewController)
+            self.present(navigationController, animated: true, completion: nil)
         }
     }()
+
+    let aboutViewController = AboutViewController()
 
     // MARK: - Init
 
