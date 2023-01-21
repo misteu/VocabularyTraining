@@ -78,7 +78,6 @@ final class AboutViewController: UIViewController {
     private let bottomView: UIView = {
         let view = UIView()
         view.backgroundColor = HomeViewModel.Colors.flippyGreen
-        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
@@ -106,11 +105,7 @@ final class AboutViewController: UIViewController {
         title = Strings.title
         view.backgroundColor = .systemBackground
         navigationItem.leftBarButtonItem = closeButton
-        webView.translatesAutoresizingMaskIntoConstraints = false
-
-        view.addSubview(webView)
-        view.addSubview(versionLabel)
-        view.addSubview(bottomView)
+        view.addSubviews([webView, versionLabel, bottomView])
     }
 
     private func setupConstraints() {
