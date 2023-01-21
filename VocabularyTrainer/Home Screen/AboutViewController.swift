@@ -14,7 +14,18 @@ final class AboutViewController: UIViewController {
     /// The webview showing the html.
     private let webView = WKWebView(frame: .zero)
     /// The loading alert.
-    private var loadingController: UIAlertController?
+    private var loadingAlert: UIAlertController = {
+        let alertController = UIAlertController(title: nil,
+                                                message: Strings.pleaseWaitTitle,
+                                                preferredStyle: .alert)
+        alertController.view.tintColor = .black
+        let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.style = .medium
+        loadingIndicator.startAnimating()
+        alertController.view.addSubview(loadingIndicator)
+        return alertController
+    }()
     /// The string added to the html's url to get the correct PP for the user's locale.
     private var langCodeString: String {
         var langString = "en"
@@ -56,13 +67,10 @@ final class AboutViewController: UIViewController {
 
     /// Label showing the version number of the app.
     private let versionLabel: UILabel = {
-        let label = UILabel()
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        label.text = "FlippyLearn Version: \(appVersion ?? "unknown")"
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .center
+        let text = "FlippyLearn Version: \(appVersion ?? "unknown")"
+        let label = UILabel.createLabel(text: text, fontColor: UIColor.black, textAlignment: .center)
         label.backgroundColor = HomeViewModel.Colors.flippyGreen
-        label.textColor = .black
         return label
     }()
 
@@ -139,21 +147,9 @@ final class AboutViewController: UIViewController {
         webView.loadHTMLString(html, baseURL: nil)
     }
 
-    /// Creates and shows loading alert.
+    /// Shows loading alert.
     private func showLoadingIndicator() {
-        loadingController = UIAlertController(title: nil,
-                                              message: Strings.pleaseWaitTitle,
-                                              preferredStyle: .alert)
-        if let loadingController = loadingController {
-            loadingController.view.tintColor = .black
-            let loadingIndicator: UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50)) as UIActivityIndicatorView
-            loadingIndicator.hidesWhenStopped = true
-            loadingIndicator.style = .medium
-            loadingIndicator.startAnimating()
-
-            loadingController.view.addSubview(loadingIndicator)
-            present(loadingController, animated: true, completion: nil)
-        }
+        present(loadingAlert, animated: true, completion: nil)
     }
 }
 
@@ -161,7 +157,9 @@ final class AboutViewController: UIViewController {
 
 extension AboutViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-        dismiss(animated: true)
+        if presentedViewController === loadingAlert {
+            dismiss(animated: true)
+        }
         navigationItem.leftBarButtonItem = webView.url?.absoluteString == urlString ? closeButton : backButton
     }
 

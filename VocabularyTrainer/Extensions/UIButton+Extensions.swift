@@ -87,10 +87,6 @@ extension UIButton {
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         button.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            button.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
-            button.heightAnchor.constraint(greaterThanOrEqualToConstant: 28)
-        ])
         return button
     }
 }

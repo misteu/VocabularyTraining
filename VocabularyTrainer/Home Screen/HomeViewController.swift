@@ -84,6 +84,8 @@ final class HomeViewController: UIViewController {
         headerView.delegate = self
         setNavigationItem()
         setupView()
+        setConstraints()
+        applyCollectionViewChanges()
     }
 
     required init?(coder: NSCoder) { nil }
@@ -102,9 +104,10 @@ final class HomeViewController: UIViewController {
         view.addSubview(headerView)
         view.addSubview(collectionView)
         view.addSubview(aboutButton)
-
         collectionView.setCollectionViewLayout(viewModel.layout, animated: true)
+    }
 
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalCollectionViewMargins),
             headerView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: Layout.defaultMargin),
@@ -119,8 +122,9 @@ final class HomeViewController: UIViewController {
             aboutButton.leadingAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.leadingAnchor, constant: Layout.defaultMargin),
             aboutButton.trailingAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.trailingAnchor, constant: -Layout.defaultMargin),
             aboutButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -Layout.defaultMargin),
+            aboutButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
+            aboutButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 28)
         ])
-        applyCollectionViewChanges()
     }
 
     /// Applies changes of data source.
