@@ -14,7 +14,7 @@ final class AboutViewController: UIViewController {
     /// The webview showing the html.
     private let webView = WKWebView(frame: .zero)
     /// The loading alert.
-    private var loadingAlert: UIAlertController = {
+    private let loadingAlert: UIAlertController = {
         let alertController = UIAlertController(title: nil,
                                                 message: Strings.pleaseWaitTitle,
                                                 preferredStyle: .alert)
