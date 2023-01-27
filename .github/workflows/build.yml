@@ -14,10 +14,11 @@ jobs:
     name: Build
     runs-on: macos-12
     steps:
-    - name: Reconfigure git to use HTTP authentication
-      run: >
-          git config --global url."https://github.com/".insteadOf
-          ssh://git@github.com/
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        known_hosts: ${{ secrets.KNOWN_HOSTS }}
     - name: Checkout
       uses: actions/checkout@v3
     - name: Install xcbeautify
