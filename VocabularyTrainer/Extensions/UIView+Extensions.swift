@@ -10,7 +10,10 @@ import UIKit
 
 extension UIView {
     func addSubviews(_ subviews: [UIView]) {
-        subviews.forEach { addSubview($0) }
+        subviews.forEach {
+            addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
     }
 
     func shake(duration: TimeInterval = 0.5, xValue: CGFloat = 12, yValue: CGFloat = 0) {

@@ -66,4 +66,27 @@ extension UIButton {
     static func iconButton(type: IconType, tapHandler: (() -> Void)?) -> UIButton {
         iconButton(text: type.text, trailingImage: type.image, tapHandler: tapHandler)
     }
+
+    /// Creates and returns about button for the home screen.
+    /// - Parameter tapHandler: The block executed when tapping the button.
+    static func aboutButton(tapHandler: (() -> Void)?) -> UIButton {
+        let font = UIFontMetrics(forTextStyle: .body)
+            .scaledFont(for: .systemFont(ofSize: 12, weight: .semibold))
+        let title = NSMutableAttributedString(string: "About ", attributes: [.font: font])
+        let highlightColor = HomeViewModel.Colors.flippyGreen ?? .systemGreen
+        title.append(NSAttributedString(string: "Flippy",
+                                        attributes: [.foregroundColor: highlightColor,
+                                                     .font: font]))
+        let button = UIButton(type: .system, primaryAction: .init(handler: { _ in
+            tapHandler?()
+        }))
+        button.setAttributedTitle(title, for: .normal)
+        button.setTitleColor(.label, for: .normal)
+        button.layer.borderColor = highlightColor.cgColor
+        button.layer.cornerCurve = .continuous
+        button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
 }

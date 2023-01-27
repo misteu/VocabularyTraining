@@ -32,6 +32,7 @@
 		CE86C5612235AE23008A5B73 /* VocabularyTrainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5602235AE23008A5B73 /* VocabularyTrainerTests.swift */; };
 		CE86C56C2235AE23008A5B73 /* VocabularyTrainerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C56B2235AE23008A5B73 /* VocabularyTrainerUITests.swift */; };
 		CE86C5822235C971008A5B73 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE86C5812235C971008A5B73 /* Helper.swift */; };
+		CEA8BCC52966108D00E2EAF9 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */; };
 		CEB77943295E503F00D7BF35 /* NewLanguageScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */; };
 		CEB77945295E563200D7BF35 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77944295E563200D7BF35 /* UserDefaults+Extensions.swift */; };
 		CEB77947295E59E800D7BF35 /* EmojiChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77946295E59E800D7BF35 /* EmojiChooser.swift */; };
@@ -102,6 +103,7 @@
 		CE86C5812235C971008A5B73 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		CE92ABF928E97C5600FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = nl; path = nl.lproj/pp.html; sourceTree = "<group>"; };
 		CE92ABFA28E97CAF00FE2EBC /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLanguageScreenProtocol.swift; sourceTree = "<group>"; };
 		CEB77944295E563200D7BF35 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
 		CEB77946295E59E800D7BF35 /* EmojiChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiChooser.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				CEF0605029510A26001D2CEA /* LanguageCellViewModel.swift */,
 				CEF0605129510A27001D2CEA /* LanguageImport.swift */,
 				CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */,
+				CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -483,6 +486,7 @@
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
 				CEF0605329510A27001D2CEA /* HomeViewController.swift in Sources */,
 				CEB77943295E503F00D7BF35 /* NewLanguageScreenProtocol.swift in Sources */,
+				CEA8BCC52966108D00E2EAF9 /* AboutViewController.swift in Sources */,
 				CEB77947295E59E800D7BF35 /* EmojiChooser.swift in Sources */,
 				B3E5421D294FB17A0015FD9C /* ModalCloseButton.swift in Sources */,
 				B38C29D8294D578C006FCDEA /* UILabel+Extensions.swift in Sources */,

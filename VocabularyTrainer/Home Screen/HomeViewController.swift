@@ -64,6 +64,16 @@ final class HomeViewController: UIViewController {
         label.attributedText = text
         return UIBarButtonItem(customView: label)
     }()
+    /// Button for opening the about page of the app.
+    private lazy var aboutButton: UIButton = {
+        UIButton.aboutButton { [weak self] in
+            guard let self = self else { return }
+            let navigationController = UINavigationController(rootViewController: self.aboutViewController)
+            self.present(navigationController, animated: true, completion: nil)
+        }
+    }()
+
+    let aboutViewController = AboutViewController()
 
     // MARK: - Init
 
@@ -74,6 +84,8 @@ final class HomeViewController: UIViewController {
         headerView.delegate = self
         setNavigationItem()
         setupView()
+        setConstraints()
+        applyCollectionViewChanges()
     }
 
     required init?(coder: NSCoder) { nil }
@@ -89,11 +101,13 @@ final class HomeViewController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = HomeViewModel.Colors.background
-        view.addSubview(collectionView)
         view.addSubview(headerView)
-
+        view.addSubview(collectionView)
+        view.addSubview(aboutButton)
         collectionView.setCollectionViewLayout(viewModel.layout, animated: true)
+    }
 
+    private func setConstraints() {
         NSLayoutConstraint.activate([
             headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalCollectionViewMargins),
             headerView.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: Layout.defaultMargin),
@@ -102,9 +116,15 @@ final class HomeViewController: UIViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalCollectionViewMargins),
             collectionView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalCollectionViewMargins),
-            collectionView.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: aboutButton.topAnchor, constant: Layout.defaultMargin * 2),
+
+            aboutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            aboutButton.leadingAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.leadingAnchor, constant: Layout.defaultMargin),
+            aboutButton.trailingAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.trailingAnchor, constant: -Layout.defaultMargin),
+            aboutButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -Layout.defaultMargin),
+            aboutButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
+            aboutButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 28)
         ])
-        applyCollectionViewChanges()
     }
 
     /// Applies changes of data source.
