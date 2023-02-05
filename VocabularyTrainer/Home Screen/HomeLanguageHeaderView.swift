@@ -44,6 +44,7 @@ final class HomeLanguageHeaderView: UIView {
         button.tintColor = Colors.flippyGreen
         button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         button.addAction(.init(handler: { [weak self] _ in self?.delegate?.tappedPracticeButton() }), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     /// Button for editing a language.
@@ -53,6 +54,7 @@ final class HomeLanguageHeaderView: UIView {
         button.setTitle(Strings.editButtonTitle, for: .normal)
         button.tintColor = .label
         button.addAction(.init(handler: { [weak self] _ in self?.delegate?.tappedEditButton() }), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     /// Stack view horizontally aligning `practiceButton` and `editButton`.
@@ -75,6 +77,11 @@ final class HomeLanguageHeaderView: UIView {
 
     required init?(coder: NSCoder) { nil }
 
+    func shouldHideHeaderButtons(_ isHidden: Bool) {
+        practiceButton.isHidden = isHidden
+        editButton.isHidden = isHidden
+    }
+
     // MARK: - Setup
 
     private func setupUI() {
@@ -91,7 +98,7 @@ final class HomeLanguageHeaderView: UIView {
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            addLanguageButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            addLanguageButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             addLanguageButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             addLanguageButton.heightAnchor.constraint(equalToConstant: 44),
             addLanguageButton.widthAnchor.constraint(equalToConstant: 44),

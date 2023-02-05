@@ -74,5 +74,6 @@ final class HomeViewModel {
         static let title = UIColor.label
         static let subtitle = UIColor.secondaryLabel
         static let flippyGreen = UIColor(named: "flippyGreen")
+        static let selectedCell = UIColor(named: "selectedCell")
     }
 }

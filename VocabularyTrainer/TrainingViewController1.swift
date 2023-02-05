@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TrainingViewController: UIViewController {
+class TrainingViewController1: UIViewController {
   
   private let selectedLanguage: String
   var vocabularies: [String: String]?

@@ -87,13 +87,35 @@ final class NewLanguageViewController: UIViewController {
 
     private lazy var randomEmojiLabel: UILabel = {
         let label = UILabel()
+        label.isAccessibilityElement = false
         label.text = randomEmoji
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 30))
+        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 50))
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private let randomEmoji: String = EmojiChooser.choose
+    private lazy var randomButton: UIButton = {
+        let button = UIButton(frame: .zero,
+                              primaryAction: .init(handler: { [weak self] _ in
+            self?.randomizeEmoji()
+        }))
+        button.backgroundColor = .systemBackground
+        button.layer.cornerRadius =  10
+        button.clipsToBounds = true
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .small)
+        button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
+        button.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
+        button.tintColor = .systemGray
+        button.isAccessibilityElement = false
+        return button
+    }()
+
+    private var randomEmoji: String = EmojiChooser.choose
+
+    private func randomizeEmoji() {
+        randomEmoji = EmojiChooser.choose
+        randomEmojiLabel.text = randomEmoji
+    }
     
     // MARK: - Init
 
@@ -121,7 +143,8 @@ final class NewLanguageViewController: UIViewController {
                           textField,
                           feedbackLabel,
                           addButton,
-                          randomEmojiLabel])
+                          randomEmojiLabel,
+                          randomButton])
         setUpConstraints()
     }
 
@@ -140,7 +163,12 @@ final class NewLanguageViewController: UIViewController {
             randomEmojiLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             randomEmojiLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-            languageLabel.topAnchor.constraint(equalTo: randomEmojiLabel.bottomAnchor, constant: 24),
+            randomButton.topAnchor.constraint(equalTo: randomEmojiLabel.bottomAnchor, constant: -20),
+            randomButton.leadingAnchor.constraint(equalTo: randomEmojiLabel.trailingAnchor, constant: -15),
+            randomButton.heightAnchor.constraint(equalToConstant: 28),
+            randomButton.widthAnchor.constraint(equalToConstant: 28),
+
+            languageLabel.topAnchor.constraint(equalTo: randomButton.bottomAnchor, constant: 24),
             languageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             languageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 

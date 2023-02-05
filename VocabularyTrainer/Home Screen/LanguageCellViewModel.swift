@@ -48,7 +48,7 @@ extension LanguageCellViewModel {
     enum Strings {
         static let numberOfWordsTitle = NSLocalizedString(
             "homescreen_language_subtitle",
-            value: "Words: %i",
+            value: "%i words",
             comment: "Subtitle of a cell on the home screen showing the word count of a language."
         )
     }

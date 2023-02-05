@@ -36,6 +36,7 @@ final class HomeViewController: UIViewController {
         collectionView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         collectionView.backgroundColor = HomeViewModel.Colors.background
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.delegate = self
         return collectionView
     }()
     /// Data source of `collectionView`.
@@ -52,7 +53,7 @@ final class HomeViewController: UIViewController {
         return datasource
     }()
     /// Width of leading and trailing margins around `collectionView`.
-    private let horizontalCollectionViewMargins: CGFloat = 24
+    private let horizontalCollectionViewMargins: CGFloat = 16
     /// Colored Flippy logo shown at the leading side of the home screen's navbar.
     private let navbarLogo: UIBarButtonItem = {
         let label = UILabel()
@@ -181,6 +182,13 @@ extension HomeViewController: HomeLanguageHeaderViewDelegate {
 extension HomeViewController: NewLanguageScreenProtocol {
     func updateLanguageTable(language: String) {
         self.applyCollectionViewChanges()
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        headerView.shouldHideHeaderButtons(false)
     }
 }
 
