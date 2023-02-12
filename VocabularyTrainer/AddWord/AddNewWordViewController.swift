@@ -35,31 +35,17 @@ final class AddNewWordViewController: UIViewController {
         return label
     }()
     
-    private lazy var newWordTextField: UITextField = {
-        let textField = UITextField()
+    private lazy var newWordTextField: TextField = {
+        let textField = TextField()
         textField.placeholder = NSLocalizedString("New word", comment: "new word")
-        textField.font = UIFont.systemFont(ofSize: 32)
-        textField.backgroundColor = .white
-        textField.layer.cornerRadius = 5.0
-        textField.layer.sublayerTransform = CATransform3DMakeTranslation(8, 0, 0)
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
-    private lazy var translationTextField: UITextField = {
-        let textField = UITextField()
+    private lazy var translationTextField: TextField = {
+        let textField = TextField()
         textField.placeholder = NSLocalizedString("translation", comment: "translation")
-        textField.font = UIFont.systemFont(ofSize: 32)
-        textField.backgroundColor = .white
-        textField.layer.cornerRadius = 5.0
-        textField.layer.sublayerTransform = CATransform3DMakeTranslation(8, 0, 0)
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
         textField.addTarget(self, action: #selector(textFieldChanged), for: .editingChanged)
-        textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
