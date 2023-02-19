@@ -24,13 +24,13 @@ class TrainingViewController: UIViewController {
   var takeALookButton = UIButton()
 
   var currentVocabulary = UILabel()
-  var answerInput = UITextField()
+  var answerInput = TextField()
   var currentTrainingHeader = UILabel()
 
   let checkLookStackView = UIStackView()
   let rightWrongStackView = UIStackView()
 
-  let defaultInputBackground = UIColor.systemBackground.withAlphaComponent(0.5)
+    let defaultInputBackground = TextField.defaultBackground
 
   // MARK: - Init
 
@@ -93,25 +93,26 @@ class TrainingViewController: UIViewController {
       currentTrainingHeader.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
       currentTrainingHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 
-      currentVocabulary.topAnchor.constraint(equalTo: currentTrainingHeader.bottomAnchor, constant: 16),
-      currentVocabulary.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      currentVocabulary.topAnchor.constraint(equalTo: currentTrainingHeader.bottomAnchor, constant: Layout.defaultMargin),
+      currentVocabulary.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: Layout.defaultMargin),
+      currentVocabulary.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -Layout.defaultMargin),
 
-      answerInput.topAnchor.constraint(equalTo: currentVocabulary.bottomAnchor, constant: 16),
-      answerInput.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
-      answerInput.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
+      answerInput.topAnchor.constraint(equalTo: currentVocabulary.bottomAnchor, constant: Layout.defaultMargin),
+      answerInput.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: Layout.defaultMargin),
+      answerInput.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -Layout.defaultMargin),
 
-      checkLookStackView.topAnchor.constraint(equalTo: answerInput.bottomAnchor, constant: 16),
-      checkLookStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
-      checkLookStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
+      checkLookStackView.topAnchor.constraint(equalTo: answerInput.bottomAnchor, constant: Layout.defaultMargin),
+      checkLookStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: Layout.defaultMargin),
+      checkLookStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -Layout.defaultMargin),
 
-      rightWrongStackView.topAnchor.constraint(equalTo: answerInput.bottomAnchor, constant: 16),
-      rightWrongStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
-      rightWrongStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
+      rightWrongStackView.topAnchor.constraint(equalTo: answerInput.bottomAnchor, constant: Layout.defaultMargin),
+      rightWrongStackView.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: Layout.defaultMargin),
+      rightWrongStackView.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -Layout.defaultMargin),
 
-      nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -32),
-      nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 44),
-      nextButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: 16),
-      nextButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -16),
+      nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -2 * Layout.defaultMargin),
+      nextButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
+      nextButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor, constant: Layout.defaultMargin),
+      nextButton.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: -Layout.defaultMargin),
 
       wrongAnswerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
       rightAnswerButton.heightAnchor.constraint(greaterThanOrEqualToConstant: Layout.defaultButtonHeight),
@@ -129,9 +130,12 @@ class TrainingViewController: UIViewController {
   private func setup() {
 
     currentVocabulary.font = .preferredFont(forTextStyle: .title1)
+      currentVocabulary.textAlignment = .center
+      currentVocabulary.numberOfLines = 0
     setGradientBackground(view: view)
     currentTrainingHeader.numberOfLines = 0
     currentTrainingHeader.lineBreakMode = .byWordWrapping
+      currentTrainingHeader.textAlignment = .center
     currentTrainingHeader.text = """
     \(NSLocalizedString("Training:", comment: "Training:"))
     \(selectedLanguage)
@@ -143,9 +147,6 @@ class TrainingViewController: UIViewController {
     self.wrongAnswerButton.isHidden = true
     
     answerInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-    answerInput.backgroundColor = defaultInputBackground
-    answerInput.font = UIFont.preferredFont(forTextStyle: .title1)
-
     hideKeyboardWhenTappedAround()
     localize()
   }
