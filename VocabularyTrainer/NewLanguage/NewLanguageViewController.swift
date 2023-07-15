@@ -99,6 +99,7 @@ final class NewLanguageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        hideKeyboardWhenTappedAround()
     }
 
     // MARK: - Private Methods

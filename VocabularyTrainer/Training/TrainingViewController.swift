@@ -27,6 +27,7 @@ final class TrainingViewController: UIViewController {
       super.init(nibName: nil, bundle: nil)
         setUpUI()
         setUpConstraints()
+        hideKeyboardWhenTappedAround()
     }
 
     required init?(coder: NSCoder) { nil }

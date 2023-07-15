@@ -99,6 +99,8 @@ final class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         removeNavigationBarBackground()
+        selectedLastIndexPath = nil
+        headerView.shouldHideHeaderButtons(true)
     }
 
     // MARK: - Private Methods
@@ -164,11 +166,13 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: HomeLanguageHeaderViewDelegate {
     func tappedAddLanguageButton() {
         viewModel.coordinator?.navigateToNewLanguageViewController(newLanguageScreenProtocol: self)
+        selectedHapticFeedback()
     }
 
     func tappedPracticeButton() {
         guard let selectedLanguage = selectedLanguage else { return }
         viewModel.coordinator?.navigateToTrainingViewController(with: selectedLanguage)
+        selectedHapticFeedback()
     }
 
     func tappedEditButton() {
@@ -179,6 +183,7 @@ extension HomeViewController: HomeLanguageHeaderViewDelegate {
             completion: { [weak self] in
                 self?.applyCollectionViewChanges()
             })
+        selectedHapticFeedback()
     }
 }
 
@@ -199,6 +204,7 @@ extension HomeViewController: UICollectionViewDelegate {
             headerView.shouldHideHeaderButtons(false)
             selectedLastIndexPath = indexPath.row
         }
+        selectedHapticFeedback()
     }
 }
 
@@ -220,9 +226,11 @@ extension HomeViewController {
 
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
+            errorHapticFeedback()
         } else {
             ExportImport.importLanguageFiles(files)
             applyCollectionViewChanges()
+            successHapticFeedback()
         }
     }
 
@@ -232,6 +240,7 @@ extension HomeViewController {
             let words = ExportImport.exportAsCsvToDocuments(language: selectedLanguage)
             let ac = UIActivityViewController(activityItems: [words], applicationActivities: nil)
             present(ac, animated: true)
+            successHapticFeedback()
         } else {
             let alert = UIAlertController(title: NSLocalizedString("No language selected",
                                                                    comment: "Title for popup when no language was selected"),
@@ -239,6 +248,22 @@ extension HomeViewController {
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
+            errorHapticFeedback()
         }
+    }
+
+    private func selectedHapticFeedback() {
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+    }
+
+    private func successHapticFeedback() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+    }
+
+    private func errorHapticFeedback() {
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.error)
     }
 }

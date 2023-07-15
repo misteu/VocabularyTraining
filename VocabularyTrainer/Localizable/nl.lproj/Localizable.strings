@@ -22,7 +22,7 @@
 "0 words" = "0 woorden";
 "My words" = "⚙️ Bewerken";
 "new Word" = "nieuw woord";
-"translation" = "vertaling";
+"translation" = "Vertaling";
 "Training" = "📖 Training";
 "Delete Language" = "🗑 Taal verwijderen";
 "export" = "💾 Taal exporteren";
@@ -43,7 +43,7 @@
 "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder" = "Je kan je taal bestand kopeeren naar je apparaat via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files naar Finder";
 "⤵ import" = "⤋ importeren";
 "↑ export" = "⇪ exporteren";
-"answer" = "antwoord";
+"answer" = "Antwoord";
 "Check" = "Controleer";
 "Take a look" = "Neem een kijkje";
 "Skip word" = "Woord overslaan";

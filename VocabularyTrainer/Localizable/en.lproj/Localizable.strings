@@ -23,7 +23,7 @@
 "0 words" = "0 words";
 "My words" = "⚙️ Edit";
 "new Word" = "new word";
-"translation" = "translation";
+"translation" = "Translation";
 "Training" = "📖 Training";
 "Training" = "Training";
 "Delete Language" = "🗑 Delete Language";
@@ -45,7 +45,7 @@
 "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder" = "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder";
 "⤵ import" = "⤋ import";
 "↑ export" = "⇪ export";
-"answer" = "answer";
+"answer" = "Answer";
 "Check" = "Check";
 "Take a look" = "Take a look";
 "Skip word" = "Skip word";

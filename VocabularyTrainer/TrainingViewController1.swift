@@ -322,7 +322,6 @@ class TrainingViewController1: UIViewController {
   }
 
   func resetAnswerInput() {
-    
     UIView.animate(withDuration: 0.2, animations: {
       self.rightAnswerButton.alpha = 0.0
       self.wrongAnswerButton.alpha = 0.0

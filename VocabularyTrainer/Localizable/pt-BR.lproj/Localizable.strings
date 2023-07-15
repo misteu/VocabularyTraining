@@ -23,7 +23,7 @@
 "0 words" = "0 palavras";
 "My words" = "⚙️ Editar";
 "new Word" = "nova palavra";
-"translation" = "tradução";
+"translation" = "Tradução";
 "Training" = "📖 Treinar";
 "Training" = "Treinando";
 "Delete Language" = "🗑 Excluir idioma";
@@ -45,7 +45,7 @@
 "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder" = "Você pode copiar o arquivo para o seu computador pelo iTunes.\nAcesse: iPhone->Compartilhamento de Arquivos->Flippy->arraste csv-files para o Finder";
 "⤵ import" = "⤋ importar";
 "↑ export" = "⇪ exportar";
-"answer" = "resposta";
+"answer" = "Resposta";
 "Check" = "Confirmar";
 "Take a look" = "Espiar";
 "Skip word" = "Pular palavra";

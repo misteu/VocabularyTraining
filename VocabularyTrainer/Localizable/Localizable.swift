@@ -16,6 +16,8 @@ enum Localizable: String {
     case language
     case languageExists
     case add
+    case translation
+    case answer
 
     func localize() -> String {
         return NSLocalizedString(self.rawValue, comment: "")
