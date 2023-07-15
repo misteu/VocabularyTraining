@@ -84,38 +84,6 @@ final class NewLanguageViewController: UIViewController {
             .filter { $0.lowercased().elementsEqual(newLanguage.lowercased()) }
         return !matches.isEmpty
     }
-
-    private lazy var randomEmojiLabel: UILabel = {
-        let label = UILabel()
-        label.isAccessibilityElement = false
-        label.text = randomEmoji
-        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 50))
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private lazy var randomButton: UIButton = {
-        let button = UIButton(frame: .zero,
-                              primaryAction: .init(handler: { [weak self] _ in
-            self?.randomizeEmoji()
-        }))
-        button.backgroundColor = .systemBackground
-        button.layer.cornerRadius =  10
-        button.clipsToBounds = true
-        let imageConfig = UIImage.SymbolConfiguration(pointSize: 16, weight: .bold, scale: .small)
-        button.setImage(UIImage(systemName: "arrow.triangle.2.circlepath"), for: .normal)
-        button.setPreferredSymbolConfiguration(imageConfig, forImageIn: .normal)
-        button.tintColor = .systemGray
-        button.isAccessibilityElement = false
-        return button
-    }()
-
-    private var randomEmoji: String = EmojiChooser.choose
-
-    private func randomizeEmoji() {
-        randomEmoji = EmojiChooser.choose
-        randomEmojiLabel.text = randomEmoji
-    }
     
     // MARK: - Init
 
@@ -142,9 +110,7 @@ final class NewLanguageViewController: UIViewController {
                           languageLabel,
                           textField,
                           feedbackLabel,
-                          addButton,
-                          randomEmojiLabel,
-                          randomButton])
+                          addButton])
         setUpConstraints()
     }
 
@@ -160,15 +126,7 @@ final class NewLanguageViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
 
-            randomEmojiLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
-            randomEmojiLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-
-            randomButton.topAnchor.constraint(equalTo: randomEmojiLabel.bottomAnchor, constant: -20),
-            randomButton.leadingAnchor.constraint(equalTo: randomEmojiLabel.trailingAnchor, constant: -15),
-            randomButton.heightAnchor.constraint(equalToConstant: 28),
-            randomButton.widthAnchor.constraint(equalToConstant: 28),
-
-            languageLabel.topAnchor.constraint(equalTo: randomButton.bottomAnchor, constant: 24),
+            languageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 24),
             languageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24),
             languageLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
 
@@ -205,8 +163,6 @@ final class NewLanguageViewController: UIViewController {
         } else {
             UserDefaults.standard.set([newLanguage], forKey: UserDefaultKeys.languages)
         }
-        // TODO: set emoji from to be implemented emoji chooser
-        UserDefaults.standard.setLanguageEmoji(for: newLanguage, emoji: randomEmoji)
         successHapticFeedback()
         delegate.updateLanguageTable(language: newLanguage)
         dismissView()

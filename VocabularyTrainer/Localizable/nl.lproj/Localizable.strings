@@ -50,7 +50,7 @@
 "search for words" = "Zoeken naar woorden";
 
 "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Bestaande talen op je apparaat met dezelfde naam als het csv-file worden overschreven.\n Is dit oke?";
-"There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it." = "Geen bestanden met talen gevonden voor deze app.\nOm een template te creeren, kan je een nieuwe taal aanmaken en exporteren.";
+"emptyMessage" = "Geen bestanden met talen gevonden voor deze app.\nOm een template te creeren, kan je een nieuwe taal aanmaken en exporteren.";
 "No language files found" = "Geen taalbestand geselecteerd";
 "👍 I was right" = "👍";
 "👎 I was wrong" = "👎";

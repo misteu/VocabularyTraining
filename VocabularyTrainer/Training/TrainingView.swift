@@ -16,7 +16,7 @@ protocol TrainingViewDelegate: AnyObject {
 
 // MARK: - Training View Class
 
-class TrainingView: UIView {
+final class TrainingView: UIView {
 
     // MARK: - Private properties
 

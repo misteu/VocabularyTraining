@@ -12,7 +12,6 @@ struct LanguageCellViewModel: Hashable {
     let id = UUID()
     let languageName: String
     let numberOfWords: Int
-    let emoji: String
 
     /// Subtitle containing word counter,
     // TODO: use plural localization
@@ -48,7 +47,7 @@ extension LanguageCellViewModel {
     enum Strings {
         static let numberOfWordsTitle = NSLocalizedString(
             "homescreen_language_subtitle",
-            value: "%i words",
+            value: NSLocalizedString("%d words", comment: "%d words"),
             comment: "Subtitle of a cell on the home screen showing the word count of a language."
         )
     }

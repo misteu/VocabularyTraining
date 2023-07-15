@@ -30,6 +30,9 @@ final class HomeViewController: UIViewController {
               viewModel.data.indices.contains(selectedIndexPath.row) else { return nil }
         return viewModel.data[selectedIndexPath.row].languageName
     }
+    /// The last index path selected.
+    private var selectedLastIndexPath: Int?
+
     /// The collection view showing all the languages.
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
@@ -188,7 +191,14 @@ extension HomeViewController: NewLanguageScreenProtocol {
 extension HomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        headerView.shouldHideHeaderButtons(false)
+        if selectedLastIndexPath == indexPath.row {
+            collectionView.deselectItem(at: indexPath, animated: true)
+            headerView.shouldHideHeaderButtons(true)
+            selectedLastIndexPath = nil
+        } else {
+            headerView.shouldHideHeaderButtons(false)
+            selectedLastIndexPath = indexPath.row
+        }
     }
 }
 
@@ -201,9 +211,7 @@ extension HomeViewController {
         guard let files = ExportImport.getAllLanguageFileUrls() else { return }
 
         if files.isEmpty {
-            let message = """
-        There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.
-      """
+            let message = NSLocalizedString("emptyMessage", comment: "emptyMessage")
             let alert = UIAlertController(
                 title: NSLocalizedString("No language files found",
                                          comment: "No language files found"),

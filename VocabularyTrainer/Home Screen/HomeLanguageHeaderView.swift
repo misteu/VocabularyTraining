@@ -104,9 +104,8 @@ final class HomeLanguageHeaderView: UIView {
             addLanguageButton.widthAnchor.constraint(equalToConstant: 44),
 
             buttonStackView.leadingAnchor.constraint(greaterThanOrEqualTo: addLanguageButton.trailingAnchor, constant: Layout.defaultMargin),
-            buttonStackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-            buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            buttonStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            buttonStackView.topAnchor.constraint(greaterThanOrEqualTo: titleLabel.topAnchor, constant: -5),
+            buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

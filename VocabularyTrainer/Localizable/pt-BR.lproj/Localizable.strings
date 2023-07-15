@@ -51,7 +51,7 @@
 "Skip word" = "Pular palavra";
 "search for words" = "buscar palavras";
 "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Os idiomas existentes no seu aparelho caso possuam o mesmo nome que os arquivos csv-file a serem importados serão sobrescritos.\n Você gostaria de continuar?";
-"There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it." = "Não foi encontrado qualquer arquivo de idioma para o seu app.\nPara ter o modelo do arquivo de idioma, você terá que criar um novo idioma com algumas palavras adicionadas dentro do app e exportar.";
+"emptyMessage" = "Não foi encontrado qualquer arquivo de idioma para o seu app.\nPara ter o modelo do arquivo de idioma, você terá que criar um novo idioma com algumas palavras adicionadas dentro do app e exportar.";
 "No language files found" = "Nenhum arquivo de idioma foi encontrado";
 "👍 I was right" = "👍";
 "👎 I was wrong" = "👎";
@@ -67,8 +67,8 @@
 "Your progress and probability configuration for this word will be saved" = "Seu progresso e configuração de probabilidade para essa palavra não será alterado com essa mudança";
 "That's wrong 😕" = "Errado 😕";
 "That's right! 🤠" = "Acertou! 🤠";
-"home_header_title" = "My Languages";
-"home_practice_button_title" = "Practice";
-"home_edit_button_title" = "Edit";
+"home_header_title" = "Meus Idiomas";
+"home_practice_button_title" = "Praticar";
+"home_edit_button_title" = "Editar";
 "home_import_button_title" = "Importar";
-"home_export_button_title" = "Export";
+"home_export_button_title" = "Exportar";

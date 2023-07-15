@@ -22,8 +22,7 @@ final class HomeViewModel {
                 let languageDict = UserDefaults.standard.dictionary(forKey: $0) as? [String: String]
                 let emoji = UserDefaults.standard.languageEmoji(for: $0) ?? ""
                 return LanguageCellViewModel(languageName: $0,
-                                             numberOfWords: languageDict?.count ?? 0,
-                                             emoji: emoji)
+                                             numberOfWords: languageDict?.count ?? 0)
             }
         }
         return retVal

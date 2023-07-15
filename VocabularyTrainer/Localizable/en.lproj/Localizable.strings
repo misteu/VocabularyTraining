@@ -52,7 +52,7 @@
 "search for words" = "search for words";
 
 "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Existing languages on your device with the same name as the csv-file you try to import will be overwritten.\n Do you want to proceed?";
-"There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it." = "There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.";
+"emptyMessage" = "There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.";
 "No language files found" = "No language files found";
 "👍 I was right" = "👍";
 "👎 I was wrong" = "👎";
