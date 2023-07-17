@@ -24,5 +24,6 @@ final class ModalCloseButton: UIButton {
         layer.cornerRadius = 3
         translatesAutoresizingMaskIntoConstraints = false
         accessibilityLabel = Localizable.close.localize()
+        accessibilityTraits = .button
     }
 }

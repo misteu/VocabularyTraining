@@ -44,7 +44,7 @@
 "⤵ import" = "⤋ importeren";
 "↑ export" = "⇪ exporteren";
 "answer" = "Antwoord";
-"Check" = "Controleer";
+"check" = "Controleer";
 "Take a look" = "Neem een kijkje";
 "Skip word" = "Woord overslaan";
 "search for words" = "Zoeken naar woorden";
@@ -69,3 +69,4 @@
 "home_edit_button_title" = "Edit";
 "home_import_button_title" = "Import";
 "home_export_button_title" = "Export";
+"nextWord" = "Volgende woord";

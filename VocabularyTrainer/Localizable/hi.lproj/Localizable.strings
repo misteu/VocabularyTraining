@@ -43,7 +43,7 @@
 "⤵ import" = "⤋ import";
 "↑ export" = "⇪ export";
 "answer" = "उत्तर";
-"Check" = "जांच";
+"check" = "जांच";
 "Take a look" = "एक नज़र डालें";
 "Skip word" = "शब्द छोड़ें";
 "search for words" = "शब्द खोजें";
@@ -66,7 +66,8 @@
 "That's wrong 😕" = "यह गलत है 😕";
 "That's right! 🤠" = "यह सही है! 🤠";
 "home_header_title" = "My Languages";
-"home_practice_button_title" = "Practice";
+"home_practice_button_title" = "प्रशिक्षण";
 "home_edit_button_title" = "Edit";
 "home_import_button_title" = "Import";
 "home_export_button_title" = "Export";
+"nextWord" = "अगला शब्द";

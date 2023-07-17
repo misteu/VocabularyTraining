@@ -75,7 +75,7 @@ final class NewLanguageViewController: UIViewController {
     }()
 
     private var hasDuplicates: Bool {
-        let newLanguage = textField.text ?? ""
+        let newLanguage: String = textField.text ?? .init()
         guard let savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] else {
             return false
         }

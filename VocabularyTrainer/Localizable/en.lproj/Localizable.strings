@@ -46,7 +46,7 @@
 "⤵ import" = "⤋ import";
 "↑ export" = "⇪ export";
 "answer" = "Answer";
-"Check" = "Check";
+"check" = "Check";
 "Take a look" = "Take a look";
 "Skip word" = "Skip word";
 "search for words" = "search for words";
@@ -73,3 +73,4 @@
 "home_edit_button_title" = "Edit";
 "home_import_button_title" = "Import";
 "home_export_button_title" = "Export";
+"nextWord" = "Next word";

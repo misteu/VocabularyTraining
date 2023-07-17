@@ -46,7 +46,7 @@
 "⤵ import" = "⤋ importieren";
 "↑ export" = "⇪ exportieren";
 "answer" = "Antwort";
-"Check" = "Prüfen";
+"check" = "Prüfen";
 "Take a look" = "Umdrehen";
 "Skip word" = "Wort überspringen";
 "search for words" = "Wort suchen";
@@ -70,3 +70,4 @@
 "home_import_button_title" = "Importieren";
 "home_export_button_title" = "Exportieren";
 "emptyMessage" = "Es konnten keine Sprachdateien für die App gefunden werden. Um eine Vorlage für eine Sprachdatei zu erhalten, erstelle eine neue Sprache in der App und exportiere diese.";
+"nextWord" = "Nächstes wort";

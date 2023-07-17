@@ -46,7 +46,7 @@
 "⤵ import" = "⤋ importar";
 "↑ export" = "⇪ exportar";
 "answer" = "Resposta";
-"Check" = "Confirmar";
+"check" = "Confirmar";
 "Take a look" = "Espiar";
 "Skip word" = "Pular palavra";
 "search for words" = "buscar palavras";
@@ -72,3 +72,4 @@
 "home_edit_button_title" = "Editar";
 "home_import_button_title" = "Importar";
 "home_export_button_title" = "Exportar";
+"nextWord" = "Próxima palavra";
