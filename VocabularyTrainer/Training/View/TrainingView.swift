@@ -8,10 +8,9 @@
 
 import UIKit
 
-// MARK: - Protocol
+// MARK: - Delegate
 protocol TrainingViewDelegate: AnyObject {
     func tappedBarButton()
-    func setWordLabel()
 }
 
 // MARK: - Training View Class
@@ -21,6 +20,7 @@ final class TrainingView: UIView {
     // MARK: - Private properties
 
     weak var delegate: TrainingViewDelegate?
+    // MARK: - Private properties
 
     private lazy var vocabularies: [String: String]? = [:]
     private lazy var vocabulariesProgresses: [String: Float]? = [:]
@@ -153,10 +153,8 @@ final class TrainingView: UIView {
 
         guard let vocabs = UserDefaults.standard.dictionary(forKey: selectedLanguage) as? [String: String],
               let progresses = UserDefaults.standard.dictionary(forKey: "\(selectedLanguage)Progress") as? [String: Float]? else {
-            // empty case
             return
         }
-
 
         vocabularies = vocabs
         vocabulariesProgresses = progresses
@@ -164,6 +162,9 @@ final class TrainingView: UIView {
     }
 
     private func setUpTraining() {
+        setUpResetTextField()
+        setUpDisabledCheckButton()
+
         guard let vocabs = vocabularies,
               let progresses = vocabulariesProgresses else { return }
 
@@ -222,16 +223,32 @@ final class TrainingView: UIView {
         UserDefaults.standard.set(progresses, forKey: "\(selectedLanguage)Progress")
     }
 
+    private func setUpResetTextField() {
+        answerTextField.text = .init()
+        answerTextField.borderStyle = .none
+        answerTextField.layer.borderWidth = 0
+    }
+
+    private func setUpDisabledCheckButton() {
+        checkButton.backgroundColor = .systemGray2
+        checkButton.isEnabled = false
+        checkButton.setTitle(Localizable.check.localize(), for: .normal)
+    }
+
+    private func setUpEnabledCheckButton() {
+        checkButton.backgroundColor = UIColor(named: "greenButton")
+        checkButton.isEnabled = true
+        checkButton.setTitle(Localizable.check.localize(), for: .normal)
+    }
+
     @objc
     private func textFieldEvent() {
         guard let text = answerTextField.text else { return }
 
         if text.isEmptyOrWhitespace() {
-            checkButton.backgroundColor = .systemGray2
-            checkButton.isEnabled = false
+            setUpDisabledCheckButton()
         } else {
-            checkButton.backgroundColor = UIColor(named: "greenButton")
-            checkButton.isEnabled = true
+            setUpEnabledCheckButton()
         }
         answerTextField.borderStyle = .none
         answerTextField.layer.borderWidth = 0
@@ -244,6 +261,11 @@ final class TrainingView: UIView {
               let vocabs = vocabularies else {  return }
 
         let solution: String? = isKey ? vocabs[key] : key
+
+        if checkButton.titleLabel?.text != Localizable.check.localize() {
+            setUpTraining()
+            return
+        }
 
         if !usersAnswer.isEmpty,
            usersAnswer.uppercased() == solution?.uppercased() {
@@ -267,7 +289,6 @@ final class TrainingView: UIView {
         })
         answerTextField.text = solution
         checkButton.setTitle(Localizable.nextWord.localize(), for: .normal)
-        debugPrint("AAAAAAA")
     }
 
     private func wrongAnswer(key: String) {

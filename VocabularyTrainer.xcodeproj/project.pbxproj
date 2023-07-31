@@ -17,6 +17,8 @@
 		B38C29D4294D45F1006FCDEA /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C29D3294D45F1006FCDEA /* Localizable.swift */; };
 		B38C29D8294D578C006FCDEA /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C29D7294D578C006FCDEA /* UILabel+Extensions.swift */; };
 		B38C29DA294D68B4006FCDEA /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C29D9294D68B4006FCDEA /* String+Extensions.swift */; };
+		B38FD6BA2A7721DB00DF1043 /* HomeEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38FD6B92A7721DB00DF1043 /* HomeEmptyView.swift */; };
+		B38FD6C42A7740E700DF1043 /* TrainingEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38FD6C32A7740E700DF1043 /* TrainingEmptyView.swift */; };
 		B3E01CED298F260F004D86C1 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E01CEC298F260F004D86C1 /* TrainingView.swift */; };
 		B3E01CEF298F2A7F004D86C1 /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E01CEE298F2A7F004D86C1 /* TrainingViewController.swift */; };
 		B3E5421D294FB17A0015FD9C /* ModalCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E5421C294FB17A0015FD9C /* ModalCloseButton.swift */; };
@@ -78,6 +80,8 @@
 		B38C29D3294D45F1006FCDEA /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		B38C29D7294D578C006FCDEA /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		B38C29D9294D68B4006FCDEA /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		B38FD6B92A7721DB00DF1043 /* HomeEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyView.swift; sourceTree = "<group>"; };
+		B38FD6C32A7740E700DF1043 /* TrainingEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingEmptyView.swift; sourceTree = "<group>"; };
 		B3BBF4422909F64B004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "pt-BR"; path = "pt-BR.lproj/pp.html"; sourceTree = "<group>"; };
 		B3BBF4432909F653004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		B3E01CEC298F260F004D86C1 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
@@ -197,11 +201,72 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		B3E01CEB298F25FF004D86C1 /* Training */ = {
+		B38FD6BB2A77388000DF1043 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */,
+				CEF0605729510CD3001D2CEA /* HomeLanguageHeaderView.swift */,
+				B38FD6B92A7721DB00DF1043 /* HomeEmptyView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B38FD6BC2A77388E00DF1043 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEF0604F29510A26001D2CEA /* HomeViewModel.swift */,
+				CEF0605029510A26001D2CEA /* LanguageCellViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B38FD6BD2A77389A00DF1043 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */,
+				CEF0604E29510A26001D2CEA /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B38FD6BE2A7738AF00DF1043 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEF0605129510A27001D2CEA /* LanguageImport.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B38FD6BF2A7738BD00DF1043 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		B38FD6C02A773AED00DF1043 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				B3E01CEC298F260F004D86C1 /* TrainingView.swift */,
+				B38FD6C32A7740E700DF1043 /* TrainingEmptyView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B38FD6C12A773AF100DF1043 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
 				B3E01CEE298F2A7F004D86C1 /* TrainingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B3E01CEB298F25FF004D86C1 /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				B38FD6C12A773AF100DF1043 /* ViewController */,
+				B38FD6C02A773AED00DF1043 /* View */,
 			);
 			path = Training;
 			sourceTree = "<group>";
@@ -298,14 +363,11 @@
 		E37D1706261BCC22006C1F71 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
-				CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */,
-				CEF0604E29510A26001D2CEA /* HomeViewController.swift */,
-				CEF0604F29510A26001D2CEA /* HomeViewModel.swift */,
-				CEF0605729510CD3001D2CEA /* HomeLanguageHeaderView.swift */,
-				CEF0605029510A26001D2CEA /* LanguageCellViewModel.swift */,
-				CEF0605129510A27001D2CEA /* LanguageImport.swift */,
-				CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */,
-				CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */,
+				B38FD6BF2A7738BD00DF1043 /* Protocol */,
+				B38FD6BE2A7738AF00DF1043 /* Model */,
+				B38FD6BD2A77389A00DF1043 /* ViewController */,
+				B38FD6BC2A77388E00DF1043 /* ViewModel */,
+				B38FD6BB2A77388000DF1043 /* View */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -480,6 +542,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E54224294FDBA60015FD9C /* UIAccessibility+Extensions.swift in Sources */,
+				B38FD6BA2A7721DB00DF1043 /* HomeEmptyView.swift in Sources */,
 				CEF0605629510A27001D2CEA /* LanguageImport.swift in Sources */,
 				B3E54220294FC3290015FD9C /* UIView+Extensions.swift in Sources */,
 				CE49D67E2963440300A8DDEB /* UIButton+Extensions.swift in Sources */,
@@ -493,6 +556,7 @@
 				B38C29DA294D68B4006FCDEA /* String+Extensions.swift in Sources */,
 				CE0012FF2243F21C002F86DE /* UIViewController+Extensions.swift in Sources */,
 				B38C29D4294D45F1006FCDEA /* Localizable.swift in Sources */,
+				B38FD6C42A7740E700DF1043 /* TrainingEmptyView.swift in Sources */,
 				CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */,
 				CE431526295E08F4000F7FA2 /* CollectionViewCell.swift in Sources */,
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,

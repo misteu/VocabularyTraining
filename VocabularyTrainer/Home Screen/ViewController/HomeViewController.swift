@@ -24,6 +24,10 @@ final class HomeViewController: UIViewController {
     private var selectedIndexPath: IndexPath? {
         collectionView.indexPathsForSelectedItems?.first
     }
+    /// If don't find any languages the isEmpty returns true
+    private var isLanguagesEmpty: Bool {
+        viewModel.data.isEmpty
+    }
     /// The currently selected language.
     private var selectedLanguage: String? {
         guard let selectedIndexPath = selectedIndexPath,
@@ -32,7 +36,8 @@ final class HomeViewController: UIViewController {
     }
     /// The last index path selected.
     private var selectedLastIndexPath: Int?
-
+    /// The empty view that will be displayed when there is no language added.
+    private lazy var emptyView: HomeEmptyView = .init()
     /// The collection view showing all the languages.
     private lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: .init())
@@ -86,10 +91,6 @@ final class HomeViewController: UIViewController {
         self.headerView = HomeLanguageHeaderView()
         super.init(nibName: nil, bundle: nil)
         headerView.delegate = self
-        setNavigationItem()
-        setupView()
-        setConstraints()
-        applyCollectionViewChanges()
     }
 
     required init?(coder: NSCoder) { nil }
@@ -103,12 +104,24 @@ final class HomeViewController: UIViewController {
         headerView.shouldHideHeaderButtons(true)
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setNavigationItem()
+        setupView()
+        setConstraints()
+        setEmptyState()
+        applyCollectionViewChanges()
+    }
+
     // MARK: - Private Methods
 
     private func setupView() {
         view.backgroundColor = HomeViewModel.Colors.background
         view.addSubview(headerView)
         view.addSubview(collectionView)
+        if isLanguagesEmpty {
+            view.addSubview(emptyView)
+        }
         view.addSubview(aboutButton)
         collectionView.setCollectionViewLayout(viewModel.layout, animated: true)
     }
@@ -130,6 +143,20 @@ final class HomeViewController: UIViewController {
             aboutButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor, constant: -Layout.defaultMargin),
             aboutButton.widthAnchor.constraint(greaterThanOrEqualToConstant: 110),
             aboutButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 28)
+        ])
+    }
+
+    private func setEmptyState() {
+        guard isLanguagesEmpty else { return }
+
+        if isLanguagesEmpty {
+            emptyView.startAnimation()
+        }
+
+        NSLayoutConstraint.activate([
+            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: horizontalCollectionViewMargins),
+            emptyView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 24),
+            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -horizontalCollectionViewMargins),
         ])
     }
 
@@ -189,7 +216,8 @@ extension HomeViewController: HomeLanguageHeaderViewDelegate {
 
 extension HomeViewController: NewLanguageScreenProtocol {
     func updateLanguageTable(language: String) {
-        self.applyCollectionViewChanges()
+        viewDidLoad()
+        applyCollectionViewChanges()
     }
 }
 

@@ -58,6 +58,12 @@ class MainCoordinator: Coordinator {
     func navigateToTrainingViewController(with language: String) {
         let trainingVC = TrainingViewController(with: language)
         trainingVC.coordinator = self
+        trainingVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            if let sheet = trainingVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+            }
+        }
         navigationController.present(trainingVC, animated: true)
     }
 

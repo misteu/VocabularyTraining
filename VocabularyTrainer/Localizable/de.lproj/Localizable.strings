@@ -71,3 +71,5 @@
 "home_export_button_title" = "Exportieren";
 "emptyMessage" = "Es konnten keine Sprachdateien für die App gefunden werden. Um eine Vorlage für eine Sprachdatei zu erhalten, erstelle eine neue Sprache in der App und exportiere diese.";
 "nextWord" = "Nächstes wort";
+"emptyLanguage" = "You don't have any languages to practice, yet! \n Tap the + button to start your learning journey.";
+"emptyWord" = "You don't have any words to practice, yet! \n Tap the edit button to add new words.";
