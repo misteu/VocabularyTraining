@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
 
 /// The home screen, showing tiles for each saved language in a waterfall style layout.
 final class HomeViewController: UIViewController {
@@ -128,7 +129,7 @@ final class HomeViewController: UIViewController {
     }
 
     /// Applies changes of data source.
-    private func applyCollectionViewChanges() {
+	func applyCollectionViewChanges() {
         var snap = datasource.snapshot()
         if !snap.sectionIdentifiers.isEmpty {
             snap.deleteSections([0])
@@ -143,7 +144,8 @@ final class HomeViewController: UIViewController {
         navigationItem.leftBarButtonItem = navbarLogo
         let importButton = UIBarButtonItem(
             customView: UIButton.iconButton(type: .importButton) { [weak self] in
-                self?.tappedImport()
+//                self?.tappedImport()
+				self?.selectFiles()
             }
         )
         let exportButton = UIBarButtonItem(
@@ -189,32 +191,35 @@ extension HomeViewController: NewLanguageScreenProtocol {
 
 extension HomeViewController {
 
-    private func tappedImport() {
-        guard let files = ExportImport.getAllLanguageFileUrls() else { return }
-
-        if files.isEmpty {
-            let message = """
-        There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.
-      """
-            let alert = UIAlertController(
-                title: NSLocalizedString("No language files found",
-                                         comment: "No language files found"),
-                message: NSLocalizedString(message, comment: message),
-                preferredStyle: UIAlertController.Style.alert)
-
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            ExportImport.importLanguageFiles(files)
-            applyCollectionViewChanges()
-        }
-    }
+//    private func tappedImport() {
+//        guard let files = ExportImport.getAllLanguageFileUrls() else { return }
+//
+//        if files.isEmpty {
+//            let message = """
+//        There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it.
+//      """
+//            let alert = UIAlertController(
+//                title: NSLocalizedString("No language files found",
+//                                         comment: "No language files found"),
+//                message: NSLocalizedString(message, comment: message),
+//                preferredStyle: UIAlertController.Style.alert)
+//
+//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        } else {
+//            ExportImport.importLanguageFiles(files)
+//            applyCollectionViewChanges()
+//        }
+//    }
 
     private func tappedExport() {
         if let selectedLanguage = selectedLanguage {
 
             let words = ExportImport.exportAsCsvToDocuments(language: selectedLanguage)
-            let ac = UIActivityViewController(activityItems: [words], applicationActivities: nil)
+			
+			guard let cacheURL = saveStringAsCSVToCacheDirectory(words, fileName: selectedLanguage) else { return }
+			
+            let ac = UIActivityViewController(activityItems: [cacheURL], applicationActivities: nil)
             present(ac, animated: true)
         } else {
             let alert = UIAlertController(title: NSLocalizedString("No language selected",
@@ -225,4 +230,38 @@ extension HomeViewController {
             present(alert, animated: true, completion: nil)
         }
     }
+	
+	private func saveStringAsCSVToCacheDirectory(_ inputString: String, fileName: String) -> URL? {
+		// Get the cache directory URL
+		if let cacheDirectoryURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+			// Create a URL for the CSV file
+			let csvFileURL = cacheDirectoryURL.appendingPathComponent(fileName).appendingPathExtension("csv")
+
+			do {
+				// Write the inputString to the CSV file
+				try inputString.write(to: csvFileURL, atomically: true, encoding: .utf8)
+				return csvFileURL // Return the URL to the saved CSV file
+			} catch {
+				print("Error saving CSV file: \(error)")
+			}
+		}
+
+		return nil
+	}
+}
+
+extension HomeViewController: UIDocumentPickerDelegate {
+	func selectFiles() {
+		let types = UTType.types(tag: "csv",
+								 tagClass: UTTagClass.filenameExtension,
+								 conformingTo: nil)
+		let documentPickerController = UIDocumentPickerViewController(
+				forOpeningContentTypes: types)
+		documentPickerController.delegate = self
+		self.present(documentPickerController, animated: true, completion: nil)
+	}
+	
+	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+		ExportImport.importLanguageFiles(urls, presentingViewController: self)
+	}
 }

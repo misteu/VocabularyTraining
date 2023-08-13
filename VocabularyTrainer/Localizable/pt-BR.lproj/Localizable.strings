@@ -72,3 +72,5 @@
 "home_edit_button_title" = "Edit";
 "home_import_button_title" = "Importar";
 "home_export_button_title" = "Export";
+"alert_import_language_existing_message" = "You already have a language called %@. This will be overwritten when importing.\nAre you sure you want to proceed?";
+"alert_import_language_existing_title" = "Already existing";

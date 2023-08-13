@@ -70,3 +70,5 @@
 "home_edit_button_title" = "Bearbeiten";
 "home_import_button_title" = "Importieren";
 "home_export_button_title" = "Exportieren";
+"alert_import_language_existing_message" = "Es gibt bereits eine Vokabelset mit Namen %@. Dieses wird beim Importieren überschrieben. Willst du fortfahren?";
+"alert_import_language_existing_title" = "Existiert bereits";
