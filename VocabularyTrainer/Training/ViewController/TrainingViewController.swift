@@ -23,15 +23,14 @@ final class TrainingViewController: UIViewController {
     private lazy var emptyView: TrainingEmptyView = .init()
 
     private var isWordsEmpty: Bool {
-        guard let dictionary = UserDefaults.standard.dictionary(forKey: selectedLanguage) else { return true }
-        return false
+        return UserDefaults.standard.dictionary(forKey: selectedLanguage) == nil
     }
 
     // MARK: - Init
 
     init(with language: String) {
-      self.selectedLanguage = language
-      super.init(nibName: nil, bundle: nil)
+        self.selectedLanguage = language
+        super.init(nibName: nil, bundle: nil)
         setUpUI()
         hideKeyboardWhenTappedAround()
     }

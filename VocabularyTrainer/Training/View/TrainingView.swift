@@ -13,13 +13,12 @@ protocol TrainingViewDelegate: AnyObject {
     func tappedBarButton()
 }
 
-// MARK: - Training View Class
+// MARK: - Training View
 
 final class TrainingView: UIView {
 
-    // MARK: - Private properties
-
     weak var delegate: TrainingViewDelegate?
+
     // MARK: - Private properties
 
     private lazy var vocabularies: [String: String]? = [:]
@@ -282,8 +281,6 @@ final class TrainingView: UIView {
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.answerTextField.layer.borderColor = UIColor(named: "greenButton")?.cgColor
             self?.answerTextField.layer.borderWidth = 1
-            //self.checkInputButton.alpha = 0.0
-            //self.takeALookButton.alpha = 0.0
         }, completion: { _ in
             self.successHapticFeedback()
         })
