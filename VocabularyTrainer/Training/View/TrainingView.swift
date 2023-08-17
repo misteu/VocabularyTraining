@@ -115,7 +115,7 @@ final class TrainingView: UIView {
         button.addGestureRecognizer(longPressRecognizer)
         longPressRecognizer.minimumPressDuration = 0.05
         button.layer.cornerRadius = 3
-        button.backgroundColor = UIColor(named: "grayButton")
+        button.backgroundColor = .darkGray
         button.accessibilityTraits = .button
         button.setTitle(Localizable.takeLook.localize(), for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .caption1)
@@ -371,7 +371,7 @@ final class TrainingView: UIView {
             answerTextField.text = solution
         } else if gestureRecognizer.state == .ended {
             answerTextField.text = nil
-            takeLookButton.backgroundColor = UIColor(named: "grayButton")
+            takeLookButton.backgroundColor = .darkGray
         }
     }
 
