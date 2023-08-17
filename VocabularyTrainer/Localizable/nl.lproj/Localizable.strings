@@ -73,3 +73,5 @@
 "emptyLanguage" = "Je hebt nog geen talen om te oefenen! \n Tik op de + knop om aan je leerreis te beginnen.";
 "emptyWord" = "Je hebt nog geen woorden om te oefenen! \n Tik op de bewerk-knop om nieuwe woorden toe te voegen.";
 "addedLanguage" = "Taal toegevoegd";
+"alert_import_language_existing_message" = "Je hebt al een taal met de naam %@. Dit wordt overschreven bij importeren.\nWeet je zeker dat je wilt doorgaan?";
+"alert_import_language_existing_title" = "Al reeds aanwezig";

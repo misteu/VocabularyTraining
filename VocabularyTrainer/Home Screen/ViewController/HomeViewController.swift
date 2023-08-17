@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UniformTypeIdentifiers
 
 /// The home screen, showing tiles for each saved language in a waterfall style layout.
 final class HomeViewController: UIViewController {
@@ -44,9 +45,10 @@ final class HomeViewController: UIViewController {
         let editAction = UIAccessibilityCustomAction(name: HomeViewModel.Strings.editButtonTitle,
                                                      target: self,
                                                      selector: #selector(editButtonAction))
-        let importAction = UIAccessibilityCustomAction(name: HomeViewModel.Strings.importButtonTitle,
-                                                       target: self,
-                                                       selector: #selector(tappedImport))
+		let importAction = UIAccessibilityCustomAction(name: HomeViewModel.Strings.importButtonTitle) { _ in
+			self.selectFiles()
+			return true
+		}
         let exportAction = UIAccessibilityCustomAction(name: HomeViewModel.Strings.exportButtonTitle,
                                                        target: self,
                                                        selector: #selector(tappedExport))
@@ -178,7 +180,7 @@ final class HomeViewController: UIViewController {
     }
 
     /// Applies changes of data source.
-    private func applyCollectionViewChanges() {
+	func applyCollectionViewChanges() {
         var snap = datasource.snapshot()
         if !snap.sectionIdentifiers.isEmpty {
             snap.deleteSections([0])
@@ -193,7 +195,7 @@ final class HomeViewController: UIViewController {
         navigationItem.leftBarButtonItem = navbarLogo
         let importButton = UIBarButtonItem(
             customView: UIButton.iconButton(type: .importButton) { [weak self] in
-                self?.tappedImport()
+				self?.selectFiles()
             }
         )
         let exportButton = UIBarButtonItem(
@@ -279,34 +281,14 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController {
 
-    @objc
-    private func tappedImport() {
-        guard let files = ExportImport.getAllLanguageFileUrls() else { return }
-
-        if files.isEmpty {
-            let message = NSLocalizedString("emptyMessage", comment: "emptyMessage")
-            let alert = UIAlertController(
-                title: NSLocalizedString("No language files found",
-                                         comment: "No language files found"),
-                message: NSLocalizedString(message, comment: message),
-                preferredStyle: UIAlertController.Style.alert)
-
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            errorHapticFeedback()
-        } else {
-            ExportImport.importLanguageFiles(files)
-            applyCollectionViewChanges()
-            successHapticFeedback()
-        }
-    }
-
-    @objc
-    private func tappedExport() {
+    @objc private func tappedExport() {
         if let selectedLanguage = selectedLanguage {
 
             let words = ExportImport.exportAsCsvToDocuments(language: selectedLanguage)
-            let ac = UIActivityViewController(activityItems: [words], applicationActivities: nil)
+			
+			guard let cacheURL = saveStringAsCSVToCacheDirectory(words, fileName: selectedLanguage) else { return }
+			
+            let ac = UIActivityViewController(activityItems: [cacheURL], applicationActivities: nil)
             present(ac, animated: true)
             successHapticFeedback()
         } else {
@@ -334,4 +316,38 @@ extension HomeViewController {
         let generator = UINotificationFeedbackGenerator()
         generator.notificationOccurred(.error)
     }
+
+	private func saveStringAsCSVToCacheDirectory(_ inputString: String, fileName: String) -> URL? {
+		// Get the cache directory URL
+		if let cacheDirectoryURL = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first {
+			// Create a URL for the CSV file
+			let csvFileURL = cacheDirectoryURL.appendingPathComponent(fileName).appendingPathExtension("csv")
+
+			do {
+				// Write the inputString to the CSV file
+				try inputString.write(to: csvFileURL, atomically: true, encoding: .utf8)
+				return csvFileURL // Return the URL to the saved CSV file
+			} catch {
+				print("Error saving CSV file: \(error)")
+			}
+		}
+
+		return nil
+	}
+}
+
+extension HomeViewController: UIDocumentPickerDelegate {
+	func selectFiles() {
+		let types = UTType.types(tag: "csv",
+								 tagClass: UTTagClass.filenameExtension,
+								 conformingTo: nil)
+		let documentPickerController = UIDocumentPickerViewController(
+				forOpeningContentTypes: types)
+		documentPickerController.delegate = self
+		self.present(documentPickerController, animated: true, completion: nil)
+	}
+	
+	func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+		ExportImport.importLanguageFiles(urls, presentingViewController: self)
+	}
 }

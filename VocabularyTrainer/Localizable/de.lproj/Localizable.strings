@@ -70,7 +70,9 @@
 "home_import_button_title" = "Importieren";
 "home_export_button_title" = "Exportieren";
 "emptyMessage" = "Es konnten keine Sprachdateien für die App gefunden werden. Um eine Vorlage für eine Sprachdatei zu erhalten, erstelle eine neue Sprache in der App und exportiere diese.";
-"nextWord" = "Nächstes wort";
+"nextWord" = "Nächstes Wort";
 "emptyLanguage" = "Du hast noch keine Sprachen zum Üben ausgewählt! \n Tippe auf die + Schaltfläche, um deine Lernreise zu beginnen.";
 "emptyWord" = "Du hast noch keine Wörter zum Üben ausgewählt! \n Tippe auf die Bearbeiten-Schaltfläche, um neue Wörter hinzuzufügen.";
 "addedLanguage" = "Sprache hinzugefügt";
+"alert_import_language_existing_message" = "Du hast bereits eine Sprache mit dem Namen %@. Diese wird beim Import überschrieben.\Bist du sicher, dass Du fortfahren möchtest?";
+"alert_import_language_existing_title" = "Bereits vorhanden";

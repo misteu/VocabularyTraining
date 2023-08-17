@@ -77,3 +77,5 @@
 "emptyLanguage" = "You don't have any languages to practice, yet! \n Tap the + button to start your learning journey.";
 "emptyWord" = "You don't have any words to practice, yet! \n Tap the edit button to add new words.";
 "addedLanguage" = "Added Language";
+"alert_import_language_existing_message" = "You already have a language called %@. This will be overwritten when importing.\nAre you sure you want to proceed?";
+"alert_import_language_existing_title" = "Already existing";

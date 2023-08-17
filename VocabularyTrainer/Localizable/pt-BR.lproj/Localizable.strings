@@ -76,3 +76,6 @@
 "emptyLanguage" = "Você não tem nenhum idioma para praticar, ainda! \n Toque no botão + para começar sua jornada de aprendizado.";
 "emptyWord" = "Você não tem nenhuma palavra para praticar, ainda! \n Toque no botão editar para adicionar novas palavras.";
 "addedLanguage" = "Idioma adicionado";
+"home_export_button_title" = "Export";
+"alert_import_language_existing_message" = "Você já tem um idioma chamado %@. Isso será sobrescrito ao importar.\nVocê tem certeza que quer prosseguir?";
+"alert_import_language_existing_title" = "Já existente";
