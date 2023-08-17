@@ -36,6 +36,23 @@ final class HomeViewController: UIViewController {
     }
     /// The last index path selected.
     private var selectedLastIndexPath: Int?
+
+    private var accessibilityActions: [UIAccessibilityCustomAction]? {
+        let practiceAction = UIAccessibilityCustomAction(name: HomeViewModel.Strings.practiceButtonTitle,
+                                                         target: self,
+                                                         selector: #selector(practiceButtonAction))
+        let editAction = UIAccessibilityCustomAction(name: HomeViewModel.Strings.editButtonTitle,
+                                                     target: self,
+                                                     selector: #selector(editButtonAction))
+        let importAction = UIAccessibilityCustomAction(name: HomeViewModel.Strings.importButtonTitle,
+                                                       target: self,
+                                                       selector: #selector(tappedImport))
+        let exportAction = UIAccessibilityCustomAction(name: HomeViewModel.Strings.exportButtonTitle,
+                                                       target: self,
+                                                       selector: #selector(tappedExport))
+        return [practiceAction, editAction, importAction, exportAction]
+    }
+
     /// The empty view that will be displayed when there is no language added.
     private lazy var emptyView: HomeEmptyView = .init()
     /// The collection view showing all the languages.
@@ -106,6 +123,7 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIAccessibility.focusOn(navbarLogo)
         setNavigationItem()
         setupView()
         setConstraints()
@@ -117,8 +135,7 @@ final class HomeViewController: UIViewController {
 
     private func setupView() {
         view.backgroundColor = HomeViewModel.Colors.background
-        view.addSubview(headerView)
-        view.addSubview(collectionView)
+        view.addSubviews([headerView, collectionView])
         if isLanguagesEmpty {
             view.addSubview(emptyView)
         }
@@ -186,6 +203,31 @@ final class HomeViewController: UIViewController {
         )
         navigationItem.rightBarButtonItems = [exportButton, importButton]
     }
+
+    private func deselectCell(_ collectionView: UICollectionView, indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        collectionView.cellForItem(at: indexPath)?.contentView.accessibilityTraits.remove(.selected)
+        collectionView.cellForItem(at: indexPath)?.contentView.accessibilityCustomActions = nil
+        headerView.shouldHideHeaderButtons(true)
+        selectedLastIndexPath = nil
+    }
+
+    @objc private func practiceButtonAction() {
+        guard let selectedLanguage = selectedLanguage else { return }
+        viewModel.coordinator?.navigateToTrainingViewController(with: selectedLanguage)
+        selectedHapticFeedback()
+    }
+
+    @objc private func editButtonAction() {
+        guard let selectedLanguage = selectedLanguage else { return }
+        viewModel.coordinator?.navigateToLanguageScreenViewController(
+            selectedLanguage: selectedLanguage,
+            newLanguageScreenProtocol: self,
+            completion: { [weak self] in
+                self?.applyCollectionViewChanges()
+            })
+        selectedHapticFeedback()
+    }
 }
 
 // MARK: - HomeLanguageHeaderViewDelegate
@@ -197,20 +239,11 @@ extension HomeViewController: HomeLanguageHeaderViewDelegate {
     }
 
     func tappedPracticeButton() {
-        guard let selectedLanguage = selectedLanguage else { return }
-        viewModel.coordinator?.navigateToTrainingViewController(with: selectedLanguage)
-        selectedHapticFeedback()
+        practiceButtonAction()
     }
 
     func tappedEditButton() {
-        guard let selectedLanguage = selectedLanguage else { return }
-        viewModel.coordinator?.navigateToLanguageScreenViewController(
-            selectedLanguage: selectedLanguage,
-            newLanguageScreenProtocol: self,
-            completion: { [weak self] in
-                self?.applyCollectionViewChanges()
-            })
-        selectedHapticFeedback()
+        editButtonAction()
     }
 }
 
@@ -225,14 +258,19 @@ extension HomeViewController: UICollectionViewDelegate {
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if selectedLastIndexPath == indexPath.row {
-            collectionView.deselectItem(at: indexPath, animated: true)
-            headerView.shouldHideHeaderButtons(true)
-            selectedLastIndexPath = nil
+            deselectCell(collectionView, indexPath: indexPath)
         } else {
             headerView.shouldHideHeaderButtons(false)
+            let cell = collectionView.cellForItem(at: indexPath)?.contentView
+            cell?.accessibilityTraits.insert(.selected)
+            cell?.accessibilityCustomActions = accessibilityActions
             selectedLastIndexPath = indexPath.row
         }
         selectedHapticFeedback()
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        deselectCell(collectionView, indexPath: indexPath)
     }
 }
 
@@ -241,6 +279,7 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController {
 
+    @objc
     private func tappedImport() {
         guard let files = ExportImport.getAllLanguageFileUrls() else { return }
 
@@ -262,6 +301,7 @@ extension HomeViewController {
         }
     }
 
+    @objc
     private func tappedExport() {
         if let selectedLanguage = selectedLanguage {
 

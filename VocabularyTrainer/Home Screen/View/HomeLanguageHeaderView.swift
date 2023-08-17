@@ -20,11 +20,18 @@ final class HomeLanguageHeaderView: UIView {
     typealias Colors = HomeViewModel.Colors
 
     /// Title with trailing add button.
-    private let titleLabel = UILabel()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        label.text = Strings.headerTitle
+        label.accessibilityTraits = .header
+        return label
+    }()
+
     /// Button for adding a new language.
     lazy var addLanguageButton: UIButton = {
         let button = UIButton(type: .contactAdd)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = Localizable.addNewLanguage.localize()
         button.tintColor = .label
         button.addAction(
             .init(handler: { [weak self] _ in
@@ -37,7 +44,6 @@ final class HomeLanguageHeaderView: UIView {
     /// Button for starting practicing mode.
     lazy var practiceButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         let text = NSAttributedString(string: Strings.practiceButtonTitle,
                                       attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue] )
         button.setAttributedTitle(text, for: .normal)
@@ -50,7 +56,6 @@ final class HomeLanguageHeaderView: UIView {
     /// Button for editing a language.
     lazy var editButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Strings.editButtonTitle, for: .normal)
         button.tintColor = .label
         button.addAction(.init(handler: { [weak self] _ in self?.delegate?.tappedEditButton() }), for: .touchUpInside)
@@ -61,7 +66,6 @@ final class HomeLanguageHeaderView: UIView {
     lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [practiceButton, editButton])
         stackView.spacing = Layout.defaultMargin
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
@@ -85,11 +89,8 @@ final class HomeLanguageHeaderView: UIView {
     // MARK: - Setup
 
     private func setupUI() {
-        titleLabel.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-        titleLabel.text = Strings.headerTitle
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        translatesAutoresizingMaskIntoConstraints = false
         addSubviews([titleLabel, addLanguageButton, buttonStackView])
+        accessibilityElements = [titleLabel, addLanguageButton, buttonStackView]
     }
 
     private func setupConstraints() {

@@ -23,12 +23,10 @@ final class TrainingEmptyView: UIView {
 
     /// Bar button to drag/close the view
     private lazy var barButton: UIButton = {
-        let button: UIButton = .init(frame: .zero,
-                                     primaryAction: .init(handler: { [weak self] _ in
-            self?.delegate?.tappedBarButton()
-        }))
-        button.layer.cornerRadius = 3
-        button.backgroundColor = .systemGray
+        let button = ModalCloseButton()
+        button.addTarget(self,
+                         action: #selector(tappedBarButton),
+                         for: .touchUpInside)
         return button
     }()
 
@@ -96,5 +94,9 @@ final class TrainingEmptyView: UIView {
                 self?.imageView.frame.origin.y += 5
             })
         }
+    }
+
+    @objc private func tappedBarButton(){
+        delegate?.tappedBarButton()
     }
 }

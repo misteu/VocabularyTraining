@@ -1,16 +1,13 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "WaterfallTrueCompositionalLayout",
-        "repositoryURL": "git@github.com:eeshishko/WaterfallTrueCompositionalLayout.git",
-        "state": {
-          "branch": null,
-          "revision": "f45da38f2f08aa557be75f64b1b5499149ae95d9",
-          "version": null
-        }
+  "pins" : [
+    {
+      "identity" : "waterfalltruecompositionallayout",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:eeshishko/WaterfallTrueCompositionalLayout.git",
+      "state" : {
+        "revision" : "f45da38f2f08aa557be75f64b1b5499149ae95d9"
       }
-    ]
-  },
-  "version": 1
+    }
+  ],
+  "version" : 2
 }

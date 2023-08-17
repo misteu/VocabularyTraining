@@ -38,7 +38,6 @@ final class NewLanguageViewController: UIViewController {
                                                            accessibilityTrait: .header)
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = Localizable.whichLanguage.localize()
         textField.font = .preferredFont(forTextStyle: .body)
         textField.backgroundColor = .systemBackground
@@ -47,6 +46,8 @@ final class NewLanguageViewController: UIViewController {
                                                  width: 16,
                                                  height: textField.frame.height))
         textField.leftViewMode = .always
+        textField.returnKeyType = .done
+        textField.delegate = self
         textField.addTarget(self, action: #selector(textFieldEvent), for: .allEvents)
         return textField
     }()
@@ -213,5 +214,13 @@ final class NewLanguageViewController: UIViewController {
     @objc
     private func dismissView() {
         dismiss(animated: true)
+    }
+}
+
+extension NewLanguageViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        UIAccessibility.focusOn(textField)
+        return true
     }
 }

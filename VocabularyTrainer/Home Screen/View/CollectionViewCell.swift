@@ -33,16 +33,6 @@ class CollectionViewCell: UICollectionViewCell {
         return stackView
     }()
 
-    /// Image view showing the language's icon / image / emoji.
-    private let imageView: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFit
-        view.image = UIImage(systemName: "hare")
-        view.clipsToBounds = true
-        return view
-    }()
-
     private let background: UIView = {
         let view = UIView()
         view.backgroundColor = Colors.cellBackground
@@ -69,6 +59,7 @@ class CollectionViewCell: UICollectionViewCell {
     func configure(with item: LanguageCellViewModel) {
         titleLabel.text = item.languageName
         subtitleLabel.text = item.subtitle
+        contentView.accessibilityLabel = "\(item.languageName) \(item.subtitle)"
     }
 
     private func setUpUI() {
@@ -79,6 +70,8 @@ class CollectionViewCell: UICollectionViewCell {
         labelContainer.addArrangedSubview(titleLabel)
         labelContainer.addArrangedSubview(subtitleLabel)
         contentView.addSubview(labelContainer)
+        contentView.isAccessibilityElement = true
+        contentView.accessibilityTraits = [.button]
     }
 
     private func setUpConstraints() {

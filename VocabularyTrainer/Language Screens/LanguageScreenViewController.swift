@@ -581,12 +581,13 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             tableView.reloadData()
         } else {
             isSearching = true
+            guard let searchBarText = searchBar.text?.lowercased() else { return }
             filteredData = vocabularies.filter {
-                var retVal = $0.0.lowercased().contains(searchBar.text!.lowercased()) ||
-                $0.1.lowercased().contains(searchBar.text!.lowercased())
+                var retVal = $0.0.lowercased().contains(searchBarText) ||
+                $0.1.lowercased().contains(searchBarText)
                 if let date = $0.addedDate {
                   retVal = retVal ||
-                      VocabularyDateFormatter.prettyDateFormatter.string(from: date).contains(searchBar.text!)
+                      VocabularyDateFormatter.prettyDateFormatter.string(from: date).contains(searchBarText)
                   }
                   return retVal
             }
@@ -619,9 +620,10 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         for (key, value) in vocabDict {
             vocabularies.append((key, value, vocabProgress[key] ?? 100.0, vocabDates[key]))
         }
-        
+
+        guard let searchBarText = searchBar.text?.lowercased() else { return }
         filteredData = vocabularies.filter {
-            $0.0.lowercased().contains(searchBar.text!.lowercased()) || $0.1.lowercased().contains(searchBar.text!.lowercased())
+            $0.0.lowercased().contains(searchBarText) || $0.1.lowercased().contains(searchBarText)
         }
         tableView.reloadData()
 

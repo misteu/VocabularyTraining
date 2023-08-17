@@ -47,8 +47,8 @@
 "↑ export" = "⇪ export";
 "answer" = "Answer";
 "check" = "Check";
-"Take a look" = "Take a look";
-"Skip word" = "Skip word";
+"takeLook" = "Take a look";
+"skip" = "Skip word";
 "search for words" = "search for words";
 
 "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Existing languages on your device with the same name as the csv-file you try to import will be overwritten.\n Do you want to proceed?";
@@ -66,8 +66,8 @@
 "Please wait..." = "Please wait...";
 "Edit word" = "✏️ Edit word";
 "Your progress and probability configuration for this word will be saved" = "Your progress and probability configuration for this word will be saved";
-"That's wrong 😕" = "That's wrong 😕";
-"That's right! 🤠" = "That's right! 🤠";
+"wrongAnswer" = "That's wrong";
+"rightAnswer" = "That's right!";
 "home_header_title" = "My Languages";
 "home_practice_button_title" = "Practice";
 "home_edit_button_title" = "Edit";
@@ -76,3 +76,4 @@
 "nextWord" = "Next word";
 "emptyLanguage" = "You don't have any languages to practice, yet! \n Tap the + button to start your learning journey.";
 "emptyWord" = "You don't have any words to practice, yet! \n Tap the edit button to add new words.";
+"addedLanguage" = "Added Language";

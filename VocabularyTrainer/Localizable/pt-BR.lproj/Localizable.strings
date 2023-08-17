@@ -47,8 +47,8 @@
 "↑ export" = "⇪ exportar";
 "answer" = "Resposta";
 "check" = "Confirmar";
-"Take a look" = "Espiar";
-"Skip word" = "Pular palavra";
+"takeLook" = "Espiar";
+"skip" = "Pular palavra";
 "search for words" = "buscar palavras";
 "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Os idiomas existentes no seu aparelho caso possuam o mesmo nome que os arquivos csv-file a serem importados serão sobrescritos.\n Você gostaria de continuar?";
 "emptyMessage" = "Não foi encontrado qualquer arquivo de idioma para o seu app.\nPara ter o modelo do arquivo de idioma, você terá que criar um novo idioma com algumas palavras adicionadas dentro do app e exportar.";
@@ -65,8 +65,8 @@
 "Please wait..." = "Por favor, aguarde...";
 "Edit word" = "✏️ Editar palavra";
 "Your progress and probability configuration for this word will be saved" = "Seu progresso e configuração de probabilidade para essa palavra não será alterado com essa mudança";
-"That's wrong 😕" = "Errado 😕";
-"That's right! 🤠" = "Acertou! 🤠";
+"wrongAnswer" = "Errado";
+"rightAnswer" = "Acertou!";
 "home_header_title" = "Meus Idiomas";
 "home_practice_button_title" = "Praticar";
 "home_edit_button_title" = "Editar";
@@ -75,3 +75,4 @@
 "nextWord" = "Próxima palavra";
 "emptyLanguage" = "Você não tem nenhum idioma para praticar, ainda! \n Toque no botão + para começar sua jornada de aprendizado.";
 "emptyWord" = "Você não tem nenhuma palavra para praticar, ainda! \n Toque no botão editar para adicionar novas palavras.";
+"addedLanguage" = "Idioma adicionado";

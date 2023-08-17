@@ -47,8 +47,8 @@
 "↑ export" = "⇪ exportieren";
 "answer" = "Antwort";
 "check" = "Prüfen";
-"Take a look" = "Umdrehen";
-"Skip word" = "Wort überspringen";
+"takeLook" = "Umdrehen";
+"skip" = "Wort überspringen";
 "search for words" = "Wort suchen";
 "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Auf dem iPhone vorhandene Sprachen mit gleichem Namen wie die zu importierenden csv-Dateien werden beim Importieren überschrieben.\nWillst du die csv-Dateien wirklich importieren?";
 "No language files found" = "Keine Sprachdateien gefunden";
@@ -73,3 +73,4 @@
 "nextWord" = "Nächstes wort";
 "emptyLanguage" = "Du hast noch keine Sprachen zum Üben ausgewählt! \n Tippe auf die + Schaltfläche, um deine Lernreise zu beginnen.";
 "emptyWord" = "Du hast noch keine Wörter zum Üben ausgewählt! \n Tippe auf die Bearbeiten-Schaltfläche, um neue Wörter hinzuzufügen.";
+"addedLanguage" = "Sprache hinzugefügt";

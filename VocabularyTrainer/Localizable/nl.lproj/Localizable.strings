@@ -45,8 +45,8 @@
 "↑ export" = "⇪ exporteren";
 "answer" = "Antwoord";
 "check" = "Controleer";
-"Take a look" = "Neem een kijkje";
-"Skip word" = "Woord overslaan";
+"takeLook" = "Neem een kijkje";
+"skip" = "Woord overslaan";
 "search for words" = "Zoeken naar woorden";
 
 "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Bestaande talen op je apparaat met dezelfde naam als het csv-file worden overschreven.\n Is dit oke?";
@@ -72,3 +72,4 @@
 "nextWord" = "Volgende woord";
 "emptyLanguage" = "Je hebt nog geen talen om te oefenen! \n Tik op de + knop om aan je leerreis te beginnen.";
 "emptyWord" = "Je hebt nog geen woorden om te oefenen! \n Tik op de bewerk-knop om nieuwe woorden toe te voegen.";
+"addedLanguage" = "Taal toegevoegd";
