@@ -177,12 +177,18 @@ class ExportImport {
     return nil
   }
   
-  static func importLanguageFiles(_ files: [URL]) {
+	static func importLanguageFiles(_ files: [URL], presentingViewController: HomeViewController) {
     for file in files {
       debugPrint(file.lastPathComponent)
-      let rawCsvImport = importLanguageFile(language: file.lastPathComponent)
-      let importedCsvAsDicts = csv(data: rawCsvImport)
-      updateUserDefFromImports(imports: importedCsvAsDicts, language: file.deletingPathExtension().lastPathComponent)
+//      let rawCsvImport = importLanguageFile(language: file.lastPathComponent)
+		var rawStringImport = ""
+		do {
+		  rawStringImport = try String(contentsOf: file, encoding: .utf8)
+		} catch { let error = error
+		  print(error)
+		}
+      let importedCsvAsDicts = csv(data: rawStringImport)
+      updateUserDefFromImports(imports: importedCsvAsDicts, language: file.deletingPathExtension().lastPathComponent, presentingViewController: presentingViewController)
     }
   }
   
@@ -203,20 +209,36 @@ class ExportImport {
     return result
   }
   
-  static func updateUserDefFromImports(imports: LanguageImport, language: String) {
+	static func updateUserDefFromImports(imports: LanguageImport, language: String, presentingViewController: HomeViewController) {
      let languageVocabProgressKey = "\(language)Progress"
-     
-     UserDefaults.standard.set(imports.vocabularies, forKey: language)
-     UserDefaults.standard.set(imports.progresses, forKey: languageVocabProgressKey)
-     
+
      if var savedLanguages = UserDefaults.standard.array(forKey: UserDefaultKeys.languages) as? [String] {
        
        // Append language if not found
        if !savedLanguages.contains(language) {
          savedLanguages.append(language)
-       }
-         
-       UserDefaults.standard.set(savedLanguages, forKey: UserDefaultKeys.languages)
+		   UserDefaults.standard.set(savedLanguages, forKey: UserDefaultKeys.languages)
+		   UserDefaults.standard.set(imports.vocabularies, forKey: language)
+		   UserDefaults.standard.set(imports.progresses, forKey: languageVocabProgressKey)
+		   presentingViewController.applyCollectionViewChanges()
+       } else {
+		   let message = String(format: NSLocalizedString("alert_import_language_existing_message", comment: "Warning message when importing an already existing language"), language)
+		   let title = NSLocalizedString("alert_import_language_existing_title", comment: "Title for already existing language warning")
+		   let alert = UIAlertController(
+			title: title,
+			message: message,
+			preferredStyle: .alert)
+		   
+		   // add the actions (buttons)
+		   alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: "Cancel button title"), style: UIAlertAction.Style.cancel, handler: nil))
+		   alert.addAction(UIAlertAction(title: NSLocalizedString("home_import_button_title", comment: "Import button title"), style: UIAlertAction.Style.default, handler: { _ in
+			   UserDefaults.standard.set(savedLanguages, forKey: UserDefaultKeys.languages)
+			   UserDefaults.standard.set(imports.vocabularies, forKey: language)
+			   UserDefaults.standard.set(imports.progresses, forKey: languageVocabProgressKey)
+			   presentingViewController.applyCollectionViewChanges()
+		   }))
+		   presentingViewController.present(alert, animated: true)
+	   }
      } else {
        UserDefaults.standard.set([language], forKey: UserDefaultKeys.languages)
      }
@@ -232,7 +254,11 @@ class ExportImport {
         let columns = row.components(separatedBy: ";")
         vocabDict[columns[0]] = columns[1]
         vocabProgr[columns[0]] = (columns[2] as NSString).floatValue
-        datesAdded[columns[0]] = VocabularyDateFormatter.dateFormatter.date(from: columns[3])
+		var date: Date? = Date()
+		if columns.indices.contains(3) {
+			date = VocabularyDateFormatter.dateFormatter.date(from: columns[3])
+		}
+        datesAdded[columns[0]] = date
     }
   
 	let result = LanguageImport.init(vocabularies: vocabDict, progresses: vocabProgr, datesAdded: datesAdded)
