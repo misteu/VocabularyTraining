@@ -33,24 +33,6 @@ class CollectionViewCell: UICollectionViewCell {
         return stackView
     }()
 
-    /// Image view showing the language's icon / image / emoji.
-    private let imageView: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentMode = .scaleAspectFit
-        view.image = UIImage(systemName: "hare")
-        view.clipsToBounds = true
-        return view
-    }()
-
-    private let emojiLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 1
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .headline)
-        return label
-    }()
-
     private let background: UIView = {
         let view = UIView()
         view.backgroundColor = Colors.cellBackground
@@ -77,7 +59,7 @@ class CollectionViewCell: UICollectionViewCell {
     func configure(with item: LanguageCellViewModel) {
         titleLabel.text = item.languageName
         subtitleLabel.text = item.subtitle
-        emojiLabel.text = item.emoji
+        contentView.accessibilityLabel = "\(item.languageName) \(item.subtitle)"
     }
 
     private func setUpUI() {
@@ -88,18 +70,14 @@ class CollectionViewCell: UICollectionViewCell {
         labelContainer.addArrangedSubview(titleLabel)
         labelContainer.addArrangedSubview(subtitleLabel)
         contentView.addSubview(labelContainer)
-        contentView.addSubview(emojiLabel)
+        contentView.isAccessibilityElement = true
+        contentView.accessibilityTraits = [.button]
     }
 
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            emojiLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Dimensions.horizontalMargin),
-            emojiLabel.trailingAnchor.constraint(equalTo: labelContainer.leadingAnchor, constant: -Dimensions.horizontalMargin),
-            emojiLabel.centerYAnchor.constraint(equalTo: labelContainer.centerYAnchor),
-            emojiLabel.heightAnchor.constraint(equalToConstant: Dimensions.imageWidth),
-            emojiLabel.widthAnchor.constraint(equalToConstant: Dimensions.imageWidth),
-
             labelContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Dimensions.verticalContainerMargin),
+            labelContainer.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Dimensions.horizontalMargin * 2),
             labelContainer.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -Dimensions.horizontalMargin),
             labelContainer.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Dimensions.verticalContainerMargin)
         ])

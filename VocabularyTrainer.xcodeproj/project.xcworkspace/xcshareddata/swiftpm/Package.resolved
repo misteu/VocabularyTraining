@@ -3,9 +3,8 @@
     {
       "identity" : "waterfalltruecompositionallayout",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/eeshishko/WaterfallTrueCompositionalLayout.git",
+      "location" : "git@github.com:eeshishko/WaterfallTrueCompositionalLayout.git",
       "state" : {
-        "branch" : "main",
         "revision" : "f45da38f2f08aa557be75f64b1b5499149ae95d9"
       }
     }

@@ -20,11 +20,18 @@ final class HomeLanguageHeaderView: UIView {
     typealias Colors = HomeViewModel.Colors
 
     /// Title with trailing add button.
-    private let titleLabel = UILabel()
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
+        label.text = Strings.headerTitle
+        label.accessibilityTraits = .header
+        return label
+    }()
+
     /// Button for adding a new language.
     lazy var addLanguageButton: UIButton = {
         let button = UIButton(type: .contactAdd)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityLabel = Localizable.addNewLanguage.localize()
         button.tintColor = .label
         button.addAction(
             .init(handler: { [weak self] _ in
@@ -37,29 +44,28 @@ final class HomeLanguageHeaderView: UIView {
     /// Button for starting practicing mode.
     lazy var practiceButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         let text = NSAttributedString(string: Strings.practiceButtonTitle,
                                       attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue] )
         button.setAttributedTitle(text, for: .normal)
         button.tintColor = Colors.flippyGreen
         button.titleLabel?.font = .preferredFont(forTextStyle: .body)
         button.addAction(.init(handler: { [weak self] _ in self?.delegate?.tappedPracticeButton() }), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     /// Button for editing a language.
     lazy var editButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Strings.editButtonTitle, for: .normal)
         button.tintColor = .label
         button.addAction(.init(handler: { [weak self] _ in self?.delegate?.tappedEditButton() }), for: .touchUpInside)
+        button.isHidden = true
         return button
     }()
     /// Stack view horizontally aligning `practiceButton` and `editButton`.
     lazy var buttonStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [practiceButton, editButton])
         stackView.spacing = Layout.defaultMargin
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
 
@@ -75,14 +81,16 @@ final class HomeLanguageHeaderView: UIView {
 
     required init?(coder: NSCoder) { nil }
 
+    func shouldHideHeaderButtons(_ isHidden: Bool) {
+        practiceButton.isHidden = isHidden
+        editButton.isHidden = isHidden
+    }
+
     // MARK: - Setup
 
     private func setupUI() {
-        titleLabel.font = UIFontMetrics(forTextStyle: .title2).scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
-        titleLabel.text = Strings.headerTitle
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        translatesAutoresizingMaskIntoConstraints = false
         addSubviews([titleLabel, addLanguageButton, buttonStackView])
+        accessibilityElements = [titleLabel, addLanguageButton, buttonStackView]
     }
 
     private func setupConstraints() {
@@ -91,15 +99,14 @@ final class HomeLanguageHeaderView: UIView {
             titleLabel.topAnchor.constraint(equalTo: topAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            addLanguageButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: 8),
+            addLanguageButton.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor),
             addLanguageButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
             addLanguageButton.heightAnchor.constraint(equalToConstant: 44),
             addLanguageButton.widthAnchor.constraint(equalToConstant: 44),
 
             buttonStackView.leadingAnchor.constraint(greaterThanOrEqualTo: addLanguageButton.trailingAnchor, constant: Layout.defaultMargin),
-            buttonStackView.topAnchor.constraint(greaterThanOrEqualTo: topAnchor),
-            buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            buttonStackView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            buttonStackView.topAnchor.constraint(greaterThanOrEqualTo: titleLabel.topAnchor, constant: -5),
+            buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
 }

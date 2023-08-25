@@ -12,13 +12,17 @@ struct LanguageCellViewModel: Hashable {
     let id = UUID()
     let languageName: String
     let numberOfWords: Int
-    let emoji: String
 
     /// Subtitle containing word counter,
     // TODO: use plural localization
     var subtitle: String {
-        String(format: LanguageCellViewModel.Strings.numberOfWordsTitle,
-               numberOfWords)
+        if numberOfWords == 1 {
+            return String(format: LanguageCellViewModel.Strings.numberOfWordTitle,
+                   numberOfWords)
+        } else {
+            return String(format: LanguageCellViewModel.Strings.numberOfWordsTitle,
+                   numberOfWords)
+        }
     }
 
     /// Calculates required height of cell for given `width` based on text to be rendered in the cell.
@@ -48,7 +52,13 @@ extension LanguageCellViewModel {
     enum Strings {
         static let numberOfWordsTitle = NSLocalizedString(
             "homescreen_language_subtitle",
-            value: "Words: %i",
+            value: NSLocalizedString("%d words", comment: "%d words"),
+            comment: "Subtitle of a cell on the home screen showing the word count of a language."
+        )
+
+        static let numberOfWordTitle = NSLocalizedString(
+            "homescreen_language_subtitle",
+            value: NSLocalizedString("%d word", comment: "%d word"),
             comment: "Subtitle of a cell on the home screen showing the word count of a language."
         )
     }

@@ -18,12 +18,10 @@ class MainCoordinator: Coordinator {
         self.navigationController = navigationController
     }
     
-  func start() {
-//    let homeVC = HomeScreenViewController()
-      let homeVC = HomeViewController(viewModel: HomeViewModel(coordinator: self))
-//    homeVC.coordinator = self
-    navigationController.pushViewController(homeVC, animated: false)
-  }
+    func start() {
+        let homeVC = HomeViewController(viewModel: HomeViewModel(coordinator: self))
+        navigationController.pushViewController(homeVC, animated: false)
+    }
 
     func navigateToNewLanguageViewController(newLanguageScreenProtocol: NewLanguageScreenProtocol) {
         let newLanguageVC = NewLanguageViewController(delegate: newLanguageScreenProtocol)
@@ -55,11 +53,17 @@ class MainCoordinator: Coordinator {
         navigationController.pushViewController(addNewWordVC, animated: true)
     }
     
-  func navigateToTrainingViewController(with language: String) {
-    let trainingVC = TrainingViewController(with: language)
-    trainingVC.coordinator = self
-    navigationController.pushViewController(trainingVC, animated: true)
-  }
+    func navigateToTrainingViewController(with language: String) {
+        let trainingVC = TrainingViewController(with: language)
+        trainingVC.coordinator = self
+        trainingVC.modalPresentationStyle = .pageSheet
+        if #available(iOS 15.0, *) {
+            if let sheet = trainingVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+            }
+        }
+        navigationController.present(trainingVC, animated: true)
+    }
 
     func popVC() {
         navigationController.popViewController(animated: true)

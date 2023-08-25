@@ -12,18 +12,20 @@
 		28716F4E290EF54B00EACCA1 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28716F4B290EF54B00EACCA1 /* Coordinator.swift */; };
 		28716F4F290EF54B00EACCA1 /* StoryBoarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28716F4C290EF54B00EACCA1 /* StoryBoarded.swift */; };
 		28716F50290EF54B00EACCA1 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28716F4D290EF54B00EACCA1 /* MainCoordinator.swift */; };
-		41B16E902A11617A00F83DB4 /* WaterfallTrueCompositionalLayout in Frameworks */ = {isa = PBXBuildFile; productRef = 41B16E8F2A11617A00F83DB4 /* WaterfallTrueCompositionalLayout */; };
 		B3606D1D294D3D55009E62E9 /* NewLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D1C294D3D55009E62E9 /* NewLanguageViewController.swift */; };
 		B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3657DFC290740D8000D76C8 /* AddNewWordViewController.swift */; };
 		B38C29D4294D45F1006FCDEA /* Localizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C29D3294D45F1006FCDEA /* Localizable.swift */; };
 		B38C29D8294D578C006FCDEA /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C29D7294D578C006FCDEA /* UILabel+Extensions.swift */; };
 		B38C29DA294D68B4006FCDEA /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C29D9294D68B4006FCDEA /* String+Extensions.swift */; };
+		B38FD6BA2A7721DB00DF1043 /* HomeEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38FD6B92A7721DB00DF1043 /* HomeEmptyView.swift */; };
+		B38FD6C42A7740E700DF1043 /* TrainingEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38FD6C32A7740E700DF1043 /* TrainingEmptyView.swift */; };
+		B3E01CED298F260F004D86C1 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E01CEC298F260F004D86C1 /* TrainingView.swift */; };
+		B3E01CEF298F2A7F004D86C1 /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E01CEE298F2A7F004D86C1 /* TrainingViewController.swift */; };
 		B3E5421D294FB17A0015FD9C /* ModalCloseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E5421C294FB17A0015FD9C /* ModalCloseButton.swift */; };
 		B3E54220294FC3290015FD9C /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E5421F294FC3290015FD9C /* UIView+Extensions.swift */; };
 		B3E54224294FDBA60015FD9C /* UIAccessibility+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3E54223294FDBA60015FD9C /* UIAccessibility+Extensions.swift */; };
 		CE0012FF2243F21C002F86DE /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0012FE2243F21C002F86DE /* UIViewController+Extensions.swift */; };
 		CE05F622229F17AF0097E3BB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE05F624229F17AF0097E3BB /* Localizable.strings */; };
-		CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0FE4F72238585A00430FDE /* TrainingViewController.swift */; };
 		CE2EB8272245406A006B1C6D /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */; };
 		CE31ED77290AC49F00AD3300 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED76290AC49F00AD3300 /* AppDelegate.swift */; };
 		CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */; };
@@ -37,7 +39,7 @@
 		CEA8BCC52966108D00E2EAF9 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */; };
 		CEB77943295E503F00D7BF35 /* NewLanguageScreenProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */; };
 		CEB77945295E563200D7BF35 /* UserDefaults+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77944295E563200D7BF35 /* UserDefaults+Extensions.swift */; };
-		CEB77947295E59E800D7BF35 /* EmojiChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB77946295E59E800D7BF35 /* EmojiChooser.swift */; };
+		CEB77951295F681300D7BF35 /* WaterfallTrueCompositionalLayout in Frameworks */ = {isa = PBXBuildFile; productRef = CEB77950295F681300D7BF35 /* WaterfallTrueCompositionalLayout */; };
 		CECD6342235E54350060911F /* pp.html in Resources */ = {isa = PBXBuildFile; fileRef = CECD6344235E54350060911F /* pp.html */; };
 		CEE4988828F572E200B64FCF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = CEE4988728F572E200B64FCF /* README.md */; };
 		CEF0605329510A27001D2CEA /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0604E29510A26001D2CEA /* HomeViewController.swift */; };
@@ -78,15 +80,18 @@
 		B38C29D3294D45F1006FCDEA /* Localizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Localizable.swift; sourceTree = "<group>"; };
 		B38C29D7294D578C006FCDEA /* UILabel+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
 		B38C29D9294D68B4006FCDEA /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		B38FD6B92A7721DB00DF1043 /* HomeEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyView.swift; sourceTree = "<group>"; };
+		B38FD6C32A7740E700DF1043 /* TrainingEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingEmptyView.swift; sourceTree = "<group>"; };
 		B3BBF4422909F64B004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = "pt-BR"; path = "pt-BR.lproj/pp.html"; sourceTree = "<group>"; };
 		B3BBF4432909F653004B2125 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		B3E01CEC298F260F004D86C1 /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
+		B3E01CEE298F2A7F004D86C1 /* TrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
 		B3E5421C294FB17A0015FD9C /* ModalCloseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalCloseButton.swift; sourceTree = "<group>"; };
 		B3E5421F294FC3290015FD9C /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		B3E54223294FDBA60015FD9C /* UIAccessibility+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAccessibility+Extensions.swift"; sourceTree = "<group>"; };
 		CE0012FE2243F21C002F86DE /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		CE05F623229F17AF0097E3BB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE05F625229F17C40097E3BB /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		CE0FE4F72238585A00430FDE /* TrainingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingViewController.swift; sourceTree = "<group>"; };
 		CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		CE31ED76290AC49F00AD3300 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE31ED78290AC4B100AD3300 /* AddWordDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWordDelegate.swift; sourceTree = "<group>"; };
@@ -108,7 +113,6 @@
 		CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLanguageScreenProtocol.swift; sourceTree = "<group>"; };
 		CEB77944295E563200D7BF35 /* UserDefaults+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Extensions.swift"; sourceTree = "<group>"; };
-		CEB77946295E59E800D7BF35 /* EmojiChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiChooser.swift; sourceTree = "<group>"; };
 		CECD6343235E54350060911F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/pp.html; sourceTree = "<group>"; };
 		CECD6346235E54420060911F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = de; path = de.lproj/pp.html; sourceTree = "<group>"; };
 		CEE4988728F572E200B64FCF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -126,7 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				41B16E902A11617A00F83DB4 /* WaterfallTrueCompositionalLayout in Frameworks */,
+				CEB77951295F681300D7BF35 /* WaterfallTrueCompositionalLayout in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +165,6 @@
 			isa = PBXGroup;
 			children = (
 				B3606D1C294D3D55009E62E9 /* NewLanguageViewController.swift */,
-				CEB77946295E59E800D7BF35 /* EmojiChooser.swift */,
 			);
 			path = NewLanguage;
 			sourceTree = "<group>";
@@ -196,6 +199,76 @@
 				CE49D67D2963440300A8DDEB /* UIButton+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B38FD6BB2A77388000DF1043 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */,
+				CEF0605729510CD3001D2CEA /* HomeLanguageHeaderView.swift */,
+				B38FD6B92A7721DB00DF1043 /* HomeEmptyView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B38FD6BC2A77388E00DF1043 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEF0604F29510A26001D2CEA /* HomeViewModel.swift */,
+				CEF0605029510A26001D2CEA /* LanguageCellViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B38FD6BD2A77389A00DF1043 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */,
+				CEF0604E29510A26001D2CEA /* HomeViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B38FD6BE2A7738AF00DF1043 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEF0605129510A27001D2CEA /* LanguageImport.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B38FD6BF2A7738BD00DF1043 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		B38FD6C02A773AED00DF1043 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B3E01CEC298F260F004D86C1 /* TrainingView.swift */,
+				B38FD6C32A7740E700DF1043 /* TrainingEmptyView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B38FD6C12A773AF100DF1043 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B3E01CEE298F2A7F004D86C1 /* TrainingViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B3E01CEB298F25FF004D86C1 /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				B38FD6C12A773AF100DF1043 /* ViewController */,
+				B38FD6C02A773AED00DF1043 /* View */,
+			);
+			path = Training;
 			sourceTree = "<group>";
 		};
 		B3E5421E294FBD160015FD9C /* Components */ = {
@@ -252,7 +325,7 @@
 				B38C29DB294D6A70006FCDEA /* Extensions */,
 				B3606D1B294D3D3E009E62E9 /* NewLanguage */,
 				B3657DFE290740F8000D76C8 /* AddWord */,
-				CE0FE4F72238585A00430FDE /* TrainingViewController.swift */,
+				B3E01CEB298F25FF004D86C1 /* Training */,
 				CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */,
 				B3606D1E294D459E009E62E9 /* Localizable */,
 				CECD6344235E54350060911F /* pp.html */,
@@ -290,14 +363,11 @@
 		E37D1706261BCC22006C1F71 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
-				CE431525295E08F4000F7FA2 /* CollectionViewCell.swift */,
-				CEF0604E29510A26001D2CEA /* HomeViewController.swift */,
-				CEF0604F29510A26001D2CEA /* HomeViewModel.swift */,
-				CEF0605729510CD3001D2CEA /* HomeLanguageHeaderView.swift */,
-				CEF0605029510A26001D2CEA /* LanguageCellViewModel.swift */,
-				CEF0605129510A27001D2CEA /* LanguageImport.swift */,
-				CEB77942295E503F00D7BF35 /* NewLanguageScreenProtocol.swift */,
-				CEA8BCC42966108D00E2EAF9 /* AboutViewController.swift */,
+				B38FD6BF2A7738BD00DF1043 /* Protocol */,
+				B38FD6BE2A7738AF00DF1043 /* Model */,
+				B38FD6BD2A77389A00DF1043 /* ViewController */,
+				B38FD6BC2A77388E00DF1043 /* ViewModel */,
+				B38FD6BB2A77388000DF1043 /* View */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -320,7 +390,7 @@
 			);
 			name = VocabularyTrainer;
 			packageProductDependencies = (
-				41B16E8F2A11617A00F83DB4 /* WaterfallTrueCompositionalLayout */,
+				CEB77950295F681300D7BF35 /* WaterfallTrueCompositionalLayout */,
 			);
 			productName = VocabularyTrainer;
 			productReference = CE86C5482235AE20008A5B73 /* VocabularyTrainer.app */;
@@ -402,7 +472,7 @@
 			);
 			mainGroup = CE86C53F2235AE20008A5B73;
 			packageReferences = (
-				41B16E8E2A11617A00F83DB4 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */,
+				CEB7794F295F681300D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */,
 			);
 			productRefGroup = CE86C5492235AE20008A5B73 /* Products */;
 			projectDirPath = "";
@@ -472,6 +542,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3E54224294FDBA60015FD9C /* UIAccessibility+Extensions.swift in Sources */,
+				B38FD6BA2A7721DB00DF1043 /* HomeEmptyView.swift in Sources */,
 				CEF0605629510A27001D2CEA /* LanguageImport.swift in Sources */,
 				B3E54220294FC3290015FD9C /* UIView+Extensions.swift in Sources */,
 				CE49D67E2963440300A8DDEB /* UIButton+Extensions.swift in Sources */,
@@ -481,21 +552,22 @@
 				28716F4E290EF54B00EACCA1 /* Coordinator.swift in Sources */,
 				CEF0605829510CD3001D2CEA /* HomeLanguageHeaderView.swift in Sources */,
 				CEF0605529510A27001D2CEA /* LanguageCellViewModel.swift in Sources */,
+				B3E01CED298F260F004D86C1 /* TrainingView.swift in Sources */,
 				B38C29DA294D68B4006FCDEA /* String+Extensions.swift in Sources */,
 				CE0012FF2243F21C002F86DE /* UIViewController+Extensions.swift in Sources */,
 				B38C29D4294D45F1006FCDEA /* Localizable.swift in Sources */,
+				B38FD6C42A7740E700DF1043 /* TrainingEmptyView.swift in Sources */,
 				CE31ED79290AC4B100AD3300 /* AddWordDelegate.swift in Sources */,
 				CE431526295E08F4000F7FA2 /* CollectionViewCell.swift in Sources */,
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
 				CEF0605329510A27001D2CEA /* HomeViewController.swift in Sources */,
+				B3E01CEF298F2A7F004D86C1 /* TrainingViewController.swift in Sources */,
 				CEB77943295E503F00D7BF35 /* NewLanguageScreenProtocol.swift in Sources */,
 				CEA8BCC52966108D00E2EAF9 /* AboutViewController.swift in Sources */,
-				CEB77947295E59E800D7BF35 /* EmojiChooser.swift in Sources */,
 				B3E5421D294FB17A0015FD9C /* ModalCloseButton.swift in Sources */,
 				B38C29D8294D578C006FCDEA /* UILabel+Extensions.swift in Sources */,
 				CE60940A2999210F00C74933 /* Textfield.swift in Sources */,
 				CEB77945295E563200D7BF35 /* UserDefaults+Extensions.swift in Sources */,
-				CE0FE4F82238585A00430FDE /* TrainingViewController.swift in Sources */,
 				18943A0A29094F470017E1A2 /* LanguageScreenViewController.swift in Sources */,
 				28716F4F290EF54B00EACCA1 /* StoryBoarded.swift in Sources */,
 				CE86C5822235C971008A5B73 /* Helper.swift in Sources */,
@@ -691,16 +763,15 @@
 				CODE_SIGN_ENTITLEMENTS = VocabularyTrainer/VocabularyTrainer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 6T68RPD4WZ;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -716,16 +787,15 @@
 				CODE_SIGN_ENTITLEMENTS = VocabularyTrainer/VocabularyTrainer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_TEAM = 6T68RPD4WZ;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.0;
+				MARKETING_VERSION = 1.3.1;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -781,7 +851,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6T68RPD4WZ;
+				DEVELOPMENT_TEAM = 972LY7PTVT;
 				INFOPLIST_FILE = VocabularyTrainerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -801,7 +871,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6T68RPD4WZ;
+				DEVELOPMENT_TEAM = 972LY7PTVT;
 				INFOPLIST_FILE = VocabularyTrainerUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -858,20 +928,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		41B16E8E2A11617A00F83DB4 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */ = {
+		CEB7794F295F681300D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/eeshishko/WaterfallTrueCompositionalLayout.git";
+			repositoryURL = "git@github.com:eeshishko/WaterfallTrueCompositionalLayout.git";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = revision;
+				revision = f45da38f2f08aa557be75f64b1b5499149ae95d9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		41B16E8F2A11617A00F83DB4 /* WaterfallTrueCompositionalLayout */ = {
+		CEB77950295F681300D7BF35 /* WaterfallTrueCompositionalLayout */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 41B16E8E2A11617A00F83DB4 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */;
+			package = CEB7794F295F681300D7BF35 /* XCRemoteSwiftPackageReference "WaterfallTrueCompositionalLayout" */;
 			productName = WaterfallTrueCompositionalLayout;
 		};
 /* End XCSwiftPackageProductDependency section */

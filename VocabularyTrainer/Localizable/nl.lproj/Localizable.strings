@@ -22,7 +22,7 @@
 "0 words" = "0 woorden";
 "My words" = "⚙️ Bewerken";
 "new Word" = "nieuw woord";
-"translation" = "vertaling";
+"translation" = "Vertaling";
 "Training" = "📖 Training";
 "Delete Language" = "🗑 Taal verwijderen";
 "export" = "💾 Taal exporteren";
@@ -43,14 +43,14 @@
 "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files into Finder" = "Je kan je taal bestand kopeeren naar je apparaat via iTunes:\n iPhone->Filesharing->Flippy->drag csv-files naar Finder";
 "⤵ import" = "⤋ importeren";
 "↑ export" = "⇪ exporteren";
-"answer" = "antwoord";
-"Check" = "Controleer";
-"Take a look" = "Neem een kijkje";
-"Skip word" = "Woord overslaan";
+"answer" = "Antwoord";
+"check" = "Controleer";
+"takeLook" = "Neem een kijkje";
+"skip" = "Woord overslaan";
 "search for words" = "Zoeken naar woorden";
 
 "Importing language files into the app will overwrite any languages in your app with the same name as the csv-file.\n Do you want to proceed?" = "Bestaande talen op je apparaat met dezelfde naam als het csv-file worden overschreven.\n Is dit oke?";
-"There were not found any language files for your app.\nFor a template of a language file you may create a new language with some vocabulary inside this app and export it." = "Geen bestanden met talen gevonden voor deze app.\nOm een template te creeren, kan je een nieuwe taal aanmaken en exporteren.";
+"emptyMessage" = "Geen bestanden met talen gevonden voor deze app.\nOm een template te creeren, kan je een nieuwe taal aanmaken en exporteren.";
 "No language files found" = "Geen taalbestand geselecteerd";
 "👍 I was right" = "👍";
 "👎 I was wrong" = "👎";
@@ -69,5 +69,9 @@
 "home_edit_button_title" = "Edit";
 "home_import_button_title" = "Import";
 "home_export_button_title" = "Export";
-"alert_import_language_existing_message" = "You already have a language called %@. This will be overwritten when importing.\nAre you sure you want to proceed?";
-"alert_import_language_existing_title" = "Already existing";
+"nextWord" = "Volgende woord";
+"emptyLanguage" = "Je hebt nog geen talen om te oefenen! \n Tik op de + knop om aan je leerreis te beginnen.";
+"emptyWord" = "Je hebt nog geen woorden om te oefenen! \n Tik op de bewerk-knop om nieuwe woorden toe te voegen.";
+"addedLanguage" = "Taal toegevoegd";
+"alert_import_language_existing_message" = "Je hebt al een taal met de naam %@. Dit wordt overschreven bij importeren.\nWeet je zeker dat je wilt doorgaan?";
+"alert_import_language_existing_title" = "Al reeds aanwezig";
