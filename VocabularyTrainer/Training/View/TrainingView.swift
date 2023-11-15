@@ -260,6 +260,7 @@ final class TrainingView: UIView {
         } else {
             progresses[key] = 1.0
         }
+		guard let selectedLanguage = selectedLanguage else { return }
         UserDefaults.standard.set(progresses, forKey: "\(selectedLanguage)Progress")
     }
 

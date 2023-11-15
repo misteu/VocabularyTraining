@@ -67,7 +67,7 @@ final class HomeViewController: UIViewController {
         return collectionView
     }()
     /// Data source of `collectionView`.
-    lazy var datasource: UICollectionViewDiffableDataSource<Int, LanguageCellViewModel> = { [weak self] in
+    lazy var datasource: UICollectionViewDiffableDataSource<Int, LanguageCellViewModel> = { [self] in
         let cellConfig = UICollectionView.CellRegistration<CollectionViewCell, LanguageCellViewModel> { cell, _, item in
             cell.configure(with: item)
         }
