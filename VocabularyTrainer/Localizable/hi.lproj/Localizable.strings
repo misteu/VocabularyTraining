@@ -76,3 +76,5 @@
 "addedLanguage" = "भाषा जोड़ी गई";
 "alert_import_language_existing_message" = "आपके पास पहले से ही एक भाषा है जिसका नाम %@ है। इसे आयात करते समय यह ओवरराइट हो जाएगा।\nक्या आप निश्चित ही आगे बढ़ना चाहते हो?";
 "alert_import_language_existing_title" = "पहले से मौजूद है";
+"correctButtonTitle" = "Correct";
+"wrongButtonTitle" = "Wrong";

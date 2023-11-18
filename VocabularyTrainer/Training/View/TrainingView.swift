@@ -92,6 +92,8 @@ final class TrainingView: UIView {
         return button
     }()
 
+	private lazy var checkButtonContainer: UIStackView = UIStackView(arrangedSubviews: [checkButton])
+
     private lazy var skipButton: UIButton = {
         let button = UIButton(frame: .zero,
                               primaryAction: .init(handler: { [weak self] _ in
@@ -102,26 +104,69 @@ final class TrainingView: UIView {
         button.layer.borderWidth = 1
         button.accessibilityTraits = .button
         button.setTitle(Localizable.skip.localize(), for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .caption1)
+        button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         button.setTitleColor(UIColor(named: "grayButton"), for: .normal)
         return button
     }()
 
-    private lazy var takeLookButton: UIButton = {
-        let button = UIButton(frame: .zero, primaryAction: .init(handler: { [weak self] _ in
-            self?.takeLookAccessibilityAction()
-        }))
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(takeLookButtonAction))
-        button.addGestureRecognizer(longPressRecognizer)
-        longPressRecognizer.minimumPressDuration = 0.05
-        button.layer.cornerRadius = 3
-        button.backgroundColor = .darkGray
-        button.accessibilityTraits = .button
-        button.setTitle(Localizable.takeLook.localize(), for: .normal)
-        button.titleLabel?.font = .preferredFont(forTextStyle: .caption1)
-        button.setTitleColor(.white, for: .normal)
-        return button
-    }()
+	let takeLookSwitchControl = UISwitch(frame: .zero)
+	private lazy var takeLookContainerView: UIView = {
+		let stackView = UIStackView()
+		stackView.spacing = 12
+		takeLookSwitchControl.addAction(.init(handler: { [weak self] _ in
+			self?.takeLookButtonAction(isOn: self?.takeLookSwitchControl.isOn == true)
+		}), for: .touchUpInside)
+		let titleLabel = UILabel()
+		titleLabel.font = .preferredFont(forTextStyle: .caption1)
+		titleLabel.text = Localizable.takeLook.localize()
+		titleLabel.textAlignment = .right
+		stackView.addArrangedSubview(titleLabel)
+		stackView.addArrangedSubview(takeLookSwitchControl)
+		return stackView
+	}()
+
+	/// Contains right / wrong buttons for quickly saving vocabulary.
+	private lazy var quickAnswerContainer: UIStackView = {
+
+		let correctButton = UIButton(frame: .zero,
+									 primaryAction: .init(handler: { [weak self] _ in
+			self?.setQuickAnswer(isCorrect: true)
+		}))
+
+		var correctButtonConfig = UIButton.Configuration.plain()
+		correctButtonConfig.image = UIImage(systemName: "checkmark")
+		correctButtonConfig.imagePadding = 8
+		correctButton.configuration = correctButtonConfig
+		correctButton.tintColor = .white
+
+		correctButton.layer.cornerRadius = 3
+		correctButton.backgroundColor = UIColor(named: "greenButton")?.withAlphaComponent(0.7)
+		correctButton.setTitle(Localizable.correctButtonTitle.localize(), for: .normal)
+		correctButton.titleLabel?.font = .preferredFont(forTextStyle: .callout)
+		correctButton.setTitleColor(.white, for: .normal)
+
+		let wrongButton = UIButton(frame: .zero,
+								   primaryAction: .init(handler: { [weak self] _ in
+			self?.setQuickAnswer(isCorrect: false)
+		}))
+
+		var wrongButtonConfig = UIButton.Configuration.plain()
+		wrongButtonConfig.image = UIImage(systemName: "xmark")
+		wrongButtonConfig.imagePadding = 8
+		wrongButton.configuration = wrongButtonConfig
+		wrongButton.tintColor = .white
+
+		wrongButton.layer.cornerRadius = 3
+		wrongButton.backgroundColor = UIColor(named: "red")?.withAlphaComponent(0.7)
+		wrongButton.setTitle(Localizable.wrongButtonTitle.localize(), for: .normal)
+		wrongButton.titleLabel?.font = .preferredFont(forTextStyle: .callout)
+		wrongButton.setTitleColor(.white, for: .normal)
+
+		let stackView = UIStackView(arrangedSubviews: [correctButton, wrongButton])
+		stackView.spacing = 16
+		stackView.distribution = .fillEqually
+		return stackView
+	}()
 
     // MARK: - Initializer
 
@@ -144,9 +189,9 @@ final class TrainingView: UIView {
                      wordLabel,
                      answerLabel,
                      answerTextField,
-                     checkButton,
+					 checkButtonContainer,
                      skipButton,
-                     takeLookButton])
+					 takeLookContainerView])
     }
 
     private func setUpConstraints() {
@@ -170,20 +215,20 @@ final class TrainingView: UIView {
             answerTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             answerTextField.heightAnchor.constraint(equalToConstant: 46),
 
-            checkButton.topAnchor.constraint(equalTo: answerTextField.bottomAnchor, constant: 16),
-            checkButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            checkButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
-            checkButton.heightAnchor.constraint(equalToConstant: 42),
+			checkButtonContainer.topAnchor.constraint(equalTo: answerTextField.bottomAnchor, constant: 16),
+			checkButtonContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+			checkButtonContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+			checkButtonContainer.heightAnchor.constraint(equalToConstant: 42),
 
-            skipButton.topAnchor.constraint(equalTo: checkButton.bottomAnchor, constant: 16),
+            skipButton.topAnchor.constraint(equalTo: checkButtonContainer.bottomAnchor, constant: 32),
             skipButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             skipButton.heightAnchor.constraint(equalToConstant: 31),
             skipButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 - 28),
 
-            takeLookButton.topAnchor.constraint(equalTo: checkButton.bottomAnchor, constant: 16),
-            takeLookButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-            takeLookButton.heightAnchor.constraint(equalToConstant: 31),
-            takeLookButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 - 28),
+            takeLookContainerView.topAnchor.constraint(equalTo: checkButtonContainer.bottomAnchor, constant: 32),
+			takeLookContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+			takeLookContainerView.heightAnchor.constraint(equalToConstant: 31),
+			takeLookContainerView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 - 28),
         ])
     }
 
@@ -340,8 +385,29 @@ final class TrainingView: UIView {
         }
     }
 
+	private func setQuickAnswer(isCorrect: Bool) {
+		guard let isKey = isKeyShown,
+			  let key = currentKey,
+			  let vocabs = vocabularies else { return }
+		let solution: String? = isKey ? vocabs[key] : key
+		if isCorrect {
+			rightAnswer(solution: solution, key: key)
+		} else {
+			wrongAnswer(key: key)
+		}
+		checkButtonContainer.isHidden = true
+		takeLookContainerView.isHidden = true
+		skipButton.shake(xValue: 0, yValue: 12)
+		skipButton.setTitle(Localizable.nextWord.localize(), for: .normal)
+	}
+
     @objc
     private func skipButtonAction() {
+		skipButton.setTitle(Localizable.skip.localize(), for: .normal)
+		checkButtonContainer.isHidden = false
+		takeLookContainerView.isHidden = false
+		takeLookSwitchControl.setOn(false, animated: true)
+		takeLookButtonAction(isOn: false)
         softHapticFeedback()
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.skipButton.backgroundColor = .systemGray4
@@ -360,21 +426,38 @@ final class TrainingView: UIView {
         }
     }
 
-    @objc
-    private func takeLookButtonAction(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        if gestureRecognizer.state == .began {
-            softHapticFeedback()
-            takeLookButton.backgroundColor = .systemGray2
-            guard let isKey = isKeyShown,
-                  let key = currentKey,
-                  let vocabs = vocabularies else { return }
-            let solution: String? = isKey ? vocabs[key] : key
-            answerTextField.text = solution
-        } else if gestureRecognizer.state == .ended {
-            answerTextField.text = nil
-            takeLookButton.backgroundColor = .darkGray
-        }
-    }
+	func takeLookButtonAction(isOn: Bool) {
+		softHapticFeedback()
+		guard let isKey = isKeyShown,
+			  let key = currentKey,
+			  let vocabs = vocabularies else { return }
+		let solution: String? = isKey ? vocabs[key] : key
+		answerTextField.text = isOn ? solution : nil
+		updateCheckButtonContainer(isOn: isOn)
+	}
+
+	func updateCheckButtonContainer(isOn: Bool) {
+		for view in checkButtonContainer.arrangedSubviews {
+			view.removeFromSuperview()
+		}
+		checkButtonContainer.addArrangedSubview(isOn ? quickAnswerContainer : checkButton)
+	}
+
+//    @objc
+//    private func takeLookButtonAction(_ gestureRecognizer: UILongPressGestureRecognizer) {
+//        if gestureRecognizer.state == .began {
+//            softHapticFeedback()
+//            takeLookButton.backgroundColor = .systemGray2
+//            guard let isKey = isKeyShown,
+//                  let key = currentKey,
+//                  let vocabs = vocabularies else { return }
+//            let solution: String? = isKey ? vocabs[key] : key
+//            answerTextField.text = solution
+//        } else if gestureRecognizer.state == .ended {
+//            answerTextField.text = nil
+//            takeLookButton.backgroundColor = .darkGray
+//        }
+//    }
 
     private func rightAnswer(solution: String?, key: String) {
         guard let solution = solution else { return }
