@@ -393,21 +393,24 @@ final class TrainingView: UIView {
 		if isCorrect {
 			rightAnswer(solution: solution, key: key)
 		} else {
-			wrongAnswer(key: key)
+			wrongAnswer(key: key, shouldShake: false)
 		}
-		checkButtonContainer.isHidden = true
-		takeLookContainerView.isHidden = true
-		skipButton.shake(xValue: 0, yValue: 12)
-		skipButton.setTitle(Localizable.nextWord.localize(), for: .normal)
+		resetButtonVisibilities()
+		self.setUpTraining()
+		wordLabel.shake(xValue: 0, yValue: 12)
+	}
+
+	private func resetButtonVisibilities() {
+		checkButtonContainer.isHidden = false
+		takeLookContainerView.isHidden = false
+		takeLookSwitchControl.setOn(false, animated: true)
+		takeLookButtonAction(isOn: false)
 	}
 
     @objc
     private func skipButtonAction() {
 		skipButton.setTitle(Localizable.skip.localize(), for: .normal)
-		checkButtonContainer.isHidden = false
-		takeLookContainerView.isHidden = false
-		takeLookSwitchControl.setOn(false, animated: true)
-		takeLookButtonAction(isOn: false)
+
         softHapticFeedback()
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.skipButton.backgroundColor = .systemGray4
@@ -473,13 +476,15 @@ final class TrainingView: UIView {
         answerTextField.text = solution
     }
 
-    private func wrongAnswer(key: String) {
+	private func wrongAnswer(key: String, shouldShake: Bool = true) {
         changeWordsProbability(increase: true, key: key)
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.answerTextField.layer.borderColor = UIColor(named: "red")?.cgColor
             self?.answerTextField.layer.borderWidth = 1
         })
-        checkButton.shake()
+		if shouldShake {
+			checkButton.shake()
+		}
         errorHapticFeedback()
 
         if UIAccessibility.isVoiceOverRunning {
