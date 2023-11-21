@@ -31,7 +31,7 @@ final class HomeLanguageHeaderView: UIView {
     /// Button for adding a new language.
     lazy var addLanguageButton: UIButton = {
         let button = UIButton(type: .contactAdd)
-        button.accessibilityLabel = Localizable.addNewLanguage.localize()
+        button.accessibilityLabel = NSLocalizedString("addNewLanguage", comment: "")
         button.tintColor = .label
         button.addAction(
             .init(handler: { [weak self] _ in

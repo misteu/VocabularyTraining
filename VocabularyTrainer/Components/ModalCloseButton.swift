@@ -23,7 +23,7 @@ final class ModalCloseButton: UIButton {
         backgroundColor = UIColor(named: "closeButton")
         layer.cornerRadius = 3
         translatesAutoresizingMaskIntoConstraints = false
-        accessibilityLabel = Localizable.close.localize()
+        accessibilityLabel = NSLocalizedString("Close", comment: "")
         accessibilityTraits = .button
     }
 }

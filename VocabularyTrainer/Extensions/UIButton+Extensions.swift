@@ -72,7 +72,8 @@ extension UIButton {
     static func aboutButton(tapHandler: (() -> Void)?) -> UIButton {
         let font = UIFontMetrics(forTextStyle: .body)
             .scaledFont(for: .systemFont(ofSize: 12, weight: .semibold))
-        let title = NSMutableAttributedString(string: "About ", attributes: [.font: font])
+		let aboutTitle = NSLocalizedString("About", comment: "About for About Flippy button")
+        let title = NSMutableAttributedString(string: aboutTitle, attributes: [.font: font])
         let highlightColor = HomeViewModel.Colors.flippyGreen ?? .systemGreen
         title.append(NSAttributedString(string: "Flippy",
                                         attributes: [.foregroundColor: highlightColor,

@@ -29,16 +29,16 @@ final class NewLanguageViewController: UIViewController {
         .scaledFont(for: .systemFont(ofSize: 20, weight: .semibold))
 
     private lazy var titleLabel: UILabel = .createLabel(font: titleFont,
-                                                        text: Localizable.addNewLanguage.localize(),
+                                                        text: NSLocalizedString("addNewLanguage", comment: ""),
                                                         accessibilityTrait: .header,
                                                         textAlignment: .center)
 
     private lazy var languageLabel: UILabel = .createLabel(font: .preferredFont(forTextStyle: .headline),
-                                                           text: Localizable.language.localize(),
+                                                           text: NSLocalizedString("Language", comment: ""),
                                                            accessibilityTrait: .header)
     private lazy var textField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = Localizable.whichLanguage.localize()
+        textField.placeholder = NSLocalizedString("whichLanguage", comment: "")
         textField.font = .preferredFont(forTextStyle: .body)
         textField.backgroundColor = .systemBackground
         textField.leftView = UIView(frame: .init(x: 0,
@@ -56,7 +56,7 @@ final class NewLanguageViewController: UIViewController {
         .scaledFont(for: .systemFont(ofSize: 14, weight: .light))
 
     private lazy var feedbackLabel: UILabel = .createLabel(font: feedbackFont,
-                                                           text: Localizable.languageExists.localize(),
+                                                           text: NSLocalizedString("languageExists", comment: ""),
                                                            isHidden: true,
                                                            fontColor: "red")
 
@@ -70,7 +70,7 @@ final class NewLanguageViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.isEnabled = false
         button.accessibilityTraits = .button
-        button.setTitle(Localizable.add.localize(), for: .normal)
+        button.setTitle(NSLocalizedString("add", comment: ""), for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         return button
     }()

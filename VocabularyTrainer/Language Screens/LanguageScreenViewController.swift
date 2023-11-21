@@ -34,7 +34,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         let button: UIButton = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = .systemFont(ofSize: 25)
-        button.setTitle(NSLocalizedString("New Word", comment: "New Word"), for: .normal)
+        button.setTitle(NSLocalizedString("New word", comment: "New Word"), for: .normal)
         button.backgroundColor = BackgroundColor.mediumSpringBud
         button.layer.cornerRadius = 5.0
         button.setTitleColor(BackgroundColor.japaneseIndigo, for: .normal)
@@ -171,7 +171,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         view.backgroundColor = .systemTeal
         view.addSubview(tableView)
         view.addSubview(searchBar)
-        view.addSubview(exportButton)
         view.addSubview(hintLabel)
         view.addSubview(infoButton)
         view.addSubview(newWordButton)
@@ -180,16 +179,7 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         view.addSubview(sortTranslationButton)
         NSLayoutConstraint.activate([
             // constraints for back button.
-            
-            NSLayoutConstraint(
-                item: exportButton,
-                attribute: .centerX,
-                relatedBy: .equal,
-                toItem: view,
-                attribute: .centerX,
-                multiplier: 1,
-                constant: 0
-            ),
+
             infoButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 4),
             // constraints for searchBar.
             NSLayoutConstraint(
@@ -448,8 +438,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
         sortWordButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
         sortTranslationButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
         sortDateButton.addTarget(self, action: #selector(sortButtonTapped), for: .touchUpInside)
-        
-        exportButton.addTarget(self, action: #selector(exportButtonTapped), for: .touchUpInside)
         newWordButton.addTarget(self, action: #selector(addNewWordTapped), for: .touchUpInside)
     }
     
@@ -540,12 +528,6 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
        
        tableView.reloadData()
    }
-    
-    @objc func exportButtonTapped(_ sender: Any) {
-        // sendEmail()
-        // exportToDocuments()
-        exportAsCsvToDocuments()
-    }
     
     private func sortVocabulary(element: SortElement, isAscending: Bool) {
         
@@ -709,62 +691,9 @@ class LanguageScreenViewController: UIViewController, UISearchBarDelegate, MFMai
             print(error)
         }
     }
-    
-    func exportAsCsvToDocuments() {
-        
-        guard let language = selectedLanguage else {print("no language selected"); return}
-        
-        let exportStringHead = """
-    \(language)
-    word;translation;progress
-    """
-        var exportString = ""
-        
-        for (key, value) in vocabDict {
-            
-            if !exportString.isEmpty {
-                exportString = """
-                    \(exportString)
-                    \(key);\(value);\(vocabProgr[key] ?? 100)
-                """
-            } else {
-                exportString = "\(key);\(value);\(vocabProgr[key] ?? 100)"
-            }
-        }
-        
-        exportString = """
-            \(exportStringHead)
-            \(exportString)
-        """
-        
-        let file = "\(language).csv"
-        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            
-            let fileURL = dir.appendingPathComponent(file)
-            
-            // writing
-            do {
-                try exportString.write(to: fileURL, atomically: false, encoding: .macOSRoman)
-                let alert = UIAlertController(title: "\(NSLocalizedString("Export successful:", comment: "Export successful:")) \(language).csv",
-                                              message: String.localizedStringWithFormat(NSLocalizedString("You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder",
-                                                                                                          comment: "You may copy your file to your machine via iTunes:\n iPhone->Filesharing->Flippy->drag %@.csv into Finder"), language),
-                                              preferredStyle: UIAlertController.Style.alert)
-                
-                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-            } catch {/* error handling here */}
-            
-            //      //reading
-            //      do {
-            //        let text2 = try String(contentsOf: fileURL, encoding: .utf8)
-            //      }
-            //      catch {/* error handling here */}
-        }
-    }
-    
+
     func localize() {
         newWordButton.setTitle(NSLocalizedString("New word", comment: "New word"), for: .normal)
-        exportButton.setTitle(NSLocalizedString("export", comment: "export"), for: .normal)
         searchBar.placeholder = NSLocalizedString("search for words", comment: "search for words")
         
         infoText = NSLocalizedString("Swipe left to edit word (edit its probability or delete it)", comment: "Swipe left to edit word (edit its probability or delete it)")

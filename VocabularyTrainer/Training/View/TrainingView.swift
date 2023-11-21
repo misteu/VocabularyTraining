@@ -48,6 +48,7 @@ final class TrainingView: UIView {
         label.font = UIFontMetrics(forTextStyle: .largeTitle)
             .scaledFont(for: .systemFont(ofSize: 32,
                                          weight: .bold))
+		label.numberOfLines = 0
         return label
     }()
 
@@ -56,13 +57,13 @@ final class TrainingView: UIView {
         label.font = UIFontMetrics(forTextStyle: .headline)
             .scaledFont(for: .systemFont(ofSize: 14,
                                          weight: .bold))
-        label.text = Localizable.answer.localize()
+        label.text = NSLocalizedString("answer", comment: "")
         return label
     }()
 
     private lazy var answerTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = Localizable.translation.localize()
+        textField.placeholder = NSLocalizedString("translation", comment: "")
         textField.font = .preferredFont(forTextStyle: .body)
         textField.backgroundColor = .systemBackground
         textField.leftView = UIView(frame: .init(x: 0,
@@ -87,7 +88,7 @@ final class TrainingView: UIView {
         button.layer.cornerRadius = 3
         button.isEnabled = false
         button.accessibilityTraits = .button
-        button.setTitle(Localizable.check.localize(), for: .normal)
+        button.setTitle(NSLocalizedString("check", comment: ""), for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .headline)
         return button
     }()
@@ -103,7 +104,7 @@ final class TrainingView: UIView {
         button.layer.borderColor = UIColor(named: "grayButton")?.cgColor
         button.layer.borderWidth = 1
         button.accessibilityTraits = .button
-        button.setTitle(Localizable.skip.localize(), for: .normal)
+        button.setTitle(NSLocalizedString("skip", comment: ""), for: .normal)
         button.titleLabel?.font = .preferredFont(forTextStyle: .callout)
         button.setTitleColor(UIColor(named: "grayButton"), for: .normal)
         return button
@@ -118,7 +119,7 @@ final class TrainingView: UIView {
 		}), for: .touchUpInside)
 		let titleLabel = UILabel()
 		titleLabel.font = .preferredFont(forTextStyle: .caption1)
-		titleLabel.text = Localizable.takeLook.localize()
+		titleLabel.text = NSLocalizedString("takeLook", comment: "")
 		titleLabel.textAlignment = .right
 		stackView.addArrangedSubview(titleLabel)
 		stackView.addArrangedSubview(takeLookSwitchControl)
@@ -141,7 +142,7 @@ final class TrainingView: UIView {
 
 		correctButton.layer.cornerRadius = 3
 		correctButton.backgroundColor = UIColor(named: "greenButton")?.withAlphaComponent(0.7)
-		correctButton.setTitle(Localizable.correctButtonTitle.localize(), for: .normal)
+		correctButton.setTitle(NSLocalizedString("correctButtonTitle", comment: ""), for: .normal)
 		correctButton.titleLabel?.font = .preferredFont(forTextStyle: .callout)
 		correctButton.setTitleColor(.white, for: .normal)
 
@@ -158,7 +159,7 @@ final class TrainingView: UIView {
 
 		wrongButton.layer.cornerRadius = 3
 		wrongButton.backgroundColor = UIColor(named: "red")?.withAlphaComponent(0.7)
-		wrongButton.setTitle(Localizable.wrongButtonTitle.localize(), for: .normal)
+		wrongButton.setTitle(NSLocalizedString("wrongButtonTitle", comment: ""), for: .normal)
 		wrongButton.titleLabel?.font = .preferredFont(forTextStyle: .callout)
 		wrongButton.setTitleColor(.white, for: .normal)
 
@@ -205,7 +206,8 @@ final class TrainingView: UIView {
             trainingLanguageLabel.centerXAnchor.constraint(equalTo: barButton.centerXAnchor),
 
             wordLabel.topAnchor.constraint(equalTo: trainingLanguageLabel.bottomAnchor, constant: 32),
-            wordLabel.centerXAnchor.constraint(equalTo: barButton.centerXAnchor),
+			wordLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 24),
+			wordLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: 24),
 
             answerLabel.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 20),
             answerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
@@ -319,14 +321,14 @@ final class TrainingView: UIView {
         checkButton.backgroundColor = .systemGray2
         checkButton.isEnabled = false
         checkButton.accessibilityTraits.insert(.notEnabled)
-        checkButton.setTitle(Localizable.check.localize(), for: .normal)
+        checkButton.setTitle(NSLocalizedString("check", comment: ""), for: .normal)
     }
 
     private func setUpEnabledCheckButton() {
         checkButton.backgroundColor = UIColor(named: "greenButton")
         checkButton.isEnabled = true
         checkButton.accessibilityTraits.remove(.notEnabled)
-        checkButton.setTitle(Localizable.check.localize(), for: .normal)
+        checkButton.setTitle(NSLocalizedString("check", comment: ""), for: .normal)
     }
 
     private func takeLookAccessibilityAction() {
@@ -338,7 +340,7 @@ final class TrainingView: UIView {
 
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                let answer = "\(Localizable.answer.localize()) \(solution)"
+                let answer = "\(NSLocalizedString("answer", comment: "")) \(solution)"
                 UIAccessibility.post(notification: .announcement, argument: answer)
             }
         }
@@ -371,7 +373,7 @@ final class TrainingView: UIView {
 
         let solution: String? = isKey ? vocabs[key] : key
 
-        if checkButton.titleLabel?.text != Localizable.check.localize() {
+        if checkButton.titleLabel?.text != NSLocalizedString("check", comment: "") {
             setUpTraining()
             UIAccessibility.focusOn(wordLabel)
             return
@@ -391,7 +393,7 @@ final class TrainingView: UIView {
 			  let vocabs = vocabularies else { return }
 		let solution: String? = isKey ? vocabs[key] : key
 		if isCorrect {
-			rightAnswer(solution: solution, key: key)
+			rightAnswer(solution: solution, key: key, shouldShake: false)
 		} else {
 			wrongAnswer(key: key, shouldShake: false)
 		}
@@ -409,7 +411,7 @@ final class TrainingView: UIView {
 
     @objc
     private func skipButtonAction() {
-		skipButton.setTitle(Localizable.skip.localize(), for: .normal)
+		skipButton.setTitle(NSLocalizedString("skip", comment: ""), for: .normal)
 
         softHapticFeedback()
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
@@ -427,10 +429,11 @@ final class TrainingView: UIView {
                 UIAccessibility.post(notification: .announcement, argument: self.wordLabel.text?.description)
             }
         }
+		resetButtonVisibilities()
     }
 
 	func takeLookButtonAction(isOn: Bool) {
-		softHapticFeedback()
+//		softHapticFeedback()
 		guard let isKey = isKeyShown,
 			  let key = currentKey,
 			  let vocabs = vocabularies else { return }
@@ -446,23 +449,7 @@ final class TrainingView: UIView {
 		checkButtonContainer.addArrangedSubview(isOn ? quickAnswerContainer : checkButton)
 	}
 
-//    @objc
-//    private func takeLookButtonAction(_ gestureRecognizer: UILongPressGestureRecognizer) {
-//        if gestureRecognizer.state == .began {
-//            softHapticFeedback()
-//            takeLookButton.backgroundColor = .systemGray2
-//            guard let isKey = isKeyShown,
-//                  let key = currentKey,
-//                  let vocabs = vocabularies else { return }
-//            let solution: String? = isKey ? vocabs[key] : key
-//            answerTextField.text = solution
-//        } else if gestureRecognizer.state == .ended {
-//            answerTextField.text = nil
-//            takeLookButton.backgroundColor = .darkGray
-//        }
-//    }
-
-    private func rightAnswer(solution: String?, key: String) {
+	private func rightAnswer(solution: String?, key: String, shouldShake: Bool = true) {
         guard let solution = solution else { return }
         changeWordsProbability(increase: false, key: key)
 
@@ -470,9 +457,11 @@ final class TrainingView: UIView {
             self?.answerTextField.layer.borderColor = UIColor(named: "greenButton")?.cgColor
             self?.answerTextField.layer.borderWidth = 1
         }, completion: { _ in
-            self.successHapticFeedback()
+			if shouldShake {
+				self.successHapticFeedback()
+			}
         })
-        checkButton.setTitle(Localizable.nextWord.localize(), for: .normal)
+        checkButton.setTitle(NSLocalizedString("nextWord", comment: ""), for: .normal)
         answerTextField.text = solution
     }
 
@@ -489,7 +478,7 @@ final class TrainingView: UIView {
 
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                UIAccessibility.post(notification: .announcement, argument: Localizable.wrongAnswer.localize())
+                UIAccessibility.post(notification: .announcement, argument: NSLocalizedString("wrongAnswer", comment: ""))
             }
         }
     }

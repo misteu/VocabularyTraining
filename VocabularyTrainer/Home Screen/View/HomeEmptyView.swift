@@ -26,7 +26,7 @@ final class HomeEmptyView: UIView {
     /// Empty label when the user don't have any language added.
     private lazy var emptyLabel: UILabel = .createLabel(font: UIFontMetrics(forTextStyle: .body)
         .scaledFont(for: .systemFont(ofSize: 14, weight: .regular)),
-                                                   text: Localizable.emptyLanguage.localize(),
+                                                   text: NSLocalizedString("emptyLanguage", comment: ""),
                                                         fontColor: Colors.subtitle,
                                                         textAlignment: .center)
 

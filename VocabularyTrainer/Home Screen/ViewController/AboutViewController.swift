@@ -26,6 +26,10 @@ final class AboutViewController: UIViewController {
         alertController.view.addSubview(loadingIndicator)
         return alertController
     }()
+
+	@objc func closeAlert() {
+		loadingAlert.dismiss(animated: true)
+	}
     /// The string added to the html's url to get the correct PP for the user's locale.
     private var langCodeString: String {
         var langString = "en"
@@ -144,6 +148,11 @@ final class AboutViewController: UIViewController {
 
     /// Shows loading alert.
     private func showLoadingIndicator() {
+		if loadingAlert.actions.isEmpty {
+			loadingAlert.addAction(.init(title: NSLocalizedString("Close", comment: ""), style: .cancel, handler: { [weak self] _ in
+				self?.dismiss(animated: true)
+			}))
+		}
         present(loadingAlert, animated: true, completion: nil)
     }
 }
