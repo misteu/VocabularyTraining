@@ -12,6 +12,9 @@
 		28716F4E290EF54B00EACCA1 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28716F4B290EF54B00EACCA1 /* Coordinator.swift */; };
 		28716F4F290EF54B00EACCA1 /* StoryBoarded.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28716F4C290EF54B00EACCA1 /* StoryBoarded.swift */; };
 		28716F50290EF54B00EACCA1 /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28716F4D290EF54B00EACCA1 /* MainCoordinator.swift */; };
+		4148B09C2C02774F009B29D2 /* TakeLookSwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4148B09B2C02774F009B29D2 /* TakeLookSwitchButton.swift */; };
+		4148B09E2C0288FB009B29D2 /* RatingAlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4148B09D2C0288FB009B29D2 /* RatingAlertHelper.swift */; };
+		4148B0A02C0289F7009B29D2 /* MailManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4148B09F2C0289F7009B29D2 /* MailManager.swift */; };
 		41AA7F722B0D3094009DE4E9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 41AA7F712B0D3094009DE4E9 /* Localizable.xcstrings */; };
 		B3606D1D294D3D55009E62E9 /* NewLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3606D1C294D3D55009E62E9 /* NewLanguageViewController.swift */; };
 		B3657DFD290740D9000D76C8 /* AddNewWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3657DFC290740D8000D76C8 /* AddNewWordViewController.swift */; };
@@ -72,6 +75,9 @@
 		28716F4B290EF54B00EACCA1 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		28716F4C290EF54B00EACCA1 /* StoryBoarded.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryBoarded.swift; sourceTree = "<group>"; };
 		28716F4D290EF54B00EACCA1 /* MainCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		4148B09B2C02774F009B29D2 /* TakeLookSwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakeLookSwitchButton.swift; sourceTree = "<group>"; };
+		4148B09D2C0288FB009B29D2 /* RatingAlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingAlertHelper.swift; sourceTree = "<group>"; };
+		4148B09F2C0289F7009B29D2 /* MailManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailManager.swift; sourceTree = "<group>"; };
 		41AA7F712B0D3094009DE4E9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		95333B92290B36A400016F8E /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = hi; path = hi.lproj/pp.html; sourceTree = "<group>"; };
 		B3606D1C294D3D55009E62E9 /* NewLanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewLanguageViewController.swift; sourceTree = "<group>"; };
@@ -243,6 +249,7 @@
 			children = (
 				B3E01CEC298F260F004D86C1 /* TrainingView.swift */,
 				B38FD6C32A7740E700DF1043 /* TrainingEmptyView.swift */,
+				4148B09B2C02774F009B29D2 /* TakeLookSwitchButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -322,6 +329,8 @@
 				CE2EB8262245406A006B1C6D /* Launch Screen.storyboard */,
 				B3606D1E294D459E009E62E9 /* Localizable */,
 				CECD6344235E54350060911F /* pp.html */,
+				4148B09D2C0288FB009B29D2 /* RatingAlertHelper.swift */,
+				4148B09F2C0289F7009B29D2 /* MailManager.swift */,
 			);
 			path = VocabularyTrainer;
 			sourceTree = "<group>";
@@ -554,9 +563,11 @@
 				E37D170B261BCD59006C1F71 /* VocabularyDateFormatter.swift in Sources */,
 				CEF0605329510A27001D2CEA /* HomeViewController.swift in Sources */,
 				B3E01CEF298F2A7F004D86C1 /* TrainingViewController.swift in Sources */,
+				4148B0A02C0289F7009B29D2 /* MailManager.swift in Sources */,
 				CEB77943295E503F00D7BF35 /* NewLanguageScreenProtocol.swift in Sources */,
 				CEA8BCC52966108D00E2EAF9 /* AboutViewController.swift in Sources */,
 				B3E5421D294FB17A0015FD9C /* ModalCloseButton.swift in Sources */,
+				4148B09C2C02774F009B29D2 /* TakeLookSwitchButton.swift in Sources */,
 				B38C29D8294D578C006FCDEA /* UILabel+Extensions.swift in Sources */,
 				CE60940A2999210F00C74933 /* Textfield.swift in Sources */,
 				CEB77945295E563200D7BF35 /* UserDefaults+Extensions.swift in Sources */,
@@ -566,6 +577,7 @@
 				18943A0C2909726B0017E1A2 /* VocabularyCell.swift in Sources */,
 				28716F50290EF54B00EACCA1 /* MainCoordinator.swift in Sources */,
 				B3606D1D294D3D55009E62E9 /* NewLanguageViewController.swift in Sources */,
+				4148B09E2C0288FB009B29D2 /* RatingAlertHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,7 +757,7 @@
 				CODE_SIGN_ENTITLEMENTS = VocabularyTrainer/VocabularyTrainer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T68RPD4WZ;
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -753,7 +765,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -770,7 +782,7 @@
 				CODE_SIGN_ENTITLEMENTS = VocabularyTrainer/VocabularyTrainer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6T68RPD4WZ;
 				INFOPLIST_FILE = VocabularyTrainer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -778,7 +790,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.6.2;
+				MARKETING_VERSION = 1.7.0;
 				PRODUCT_BUNDLE_IDENTIFIER = st.mic.VocabularyTrainer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

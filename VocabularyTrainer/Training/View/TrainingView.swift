@@ -110,20 +110,22 @@ final class TrainingView: UIView {
         return button
     }()
 
-	let takeLookSwitchControl = UISwitch(frame: .zero)
 	private lazy var takeLookContainerView: UIView = {
-		let stackView = UIStackView()
-		stackView.spacing = 12
-		takeLookSwitchControl.addAction(.init(handler: { [weak self] _ in
-			self?.takeLookButtonAction(isOn: self?.takeLookSwitchControl.isOn == true)
-		}), for: .touchUpInside)
-		let titleLabel = UILabel()
-		titleLabel.font = .preferredFont(forTextStyle: .caption1)
-		titleLabel.text = NSLocalizedString("takeLook", comment: "")
-		titleLabel.textAlignment = .right
-		stackView.addArrangedSubview(titleLabel)
-		stackView.addArrangedSubview(takeLookSwitchControl)
-		return stackView
+//		let stackView = UIStackView()
+//		stackView.spacing = 12
+//		takeLookSwitchControl.addAction(.init(handler: { [weak self] _ in
+//			self?.takeLookButtonAction(isOn: self?.takeLookSwitchControl.isOn == true)
+//		}), for: .touchUpInside)
+//		let titleLabel = UILabel()
+//		titleLabel.font = .preferredFont(forTextStyle: .caption1)
+//		titleLabel.text = NSLocalizedString("takeLook", comment: "")
+//		titleLabel.textAlignment = .right
+//		stackView.addArrangedSubview(titleLabel)
+//		stackView.addArrangedSubview(takeLookSwitchControl)
+//		return stackView
+		TakeLookSwitchButton { [weak self] in
+			self?.takeLookButtonAction(isOn: true)
+		}
 	}()
 
 	/// Contains right / wrong buttons for quickly saving vocabulary.
@@ -169,6 +171,10 @@ final class TrainingView: UIView {
 		return stackView
 	}()
 
+	let bottomContainer = UIView()
+
+	let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterial))
+
     // MARK: - Initializer
 
     init(selectedLanguage: String) {
@@ -185,14 +191,19 @@ final class TrainingView: UIView {
 
     private func setUpUI() {
         backgroundColor = UIColor(named: "background")
+		bottomContainer.addSubviews([
+			checkButtonContainer,
+			skipButton,
+			takeLookContainerView
+		])
+		bottomContainer.translatesAutoresizingMaskIntoConstraints = false
+		blurView.contentView.addSubview(bottomContainer)
         addSubviews([barButton,
                      trainingLanguageLabel,
                      wordLabel,
                      answerLabel,
                      answerTextField,
-					 checkButtonContainer,
-                     skipButton,
-					 takeLookContainerView])
+					 blurView])
     }
 
     private func setUpConstraints() {
@@ -207,7 +218,7 @@ final class TrainingView: UIView {
 
             wordLabel.topAnchor.constraint(equalTo: trainingLanguageLabel.bottomAnchor, constant: 32),
 			wordLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: 24),
-			wordLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: 24),
+			wordLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -24),
 
             answerLabel.topAnchor.constraint(equalTo: wordLabel.bottomAnchor, constant: 20),
             answerLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
@@ -217,20 +228,33 @@ final class TrainingView: UIView {
             answerTextField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             answerTextField.heightAnchor.constraint(equalToConstant: 46),
 
-			checkButtonContainer.topAnchor.constraint(equalTo: answerTextField.bottomAnchor, constant: 16),
-			checkButtonContainer.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
-			checkButtonContainer.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+			bottomContainer.leadingAnchor.constraint(equalTo: blurView.leadingAnchor),
+			bottomContainer.topAnchor.constraint(greaterThanOrEqualTo: blurView.topAnchor, constant: 16),
+			bottomContainer.trailingAnchor.constraint(equalTo: blurView.trailingAnchor),
+			bottomContainer.bottomAnchor.constraint(equalTo: blurView.bottomAnchor, constant: -32),
+
+			blurView.leadingAnchor.constraint(equalTo: leadingAnchor),
+//			bottomContainer.topAnchor.constraint(greaterThanOrEqualTo: answerTextField.bottomAnchor, constant: 16),
+			blurView.trailingAnchor.constraint(equalTo: trailingAnchor),
+			blurView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
+			checkButtonContainer.topAnchor.constraint(equalTo: bottomContainer.topAnchor),
+			checkButtonContainer.trailingAnchor.constraint(equalTo: bottomContainer.trailingAnchor, constant: -24),
+			checkButtonContainer.leadingAnchor.constraint(equalTo: bottomContainer.leadingAnchor, constant: 24),
 			checkButtonContainer.heightAnchor.constraint(equalToConstant: 42),
 
             skipButton.topAnchor.constraint(equalTo: checkButtonContainer.bottomAnchor, constant: 32),
-            skipButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
+            skipButton.leadingAnchor.constraint(equalTo: bottomContainer.leadingAnchor, constant: 24),
             skipButton.heightAnchor.constraint(equalToConstant: 31),
             skipButton.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 - 28),
+			skipButton.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor, constant: -16),
 
             takeLookContainerView.topAnchor.constraint(equalTo: checkButtonContainer.bottomAnchor, constant: 32),
-			takeLookContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
+			takeLookContainerView.trailingAnchor.constraint(equalTo: bottomContainer.trailingAnchor, constant: -24),
 			takeLookContainerView.heightAnchor.constraint(equalToConstant: 31),
 			takeLookContainerView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width / 2 - 28),
+			takeLookContainerView.bottomAnchor.constraint(equalTo: bottomContainer.bottomAnchor, constant: -16)
+
         ])
     }
 
@@ -393,9 +417,9 @@ final class TrainingView: UIView {
 			  let vocabs = vocabularies else { return }
 		let solution: String? = isKey ? vocabs[key] : key
 		if isCorrect {
-			rightAnswer(solution: solution, key: key, shouldShake: false)
+			rightAnswer(solution: solution, key: key, hasHapticFeedback: false)
 		} else {
-			wrongAnswer(key: key, shouldShake: false)
+			wrongAnswer(key: key, shouldShake: false, hasHapticFeedback: false)
 		}
 		resetButtonVisibilities()
 		self.setUpTraining()
@@ -405,7 +429,7 @@ final class TrainingView: UIView {
 	private func resetButtonVisibilities() {
 		checkButtonContainer.isHidden = false
 		takeLookContainerView.isHidden = false
-		takeLookSwitchControl.setOn(false, animated: true)
+//		takeLookSwitchControl.setOn(false, animated: true)
 		takeLookButtonAction(isOn: false)
 	}
 
@@ -413,7 +437,7 @@ final class TrainingView: UIView {
     private func skipButtonAction() {
 		skipButton.setTitle(NSLocalizedString("skip", comment: ""), for: .normal)
 
-        softHapticFeedback()
+//        softHapticFeedback()
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.skipButton.backgroundColor = .systemGray4
         }, completion: { _ in
@@ -439,6 +463,7 @@ final class TrainingView: UIView {
 			  let vocabs = vocabularies else { return }
 		let solution: String? = isKey ? vocabs[key] : key
 		answerTextField.text = isOn ? solution : nil
+		takeLookContainerView.isHidden = isOn
 		updateCheckButtonContainer(isOn: isOn)
 	}
 
@@ -449,7 +474,7 @@ final class TrainingView: UIView {
 		checkButtonContainer.addArrangedSubview(isOn ? quickAnswerContainer : checkButton)
 	}
 
-	private func rightAnswer(solution: String?, key: String, shouldShake: Bool = true) {
+	private func rightAnswer(solution: String?, key: String, hasHapticFeedback: Bool = true) {
         guard let solution = solution else { return }
         changeWordsProbability(increase: false, key: key)
 
@@ -457,7 +482,7 @@ final class TrainingView: UIView {
             self?.answerTextField.layer.borderColor = UIColor(named: "greenButton")?.cgColor
             self?.answerTextField.layer.borderWidth = 1
         }, completion: { _ in
-			if shouldShake {
+			if hasHapticFeedback {
 				self.successHapticFeedback()
 			}
         })
@@ -465,7 +490,7 @@ final class TrainingView: UIView {
         answerTextField.text = solution
     }
 
-	private func wrongAnswer(key: String, shouldShake: Bool = true) {
+	private func wrongAnswer(key: String, shouldShake: Bool = true, hasHapticFeedback: Bool = true) {
         changeWordsProbability(increase: true, key: key)
         UIView.animate(withDuration: 0.2, animations: { [weak self] in
             self?.answerTextField.layer.borderColor = UIColor(named: "red")?.cgColor
@@ -474,7 +499,9 @@ final class TrainingView: UIView {
 		if shouldShake {
 			checkButton.shake()
 		}
-        errorHapticFeedback()
+		if hasHapticFeedback {
+			errorHapticFeedback()
+		}
 
         if UIAccessibility.isVoiceOverRunning {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

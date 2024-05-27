@@ -26,7 +26,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       coordinator?.start()
       window?.rootViewController = navigationController
       window?.makeKeyAndVisible()
-      
+
+	  RatingAlertHelper.shared.incrementAppStart()
+	  RatingAlertHelper.shared.showPopupIfNeeded()
+
     return true
   }
 

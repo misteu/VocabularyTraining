@@ -1371,7 +1371,7 @@
       }
     },
     "home_import_button_title" : {
-      "comment" : "Title of the button for importing saved languages\nImport button title",
+      "comment" : "Import button title\nTitle of the button for importing saved languages",
       "localizations" : {
         "de" : {
           "stringUnit" : {
@@ -1937,6 +1937,78 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Por favor, aguarde..."
+          }
+        }
+      }
+    },
+    "rating_alert_feedbackAlertMailButton" : {
+      "comment" : "Title of mail button",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mail to contact@mic.st"
+          }
+        }
+      }
+    },
+    "rating_alert_feedbackAlertText" : {
+      "comment" : "Title of feedback alert appearing when user taps no",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Please do send an short feedback email to me for any requests, bug reports, etc.\n I highly do appreciate any feedback! ❤️\nTap the button below to open your mail app."
+          }
+        }
+      }
+    },
+    "rating_alert_feedbackAlertTitle" : {
+      "comment" : "Title of feedback alert appearing when user taps no",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Give Feedback"
+          }
+        }
+      }
+    },
+    "rating_alert_likeTheApp_title" : {
+      "comment" : "Title of the alert asking the user whether they like the app",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Do you like the App?"
+          }
+        }
+      }
+    },
+    "rating_alert_likeTheAppNoButton_title" : {
+      "comment" : "No button title",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No"
+          }
+        }
+      }
+    },
+    "rating_alert_likeTheAppYesButton_title" : {
+      "comment" : "Yes button title",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Yes"
           }
         }
       }
