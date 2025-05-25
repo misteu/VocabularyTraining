@@ -1442,35 +1442,28 @@
     },
     "homescreen_language_subtitle" : {
       "comment" : "Subtitle of a cell on the home screen showing the word count of a language.",
-      "extractionState" : "extracted_with_value",
       "localizations" : {
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%d Wörter"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%d words"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%d शब्द"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%d woorden"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "%d palavras"
           }
         }
@@ -1680,7 +1673,7 @@
       }
     },
     "New word" : {
-      "comment" : "New word\n   New Word\nnew word",
+      "comment" : "New Word\nNew word\nnew word",
       "localizations" : {
         "de" : {
           "stringUnit" : {
